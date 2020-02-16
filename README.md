@@ -1,5 +1,7 @@
 **This project is currently in active development and not yet ready for production. Stay tuned!**
 
+[![Build Status](https://api.travis-ci.org/liip/chusho.svg?branch=master)](https://travis-ci.org/liip/chusho)
+
 # Chūshō
 
 A library of bare accessible Vue components and tools.
