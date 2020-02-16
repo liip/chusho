@@ -18,3 +18,4 @@ Then see packages’ own README.
 ## Packages
 
 - [chusho](https://github.com/liip/chusho/tree/master/packages/chusho/): the library main source code
+- [playground](https://github.com/liip/chusho/tree/master/packages/playground/): play with Chūshō’s components and tools

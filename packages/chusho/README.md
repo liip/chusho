@@ -10,6 +10,12 @@ This will initiate the development environment using [Storybook](https://storybo
 npm start
 ```
 
+### Build for production
+
+```
+npm run build
+```
+
 ### Runs tests
 
 ```
