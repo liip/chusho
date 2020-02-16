@@ -17,8 +17,8 @@ import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 
 @Component
-export default class Btn extends Vue {
-  name = 'Btn';
+export default class CBtn extends Vue {
+  name = 'CBtn';
 
   inheritAttrs = false;
 
@@ -35,14 +35,14 @@ export default class Btn extends Vue {
   readonly type: string;
 
   /**
-   * Customize the button appearance by applying one or multiple variants defined in the config file (Btn.variants).
+   * Customize the button appearance by applying one or multiple variants defined in the config (btn.variants).
    * Example: `"primary large"`
    */
   @Prop({ type: String, default: '' })
   readonly variant: string;
 
   /**
-   * Disable the button (doesn’t apply to links) and apply the associated class from the config (Btn.disabled).
+   * Disable the button (doesn’t apply to links) and apply the associated class from the config (btn.disabled).
    */
   @Prop({ type: Boolean, default: false })
   readonly disabled: boolean;

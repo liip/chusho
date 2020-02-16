@@ -1,5 +1,5 @@
-import Btn from './Btn';
+import CBtn from './CBtn';
 
 export default {
-  Btn,
+  CBtn,
 };

@@ -5,7 +5,7 @@
       Modify <code>src/App.vue</code> to change this view, here’s an example
       using Chūshō’s Btn component:
     </p>
-    <Btn @click="sayHello">Hello</Btn>
+    <CBtn @click="sayHello">Hello</CBtn>
   </div>
 </template>
 
