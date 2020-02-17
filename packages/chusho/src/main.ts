@@ -4,18 +4,17 @@ import components from '@/components';
 import { ChushoOptions } from '@/types/globals.d.ts';
 import '@/assets/tailwind.css';
 
-const Chusho = {
+export const defaultOptions: ChushoOptions = {
+  btn: {
+    default: '',
+    variants: {},
+    disabled: '',
+  },
+};
+
+const Chusho: PluginObject<ChushoOptions> = {
   install: function(Vue, userOptions?: ChushoOptions) {
-    const options = mergeDeep(
-      {
-        btn: {
-          default: '',
-          variants: {},
-          disabled: '',
-        },
-      },
-      userOptions
-    );
+    const options = mergeDeep(defaultOptions, userOptions) as ChushoOptions;
 
     // Provide configuration
     Vue.prototype.$chusho = {
@@ -28,7 +27,7 @@ const Chusho = {
     });
   },
   ...components,
-} as PluginObject<ChushoOptions>;
+};
 
 export default Chusho;
 

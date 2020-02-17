@@ -1,4 +1,13 @@
 import { addParameters } from '@storybook/vue';
+import {
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Props,
+  Stories,
+} from '@storybook/addon-docs/blocks';
+import ComponentConfig from './blocks/ComponentConfig';
 import React from 'react';
 import toReact from '@egoist/vue-to-react';
 import Vue from 'vue';
@@ -17,6 +26,15 @@ addParameters({
       const Story = toReact(storyFn());
       return React.createElement(Story);
     },
+    page: () => [
+      React.createElement(Title, { key: 'title' }),
+      React.createElement(Subtitle, { key: 'subtitle' }),
+      React.createElement(Description, { key: 'description' }),
+      React.createElement(Primary, { key: 'primary' }),
+      React.createElement(ComponentConfig, { key: 'componentConfig' }),
+      React.createElement(Props, { key: 'props' }),
+      React.createElement(Stories, { key: 'stories' }),
+    ],
   },
 });
 

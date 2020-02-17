@@ -1,8 +1,13 @@
 import CBtn from './CBtn.vue';
 
 export default {
-  title: 'CBtn',
+  title: 'Btn',
   component: CBtn,
+  parameters: {
+    options: {
+      componentConfig: 'btn',
+    },
+  },
 };
 
 export const Default = () => ({
