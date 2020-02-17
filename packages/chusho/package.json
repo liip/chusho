@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "npm run storybook:serve",
-    "storybook:build": "vue-cli-service storybook:build -c config/storybook",
+    "storybook:build": "vue-cli-service storybook:build -c config/storybook -o docs",
     "storybook:serve": "vue-cli-service storybook:serve -p 6006 -c config/storybook --ci",
     "format": "vue-cli-service lint",
     "validate": "vue-cli-service lint --no-fix",
