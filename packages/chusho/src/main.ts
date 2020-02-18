@@ -10,6 +10,9 @@ export const defaultOptions: ChushoOptions = {
     variants: {},
     disabled: '',
   },
+  stack: {
+    gaps: {},
+  },
 };
 
 const Chusho: PluginObject<ChushoOptions> = {

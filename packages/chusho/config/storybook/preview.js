@@ -52,4 +52,16 @@ Vue.use(Chusho, {
     },
     disabled: 'cursor-not-allowed opacity-75',
   },
+  stack: {
+    gaps: {
+      1: {
+        containerClass: '-mt-1',
+        itemClass: 'mt-1',
+      },
+      2: {
+        containerClass: '-mt-2',
+        itemClass: 'mt-2',
+      },
+    },
+  },
 });

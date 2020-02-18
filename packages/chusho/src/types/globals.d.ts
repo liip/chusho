@@ -18,4 +18,12 @@ export interface ChushoOptions {
     };
     disabled: string;
   };
+  stack: {
+    gaps: {
+      [key: string]: {
+        containerClass: string;
+        itemClass: string;
+      };
+    };
+  };
 }

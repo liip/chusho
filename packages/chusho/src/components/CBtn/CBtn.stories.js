@@ -4,6 +4,7 @@ export default {
   title: 'Btn',
   component: CBtn,
   parameters: {
+    componentSubtitle: 'Uniformized button style for `a` or `button` elements.',
     options: {
       componentConfig: 'btn',
     },
