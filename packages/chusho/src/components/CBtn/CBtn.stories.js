@@ -1,4 +1,4 @@
-import CBtn from './CBtn.vue';
+import CBtn from './CBtn';
 
 export default {
   title: 'Btn',

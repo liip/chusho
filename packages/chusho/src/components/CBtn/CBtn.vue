@@ -1,80 +1,77 @@
-<template>
-  <component
-    :is="tag"
-    :href="href"
-    :class="classNames"
-    v-bind="attributes"
-    v-on="$listeners"
-  >
-    <!-- @slot The button content -->
-    <slot></slot>
-  </component>
-</template>
-
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
+import Vue, { VNodeData } from 'vue';
+import { mergeData } from 'vue-functional-data-merge';
+import { VNode } from 'vue/types/umd';
 
-@Component
-export default class CBtn extends Vue {
-  name = 'CBtn';
+interface BtnProps {
+  href: string;
+  type: string;
+  variant: string;
+  disabled: boolean;
+}
 
-  inheritAttrs = false;
+export default Vue.extend<BtnProps>({
+  name: 'CBtn',
 
-  /**
-   * Make the button a link to the given location
-   */
-  @Prop({ type: String, default: null })
-  readonly href: string;
+  functional: true,
 
-  /**
-   * In case the button is a `button` element, specify its type
-   */
-  @Prop({ type: String, default: 'button' })
-  readonly type: string;
+  props: {
+    /**
+     * Make the button a link to the given location
+     */
+    href: {
+      type: String,
+      default: null,
+    },
 
-  /**
-   * Customize the button appearance by applying one or multiple variants defined in the config (btn.variants).
-   * Example: `"primary large"`
-   */
-  @Prop({ type: String, default: '' })
-  readonly variant: string;
+    /**
+     * In case the button is a `button` element, specify its type
+     */
+    type: {
+      type: String,
+      default: 'button',
+    },
 
-  /**
-   * Disable the button (doesn’t apply to links) and apply the associated class from the config (btn.disabled).
-   */
-  @Prop({ type: Boolean, default: false })
-  readonly disabled: boolean;
+    /**
+     * Customize the button appearance by applying one or multiple variants defined in the config (btn.variants).
+     * Example: `"primary large"`
+     */
+    variant: {
+      type: String,
+      default: '',
+    },
 
-  get tag(): string {
-    return this.href ? 'a' : 'button';
-  }
+    /**
+     * Disable the button (doesn’t apply to links) and apply the associated class from the config (btn.disabled).
+     */
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
 
-  get attributes(): object {
-    return Object.assign(
-      {},
-      {
-        // Concerns only on button tags, skip for anchors
-        ...(this.disabled && this.tag === 'button' && { disabled: true }),
-        ...(this.type && this.tag === 'button' && { type: this.type }),
-      },
-      this.$attrs
-    );
-  }
+  render(h, { props, data, parent, children }): VNode {
+    const { btn } = parent.$chusho.options;
+    const tag = props.href ? 'a' : 'button';
 
-  get classNames(): Array<string | object> {
-    const { btn } = this.$chusho.options;
-
-    const classes = [btn.default, { [btn.disabled]: this.disabled }];
-    const variants = this.variant.split(' ');
-
+    const classes = [btn.default, { [btn.disabled]: props.disabled }];
+    const variants = props.variant.split(' ');
     variants.forEach(variant => {
       const target = btn.variants[variant];
       if (target) classes.push(target);
     });
 
-    return classes;
-  }
-}
+    const componentData: VNodeData = {
+      class: classes,
+      attrs: {
+        href: props.href,
+        // Concerns only on button tags, skip for anchors
+        ...(props.disabled && tag === 'button' && { disabled: true }),
+        ...(props.type && tag === 'button' && { type: props.type }),
+      },
+    };
+
+    return h(tag, mergeData(data, componentData), children);
+  },
+});
 </script>
