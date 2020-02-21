@@ -1,5 +1,5 @@
 import { PluginObject } from 'vue/types/plugin';
-import { mergeDeep } from '@/utils/helpers';
+import { mergeDeep } from '@/utils/objects';
 import components from '@/components';
 import { ChushoOptions } from '@/types/globals.d.ts';
 import '@/assets/tailwind.css';

@@ -1,4 +1,4 @@
-import CStack from './CStack.vue';
+import CStack from './CStack';
 import CBtn from '../CBtn';
 
 export default {
