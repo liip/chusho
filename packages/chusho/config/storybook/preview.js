@@ -64,4 +64,10 @@ Vue.use(Chusho, {
       },
     },
   },
+  icon: {
+    spriteUrl: 'icons.svg',
+    width: 48,
+    height: 48,
+    class: 'inline-block align-middle pointer-events-none fill-current',
+  },
 });

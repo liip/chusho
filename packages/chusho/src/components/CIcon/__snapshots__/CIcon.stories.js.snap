@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Icon Custom Scale 1`] = `
+<svg
+  aria-hidden="true"
+  class="inline-block align-middle pointer-events-none fill-current"
+  focusable="false"
+  style="width: 24px; height: 24px;"
+>
+  <use
+    xlink:href="icons.svg#picture"
+  />
+</svg>
+`;
+
+exports[`Storyshots Icon Default 1`] = `
+<svg
+  aria-hidden="true"
+  class="inline-block align-middle pointer-events-none fill-current"
+  focusable="false"
+  style="width: 48px; height: 48px;"
+>
+  <use
+    xlink:href="icons.svg#palette"
+  />
+</svg>
+`;
+
+exports[`Storyshots Icon With Alternate Text 1`] = `
+<svg
+  aria-labelledby="chusho-icon-2"
+  class="inline-block align-middle pointer-events-none fill-current"
+  focusable="false"
+  style="width: 48px; height: 48px;"
+>
+  <title
+    id="chusho-icon-2"
+  >
+    Zoom picture
+  </title>
+  <use
+    xlink:href="icons.svg#picture"
+  />
+</svg>
+`;

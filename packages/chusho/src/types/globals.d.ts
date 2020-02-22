@@ -26,4 +26,10 @@ export interface ChushoOptions {
       };
     };
   };
+  icon: {
+    spriteUrl: string;
+    width: number;
+    height: number;
+    class: string;
+  };
 }

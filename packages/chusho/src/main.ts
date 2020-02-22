@@ -13,6 +13,12 @@ export const defaultOptions: ChushoOptions = {
   stack: {
     gaps: {},
   },
+  icon: {
+    spriteUrl: '',
+    width: 24,
+    height: 24,
+    class: '',
+  },
 };
 
 const Chusho: PluginObject<ChushoOptions> = {
