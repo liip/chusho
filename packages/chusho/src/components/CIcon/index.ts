@@ -1,4 +1,4 @@
-import CIcon from './CIcon.vue';
+import CIcon from './CIcon';
 
 export { CIcon };
 export default CIcon;

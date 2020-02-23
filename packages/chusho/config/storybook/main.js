@@ -24,7 +24,22 @@ module.exports = {
     '@storybook/addon-links',
   ],
   webpackFinal: config => {
+    /**
+     * Resolve custom paths starting with "@" just like Vue CLI does
+     */
     config.resolve.alias['@'] = path.resolve(__dirname, '../../src');
+
+    /**
+     * Enable docs props table for components made as pure TypeScript files
+     */
+    config.module.rules.push({
+      // We should match only component files here, not other TypeScript files
+      test: /\/C(\w)+\/C(\w)+\.ts$/,
+      include: [path.resolve(__dirname, '../../src/components')],
+      use: 'vue-docgen-loader',
+      enforce: 'post',
+    });
+
     return config;
   },
 };

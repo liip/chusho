@@ -1,4 +1,3 @@
-<script lang="ts">
 import Vue, { VNode, VNodeData } from 'vue';
 import { mergeData } from 'vue-functional-data-merge';
 import uuid from '@/utils/uuid';
@@ -90,4 +89,3 @@ export default Vue.extend<IconProps>({
     ]);
   },
 });
-</script>

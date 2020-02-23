@@ -1,4 +1,3 @@
-<script lang="ts">
 import Vue, { VNodeData } from 'vue';
 import { mergeData } from 'vue-functional-data-merge';
 import { VNode } from 'vue/types/umd';
@@ -74,4 +73,3 @@ export default Vue.extend<BtnProps>({
     return h(tag, mergeData(data, componentData), children);
   },
 });
-</script>

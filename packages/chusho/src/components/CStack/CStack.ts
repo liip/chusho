@@ -1,4 +1,3 @@
-<script lang="ts">
 import Vue, { VNode } from 'vue';
 import { warn } from '@/utils/debug';
 
@@ -63,4 +62,3 @@ export default Vue.extend<StackProps>({
     return h(props.containerTag, data, children);
   },
 });
-</script>
