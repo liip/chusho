@@ -3,6 +3,15 @@
   "version": "0.0.0",
   "license": "MIT",
   "description": "A library of bare accessible Vue components and tools.",
+  "keywords": [
+    "vue",
+    "components",
+    "accessibility"
+  ],
+  "author": {
+    "name": "Liip",
+    "url": "https://www.liip.ch/"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/liip/chusho.git"
@@ -10,6 +19,7 @@
   "bugs": {
     "url": "https://github.com/liip/chusho/issues"
   },
+  "homepage": "https://www.chusho.dev/",
   "scripts": {
     "start": "npm run storybook:serve",
     "storybook:build": "vue-cli-service storybook:build -c config/storybook -s public -o docs",
