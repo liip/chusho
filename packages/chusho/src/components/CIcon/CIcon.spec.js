@@ -6,16 +6,6 @@ describe('CIcon', () => {
 
   beforeEach(() => {
     wrapper = shallowMount(CIcon, {
-      mocks: {
-        $chusho: {
-          options: {
-            icon: {
-              width: 24,
-              height: 24,
-            },
-          },
-        },
-      },
       propsData: {
         id: 'foo',
       },
@@ -33,16 +23,6 @@ describe('CIcon', () => {
   it('should be labelled by the alt value when provided', () => {
     const alt = 'alt text';
     const wrapper = shallowMount(CIcon, {
-      mocks: {
-        $chusho: {
-          options: {
-            icon: {
-              width: 24,
-              height: 24,
-            },
-          },
-        },
-      },
       propsData: {
         id: 'foo',
         alt,

@@ -7,11 +7,13 @@ describe('CStack', () => {
       mocks: {
         $chusho: {
           options: {
-            stack: {
-              gaps: {
-                1: {
-                  containerClass: 'container',
-                  itemClass: 'item',
+            components: {
+              stack: {
+                gaps: {
+                  1: {
+                    containerClass: 'container',
+                    itemClass: 'item',
+                  },
                 },
               },
             },

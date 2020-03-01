@@ -8,11 +8,6 @@ interface IconProps {
   alt: string;
 }
 
-/**
- * If you specify the `spriteUrl` in the config, it'll load the sprite remotely. Note that this technique doesn't work
- * on Internet Explorer, but it can be polyfilled with [svgxuse](https://github.com/Keyamoon/svgxuse).
- * Learn more about [SVG Sprites](https://css-tricks.com/svg-sprites-use-better-icon-fonts/) on CSS-Tricks.
- */
 export default Vue.extend<IconProps>({
   name: 'CIcon',
 
@@ -48,15 +43,15 @@ export default Vue.extend<IconProps>({
   },
 
   render(h, { props, data, parent }): VNode {
-    const { icon } = parent.$chusho.options;
+    const iconConfig = parent?.$chusho?.options?.components?.icon;
     const componentData: VNodeData = {
       attrs: {
         focusable: 'false',
       },
-      class: icon.class,
+      class: iconConfig?.class,
       style: {
-        width: `${icon.width * props.scale}px`,
-        height: `${icon.height * props.scale}px`,
+        width: `${(iconConfig?.width || 24) * props.scale}px`,
+        height: `${(iconConfig?.height || 24) * props.scale}px`,
       },
     };
     const uid = `chusho-icon-${uuid()}`;
@@ -83,7 +78,7 @@ export default Vue.extend<IconProps>({
       h('use', {
         key: props.id,
         attrs: {
-          'xlink:href': `${icon.spriteUrl}#${props.id}`,
+          'xlink:href': `${iconConfig?.spriteUrl}#${props.id}`,
         },
       }),
     ]);

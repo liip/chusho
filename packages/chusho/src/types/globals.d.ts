@@ -11,25 +11,27 @@ declare module 'vue/types/vue' {
 }
 
 export interface ChushoOptions {
-  btn: {
-    default: string;
-    variants: {
-      [key: string]: string;
+  components: {
+    btn?: {
+      default?: string;
+      variants?: {
+        [key: string]: string;
+      };
+      disabled?: string;
     };
-    disabled: string;
-  };
-  stack: {
-    gaps: {
-      [key: string]: {
-        containerClass: string;
-        itemClass: string;
+    stack?: {
+      gaps?: {
+        [key: string]: {
+          containerClass: string;
+          itemClass: string;
+        };
       };
     };
-  };
-  icon: {
-    spriteUrl: string;
-    width: number;
-    height: number;
-    class: string;
+    icon?: {
+      spriteUrl?: string;
+      width?: number;
+      height?: number;
+      class?: string;
+    };
   };
 }

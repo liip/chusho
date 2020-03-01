@@ -8,7 +8,14 @@ export default {
     componentSubtitle:
       'Automatically stack child components with configurable gap between each item.',
     options: {
-      componentConfig: 'stack',
+      componentConfig: [
+        {
+          name: 'gaps',
+          type: { summary: 'object' },
+          description:
+            'List of available gaps.\n\nFor example: `{ "1": { "containerClass": "-mt-1", "itemClass": "mt-1" } }`',
+        },
+      ],
     },
   },
 };
