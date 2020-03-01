@@ -37,8 +37,8 @@ export default Vue.extend<StackProps>({
   },
 
   render(h, { children, props, data, parent }): VNode {
-    const { stack } = parent.$chusho.options;
-    const gap = stack.gaps[props.gap];
+    const stackConfig = parent?.$chusho?.options?.components?.stack;
+    const gap = stackConfig?.gaps?.[props.gap];
 
     if (!gap) {
       warn(

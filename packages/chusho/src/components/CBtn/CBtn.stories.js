@@ -6,7 +6,25 @@ export default {
   parameters: {
     componentSubtitle: 'Uniformized button style for `a` or `button` elements.',
     options: {
-      componentConfig: 'btn',
+      componentConfig: [
+        {
+          name: 'default',
+          type: { summary: 'string' },
+          description: 'Class applied to all Btn instances.',
+        },
+        {
+          name: 'disabled',
+          type: { summary: 'string' },
+          description:
+            'Class applied to Btn when prop `disabled` is set to `true`.',
+        },
+        {
+          name: 'variants',
+          type: { summary: 'object' },
+          description:
+            'Predefined set of variants.\n\nFor example: `{ "primary": "bg-blue-500 text-white" }`',
+        },
+      ],
     },
   },
 };

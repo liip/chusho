@@ -1,33 +1,13 @@
 import { PluginObject } from 'vue/types/plugin';
-import { mergeDeep } from '@/utils/objects';
 import components from '@/components';
 import { ChushoOptions } from '@/types/globals.d.ts';
 import '@/assets/tailwind.css';
 
-export const defaultOptions: ChushoOptions = {
-  btn: {
-    default: '',
-    variants: {},
-    disabled: '',
-  },
-  stack: {
-    gaps: {},
-  },
-  icon: {
-    spriteUrl: '',
-    width: 24,
-    height: 24,
-    class: '',
-  },
-};
-
 const Chusho: PluginObject<ChushoOptions> = {
   install: function(Vue, userOptions?: ChushoOptions) {
-    const options = mergeDeep(defaultOptions, userOptions) as ChushoOptions;
-
     // Provide configuration
     Vue.prototype.$chusho = {
-      options,
+      options: userOptions,
     };
 
     // Install components

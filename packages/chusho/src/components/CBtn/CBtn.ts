@@ -50,15 +50,24 @@ export default Vue.extend<BtnProps>({
   },
 
   render(h, { props, data, parent, children }): VNode {
-    const { btn } = parent.$chusho.options;
+    const btnConfig = parent?.$chusho?.options?.components?.btn;
     const tag = props.href ? 'a' : 'button';
+    const classes = [];
 
-    const classes = [btn.default, { [btn.disabled]: props.disabled }];
-    const variants = props.variant.split(' ');
-    variants.forEach(variant => {
-      const target = btn.variants[variant];
-      if (target) classes.push(target);
-    });
+    if (btnConfig) {
+      if (btnConfig.default) classes.push(btnConfig.default);
+      if (btnConfig.disabled) {
+        classes.push({
+          [btnConfig.disabled]: props.disabled,
+        });
+      }
+
+      const variants = props.variant.split(' ');
+      variants.forEach(variant => {
+        const target = btnConfig?.variants?.[variant];
+        if (target) classes.push(target);
+      });
+    }
 
     const componentData: VNodeData = {
       class: classes,

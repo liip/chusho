@@ -1,24 +1,27 @@
 import React, { useContext } from 'react';
-import { Heading, Source, DocsContext } from '@storybook/addon-docs/blocks';
-
-import { defaultOptions } from '@/main';
+import { PropsTable } from '@storybook/components';
+import { styled } from '@storybook/theming';
+import { transparentize } from 'polished';
+import { Heading, DocsContext } from '@storybook/addon-docs/blocks';
 
 export default () => {
   const context = useContext(DocsContext);
-  const code = JSON.stringify(
-    defaultOptions[context.parameters.options.componentConfig],
-    null,
-    4
-  );
+  const componentConfig = context.parameters.options.componentConfig;
 
-  return code
+  return componentConfig
     ? [
         React.createElement(Heading, { key: 'title' }, 'Component config'),
-        React.createElement(Source, {
-          key: 'code',
-          language: 'json',
-          dark: true,
-          code,
+        React.createElement(
+          styled.p(({ theme }) => ({
+            fontSize: theme.typography.size.s2,
+            color: transparentize(0.4, theme.color.defaultText),
+          })),
+          { key: 'desc' },
+          `The following config applies to all ${context.kind} instances accross your entire project.`
+        ),
+        React.createElement(PropsTable, {
+          key: 'config',
+          rows: componentConfig,
         }),
       ]
     : null;
