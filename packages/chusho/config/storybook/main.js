@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   stories: ['../../src/**/*.stories.(js|jsx|ts|tsx|mdx)'],
@@ -39,6 +40,11 @@ module.exports = {
       use: 'vue-docgen-loader',
       enforce: 'post',
     });
+
+    /**
+     * Prevent conflict between Vue CLI’s Terser config and vue-docgen-loader
+     */
+    config.optimization.minimizer = [new TerserPlugin()];
 
     return config;
   },
