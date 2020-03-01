@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Components|Toggle Default 1`] = `
+<div>
+  <button
+    aria-expanded="false"
+    class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded bg-blue-200 text-blue-900"
+    type="button"
+    variant="primary"
+  >
+    Toggle
+  </button>
+   
+  <!---->
+</div>
+`;
+
+exports[`Storyshots Components|Toggle Using V Model 1`] = `
+<div>
+  <button
+    aria-expanded="false"
+    class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded bg-blue-200 text-blue-900"
+    type="button"
+    variant="primary"
+  >
+    Close
+  </button>
+   
+  <!---->
+</div>
+`;

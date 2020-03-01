@@ -12,6 +12,7 @@ import { Heading } from '@storybook/addon-docs/blocks';
 import React from 'react';
 import toReact from '@egoist/vue-to-react';
 import Vue from 'vue';
+import VueCompositionApi from '@vue/composition-api';
 import Chusho from '@/main.ts';
 
 import '@/assets/tailwind.css';
@@ -44,6 +45,7 @@ addParameters({
  * Configure Vue global behavior within Storybook
  */
 
+Vue.use(VueCompositionApi);
 Vue.use(Chusho, {
   components: {
     btn: {
@@ -72,6 +74,11 @@ Vue.use(Chusho, {
       width: 48,
       height: 48,
       class: 'inline-block align-middle pointer-events-none fill-current',
+    },
+    toggle: {
+      transition: {
+        name: 'fade',
+      },
     },
   },
 });
