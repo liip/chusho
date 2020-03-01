@@ -5,6 +5,7 @@ module.exports = {
       content: [
         './public/**/*.html',
         './src/**/*.vue',
+        './src/**/*.ts',
         './config/storybook/preview.js',
       ],
       whitelist: ['html', 'body'],
