@@ -22,7 +22,7 @@
   "homepage": "https://www.chusho.dev/",
   "scripts": {
     "start": "npm run storybook:serve",
-    "storybook:build": "vue-cli-service storybook:build -c config/storybook -s public -o docs",
+    "storybook:build": "vue-cli-service storybook:build -c config/storybook -s public -o docs --docs",
     "storybook:serve": "vue-cli-service storybook:serve -p 6006 -c config/storybook -s public --ci",
     "storybook:build:debug": "npm run storybook:build -- --debug-webpack",
     "format": "vue-cli-service lint",
