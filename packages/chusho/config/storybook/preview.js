@@ -28,7 +28,7 @@ import '@/assets/tailwind.css';
 addParameters({
   docs: {
     inlineStories: true,
-    prepareForInline: storyFn => {
+    prepareForInline: (storyFn) => {
       const Story = toReact(storyFn());
       return React.createElement(Story);
     },

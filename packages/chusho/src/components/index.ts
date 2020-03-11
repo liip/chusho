@@ -1,13 +1,14 @@
 import CBtn from './CBtn';
-import CStack from './CStack';
 import CIcon from './CIcon';
 import { CToggle, CToggleBtn, CToggleContent } from './CToggle';
+import { CFlex, CFlexItem } from './CFlex';
 
 export default {
   CBtn,
-  CStack,
   CIcon,
   CToggle,
   CToggleBtn,
   CToggleContent,
+  CFlex,
+  CFlexItem,
 };
