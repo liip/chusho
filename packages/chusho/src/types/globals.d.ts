@@ -10,6 +10,24 @@ declare module 'vue/types/vue' {
   }
 }
 
+export interface VueTransitionProps {
+  name?: string;
+  appear?: boolean;
+  css?: boolean;
+  mode?: string;
+  type?: string;
+  enterClass?: string;
+  leaveClass?: string;
+  enterToClass?: string;
+  leaveToClass?: string;
+  enterActiveClass?: string;
+  leaveActiveClass?: string;
+  appearClass?: string;
+  appearActiveClass?: string;
+  appearToClass?: string;
+  duration?: [number, string, object];
+}
+
 export interface ChushoOptions {
   components: {
     btn?: {
@@ -32,6 +50,9 @@ export interface ChushoOptions {
       width?: number;
       height?: number;
       class?: string;
+    };
+    toggle?: {
+      transition?: VueTransitionProps | null;
     };
   };
 }
