@@ -28,6 +28,11 @@ export interface VueTransitionProps {
   duration?: [number, string, object];
 }
 
+export interface ContainerItemClass {
+  containerClass: string;
+  itemClass: string;
+}
+
 export interface ChushoOptions {
   components: {
     btn?: {
@@ -37,14 +42,6 @@ export interface ChushoOptions {
       };
       disabled?: string;
     };
-    stack?: {
-      gaps?: {
-        [key: string]: {
-          containerClass: string;
-          itemClass: string;
-        };
-      };
-    };
     icon?: {
       spriteUrl?: string;
       width?: number;
@@ -53,6 +50,23 @@ export interface ChushoOptions {
     };
     toggle?: {
       transition?: VueTransitionProps | null;
+    };
+    flex: {
+      containerClass?: string;
+      itemClass?: string;
+      gaps?: {
+        x?: {
+          [key: string]: ContainerItemClass;
+        };
+        y?: {
+          [key: string]: ContainerItemClass;
+        };
+      };
+      widths?: {
+        [key: string]: string;
+      };
+      defaultWidth?: string;
+      responsiveWidthGenerator: Function;
     };
   };
 }
