@@ -7,20 +7,38 @@ export default function(tailwindConfig) {
 
   const preset = {
     components: {
-      stack: {
-        gaps: {},
+      flex: {
+        containerClass: 'flex flex-wrap',
+        widths: {
+          fallback: 'w-full',
+        },
+        gaps: {
+          x: {},
+          y: {},
+        },
       },
     },
   };
 
   /**
-   * Stack
+   * Gaps
    */
   Object.keys(theme.spacing).forEach(function(spacing) {
-    preset.components.stack.gaps[spacing] = {
-      containerClass: `-mt-${spacing}`,
-      itemClass: `mt-${spacing}`,
+    preset.components.flex.gaps.x[spacing] = {
+      containerClass: `-ml-${spacing}`,
+      itemClass: `pl-${spacing}`,
     };
+    preset.components.flex.gaps.y[spacing] = {
+      containerClass: `-mt-${spacing}`,
+      itemClass: `pt-${spacing}`,
+    };
+  });
+
+  /**
+   * Widths
+   */
+  Object.keys(theme.width).forEach(function(width) {
+    preset.components.flex.widths[width] = `w-${width}`;
   });
 
   return preset;
