@@ -9,11 +9,15 @@ import {
 } from '@storybook/addon-docs/blocks';
 import ComponentConfig from './blocks/ComponentConfig';
 import { Heading } from '@storybook/addon-docs/blocks';
+
+import _ from 'lodash';
 import React from 'react';
 import toReact from '@egoist/vue-to-react';
 import Vue from 'vue';
 import VueCompositionApi from '@vue/composition-api';
 import Chusho from '@/main.ts';
+import chushoPresetTailwind from 'chusho-preset-tailwind';
+import tailwindConfig from '../../tailwind.config.js';
 
 import '@/assets/tailwind.css';
 
@@ -46,7 +50,8 @@ addParameters({
  */
 
 Vue.use(VueCompositionApi);
-Vue.use(Chusho, {
+
+const config = _.merge(chushoPresetTailwind(tailwindConfig), {
   components: {
     btn: {
       default: 'inline-block py-2 px-4 bg-green-200 text-green-900 rounded',
@@ -56,18 +61,6 @@ Vue.use(Chusho, {
         large: 'py-3 px-5 text-lg',
       },
       disabled: 'cursor-not-allowed opacity-75',
-    },
-    stack: {
-      gaps: {
-        1: {
-          containerClass: '-mt-1',
-          itemClass: 'mt-1',
-        },
-        2: {
-          containerClass: '-mt-2',
-          itemClass: 'mt-2',
-        },
-      },
     },
     icon: {
       spriteUrl: 'icons.svg',
@@ -82,3 +75,5 @@ Vue.use(Chusho, {
     },
   },
 });
+
+Vue.use(Chusho, config);

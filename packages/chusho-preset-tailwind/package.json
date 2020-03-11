@@ -1,0 +1,25 @@
+{
+  "name": "chusho-preset-tailwind",
+  "version": "0.0.0",
+  "description": "Chūshō configuration preset to easily integrate with Tailwind CSS",
+  "main": "index.js",
+  "author": {
+    "name": "Liip",
+    "url": "https://www.liip.ch/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liip/chusho.git",
+    "directory": "packages/chusho-preset-tailwind"
+  },
+  "bugs": {
+    "url": "https://github.com/liip/chusho/issues"
+  },
+  "homepage": "https://www.chusho.dev/",
+  "devDependencies": {
+    "tailwindcss": "^1.2.0"
+  },
+  "peerDependencies": {
+    "tailwindcss": "1.x"
+  }
+}
