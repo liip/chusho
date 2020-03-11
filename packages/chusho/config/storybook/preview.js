@@ -33,7 +33,7 @@ addParameters({
       React.createElement(Description, { key: 'description' }),
       React.createElement(Primary, { key: 'primary' }),
       React.createElement(ComponentConfig, { key: 'componentConfig' }),
-      React.createElement(Heading, { key: 'title' }, 'Component usage'),
+      React.createElement(Heading, { key: 'usage-title' }, 'Component usage'),
       React.createElement(Props, { key: 'props' }),
       React.createElement(Stories, { key: 'stories' }),
     ],
