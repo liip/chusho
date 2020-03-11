@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Stack Default 1`] = `
+exports[`Storyshots Components|Stack Default 1`] = `
 <div
   class="-mt-1"
 >
@@ -28,7 +28,7 @@ exports[`Storyshots Stack Default 1`] = `
 </div>
 `;
 
-exports[`Storyshots Stack With Custom Tags 1`] = `
+exports[`Storyshots Components|Stack With Custom Tags 1`] = `
 <ul
   class="-mt-2"
 >
@@ -56,7 +56,7 @@ exports[`Storyshots Stack With Custom Tags 1`] = `
 </ul>
 `;
 
-exports[`Storyshots Stack With Sub Component 1`] = `
+exports[`Storyshots Components|Stack With Sub Component 1`] = `
 <div
   class="-mt-2"
 >

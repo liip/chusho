@@ -2,7 +2,7 @@ import CStack from './CStack';
 import CBtn from '../CBtn';
 
 export default {
-  title: 'Stack',
+  title: 'Components|Stack',
   component: CStack,
   parameters: {
     componentSubtitle:

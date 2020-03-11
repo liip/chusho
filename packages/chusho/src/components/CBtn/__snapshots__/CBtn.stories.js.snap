@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Btn As Link 1`] = `
+exports[`Storyshots Components|Btn As Link 1`] = `
 <a
   class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded"
   href="#"
@@ -9,7 +9,7 @@ exports[`Storyshots Btn As Link 1`] = `
 </a>
 `;
 
-exports[`Storyshots Btn Block 1`] = `
+exports[`Storyshots Components|Btn Block 1`] = `
 <button
   class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded w-full"
   type="button"
@@ -18,7 +18,7 @@ exports[`Storyshots Btn Block 1`] = `
 </button>
 `;
 
-exports[`Storyshots Btn Default 1`] = `
+exports[`Storyshots Components|Btn Default 1`] = `
 <button
   class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded"
   type="button"
@@ -27,7 +27,7 @@ exports[`Storyshots Btn Default 1`] = `
 </button>
 `;
 
-exports[`Storyshots Btn Disabled 1`] = `
+exports[`Storyshots Components|Btn Disabled 1`] = `
 <button
   class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded cursor-not-allowed opacity-75"
   disabled="disabled"
@@ -37,7 +37,7 @@ exports[`Storyshots Btn Disabled 1`] = `
 </button>
 `;
 
-exports[`Storyshots Btn Type Submit 1`] = `
+exports[`Storyshots Components|Btn Type Submit 1`] = `
 <button
   class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded"
   type="submit"
@@ -46,7 +46,7 @@ exports[`Storyshots Btn Type Submit 1`] = `
 </button>
 `;
 
-exports[`Storyshots Btn With Custom Classes 1`] = `
+exports[`Storyshots Components|Btn With Custom Classes 1`] = `
 <button
   class="font-bold inline-block py-2 px-4 bg-green-200 text-green-900 rounded"
   type="button"
@@ -55,7 +55,7 @@ exports[`Storyshots Btn With Custom Classes 1`] = `
 </button>
 `;
 
-exports[`Storyshots Btn With Multiple Variants 1`] = `
+exports[`Storyshots Components|Btn With Multiple Variants 1`] = `
 <button
   class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded bg-blue-200 text-blue-900 py-3 px-5 text-lg"
   type="button"
@@ -64,7 +64,7 @@ exports[`Storyshots Btn With Multiple Variants 1`] = `
 </button>
 `;
 
-exports[`Storyshots Btn With Variant 1`] = `
+exports[`Storyshots Components|Btn With Variant 1`] = `
 <button
   class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded bg-blue-200 text-blue-900"
   type="button"

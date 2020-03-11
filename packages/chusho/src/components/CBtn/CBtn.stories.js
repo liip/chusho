@@ -1,7 +1,7 @@
 import CBtn from './CBtn';
 
 export default {
-  title: 'Btn',
+  title: 'Components|Btn',
   component: CBtn,
   parameters: {
     componentSubtitle: 'Uniformized button style for `a` or `button` elements.',
