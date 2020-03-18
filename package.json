@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "postinstall": "lerna bootstrap",
-    "test": "cd packages/chusho && npm test"
+    "test": "cd packages/chusho && npm test",
+    "build:docs": "cd packages/chusho && npm run storybook:build"
   },
   "devDependencies": {
     "lerna": "^3.20.2"
