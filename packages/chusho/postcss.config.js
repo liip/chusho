@@ -4,8 +4,7 @@ module.exports = {
     'vue-cli-plugin-tailwind/purgecss': {
       content: [
         './public/**/*.html',
-        './src/**/*.vue',
-        './src/**/*.ts',
+        './src/**/*.{vue,ts,js}',
         './config/storybook/preview.js',
       ],
       whitelist: ['html', 'body'],
