@@ -17,7 +17,9 @@ export default () => {
             color: transparentize(0.4, theme.color.defaultText),
           })),
           { key: 'desc' },
-          `The following config applies to all ${context.kind} instances accross your entire project.`
+          `The following config applies to all ${context.kind
+            .split('|')
+            .pop()} instances accross your entire project.`
         ),
         React.createElement(PropsTable, {
           key: 'config',

@@ -42,7 +42,7 @@ export default Vue.extend<StackProps>({
 
     if (!gap) {
       warn(
-        `Cannot find a Stack "gap" named "${props.gap}" in the config, you must define it before referencing it.`
+        `Cannot find a Stack gap named "${props.gap}" under "stack.gaps" defined in the config, you must define it before referencing it.`
       );
       return h('div', data, children);
     }
