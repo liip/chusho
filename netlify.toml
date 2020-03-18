@@ -1,4 +1,3 @@
 [build]
-  base = "packages/chusho/"
-  publish = "docs/"
-  command = "npm run storybook:build"
+  publish = "packages/chusho/docs/"
+  command = "npm run build:docs"
