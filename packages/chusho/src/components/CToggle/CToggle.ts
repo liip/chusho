@@ -16,7 +16,11 @@ export interface UseToggle {
   toggle: Function;
 }
 
-export default defineComponent({
+interface ToggleProps {
+  open: boolean;
+}
+
+export default defineComponent<ToggleProps>({
   name: 'CToggle',
 
   model: {

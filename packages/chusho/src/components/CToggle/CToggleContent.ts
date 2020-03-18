@@ -4,7 +4,11 @@ import { ToggleSymbol } from './CToggle';
 import { UseToggle } from './CToggle';
 import { isPlainObject } from '@/utils/objects';
 
-export default defineComponent({
+interface ToggleContentProps {
+  transition: object | boolean;
+}
+
+export default defineComponent<ToggleContentProps>({
   name: 'CToggleContent',
 
   props: {
