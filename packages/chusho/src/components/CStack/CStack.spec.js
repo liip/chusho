@@ -24,7 +24,7 @@ describe('CStack', () => {
         props: {
           gap: '1',
         },
-        children: ['One', h => h('span', 'Two'), '  ', 'Three'],
+        children: ['One', (h) => h('span', 'Two'), '  ', 'Three'],
       },
     });
 

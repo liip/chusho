@@ -63,7 +63,7 @@ export default Vue.extend<BtnProps>({
       }
 
       const variants = props.variant.split(' ');
-      variants.forEach(variant => {
+      variants.forEach((variant) => {
         const target = btnConfig?.variants?.[variant];
         if (target) classes.push(target);
       });

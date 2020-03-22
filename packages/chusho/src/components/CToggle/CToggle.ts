@@ -5,7 +5,7 @@ import {
   InjectionKey,
   defineComponent,
   createElement,
-  watch,
+  watchEffect,
   Ref,
 } from '@vue/composition-api';
 
@@ -55,7 +55,7 @@ export default defineComponent<ToggleProps>({
     provide(ToggleSymbol, api);
 
     // Watch potential parent v-model value changes and update state accordingly
-    watch(() => {
+    watchEffect(() => {
       if (typeof props.open === 'boolean') {
         open.value = props.open;
       }
