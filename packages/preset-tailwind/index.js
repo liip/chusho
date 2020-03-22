@@ -1,8 +1,6 @@
-/* eslint-disable */
-const path = require('path');
 const resolveConfig = require('tailwindcss/resolveConfig');
 
-export default function(tailwindConfig) {
+export default function (tailwindConfig) {
   const { theme } = resolveConfig(tailwindConfig);
 
   const preset = {
@@ -22,7 +20,7 @@ export default function(tailwindConfig) {
   /**
    * Gaps
    */
-  Object.keys(theme.spacing).forEach(function(spacing) {
+  Object.keys(theme.spacing).forEach(function (spacing) {
     preset.components.flex.gaps.x[spacing] = {
       containerClass: `-ml-${spacing}`,
       itemClass: `pl-${spacing}`,
@@ -36,7 +34,7 @@ export default function(tailwindConfig) {
   /**
    * Widths
    */
-  Object.keys(theme.width).forEach(function(width) {
+  Object.keys(theme.width).forEach(function (width) {
     preset.components.flex.widths[width] = `w-${width}`;
   });
 

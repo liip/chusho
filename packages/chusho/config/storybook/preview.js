@@ -16,7 +16,7 @@ import toReact from '@egoist/vue-to-react';
 import Vue from 'vue';
 import VueCompositionApi from '@vue/composition-api';
 import Chusho from '@/main.ts';
-import chushoPresetTailwind from 'chusho-preset-tailwind';
+import chushoPresetTailwind from '@chusho/preset-tailwind';
 import tailwindConfig from '../../tailwind.config.js';
 
 import '@/assets/tailwind.css';
