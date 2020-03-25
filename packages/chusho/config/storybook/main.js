@@ -20,8 +20,9 @@ module.exports = {
         },
       },
     },
+    '@storybook/addon-actions',
   ],
-  webpackFinal: config => {
+  webpackFinal: (config) => {
     /**
      * Resolve custom paths starting with "@" just like Vue CLI does
      */

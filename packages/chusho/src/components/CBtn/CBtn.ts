@@ -4,6 +4,7 @@ import { VNode } from 'vue/types/umd';
 
 interface BtnProps {
   href: string;
+  to: string | object;
   type: string;
   variant: string;
   disabled: boolean;
@@ -24,7 +25,16 @@ export default Vue.extend<BtnProps>({
     },
 
     /**
-     * In case the button is a `button` element, specify its type
+     * Use a `router-link` (or `nuxt-link` in a Nuxt app) in the background, works juste like the `router-link` prop of the same name.
+     *
+     * Note that you can also pass all other `router-link` props such as `activeClass`, `replace`, … See [Vue router documentation](https://router.vuejs.org/api/#router-link) for a complete list of available props.
+     */
+    to: {
+      type: [String, Object],
+    },
+
+    /**
+     * In case the Btn is a `button` element, specify its type
      */
     type: {
       type: String,
@@ -32,7 +42,8 @@ export default Vue.extend<BtnProps>({
     },
 
     /**
-     * Customize the button appearance by applying one or multiple variants defined in the config (btn.variants).
+     * Customize the button appearance by applying one or multiple variants defined in the config (btn.variants). Multiple variants should be separated by a space.
+     *
      * Example: `"primary large"`
      */
     variant: {
@@ -41,7 +52,7 @@ export default Vue.extend<BtnProps>({
     },
 
     /**
-     * Disable the button (doesn’t apply to links) and apply the associated class from the config (btn.disabled).
+     * Disable the button (doesn’t apply to links) and apply the associated class from the config (btn.disabledClass).
      */
     disabled: {
       type: Boolean,
@@ -51,14 +62,27 @@ export default Vue.extend<BtnProps>({
 
   render(h, { props, data, parent, children }): VNode {
     const btnConfig = parent?.$chusho?.options?.components?.btn;
-    const tag = props.href ? 'a' : 'button';
     const classes = [];
+    let tag = 'button';
+    let attrs = {};
+
+    if (props.to) {
+      tag = parent.$nuxt ? 'nuxt-link' : 'router-link';
+      attrs = {
+        to: props.to,
+      };
+    } else if (props.href) {
+      tag = 'a';
+      attrs = {
+        href: props.href,
+      };
+    }
 
     if (btnConfig) {
       if (btnConfig.default) classes.push(btnConfig.default);
-      if (btnConfig.disabled) {
+      if (btnConfig.disabledClass) {
         classes.push({
-          [btnConfig.disabled]: props.disabled,
+          [btnConfig.disabledClass]: props.disabled,
         });
       }
 
@@ -72,7 +96,7 @@ export default Vue.extend<BtnProps>({
     const componentData: VNodeData = {
       class: classes,
       attrs: {
-        href: props.href,
+        ...attrs,
         // Concerns only on button tags, skip for anchors
         ...(props.disabled && tag === 'button' && { disabled: true }),
         ...(props.type && tag === 'button' && { type: props.type }),

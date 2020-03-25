@@ -1,10 +1,12 @@
+import StoryRouter from 'storybook-vue-router';
 import CBtn from './CBtn';
 
 export default {
   title: 'Components|Btn',
   component: CBtn,
   parameters: {
-    componentSubtitle: 'Uniformized button style for `a` or `button` elements.',
+    componentSubtitle:
+      'Uniformized button style for `router-link`, `nuxt-link`, `a` or `button` elements.',
     options: {
       componentConfig: [
         {
@@ -13,7 +15,7 @@ export default {
           description: 'Class applied to all Btn instances.',
         },
         {
-          name: 'disabled',
+          name: 'disabledClass',
           type: { summary: 'string' },
           description:
             'Class applied to Btn when prop `disabled` is set to `true`.',
@@ -27,6 +29,20 @@ export default {
       ],
     },
   },
+  decorators: [
+    StoryRouter(
+      {},
+      {
+        routes: [
+          {
+            path: '/',
+            name: 'home',
+            component: { template: `<div>Home</div>` },
+          },
+        ],
+      }
+    ),
+  ],
 };
 
 export const Default = () => ({
@@ -37,6 +53,11 @@ export const Default = () => ({
 export const AsLink = () => ({
   components: { CBtn },
   template: '<CBtn href="#">Click me</CBtn>',
+});
+
+export const AsRouterLink = () => ({
+  components: { CBtn },
+  template: `<CBtn :to="{ name: 'home' }">Click me</CBtn>`,
 });
 
 export const TypeSubmit = () => ({

@@ -60,7 +60,7 @@ const config = _.merge(chushoPresetTailwind(tailwindConfig), {
         primary: 'bg-blue-200 text-blue-900',
         large: 'py-3 px-5 text-lg',
       },
-      disabled: 'cursor-not-allowed opacity-75',
+      disabledClass: 'cursor-not-allowed opacity-75',
     },
     icon: {
       spriteUrl: 'icons.svg',

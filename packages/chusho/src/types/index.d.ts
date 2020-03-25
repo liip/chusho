@@ -7,6 +7,7 @@ declare module 'vue/types/vue' {
     $chusho: {
       options: ChushoOptions;
     };
+    $nuxt?: object;
   }
 
   interface VueConstructor {
@@ -45,7 +46,7 @@ interface ComponentsOptions {
     variants?: {
       [key: string]: string;
     };
-    disabled?: string;
+    disabledClass?: string;
   };
   icon?: {
     spriteUrl?: string;
