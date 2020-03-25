@@ -1,7 +1,7 @@
 import { PluginObject } from 'vue/types/plugin';
 import { mergeDeep } from '@/utils/objects';
 import * as components from '@/components';
-import { ChushoOptions } from '@/types';
+import { ChushoOptions, ChushoUserOptions } from '@/types';
 
 export const defaultOptions: ChushoOptions = {
   components: {
@@ -13,8 +13,8 @@ export const defaultOptions: ChushoOptions = {
   },
 };
 
-const Chusho: PluginObject<ChushoOptions> = {
-  install: function (Vue, userOptions?: ChushoOptions) {
+const Chusho: PluginObject<ChushoUserOptions> = {
+  install: function (Vue, userOptions?: ChushoUserOptions) {
     const options = mergeDeep(defaultOptions, userOptions) as ChushoOptions;
 
     // Provide configuration

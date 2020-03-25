@@ -39,40 +39,46 @@ export interface ContainerItemClass {
   itemClass: string;
 }
 
-export interface ChushoOptions {
-  components: {
-    btn?: {
-      default?: string;
-      variants?: {
-        [key: string]: string;
-      };
-      disabled?: string;
+interface ComponentsOptions {
+  btn?: {
+    default?: string;
+    variants?: {
+      [key: string]: string;
     };
-    icon?: {
-      spriteUrl?: string;
-      width?: number;
-      height?: number;
-      class?: string;
-    };
-    toggle?: {
-      transition?: VueTransitionProps | null;
-    };
-    flex: {
-      containerClass?: string;
-      itemClass?: string;
-      gaps?: {
-        x?: {
-          [key: string]: ContainerItemClass;
-        };
-        y?: {
-          [key: string]: ContainerItemClass;
-        };
-      };
-      widths?: {
-        [key: string]: string;
-      };
-      defaultWidth?: string;
-      responsiveWidthGenerator: Function;
-    };
+    disabled?: string;
   };
+  icon?: {
+    spriteUrl?: string;
+    width?: number;
+    height?: number;
+    class?: string;
+  };
+  toggle?: {
+    transition?: VueTransitionProps | null;
+  };
+  flex: {
+    containerClass?: string;
+    itemClass?: string;
+    gaps?: {
+      x?: {
+        [key: string]: ContainerItemClass;
+      };
+      y?: {
+        [key: string]: ContainerItemClass;
+      };
+    };
+    widths?: {
+      [key: string]: string;
+    };
+    defaultWidth?: string;
+    responsiveWidthGenerator: Function;
+  };
+}
+
+export interface ChushoOptions {
+  components: ComponentsOptions;
+}
+
+export interface ChushoUserOptions {
+  components?: Partial<ComponentsOptions>;
 }
