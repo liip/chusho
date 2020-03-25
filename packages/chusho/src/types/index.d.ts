@@ -8,6 +8,12 @@ declare module 'vue/types/vue' {
       options: ChushoOptions;
     };
   }
+
+  interface VueConstructor {
+    util: {
+      warn(msg: string, vm?: Vue): void;
+    };
+  }
 }
 
 export interface VueTransitionProps {
