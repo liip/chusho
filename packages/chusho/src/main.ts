@@ -1,8 +1,7 @@
 import { PluginObject } from 'vue/types/plugin';
 import { mergeDeep } from '@/utils/objects';
-import components from '@/components';
-import { ChushoOptions } from '@/types/globals.d.ts';
-import '@/assets/tailwind.css';
+import * as components from '@/components';
+import { ChushoOptions } from '@/types';
 
 export const defaultOptions: ChushoOptions = {
   components: {
@@ -24,13 +23,15 @@ const Chusho: PluginObject<ChushoOptions> = {
     };
 
     // Install components
-    Object.values(components).forEach((component) => {
-      Vue.component(component.name, component);
+    const pluginComponents = components as Dictionary<object | Function>;
+
+    Object.keys(pluginComponents).forEach((componentName) => {
+      Vue.component(componentName, pluginComponents[componentName]);
     });
   },
-  ...components,
 };
 
+export * from '@/components';
 export default Chusho;
 
 if (typeof window !== 'undefined' && window.Vue) {

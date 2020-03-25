@@ -1,4 +1,4 @@
-import CBtn from '../CBtn';
+import { CBtn } from '../CBtn';
 import { VNodeData } from 'vue/types/umd';
 import { inject, defineComponent, createElement } from '@vue/composition-api';
 import { ToggleSymbol } from './CToggle';

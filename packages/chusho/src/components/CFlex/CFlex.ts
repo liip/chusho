@@ -6,7 +6,7 @@ import {
 } from '@vue/composition-api';
 import { VNodeData } from 'vue/types/umd';
 import { mergeData } from 'vue-functional-data-merge';
-import { ContainerItemClass } from '@/types/globals.d.ts';
+import { ContainerItemClass } from '@/types';
 import { warn } from '@/utils/debug';
 
 export const FlexSymbol: InjectionKey<object> = Symbol();
