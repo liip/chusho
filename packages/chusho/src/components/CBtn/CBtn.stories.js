@@ -10,7 +10,7 @@ export default {
     options: {
       componentConfig: [
         {
-          name: 'default',
+          name: 'defaultClass',
           type: { summary: 'string' },
           description: 'Class applied to all Btn instances.',
         },

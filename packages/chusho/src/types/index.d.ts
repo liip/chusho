@@ -42,7 +42,7 @@ export interface ContainerItemClass {
 
 interface ComponentsOptions {
   btn?: {
-    default?: string;
+    defaultClass?: string;
     variants?: {
       [key: string]: string;
     };

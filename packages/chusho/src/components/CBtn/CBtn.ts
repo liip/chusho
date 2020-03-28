@@ -79,7 +79,7 @@ export default Vue.extend<BtnProps>({
     }
 
     if (btnConfig) {
-      if (btnConfig.default) classes.push(btnConfig.default);
+      if (btnConfig.defaultClass) classes.push(btnConfig.defaultClass);
       if (btnConfig.disabledClass) {
         classes.push({
           [btnConfig.disabledClass]: props.disabled,

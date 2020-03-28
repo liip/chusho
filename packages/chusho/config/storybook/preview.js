@@ -54,7 +54,8 @@ Vue.use(VueCompositionApi);
 const config = _.merge(chushoPresetTailwind(tailwindConfig), {
   components: {
     btn: {
-      default: 'inline-block py-2 px-4 bg-green-200 text-green-900 rounded',
+      defaultClass:
+        'inline-block py-2 px-4 bg-green-200 text-green-900 rounded',
       variants: {
         block: 'w-full',
         primary: 'bg-blue-200 text-blue-900',
