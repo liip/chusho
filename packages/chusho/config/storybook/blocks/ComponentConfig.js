@@ -19,7 +19,7 @@ export default () => {
           { key: 'desc' },
           `The following config applies to all ${context.kind
             .split('|')
-            .pop()} instances accross your entire project.`
+            .pop()} instances across your entire project.`
         ),
         React.createElement(PropsTable, {
           key: 'config',
