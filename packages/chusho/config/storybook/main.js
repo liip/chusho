@@ -20,6 +20,7 @@ module.exports = {
         },
       },
     },
+    '@storybook/addon-a11y/register',
     '@storybook/addon-actions',
   ],
   webpackFinal: (config) => {

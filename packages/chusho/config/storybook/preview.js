@@ -1,4 +1,4 @@
-import { addParameters } from '@storybook/vue';
+import { addParameters, addDecorator } from '@storybook/vue';
 import {
   Title,
   Subtitle,
@@ -9,16 +9,18 @@ import {
 } from '@storybook/addon-docs/blocks';
 import ComponentConfig from './blocks/ComponentConfig';
 import { Heading } from '@storybook/addon-docs/blocks';
+import { withA11y } from '@storybook/addon-a11y';
 
 import _ from 'lodash';
 import React from 'react';
 import toReact from '@egoist/vue-to-react';
 import Vue from 'vue';
 import VueCompositionApi from '@vue/composition-api';
+
 import Chusho from '@/main.ts';
+
 import chushoPresetTailwind from '@chusho/preset-tailwind';
 import tailwindConfig from '../../tailwind.config.js';
-
 import '@/assets/tailwind.css';
 
 /**
@@ -44,6 +46,7 @@ addParameters({
     ],
   },
 });
+addDecorator(withA11y);
 
 /**
  * Configure Vue global behavior within Storybook
