@@ -54,14 +54,12 @@ Vue.use(VueCompositionApi);
 const config = _.merge(chushoPresetTailwind(tailwindConfig), {
   components: {
     btn: {
-      defaultClass:
-        'inline-block py-2 px-4 bg-green-200 text-green-900 rounded',
+      defaultClass: 'inline-block',
       variants: {
-        block: 'w-full',
-        primary: 'bg-blue-200 text-blue-900',
-        large: 'py-3 px-5 text-lg',
+        default: 'bg-blue-200 text-blue-900 rounded',
+        medium: 'py-2 px-4',
       },
-      disabledClass: 'cursor-not-allowed opacity-75',
+      disabledClass: 'cursor-not-allowed opacity-50',
     },
     icon: {
       spriteUrl: 'icons.svg',

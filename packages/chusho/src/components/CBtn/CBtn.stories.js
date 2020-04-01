@@ -12,7 +12,7 @@ export default {
         {
           name: 'defaultClass',
           type: { summary: 'string' },
-          description: 'Class applied to all Btn instances.',
+          description: 'Class applied to all CBtn components.',
         },
         {
           name: 'disabledClass',
@@ -67,17 +67,7 @@ export const TypeSubmit = () => ({
 
 export const WithVariant = () => ({
   components: { CBtn },
-  template: '<CBtn variant="primary">Click me</CBtn>',
-});
-
-export const WithMultipleVariants = () => ({
-  components: { CBtn },
-  template: '<CBtn variant="primary large">Click me</CBtn>',
-});
-
-export const Block = () => ({
-  components: { CBtn },
-  template: '<CBtn variant="block">Click me</CBtn>',
+  template: '<CBtn variant="default medium">Click me</CBtn>',
 });
 
 export const Disabled = () => ({

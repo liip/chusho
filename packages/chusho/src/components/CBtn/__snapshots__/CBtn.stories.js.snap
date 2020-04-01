@@ -2,7 +2,7 @@
 
 exports[`Storyshots Components|Btn As Link 1`] = `
 <a
-  class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded"
+  class="inline-block"
   href="#"
 >
   Click me
@@ -11,25 +11,16 @@ exports[`Storyshots Components|Btn As Link 1`] = `
 
 exports[`Storyshots Components|Btn As Router Link 1`] = `
 <a
-  class="router-link-exact-active router-link-active inline-block py-2 px-4 bg-green-200 text-green-900 rounded"
+  class="router-link-exact-active router-link-active inline-block"
   href="#/"
 >
   Click me
 </a>
 `;
 
-exports[`Storyshots Components|Btn Block 1`] = `
-<button
-  class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded w-full"
-  type="button"
->
-  Click me
-</button>
-`;
-
 exports[`Storyshots Components|Btn Default 1`] = `
 <button
-  class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded"
+  class="inline-block"
   type="button"
 >
   Click me
@@ -38,7 +29,7 @@ exports[`Storyshots Components|Btn Default 1`] = `
 
 exports[`Storyshots Components|Btn Disabled 1`] = `
 <button
-  class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded cursor-not-allowed opacity-75"
+  class="inline-block cursor-not-allowed opacity-50"
   disabled="disabled"
   type="button"
 >
@@ -48,7 +39,7 @@ exports[`Storyshots Components|Btn Disabled 1`] = `
 
 exports[`Storyshots Components|Btn Type Submit 1`] = `
 <button
-  class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded"
+  class="inline-block"
   type="submit"
 >
   Click me
@@ -57,16 +48,7 @@ exports[`Storyshots Components|Btn Type Submit 1`] = `
 
 exports[`Storyshots Components|Btn With Custom Classes 1`] = `
 <button
-  class="font-bold inline-block py-2 px-4 bg-green-200 text-green-900 rounded"
-  type="button"
->
-  Click me
-</button>
-`;
-
-exports[`Storyshots Components|Btn With Multiple Variants 1`] = `
-<button
-  class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded bg-blue-200 text-blue-900 py-3 px-5 text-lg"
+  class="font-bold inline-block"
   type="button"
 >
   Click me
@@ -75,7 +57,7 @@ exports[`Storyshots Components|Btn With Multiple Variants 1`] = `
 
 exports[`Storyshots Components|Btn With Variant 1`] = `
 <button
-  class="inline-block py-2 px-4 bg-green-200 text-green-900 rounded bg-blue-200 text-blue-900"
+  class="inline-block bg-blue-200 text-blue-900 rounded py-2 px-4"
   type="button"
 >
   Click me
