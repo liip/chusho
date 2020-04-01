@@ -2,7 +2,7 @@ import CFlex from './CFlex';
 import CFlexItem from './CFlexItem';
 
 export default {
-  title: 'Components|Flex',
+  title: 'Components/Flex',
   component: CFlex,
   subcomponents: { CFlexItem },
   parameters: {

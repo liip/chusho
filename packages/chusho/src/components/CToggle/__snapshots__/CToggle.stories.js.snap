@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Components|Toggle Controlled 1`] = `
+exports[`Storyshots Components/Toggle Controlled 1`] = `
 <div>
   <button
     aria-controls="chusho-toggle-4"
@@ -16,7 +16,7 @@ exports[`Storyshots Components|Toggle Controlled 1`] = `
 </div>
 `;
 
-exports[`Storyshots Components|Toggle Default 1`] = `
+exports[`Storyshots Components/Toggle Default 1`] = `
 <div>
   <button
     aria-controls="chusho-toggle-3"

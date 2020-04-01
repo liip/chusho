@@ -28,6 +28,9 @@ import '@/assets/tailwind.css';
  */
 
 addParameters({
+  options: {
+    showRoots: true,
+  },
   docs: {
     inlineStories: true,
     prepareForInline: (storyFn) => {

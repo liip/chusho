@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Components|Flex Different Gap By Axis 1`] = `
+exports[`Storyshots Components/Flex Different Gap By Axis 1`] = `
 <div
   class="flex flex-wrap -ml-3 -mt-6"
 >
@@ -66,7 +66,7 @@ exports[`Storyshots Components|Flex Different Gap By Axis 1`] = `
 </div>
 `;
 
-exports[`Storyshots Components|Flex Grid Responsive 1`] = `
+exports[`Storyshots Components/Flex Grid Responsive 1`] = `
 <div
   class="flex flex-wrap -ml-2 -mt-2"
 >
@@ -156,7 +156,7 @@ exports[`Storyshots Components|Flex Grid Responsive 1`] = `
 </div>
 `;
 
-exports[`Storyshots Components|Flex Inline 1`] = `
+exports[`Storyshots Components/Flex Inline 1`] = `
 <div
   class="flex flex-wrap -ml-2 -mt-2"
 >
@@ -449,7 +449,7 @@ exports[`Storyshots Components|Flex Inline 1`] = `
 </div>
 `;
 
-exports[`Storyshots Components|Flex Nested 1`] = `
+exports[`Storyshots Components/Flex Nested 1`] = `
 <div
   class="flex flex-wrap -ml-8 -mt-8"
 >
@@ -499,7 +499,7 @@ exports[`Storyshots Components|Flex Nested 1`] = `
 </div>
 `;
 
-exports[`Storyshots Components|Flex Stack 1`] = `
+exports[`Storyshots Components/Flex Stack 1`] = `
 <div
   class="flex flex-wrap -ml-3 -mt-3"
 >

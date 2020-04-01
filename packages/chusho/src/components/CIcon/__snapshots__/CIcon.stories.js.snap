@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Components|Icon Custom Scale 1`] = `
+exports[`Storyshots Components/Icon Custom Scale 1`] = `
 <svg
   aria-hidden="true"
   class="inline-block align-middle pointer-events-none fill-current"
@@ -13,7 +13,7 @@ exports[`Storyshots Components|Icon Custom Scale 1`] = `
 </svg>
 `;
 
-exports[`Storyshots Components|Icon Default 1`] = `
+exports[`Storyshots Components/Icon Default 1`] = `
 <svg
   aria-hidden="true"
   class="inline-block align-middle pointer-events-none fill-current"
@@ -26,7 +26,7 @@ exports[`Storyshots Components|Icon Default 1`] = `
 </svg>
 `;
 
-exports[`Storyshots Components|Icon With Alternate Text 1`] = `
+exports[`Storyshots Components/Icon With Alternate Text 1`] = `
 <svg
   aria-labelledby="chusho-icon-2"
   class="inline-block align-middle pointer-events-none fill-current"

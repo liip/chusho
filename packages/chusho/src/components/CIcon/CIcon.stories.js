@@ -1,7 +1,7 @@
 import CIcon from './CIcon';
 
 export default {
-  title: 'Components|Icon',
+  title: 'Components/Icon',
   component: CIcon,
   parameters: {
     componentSubtitle:

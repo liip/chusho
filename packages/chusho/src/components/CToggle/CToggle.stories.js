@@ -3,7 +3,7 @@ import CToggleBtn from './CToggleBtn';
 import CToggleContent from './CToggleContent';
 
 export default {
-  title: 'Components|Toggle',
+  title: 'Components/Toggle',
   component: CToggle,
   subcomponents: { CToggleBtn, CToggleContent },
   parameters: {

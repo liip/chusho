@@ -2,7 +2,7 @@ import StoryRouter from 'storybook-vue-router';
 import CBtn from './CBtn';
 
 export default {
-  title: 'Components|Btn',
+  title: 'Components/Btn',
   component: CBtn,
   parameters: {
     componentSubtitle:
