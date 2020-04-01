@@ -15,6 +15,7 @@ export default defineComponent({
         attrs: {
           ...attrs,
           'aria-expanded': `${toggle.open.value}`,
+          'aria-controls': `chusho-toggle-${toggle.uuid}`,
         },
         on: {
           ...listeners,

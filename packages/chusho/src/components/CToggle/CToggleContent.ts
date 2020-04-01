@@ -1,4 +1,4 @@
-import { VNode } from 'vue/types/umd';
+import { VNode, VNodeData } from 'vue/types/umd';
 import { inject, createElement, defineComponent } from '@vue/composition-api';
 import { ToggleSymbol } from './CToggle';
 import { UseToggle } from './CToggle';
@@ -10,6 +10,8 @@ interface ToggleContentProps {
 
 export default defineComponent<ToggleContentProps>({
   name: 'CToggleContent',
+
+  inheritAttrs: false,
 
   props: {
     /**
@@ -25,7 +27,7 @@ export default defineComponent<ToggleContentProps>({
     },
   },
 
-  setup(props, { slots, parent }) {
+  setup(props, { slots, attrs, parent }) {
     const toggleConfig = parent!.$chusho?.options?.components?.toggle;
     const toggle = inject(ToggleSymbol) as UseToggle;
     let transition: object;
@@ -38,7 +40,16 @@ export default defineComponent<ToggleContentProps>({
 
     function renderContent(): VNode | null {
       if (toggle.open.value) {
-        return createElement('div', {}, slots.default());
+        return createElement(
+          'div',
+          {
+            attrs: {
+              ...attrs,
+              id: `chusho-toggle-${toggle.uuid}`,
+            },
+          },
+          slots.default()
+        );
       }
       return null;
     }

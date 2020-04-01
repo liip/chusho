@@ -8,10 +8,12 @@ import {
   watchEffect,
   Ref,
 } from '@vue/composition-api';
+import uuid from '@/utils/uuid';
 
 export const ToggleSymbol: InjectionKey<object> = Symbol();
 
 export interface UseToggle {
+  uuid: number;
   open: Readonly<Ref<boolean>>;
   toggle: Function;
 }
@@ -49,6 +51,7 @@ export default defineComponent<ToggleProps>({
 
     // Provide api to sub-components
     const api: UseToggle = {
+      uuid: uuid(),
       open: computed(() => open.value),
       toggle,
     };
