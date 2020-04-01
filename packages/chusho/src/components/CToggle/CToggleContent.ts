@@ -1,4 +1,4 @@
-import { VNode, VNodeData } from 'vue/types/umd';
+import { VNode } from 'vue/types/umd';
 import { inject, createElement, defineComponent } from '@vue/composition-api';
 import { ToggleSymbol } from './CToggle';
 import { UseToggle } from './CToggle';

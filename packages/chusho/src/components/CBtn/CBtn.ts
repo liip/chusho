@@ -31,6 +31,7 @@ export default Vue.extend<BtnProps>({
      */
     to: {
       type: [String, Object],
+      default: null,
     },
 
     /**
