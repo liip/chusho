@@ -78,6 +78,21 @@ const config = _.merge(chushoPresetTailwind(tailwindConfig), {
         name: 'fade',
       },
     },
+    tabs: {
+      tabsClass: 'tabs',
+      tabListClass: 'flex mx-4',
+      tabPanelsClass: 'py-3 px-4 bg-gray-200 rounded',
+      tabPanelClass: 'tabpanel',
+      tabClass(active) {
+        return [
+          'inline-block py-2 px-5 border-b-2 border-transparent',
+          {
+            'text-gray-700': !active,
+            'text-blue-800 bg-blue-100 border-blue-300 rounded-t': active,
+          },
+        ];
+      },
+    },
   },
 });
 

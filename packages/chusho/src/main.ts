@@ -4,6 +4,9 @@ import * as components from '@/components';
 import { ChushoOptions, ChushoUserOptions } from '@/types';
 
 export const defaultOptions: ChushoOptions = {
+  rtl: function () {
+    return document && document.dir === 'rtl';
+  },
   components: {
     flex: {
       responsiveWidthGenerator(breakpoint: string, width: string) {

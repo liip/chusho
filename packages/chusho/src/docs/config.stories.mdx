@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { PropsTable } from '@storybook/components';
+
+<Meta title="Docs|Config" />
+
+# Config
+
+Here is a summary of the `config` object you can provide when setuping Chūshō with `Vue.use(Chusho, config)`.
+
+<PropsTable
+  rows={[
+    {
+      name: 'rtl',
+      type: { summary: 'Function' },
+      description:
+        'Define if the current document direction is Right-to-left. This is used internally to adapt some behaviors.',
+      defaultValue: {
+        summary: 'function',
+        detail: `function () {
+  return document && document.dir === 'rtl';
+}`,
+      },
+    },
+    {
+      name: 'components',
+      type: {
+        summary: 'object',
+        detail: `{
+  btn: {},
+  icon: {},
+  toggle: {},
+  flex: {},
+  tabs: {},
+}`,
+      },
+      description:
+        'Components-specific config, see each component docs for available options.',
+    },
+  ]}
+/>

@@ -17,6 +17,12 @@ declare module 'vue/types/vue' {
   }
 }
 
+declare module '@vue/composition-api/dist/component/component' {
+  interface SetupContext {
+    readonly refs: { [key: string]: Vue | Element | Vue[] | Element[] };
+  }
+}
+
 export interface VueTransitionProps {
   name?: string;
   appear?: boolean;
@@ -74,12 +80,21 @@ interface ComponentsOptions {
     defaultWidth?: string;
     responsiveWidthGenerator: Function;
   };
+  tabs?: {
+    tabsClass: string;
+    tabListClass: string;
+    tabPanelsClass: string;
+    tabPanelClass: string | Function;
+    tabClass: string | Function;
+  };
 }
 
 export interface ChushoOptions {
+  rtl: Function;
   components: ComponentsOptions;
 }
 
 export interface ChushoUserOptions {
+  rtl?: Function;
   components?: Partial<ComponentsOptions>;
 }

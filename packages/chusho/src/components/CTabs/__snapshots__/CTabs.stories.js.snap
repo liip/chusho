@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Components/Tabs Controlled 1`] = `
+<div
+  class="tabs"
+>
+  <div
+    aria-label="Example of controlled tabs"
+    class="flex mx-4"
+    role="tablist"
+  >
+    <button
+      aria-controls="chusho-tabs-4-tabpanel-1"
+      aria-selected="false"
+      class="inline-block py-2 px-5 border-b-2 border-transparent text-gray-700"
+      id="chusho-tabs-4-tab-1"
+      role="tab"
+      tabindex="-1"
+      type="button"
+    >
+      Tab 1
+    </button>
+     
+    <button
+      aria-controls="chusho-tabs-4-tabpanel-2"
+      aria-selected="true"
+      class="inline-block py-2 px-5 border-b-2 border-transparent text-blue-800 bg-blue-100 border-blue-300 rounded-t"
+      id="chusho-tabs-4-tab-2"
+      role="tab"
+      tabindex="0"
+      type="button"
+    >
+      Tab 2
+    </button>
+     
+    <button
+      aria-controls="chusho-tabs-4-tabpanel-3"
+      aria-selected="false"
+      class="inline-block py-2 px-5 border-b-2 border-transparent text-gray-700"
+      id="chusho-tabs-4-tab-3"
+      role="tab"
+      tabindex="-1"
+      type="button"
+    >
+      Tab 3
+    </button>
+  </div>
+   
+  <div
+    class="py-3 px-4 bg-gray-200 rounded"
+  >
+    <!---->
+     
+    <div
+      aria-labelledby="chusho-tabs-4-tab-2"
+      class="tabpanel"
+      id="chusho-tabs-4-tabpanel-2"
+      role="tabpanel"
+      tabindex="0"
+    >
+      
+          Nobis fuga cupiditate suscipit blanditiis, aliquid minima harum molestias pariatur tempora ab, libero quo maiores sapiente doloribus nihil commodi eaque accusantium praesentium! Nobis natus qui voluptate inventore molestias quisquam, consequuntur harum?
+        
+    </div>
+     
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`Storyshots Components/Tabs Default 1`] = `
+<div
+  class="tabs"
+>
+  <div
+    aria-label="Example of tabs"
+    class="flex mx-4"
+    role="tablist"
+  >
+    <button
+      aria-controls="chusho-tabs-3-tabpanel-1"
+      aria-selected="false"
+      class="inline-block py-2 px-5 border-b-2 border-transparent text-gray-700"
+      id="chusho-tabs-3-tab-1"
+      role="tab"
+      tabindex="-1"
+      type="button"
+    >
+      Tab 1
+    </button>
+     
+    <button
+      aria-controls="chusho-tabs-3-tabpanel-2"
+      aria-selected="false"
+      class="inline-block py-2 px-5 border-b-2 border-transparent text-gray-700"
+      id="chusho-tabs-3-tab-2"
+      role="tab"
+      tabindex="-1"
+      type="button"
+    >
+      Tab 2
+    </button>
+     
+    <button
+      aria-controls="chusho-tabs-3-tabpanel-3"
+      aria-selected="false"
+      class="inline-block py-2 px-5 border-b-2 border-transparent text-gray-700"
+      id="chusho-tabs-3-tab-3"
+      role="tab"
+      tabindex="-1"
+      type="button"
+    >
+      Tab 3
+    </button>
+  </div>
+   
+  <div
+    class="py-3 px-4 bg-gray-200 rounded"
+  >
+    <div
+      aria-labelledby="chusho-tabs-3-tab-1"
+      class="tabpanel"
+      id="chusho-tabs-3-tabpanel-1"
+      role="tabpanel"
+      tabindex="0"
+    >
+      
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam in, iste id nobis dolor excepturi dolore expedita vero quae. Nobis fuga cupiditate suscipit blanditiis, aliquid minima harum molestias pariatur tempora ab.
+        
+    </div>
+     
+    <!---->
+     
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`Storyshots Components/Tabs Override Style 1`] = `
+<div
+  class="tabs"
+>
+  <div
+    aria-label="Example of tabs with different style"
+    class="flex justify-center mb-3"
+    role="tablist"
+  >
+    <button
+      aria-controls="chusho-tabs-5-tabpanel-1"
+      aria-selected="false"
+      class="py-2 px-5 rounded-full text-red-700"
+      id="chusho-tabs-5-tab-1"
+      role="tab"
+      tabindex="-1"
+      type="button"
+    >
+      Tab 1
+    </button>
+     
+    <button
+      aria-controls="chusho-tabs-5-tabpanel-2"
+      aria-selected="false"
+      class="py-2 px-5 rounded-full text-red-700"
+      id="chusho-tabs-5-tab-2"
+      role="tab"
+      tabindex="-1"
+      type="button"
+    >
+      Tab 2
+    </button>
+     
+    <button
+      aria-controls="chusho-tabs-5-tabpanel-3"
+      aria-selected="true"
+      class="py-2 px-5 rounded-full text-white font-semibold bg-red-700"
+      id="chusho-tabs-5-tab-3"
+      role="tab"
+      tabindex="0"
+      type="button"
+    >
+      Tab 3
+    </button>
+  </div>
+   
+  <div
+    class="py-3 px-4 bg-gray-200 rounded"
+  >
+    <!---->
+     
+    <!---->
+     
+    <div
+      aria-labelledby="chusho-tabs-5-tab-3"
+      class=""
+      id="chusho-tabs-5-tabpanel-3"
+      role="tabpanel"
+      tabindex="0"
+    >
+      
+          Laboriosam in, iste id nobis dolor excepturi dolore expedita vero quae. Nobis natus qui voluptate inventore molestias quisquam, consequuntur harum?
+        
+    </div>
+  </div>
+</div>
+`;
