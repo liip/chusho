@@ -37,7 +37,7 @@
   "main": "dist/chusho.js",
   "umd:main": "dist/chusho.umd.js",
   "module": "dist/chusho.module.js",
-  "typings": "dist/main.d.ts",
+  "typings": "dist/chusho.d.ts",
   "sideEffects": false,
   "files": [
     "dist/"

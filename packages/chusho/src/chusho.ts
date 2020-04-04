@@ -1,9 +1,9 @@
 import { PluginObject } from 'vue/types/plugin';
-import { mergeDeep } from '@/utils/objects';
-import * as components from '@/components';
-import { ChushoOptions, ChushoUserOptions } from '@/types';
+import { mergeDeep } from './utils/objects';
+import { ChushoOptions, ChushoUserOptions } from './types';
+import * as components from './components';
 
-export const defaultOptions: ChushoOptions = {
+const defaultOptions: ChushoOptions = {
   rtl: function () {
     return document && document.dir === 'rtl';
   },
@@ -34,7 +34,8 @@ const Chusho: PluginObject<ChushoUserOptions> = {
   },
 };
 
-export * from '@/components';
+export * from './components';
+export { ChushoUserOptions } from './types';
 export default Chusho;
 
 if (typeof window !== 'undefined' && window.Vue) {

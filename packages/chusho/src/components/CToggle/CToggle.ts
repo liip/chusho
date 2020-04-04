@@ -8,7 +8,7 @@ import {
   watchEffect,
   Ref,
 } from '@vue/composition-api';
-import uuid from '@/utils/uuid';
+import uuid from '../../utils/uuid';
 
 export const ToggleSymbol: InjectionKey<object> = Symbol();
 

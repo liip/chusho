@@ -2,7 +2,7 @@ import { VNode } from 'vue/types/umd';
 import { inject, createElement, defineComponent } from '@vue/composition-api';
 import { ToggleSymbol } from './CToggle';
 import { UseToggle } from './CToggle';
-import { isPlainObject } from '@/utils/objects';
+import { isPlainObject } from '../../utils/objects';
 
 interface ToggleContentProps {
   transition: object | boolean;

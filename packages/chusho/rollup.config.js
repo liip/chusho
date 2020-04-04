@@ -35,7 +35,7 @@ const builds = {
 function genConfig({ outFile, format, mode }) {
   const isProd = mode === 'production';
   return {
-    input: './src/main.ts',
+    input: './src/chusho.ts',
     output: {
       file: path.join('./dist', outFile),
       exports: 'named',

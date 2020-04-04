@@ -46,6 +46,10 @@ export interface ContainerItemClass {
   itemClass: string;
 }
 
+type TabClassGenerator = (
+  active: boolean
+) => string | object | Array<object | string>;
+
 interface ComponentsOptions {
   btn?: {
     defaultClass?: string;
@@ -78,14 +82,14 @@ interface ComponentsOptions {
       [key: string]: string;
     };
     defaultWidth?: string;
-    responsiveWidthGenerator: Function;
+    responsiveWidthGenerator(breakpoint: string, width: string): string;
   };
   tabs?: {
-    tabsClass: string;
-    tabListClass: string;
-    tabPanelsClass: string;
-    tabPanelClass: string | Function;
-    tabClass: string | Function;
+    tabsClass?: string;
+    tabListClass?: string;
+    tabPanelsClass?: string;
+    tabPanelClass?: string | TabClassGenerator;
+    tabClass?: string | TabClassGenerator;
   };
 }
 

@@ -1,5 +1,4 @@
 import {
-  ref,
   provide,
   computed,
   InjectionKey,
@@ -9,7 +8,7 @@ import {
   Ref,
   reactive,
 } from '@vue/composition-api';
-import uuid from '@/utils/uuid';
+import uuid from '../../utils/uuid';
 import { VNodeData } from 'vue/types/umd';
 import TabsMixin from './mixin';
 

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { VNodeData } from 'vue/types/umd';
 import { defineComponent, createElement, inject } from '@vue/composition-api';
 
-import { TabsSymbol, UseTabs, TabId } from './CTabs';
+import { TabsSymbol, UseTabs } from './CTabs';
 import TabsMixin from './mixin';
 import { getSiblingIndexByArrowKey } from '../../utils/keyboard';
 

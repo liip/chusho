@@ -1,6 +1,6 @@
 import Vue, { VNode, VNodeData } from 'vue';
 import { mergeData } from 'vue-functional-data-merge';
-import uuid from '@/utils/uuid';
+import uuid from '../../utils/uuid';
 
 interface IconProps {
   id: string;

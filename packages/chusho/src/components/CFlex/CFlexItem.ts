@@ -1,9 +1,9 @@
 import { defineComponent, createElement, inject } from '@vue/composition-api';
-import { warn } from '@/utils/debug';
+import { warn } from '../../utils/debug';
 import { mergeData } from 'vue-functional-data-merge';
 import { VNodeData } from 'vue/types/umd';
 import { FlexSymbol, UseFlex } from './CFlex';
-import { isPlainObject } from '@/utils/objects';
+import { isPlainObject } from '../../utils/objects';
 
 interface FlexItemProps {
   width?: string | Dictionary<string>;
