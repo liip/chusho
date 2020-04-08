@@ -80,11 +80,11 @@ export default Vue.extend<BtnProps>({
     }
 
     if (btnConfig) {
-      if (btnConfig.defaultClass) classes.push(btnConfig.defaultClass);
-      if (btnConfig.disabledClass) {
-        classes.push({
-          [btnConfig.disabledClass]: props.disabled,
-        });
+      if (btnConfig.defaultClass) {
+        classes.push(btnConfig.defaultClass);
+      }
+      if (btnConfig.disabledClass && props.disabled) {
+        classes.push(btnConfig.disabledClass);
       }
 
       const variants = props.variant.split(' ');
@@ -95,7 +95,6 @@ export default Vue.extend<BtnProps>({
     }
 
     const componentData: VNodeData = {
-      class: classes,
       attrs: {
         ...attrs,
         // Concerns only on button tags, skip for anchors
@@ -103,6 +102,10 @@ export default Vue.extend<BtnProps>({
         ...(props.type && tag === 'button' && { type: props.type }),
       },
     };
+
+    if (classes.length) {
+      componentData.class = classes;
+    }
 
     return h(tag, mergeData(data, componentData), children);
   },

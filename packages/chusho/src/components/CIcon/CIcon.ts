@@ -48,13 +48,16 @@ export default Vue.extend<IconProps>({
       attrs: {
         focusable: 'false',
       },
-      class: iconConfig?.class,
       style: {
         width: `${(iconConfig?.width || 24) * props.scale}px`,
         height: `${(iconConfig?.height || 24) * props.scale}px`,
       },
     };
     const uid = `chusho-icon-${uuid()}`;
+
+    if (iconConfig?.class) {
+      componentData.class = iconConfig.class;
+    }
 
     if (componentData.attrs) {
       if (props.alt) {
