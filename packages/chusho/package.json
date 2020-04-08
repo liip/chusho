@@ -46,7 +46,6 @@
     "ts-essentials": "^6.0.4"
   },
   "devDependencies": {
-    "@chusho/preset-tailwind": "0.0.0",
     "@egoist/vue-to-react": "^1.1.0",
     "@storybook/addon-a11y": "^5.3.18",
     "@storybook/addon-actions": "^5.3.18",

@@ -4,10 +4,15 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  parser: 'babel-eslint',
-  parserOptions: {
-    sourceType: 'module',
-    ecmaVersion: 2020,
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint',
+  ],
+  rules: {
+    '@typescript-eslint/no-non-null-assertion': 0,
   },
-  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
 };

@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "license": "MIT",
   "description": "Chūshō configuration preset to easily integrate with Tailwind CSS",
-  "main": "index.js",
-  "scripts": {
-    "validate": "eslint index.js",
-    "format": "npm run validate -- --fix"
-  },
+  "keywords": [
+    "chusho",
+    "preset",
+    "tailwind",
+    "tailwindcss",
+    "vue"
+  ],
   "author": {
     "name": "Liip",
     "url": "https://www.liip.ch/"
@@ -21,13 +23,26 @@
     "url": "https://github.com/liip/chusho/issues"
   },
   "homepage": "https://www.chusho.dev/",
+  "scripts": {
+    "validate": "eslint **/*.ts",
+    "format": "npm run validate -- --fix",
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "chusho": "^0.0.0"
+  },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "@typescript-eslint/parser": "^2.27.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-prettier": "^3.1.2",
     "prettier": "^2.0.1",
-    "tailwindcss": "^1.2.0"
+    "tailwindcss": "^1.2.0",
+    "typescript": "^3.8.3"
   },
   "peerDependencies": {
     "tailwindcss": "1.x"

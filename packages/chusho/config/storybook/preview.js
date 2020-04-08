@@ -19,7 +19,7 @@ import VueCompositionApi from '@vue/composition-api';
 
 import Chusho from '@/chusho';
 
-import chushoPresetTailwind from '@chusho/preset-tailwind';
+import chushoPresetTailwind from '../../../preset-tailwind/index.ts';
 import tailwindConfig from '../../tailwind.config';
 import '@/assets/tailwind.css';
 
