@@ -1,6 +1,4 @@
-declare global {
-  export type Dictionary<T> = Record<string, T>;
-}
+import { DeepPartial } from 'ts-essentials';
 
 declare module 'vue/types/vue' {
   interface Vue {
@@ -100,5 +98,5 @@ export interface ChushoOptions {
 
 export interface ChushoUserOptions {
   rtl?: Function;
-  components?: Partial<ComponentsOptions>;
+  components?: DeepPartial<ComponentsOptions>;
 }

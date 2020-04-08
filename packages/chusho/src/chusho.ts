@@ -1,4 +1,6 @@
 import { PluginObject } from 'vue/types/plugin';
+import { Dictionary } from 'ts-essentials';
+
 import { mergeDeep } from './utils/objects';
 import { ChushoOptions, ChushoUserOptions } from './types';
 import * as components from './components';

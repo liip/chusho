@@ -1,7 +1,9 @@
 import { defineComponent, createElement, inject } from '@vue/composition-api';
-import { warn } from '../../utils/debug';
 import { mergeData } from 'vue-functional-data-merge';
 import { VNodeData } from 'vue/types/umd';
+import { Dictionary } from 'ts-essentials';
+
+import { warn } from '../../utils/debug';
 import { FlexSymbol, UseFlex } from './CFlex';
 import { isPlainObject } from '../../utils/objects';
 
