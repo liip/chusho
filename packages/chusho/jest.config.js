@@ -10,4 +10,11 @@ module.exports = {
   // Workaround that can be removed once we upgrade to Storybook 6
   // See https://github.com/storybookjs/storybook/issues/9279
   transformIgnorePatterns: ['node_modules/(?!react-syntax-highlighter)'],
+  globals: {
+    'ts-jest': {
+      diagnostics: {
+        ignoreCodes: [6059, 18002, 18003, 7016],
+      },
+    },
+  },
 };
