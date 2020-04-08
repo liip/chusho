@@ -81,7 +81,7 @@ export default Vue.extend<IconProps>({
       h('use', {
         key: props.id,
         attrs: {
-          'xlink:href': `${iconConfig?.spriteUrl}#${props.id}`,
+          'xlink:href': `${iconConfig?.spriteUrl || ''}#${props.id}`,
         },
       }),
     ]);
