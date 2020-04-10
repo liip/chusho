@@ -38,6 +38,9 @@ const Chusho: PluginObject<ChushoUserOptions> = {
 
 export * from './components';
 export { ChushoUserOptions } from './types';
+export const utils = {
+  mergeDeep,
+};
 export default Chusho;
 
 if (typeof window !== 'undefined' && window.Vue) {
