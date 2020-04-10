@@ -1,5 +1,5 @@
 import resolveConfig from 'tailwindcss/resolveConfig';
-import { ChushoUserOptions } from 'chusho';
+import { ChushoUserOptions } from '../chusho/src/chusho';
 
 export default function chuchoPresetTailwind(
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
