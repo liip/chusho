@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
   // Avoid EsLint issues caused by Lerna symlinking Chusho
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     config.resolve.symlinks(false);
   },
   configureWebpack: {
