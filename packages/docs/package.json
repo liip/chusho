@@ -1,0 +1,34 @@
+{
+  "name": "@chusho/docs",
+  "version": "0.1.0-alpha.0",
+  "license": "MIT",
+  "description": "Chūshō documentation",
+  "author": {
+    "name": "Liip",
+    "url": "https://www.liip.ch/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liip/chusho.git",
+    "directory": "packages/docs"
+  },
+  "bugs": {
+    "url": "https://github.com/liip/chusho/issues"
+  },
+  "homepage": "https://www.chusho.dev/",
+  "scripts": {
+    "start": "vuepress dev",
+    "build": "vuepress build"
+  },
+  "devDependencies": {
+    "sass": "^1.26.3",
+    "sass-loader": "^8.0.2",
+    "vue-docgen-api": "^4.16.0",
+    "vuepress": "^1.4.0",
+    "vuepress-plugin-live": "^1.5.2"
+  },
+  "dependencies": {
+    "@vue/composition-api": "^0.5.0",
+    "chusho": "^0.1.0-alpha.0"
+  }
+}

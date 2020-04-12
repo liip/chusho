@@ -1,0 +1,108 @@
+/**
+ * Layout
+ */
+
+html,
+body {
+  box-sizing: border-box;
+
+  background-color: $gray-200 !important;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+.navbar.navbar {
+  background-color: $gray-800;
+  border-bottom: 0;
+  box-shadow: $shadow-md;
+
+  .links {
+    background-color: inherit;
+
+    @media (min-width: 719px) {
+      color: white;
+    }
+  }
+
+  .site-name {
+    color: white;
+  }
+}
+
+.search-box.search-box input {
+  border: none;
+
+  &:focus {
+    box-shadow: 0 0 0 4px $gray-600;
+  }
+}
+
+@media (min-width: 719px) {
+  .nav-links a:hover,
+  .nav-links a.router-link-active {
+    color: white !important;
+  }
+}
+
+.sidebar-button.sidebar-button {
+  color: $gray-300;
+}
+
+.sidebar.sidebar {
+  background-color: $gray-100;
+  border-right-color: $gray-300;
+}
+
+.page.page {
+  background-color: $gray-200;
+}
+
+
+/**
+ * Components
+ */
+
+.theme-default-content:not(.custom) > h2 {
+  padding-top: 6rem !important;
+}
+
+.preview-code.preview-code {
+  margin: 1rem 0;
+
+  border: none;
+  box-shadow: $shadow;
+
+  .preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1em 2em;
+
+    text-align: left;
+
+    background-color: white;
+  }
+}
+
+.theme-default-content code:not([class*="language-"]) {
+  padding: 0.2rem 0.35rem;
+
+  color: $gray-700;
+
+  background-color: transparentize($gray-500, 0.85);
+}
+
+.custom-block.tip,
+.custom-block.warning,
+.custom-block.danger {
+  border-left-width: 6px !important;
+  border-radius: $border-radius;
+}
+
+.custom-block.tip {
+  background-color: $gray-300 !important;
+}
