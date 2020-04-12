@@ -2,33 +2,8 @@ import StoryRouter from 'storybook-vue-router';
 import CBtn from './CBtn';
 
 export default {
-  title: 'Components/Btn',
+  title: 'Btn',
   component: CBtn,
-  parameters: {
-    componentSubtitle:
-      'Uniformized button style for `router-link`, `nuxt-link`, `a` or `button` elements.',
-    options: {
-      componentConfig: [
-        {
-          name: 'defaultClass',
-          type: { summary: 'string' },
-          description: 'Class applied to all CBtn components.',
-        },
-        {
-          name: 'disabledClass',
-          type: { summary: 'string' },
-          description:
-            'Class applied to Btn when prop `disabled` is set to `true`.',
-        },
-        {
-          name: 'variants',
-          type: { summary: 'object' },
-          description:
-            'Predefined set of variants.\n\nFor example: `{ "primary": "bg-blue-500 text-white" }`',
-        },
-      ],
-    },
-  },
   decorators: [
     StoryRouter(
       {},

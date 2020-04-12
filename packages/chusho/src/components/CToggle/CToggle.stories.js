@@ -3,22 +3,9 @@ import CToggleBtn from './CToggleBtn';
 import CToggleContent from './CToggleContent';
 
 export default {
-  title: 'Components/Toggle',
+  title: 'Toggle',
   component: CToggle,
   subcomponents: { CToggleBtn, CToggleContent },
-  parameters: {
-    componentSubtitle: 'Conditionnaly display some content.',
-    options: {
-      componentConfig: [
-        {
-          name: 'transition',
-          type: { summary: 'object' },
-          description:
-            'Apply a common transition to all Toggles. The object can contain any Vue built-in [transition component props](https://vuejs.org/v2/api/#transition).\n\nFor example: `{ name: "fade", mode: "out-in" }`',
-        },
-      ],
-    },
-  },
 };
 
 export const Default = () => ({
