@@ -1,7 +1,7 @@
 export default {
   props: {
-    /*
-     * Disable inheritance of class defined globally in the config.
+    /**
+     * Disable class inheritance from the component config.
      */
     bare: {
       type: Boolean,
