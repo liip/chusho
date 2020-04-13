@@ -1,6 +1,6 @@
 {
   "name": "playground-ts",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.1",
   "private": true,
   "scripts": {
     "build": "vue-cli-service build",
@@ -8,9 +8,9 @@
     "start": "vue-cli-service serve"
   },
   "dependencies": {
-    "@chusho/preset-tailwind": "^0.1.0-alpha.0",
+    "@chusho/preset-tailwind": "^0.1.0-alpha.1",
     "@vue/composition-api": "^0.5.0",
-    "chusho": "^0.1.0-alpha.0",
+    "chusho": "^0.1.0-alpha.1",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
