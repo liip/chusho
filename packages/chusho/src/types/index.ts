@@ -99,6 +99,10 @@ interface ComponentsOptions {
     dialogClass?: string;
     transition?: VueTransitionProps;
   };
+  alert?: {
+    defaultClass?: string;
+    variants?: Dictionary<string>;
+  };
 }
 
 export interface ChushoOptions {

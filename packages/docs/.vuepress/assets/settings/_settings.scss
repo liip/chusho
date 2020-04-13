@@ -1,25 +1,37 @@
-$gold-100: #FFF2DB;
-$gold-200: #FCDEAB;
-$gold-300: #F8CB7C;
-$gold-400: #F3B74F;
-$gold-500: #EBA224;
-$gold-600: #D38909;
-$gold-700: #A16908;
-$gold-800: #724A03;
-$gold-900: #422A00;
+$gold-100: #fff2db;
+$gold-200: #fcdeab;
+$gold-300: #f8cb7c;
+$gold-400: #f3b74f;
+$gold-500: #eba224;
+$gold-600: #d38909;
+$gold-700: #a16908;
+$gold-800: #724a03;
+$gold-900: #422a00;
 
-$gray-100: #F7FAFC;
-$gray-200: #EDF2F7;
-$gray-300: #E2E8F0;
-$gray-400: #CBD5E0;
-$gray-500: #A0AEC0;
+$gray-100: #f7fafc;
+$gray-200: #edf2f7;
+$gray-300: #e2e8f0;
+$gray-400: #cbd5e0;
+$gray-500: #a0aec0;
 $gray-600: #718096;
-$gray-700: #4A5568;
-$gray-800: #2D3748;
-$gray-900: #1A202C;
+$gray-700: #4a5568;
+$gray-800: #2d3748;
+$gray-900: #1a202c;
+
+$error-100: #fce9e9;
+$error-200: #f5bdbd;
+$error-300: #ee9191;
+$error-400: #e76565;
+$error-500: #e03838;
+$error-600: #c71f1f;
+$error-700: #9a1818;
+$error-800: #6e1111;
+$error-900: #420a0a;
 
 $border-radius: 6px;
 
 $shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);;
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  0 4px 6px -2px rgba(0, 0, 0, 0.05);

@@ -53,6 +53,13 @@ const config = utils.mergeDeep(chushoPresetTailwind(tailwindConfig), {
         'dialog-overlay fixed inset-0 p-4 flex flex-columns items-center justify-center bg-black-50',
       dialogClass: 'dialog p-6 bg-white rounded shadow-lg',
     },
+    alert: {
+      defaultClass: 'py-3 px-6 rounded',
+      variants: {
+        error: 'bg-red-200 text-red-900',
+        inline: 'inline-block',
+      },
+    },
   },
 });
 
