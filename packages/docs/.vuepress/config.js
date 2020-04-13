@@ -8,6 +8,10 @@ module.exports = {
     docsDir: 'packages/docs',
     editLinks: true,
     editLinkText: 'Edit on GitHub',
+    algolia: {
+      apiKey: 'b4e0ea7e2c0655dd7ed73efc3acfff0c',
+      indexName: 'chusho',
+    },
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/' },
