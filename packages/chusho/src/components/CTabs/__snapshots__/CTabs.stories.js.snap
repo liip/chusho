@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Components/Tabs Controlled 1`] = `
+exports[`Storyshots Tabs Controlled 1`] = `
 <div
   class="tabs"
 >
@@ -68,7 +68,7 @@ exports[`Storyshots Components/Tabs Controlled 1`] = `
 </div>
 `;
 
-exports[`Storyshots Components/Tabs Default 1`] = `
+exports[`Storyshots Tabs Default 1`] = `
 <div
   class="tabs"
 >
@@ -136,7 +136,7 @@ exports[`Storyshots Components/Tabs Default 1`] = `
 </div>
 `;
 
-exports[`Storyshots Components/Tabs Override Style 1`] = `
+exports[`Storyshots Tabs Override Style 1`] = `
 <div
   class="tabs"
 >

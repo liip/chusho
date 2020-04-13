@@ -1,23 +1,9 @@
-import { addParameters, addDecorator } from '@storybook/vue';
-import {
-  Title,
-  Subtitle,
-  Description,
-  Primary,
-  Props,
-  Stories,
-} from '@storybook/addon-docs/blocks';
-import ComponentConfig from './blocks/ComponentConfig';
-import { Heading } from '@storybook/addon-docs/blocks';
+import { addDecorator } from '@storybook/vue';
 import { withA11y } from '@storybook/addon-a11y';
 
-import _ from 'lodash';
-import React from 'react';
-import toReact from '@egoist/vue-to-react';
 import Vue from 'vue';
 import VueCompositionApi from '@vue/composition-api';
-
-import Chusho from '@/chusho';
+import Chusho, { utils } from '@/chusho';
 
 import chushoPresetTailwind from '../../../preset-tailwind/index.ts';
 import tailwindConfig from '../../tailwind.config';
@@ -27,28 +13,6 @@ import '@/assets/tailwind.css';
  * Customize Storybook
  */
 
-addParameters({
-  options: {
-    showRoots: true,
-  },
-  docs: {
-    inlineStories: true,
-    prepareForInline: (storyFn) => {
-      const Story = toReact(storyFn());
-      return React.createElement(Story);
-    },
-    page: () => [
-      React.createElement(Title, { key: 'title' }),
-      React.createElement(Subtitle, { key: 'subtitle' }),
-      React.createElement(Description, { key: 'description' }),
-      React.createElement(Primary, { key: 'primary' }),
-      React.createElement(ComponentConfig, { key: 'componentConfig' }),
-      React.createElement(Heading, { key: 'usage-title' }, 'Component usage'),
-      React.createElement(Props, { key: 'props' }),
-      React.createElement(Stories, { key: 'stories' }),
-    ],
-  },
-});
 addDecorator(withA11y);
 
 /**
@@ -57,7 +21,7 @@ addDecorator(withA11y);
 
 Vue.use(VueCompositionApi);
 
-const config = _.merge(chushoPresetTailwind(tailwindConfig), {
+const config = utils.mergeDeep(chushoPresetTailwind(tailwindConfig), {
   components: {
     btn: {
       defaultClass: 'inline-block',

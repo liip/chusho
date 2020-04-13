@@ -5,61 +5,9 @@ import CTabPanels from './CTabPanels';
 import CTabPanel from './CTabPanel';
 
 export default {
-  title: 'Components/Tabs',
+  title: 'Tabs',
   component: CTabs,
   subcomponents: { CTabList, CTab, CTabPanels, CTabPanel },
-  parameters: {
-    componentSubtitle: 'Accessible tabs component',
-    options: {
-      componentConfig: [
-        {
-          name: 'tabsClass',
-          type: { summary: 'string' },
-          description: 'Class applied to all CTabs components.',
-        },
-        {
-          name: 'tabListClass',
-          type: { summary: 'string' },
-          description: 'Class applied to all CTabList components.',
-        },
-        {
-          name: 'tabPanelsClass',
-          type: { summary: 'string' },
-          description: 'Class applied to all CTabPanels components.',
-        },
-        {
-          name: 'tabPanelClass',
-          type: {
-            summary: 'string | function',
-            detail: `// Example returning an object with conditional classes
-function(active) {
-  return {
-    'tab-panel': true,
-    'tab-panel--active': active
-  }
-}`,
-          },
-          description:
-            'Class applied to all CTabPanel components.\n\nProvide a `function` to dynamically apply classes based on the state, in this case it should return a valid Vue “class” syntax (object, array or string), see [Vue class documentation](https://vuejs.org/v2/guide/class-and-style.html).',
-        },
-        {
-          name: 'tabClass',
-          type: {
-            summary: 'string | function',
-            detail: `// Example returning an object with conditional classes
-function(active) {
-  return {
-    'tab': true,
-    'tab--active': active
-  }
-}`,
-          },
-          description:
-            'Class applied to all CTab components.\n\nProvide a `function` to dynamically apply classes based on the state, in this case it should return a valid Vue “class” syntax (object, array or string), see [Vue class documentation](https://vuejs.org/v2/guide/class-and-style.html).',
-        },
-      ],
-    },
-  },
 };
 
 export const Default = () => ({

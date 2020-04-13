@@ -3,15 +3,14 @@ import { create } from '@storybook/theming/create';
 export default create({
   base: 'light',
 
-  appBg: '#EBEFEF',
-  appBorderColor: '#F0DBE4',
-  colorPrimary: '#415350',
-  colorSecondary: '#BF4E81',
-  appBorderRadius: 10,
+  appBg: '#E2E8F0',
+  appBorderColor: '#CBD5E0',
+  colorPrimary: '#4A5568',
+  colorSecondary: '#D38909',
 
-  textColor: '#2B3634',
-  barTextColor: '#CD749C',
-  barBg: '#FBF4F7',
+  textColor: '#2D3748',
+  barTextColor: '#718096',
+  barBg: '#F7FAFC',
 
   brandTitle: 'Chūshō',
 });
