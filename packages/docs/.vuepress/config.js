@@ -3,10 +3,14 @@ module.exports = {
   description: 'A library of bare accessible Vue.js components and tools.',
   plugins: [require('./plugins/docgen'), 'live'],
   themeConfig: {
+    lastUpdated: 'Last updated',
+    repo: 'liip/chusho',
+    docsDir: 'packages/docs',
+    editLinks: true,
+    editLinkText: 'Edit on GitHub',
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/' },
-      { text: 'Github', link: 'https://github.com/liip/chusho' },
     ],
     sidebar: {
       '/guide/': [
@@ -27,6 +31,12 @@ module.exports = {
             'components/tabs.md',
             'components/toggle.md',
           ],
+        },
+        {
+          title: 'Presets',
+          collapsable: false,
+          path: '/guide/presets/',
+          children: ['presets/tailwind.md'],
         },
       ],
     },

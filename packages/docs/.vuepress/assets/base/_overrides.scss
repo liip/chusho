@@ -71,7 +71,8 @@ body {
 }
 
 .preview-code.preview-code {
-  margin: 1rem 0;
+  margin-top: 1rem;
+  margin-bottom: 1.75rem;
 
   border: none;
   box-shadow: $shadow;
@@ -86,6 +87,14 @@ body {
 
     background-color: white;
   }
+
+  div[class*="language-"] {
+    margin: 0 !important;
+  }
+}
+
+.theme-default-content pre:not(.prism-editor__code) {
+  margin-bottom: 1.75rem !important;
 }
 
 .theme-default-content code:not([class*="language-"]) {
@@ -96,13 +105,24 @@ body {
   background-color: transparentize($gray-500, 0.85);
 }
 
+div[class*="language-"] .highlight-lines .highlighted {
+  background-color: $gray-900 !important;
+}
+
 .custom-block.tip,
 .custom-block.warning,
 .custom-block.danger {
+  margin-bottom: 1.75rem !important;
+
   border-left-width: 6px !important;
   border-radius: $border-radius;
 }
 
 .custom-block.tip {
   background-color: $gray-300 !important;
+  border-color: #63B3ED !important;
+}
+
+blockquote {
+  color: $gray-700 !important;
 }

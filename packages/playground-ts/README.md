@@ -1,24 +1,17 @@
-# playground-ts
+# Chūshō playground TypeScript
 
-## Project setup
-```
-npm install
-```
+A Vue app to play with Chūshō’s components and tools in a TypeScript environment.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Usage
 
-### Compiles and minifies for production
+Ensure you have [bootstraped the monorepo](https://github.com/liip/chusho#project-setup) and [build a local version of the library](https://github.com/liip/chusho/tree/master/packages/chusho#build-for-production) first.
+
+Then start the development server:
+
 ```
-npm run build
+npm start
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+Chucho’s is already loaded in `src/main.js`, you can now start playing in `src/App.vue`.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+**Note:** if you make changes in the core library, you must manually build it again for the playground to pick it up.

@@ -1,10 +1,13 @@
-**This project is currently in active development and not yet ready for production. Stay tuned!**
+**This project is currently in active development, we’d love to have feedback on existing components but we do not recommend using them in production yet. Stay tuned for more components!**
 
 [![Build Status](https://api.travis-ci.org/liip/chusho.svg?branch=master)](https://travis-ci.org/liip/chusho)
+[![npm Package](https://img.shields.io/npm/v/chusho)](https://www.npmjs.com/package/chusho)
 
 # Chūshō
 
 A library of bare accessible Vue components and tools.
+
+[Documentation](https://www.chusho.dev/guide/)
 
 ## Project setup
 

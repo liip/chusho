@@ -79,13 +79,8 @@ For example:
 {
   '1/2': 'w-1/2',
   '1/3': 'w-1/3',
-  fallback: 'w-full'
 }
 ```
-
-::: tip
-Notice the special `fallback` key that will be applied when a `width` object is passed without a `default` value.
-:::
 
 ### defaultWidth
 

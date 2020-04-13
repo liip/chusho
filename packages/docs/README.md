@@ -1,16 +1,17 @@
----
-home: true
-heroImage: /logo.svg
-heroText: Chūshō
-tagline: A library of bare accessible Vue.js components and tools
-actionText: Get Started →
-actionLink: /guide/
-features:
-  - title: Accessible
-    details: All components are following the Web Content Accessibility Guidelines (WCAG) recommendations.
-  - title: Unstyled
-    details: No built-in CSS whatsoever, you have total control over which class is applied to which element.
-  - title: Ready-to-use
-    details: We provide configuration presets for frameworks such as Tailwind CSS so you can start coding even faster.
-footer: MIT Licensed · © 2020-present, Liip
----
+# Chūshō docs
+
+Documentation powered by [VuePress](https://vuepress.vuejs.org/) and deployed automatically to [chusho.dev](https://www.chusho.dev/) from `master` branch.
+
+## Useful commands
+
+Start the development server:
+
+```bash
+npm start
+```
+
+Build a static version into `.vuepress/dist`
+
+```bash
+npm run build
+```

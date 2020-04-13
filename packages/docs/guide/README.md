@@ -7,7 +7,7 @@ next: /guide/config.html
 ::: warning
 **Chūshō is currently in active development.**
 
-Existing components should be stable but they are pretty young and some edge cases might have been missed. You’re more than welcome to try them now and [report any problem](https://github.com/liip/chusho/issues) you might have.
+Existing components should be stable but they are pretty young and some edge cases might have been missed. You’re more than welcome to try them now and [report any problem](https://github.com/liip/chusho/issues) you might encounter.
 
 We’ll add more components before releasing the first stable version, you can [follow the progress](https://github.com/liip/chusho/projects/1).
 :::
@@ -37,7 +37,7 @@ import Chusho from 'chusho';
 
 Vue.use(CompositionApi);
 Vue.use(Chusho, {
-  // Here goes your own, optional Chūshō config object
+  // Here goes your own Chūshō config
 });
 ```
 
