@@ -2,7 +2,7 @@ import { PluginObject } from 'vue/types/plugin';
 import { Dictionary } from 'ts-essentials';
 
 import { mergeDeep } from './utils/objects';
-import { ChushoOptions, ChushoUserOptions } from './types';
+import { DollarChusho, ChushoOptions, ChushoUserOptions } from './types';
 import * as components from './components';
 
 const defaultOptions: ChushoOptions = {
@@ -25,7 +25,8 @@ const Chusho: PluginObject<ChushoUserOptions> = {
     // Provide configuration
     Vue.prototype.$chusho = {
       options,
-    };
+      openDialogs: [],
+    } as DollarChusho;
 
     // Install components
     const pluginComponents = components as Dictionary<object | Function>;

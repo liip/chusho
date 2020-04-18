@@ -19,10 +19,12 @@
           <template v-if="section.rows && section.rows.length">
             <tr v-for="row in section.rows" :key="row.name">
               <td>
-                {{ row.name }}
-                <abbr v-if="row.required" title="Required" class="required">
-                  *
-                </abbr>
+                {{ row.name }}&nbsp;<abbr
+                  v-if="row.required"
+                  title="Required"
+                  class="required"
+                  >*</abbr
+                >
               </td>
               <td>
                 <code>{{ row.type.name }}</code>

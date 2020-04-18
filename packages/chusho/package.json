@@ -34,6 +34,7 @@
     "test:unit:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
     "test": "npm run validate && npm run test:unit",
     "build": "rollup -c",
+    "build:watch": "npm run build -- -w",
     "prepublishOnly": "npm run build"
   },
   "main": "dist/chusho.js",
@@ -45,6 +46,7 @@
     "dist/"
   ],
   "dependencies": {
+    "portal-vue": "^2.1.7",
     "ts-essentials": "^6.0.4"
   },
   "devDependencies": {

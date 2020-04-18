@@ -65,6 +65,10 @@ export default ({ Vue }) => {
           ];
         },
       },
+      dialog: {
+        overlayClass: 'dialog-overlay',
+        dialogClass: 'dialog',
+      },
     },
   });
 };
