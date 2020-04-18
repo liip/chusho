@@ -63,7 +63,7 @@ interface ComponentsOptions {
     class?: string;
   };
   toggle?: {
-    transition?: VueTransitionProps | null;
+    transition?: VueTransitionProps;
   };
   flex: {
     containerClass?: string;

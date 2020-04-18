@@ -34,7 +34,11 @@ export default defineComponent<ToggleContentProps>({
 
     if (isPlainObject(props.transition)) {
       transition = props.transition;
-    } else if (toggleConfig && toggleConfig.transition) {
+    } else if (
+      props.transition !== false &&
+      toggleConfig &&
+      toggleConfig.transition
+    ) {
       transition = toggleConfig.transition;
     }
 
