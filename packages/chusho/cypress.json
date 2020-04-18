@@ -1,0 +1,4 @@
+{
+  "testFiles": "**/*.spec.e2e.js",
+  "pluginsFile": "tests/e2e/plugins/index.js"
+}

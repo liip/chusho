@@ -70,7 +70,7 @@ export const Nested = () => ({
         </p>
 
         <div class="mt-4">
-          <CBtn variant="default medium" @click="childOpen = true">Open Child Dialog</CBtn>
+          <CBtn variant="default medium" @click="childOpen = true" data-test="nested-trigger">Open Child Dialog</CBtn>
         </div>
       </CDialog>
 

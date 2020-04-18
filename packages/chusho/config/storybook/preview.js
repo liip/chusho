@@ -60,7 +60,7 @@ const config = utils.mergeDeep(chushoPresetTailwind(tailwindConfig), {
     dialog: {
       overlayClass:
         'dialog-overlay fixed inset-0 p-4 flex flex-columns items-center justify-center bg-black-50',
-      dialogClass: 'p-6 bg-white rounded shadow-lg',
+      dialogClass: 'dialog p-6 bg-white rounded shadow-lg',
     },
   },
 });

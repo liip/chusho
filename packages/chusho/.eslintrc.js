@@ -24,5 +24,12 @@ module.exports = {
         jest: true,
       },
     },
+    {
+      files: ['./src/**/*.spec.e2e.{j,t}s'],
+      plugins: ['cypress'],
+      env: {
+        'cypress/globals': true,
+      },
+    },
   ],
 };
