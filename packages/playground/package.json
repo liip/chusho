@@ -5,6 +5,9 @@
   "scripts": {
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "ssr:build": "vue-cli-service ssr:build",
+    "ssr:serve": "vue-cli-service ssr:serve",
+    "ssr:start": "cross-env NODE_ENV=production vue-cli-service ssr:serve --mode production",
     "start": "vue-cli-service serve"
   },
   "dependencies": {
@@ -12,11 +15,15 @@
     "@vue/composition-api": "^0.5.0",
     "chusho": "^0.1.0-alpha.1",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-router": "^3.1.6",
+    "vue-server-renderer": "^2.6.0"
   },
   "devDependencies": {
+    "@akryum/vue-cli-plugin-ssr": "~0.6.0",
     "@vue/cli-plugin-babel": "~4.3.1",
     "@vue/cli-plugin-eslint": "~4.3.1",
+    "@vue/cli-plugin-router": "^4.3.1",
     "@vue/cli-service": "~4.3.1",
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",

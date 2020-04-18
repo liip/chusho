@@ -1,9 +1,17 @@
 const path = require('path');
 
 module.exports = {
-  // Avoid EsLint issues caused by Lerna symlinking Chusho
   chainWebpack: (config) => {
+    // Avoid EsLint issues caused by Lerna symlinking Chusho
     config.resolve.symlinks(false);
+
+    // Prevent bundles from being injected twice in the page
+    // https://github.com/Akryum/vue-cli-plugin-ssr/issues/158
+    const htmlSsrPlugin = config.plugins.get('html-ssr');
+
+    if (htmlSsrPlugin) {
+      htmlSsrPlugin.store.get('args')[0].chunks = [];
+    }
   },
   configureWebpack: {
     resolve: {

@@ -8,10 +8,16 @@ Ensure you have [bootstraped the monorepo](https://github.com/liip/chusho#projec
 
 Then start the development server:
 
-```
+```bash
 npm start
 ```
 
-Chucho’s is already loaded in `src/main.js`, you can now start playing in `src/App.vue`.
+Alternatively, you can start the server with SSR:
+
+```bash
+npm run ssr:serve
+```
+
+Chucho’s is already loaded in `src/main.js`, you can now start playing in `src/views/Home.vue`.
 
 **Note:** if you make changes in the core library, you must manually build it again for the playground to pick it up.
