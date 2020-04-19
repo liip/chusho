@@ -1,4 +1,5 @@
 import { Dictionary } from 'ts-essentials';
+import { VNodeData } from 'vue/types/umd';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isPlainObject(value: any): value is Dictionary<any> {
@@ -28,4 +29,39 @@ export function mergeDeep(
   }
 
   return source;
+}
+
+const allowedKeys = [
+  'key',
+  'slot',
+  'scopedSlots',
+  'ref',
+  'refInFor',
+  'tag',
+  'staticClass',
+  'class',
+  'staticStyle',
+  'style',
+  'props',
+  'attrs',
+  'domProps',
+  'on',
+  'nativeOn',
+  'directives',
+  'keepAlive',
+];
+
+/**
+ * Filter object to keep only VNodeData keys accepted in createElement
+ */
+export function filterVueData(data: VNodeData = {}): VNodeData {
+  const res: VNodeData = {};
+
+  Object.keys(data)
+    .filter((key) => allowedKeys.includes(key))
+    .forEach((key) => {
+      res[key as keyof VNodeData] = data[key as keyof VNodeData];
+    });
+
+  return res;
 }

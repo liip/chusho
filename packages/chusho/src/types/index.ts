@@ -2,9 +2,7 @@ import { DeepPartial } from 'ts-essentials';
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $chusho: {
-      options: ChushoOptions;
-    };
+    $chusho: DollarChusho;
     $nuxt?: object;
   }
 
@@ -19,6 +17,11 @@ declare module '@vue/composition-api/dist/component/component' {
   interface SetupContext {
     readonly refs: { [key: string]: Vue | Element | Vue[] | Element[] };
   }
+}
+
+export interface DollarChusho {
+  options: ChushoOptions;
+  openDialogs: object[];
 }
 
 export interface VueTransitionProps {
@@ -88,6 +91,11 @@ interface ComponentsOptions {
     tabPanelsClass?: string;
     tabPanelClass?: string | TabClassGenerator;
     tabClass?: string | TabClassGenerator;
+  };
+  dialog?: {
+    overlayClass?: string;
+    dialogClass?: string;
+    transition?: VueTransitionProps;
   };
 }
 

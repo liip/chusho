@@ -30,6 +30,7 @@ module.exports = {
           path: '/guide/components/',
           children: [
             'components/button.md',
+            'components/dialog.md',
             'components/flex.md',
             'components/icon.md',
             'components/tabs.md',
