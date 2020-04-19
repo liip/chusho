@@ -50,19 +50,31 @@ Classes to apply to all Flex items.
 
 - **type:** `object`
 
-List of available gaps.
+List of available gaps by axis. The object key (`1`, `2` in the example below) is the gap id you’ll reference in the Flex component `gap` prop to apply the corresponding classes.
 
-For example:
+Here’s an example using numbers as gap ids, but it can also be strings like `xs`, `sm`, …
 
 ```js
 {
-  'xs': {
-    containerClass: '-mt-1',
-    itemClass: 'mt-1'
+  x: {
+    1: {
+      containerClass: '-ml-1',
+      itemClass: 'pl-1'
+    },
+    2: {
+      containerClass: '-ml-2',
+      itemClass: 'pl-2'
+    }
   },
-  'sm': {
-    containerClass: '-mt-2',
-    itemClass: 'mt-2'
+  y: {
+    1: {
+      containerClass: '-mt-1',
+      itemClass: 'pt-1'
+    },
+    2: {
+      containerClass: '-mt-2',
+      itemClass: 'pt-2'
+    }
   }
 }
 ```
