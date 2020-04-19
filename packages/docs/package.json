@@ -1,6 +1,6 @@
 {
   "name": "@chusho/docs",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "private": true,
   "license": "MIT",
   "description": "Chūshō documentation",
@@ -30,6 +30,6 @@
   },
   "dependencies": {
     "@vue/composition-api": "^0.5.0",
-    "chusho": "^0.1.0-alpha.1"
+    "chusho": "^0.1.0-alpha.2"
   }
 }
