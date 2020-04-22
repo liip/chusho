@@ -19,18 +19,58 @@ npm start
 
 ### Build for production
 
+Rollup will create the various bundles in the `dist` folder.
+
 ```
 npm run build
 ```
 
-### Runs tests
+## Quode quality
 
-```
-npm test
+### Style
+
+To ensure the code match the style with EsLint & Prettier:
+
+```bash
+npm run validate
 ```
 
-### Lints and fixes files
+Autofix as many offenses as possible:
 
-```
+```bash
 npm run format
+```
+
+### Unit tests
+
+Run the unit test suites once with Jest:
+
+```bash
+npm run test:unit
+```
+
+Or start Jest in watch mode:
+
+```bash
+npm run test:unit:dev
+```
+
+### End-to-end tests
+
+To run the end-to-end tests, you need to start the development server first:
+
+```bash
+npm start
+```
+
+Then, in another process, you can start Cypress in interactive mode (great for development):
+
+```bash
+npm run test:e2e:dev
+```
+
+Or in headless mode (great to quickly check once that the suites pass):
+
+```
+npm run test:e2e:headless
 ```
