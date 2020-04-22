@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   title: 'Chūshō',
   description: 'A library of bare accessible Vue.js components and tools.',
@@ -45,5 +47,14 @@ module.exports = {
         },
       ],
     },
+  },
+  chainWebpack: config => {
+    // For some reasons, Chῡshō’s own dependencies can’t be resolved
+    // despite being present in docs’ node_modules
+    // Probably related to symlinks but the usual trick doesn’t work
+    // https://github.com/vuejs/vuepress/issues/193
+    config.resolve.modules.add(
+      path.resolve(__dirname, '../../chusho/node_modules')
+    );
   },
 };
