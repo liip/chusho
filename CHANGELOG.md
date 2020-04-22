@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.3](https://github.com/liip/chusho/compare/v0.1.0-alpha.2...v0.1.0-alpha.3) (2020-04-22)
+
+
+### Bug Fixes
+
+* **Dialog:** keep portal-vue separated from bundle ([ee317c0](https://github.com/liip/chusho/commit/ee317c01cbeb009ac1cca5fadfc73cf0ee4f54ca))
+* **Dialog:** prevent hydration issues after SSR ([a674f24](https://github.com/liip/chusho/commit/a674f24f8c2a62fd1632d4346a0afb48d14e95b9)), closes [#31](https://github.com/liip/chusho/issues/31)
+* **Preset Tailwind:** properly load chusho & build ([a8aa5fc](https://github.com/liip/chusho/commit/a8aa5fca85b125ee9e65d5d05761da2af65dbe1e))
+
+
+
+
+
 # [0.1.0-alpha.2](https://github.com/liip/chusho/compare/v0.1.0-alpha.1...v0.1.0-alpha.2) (2020-04-19)
 
 
