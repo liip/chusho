@@ -29,17 +29,26 @@
     "storybook:build:debug": "npm run storybook:build -- --debug-webpack",
     "format": "vue-cli-service lint",
     "validate": "vue-cli-service lint --no-fix",
+    "size-build": "npm run build",
+    "size": "size-limit",
     "test:unit": "vue-cli-service test:unit",
     "test:unit:dev": "vue-cli-service test:unit --watch",
     "test:unit:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
     "test:e2e:dev": "vue-cli-service test:e2e --url http://localhost:6006",
     "test:e2e:headless": "npm run test:e2e:dev -- --headless",
     "test:e2e": "start-server-and-test start http://localhost:6006 test:e2e:headless",
-    "test": "npm run validate && npm run test:unit && npm run test:e2e",
+    "test": "npm run validate && npm run size && npm run test:unit && npm run test:e2e",
     "build": "rimraf dist && rollup -c",
     "build:watch": "npm run build -- -w",
     "prepublishOnly": "npm run build"
   },
+  "size-limit": [
+    {
+      "path": "dist/chusho.js",
+      "running": false,
+      "limit": "10 KB"
+    }
+  ],
   "main": "dist/chusho.js",
   "umd:main": "dist/chusho.umd.js",
   "module": "dist/chusho.module.js",
@@ -54,6 +63,7 @@
     "vue-client-only": "^2.0.0"
   },
   "devDependencies": {
+    "@size-limit/preset-big-lib": "^4.4.5",
     "@storybook/addon-a11y": "^5.3.18",
     "@storybook/addon-actions": "^5.3.18",
     "@storybook/vue": "^5.3.18",
@@ -80,6 +90,7 @@
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-terser": "^5.3.0",
     "rollup-plugin-typescript2": "^0.27.0",
+    "size-limit": "^4.4.5",
     "start-server-and-test": "^1.11.0",
     "storybook-vue-router": "^1.0.7",
     "typescript": "~3.8.3",
