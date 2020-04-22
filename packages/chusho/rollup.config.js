@@ -43,10 +43,11 @@ function genConfig({ outFile, format, mode }) {
       globals: {
         vue: 'Vue',
         '@vue/composition-api': 'vueCompositionApi',
+        'portal-vue': 'PortalVue',
       },
       name: format === 'umd' ? 'Chusho' : undefined,
     },
-    external: ['vue', '@vue/composition-api'],
+    external: ['vue', '@vue/composition-api', 'portal-vue'],
     plugins: [
       resolve(),
       typescript({
