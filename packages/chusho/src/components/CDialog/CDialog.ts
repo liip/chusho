@@ -1,6 +1,7 @@
 import Vue, { VNode, VNodeData } from 'vue';
 import { mergeData } from 'vue-functional-data-merge';
 import { MountingPortal } from 'portal-vue';
+import ClientOnly from 'vue-client-only';
 import { filterVueData, isPlainObject } from '../../utils/objects';
 import { getFocusableElements } from '../../utils/keyboard';
 
@@ -159,7 +160,7 @@ export default Vue.extend({
     let children: VNode[] = [];
 
     // Do not render dialogs on the server
-    if (typeof window !== 'undefined') {
+    if (!this.$isServer) {
       this.createPortalIfNotExists();
 
       if (this.open) {
@@ -202,35 +203,44 @@ export default Vue.extend({
       } else {
         this.$nextTick(this.deactivate);
       }
+
+      let transition;
+
+      if (isPlainObject(this.transition)) {
+        transition = this.transition;
+      } else if (
+        this.transition !== false &&
+        dialogConfig &&
+        dialogConfig.transition
+      ) {
+        transition = dialogConfig.transition;
+      }
+
+      if (transition) {
+        children = [
+          h(
+            'transition',
+            {
+              props: transition,
+              key: 'transition',
+            },
+            children
+          ),
+        ];
+      }
     }
 
-    let transition;
-
-    if (isPlainObject(this.transition)) {
-      transition = this.transition;
-    } else if (
-      this.transition !== false &&
-      dialogConfig &&
-      dialogConfig.transition
-    ) {
-      transition = dialogConfig.transition;
-    }
-
-    if (transition) {
-      children = [
-        h('transition', { props: transition, key: 'transition' }, children),
-      ];
-    }
-
-    return h(
-      MountingPortal,
-      {
-        props: {
-          append: true,
-          mountTo: `#${PORTAL_ID}`,
+    return h(ClientOnly, [
+      h(
+        MountingPortal,
+        {
+          props: {
+            append: true,
+            mountTo: `#${PORTAL_ID}`,
+          },
         },
-      },
-      children
-    );
+        children
+      ),
+    ]);
   },
 });

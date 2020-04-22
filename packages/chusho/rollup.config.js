@@ -44,10 +44,11 @@ function genConfig({ outFile, format, mode }) {
         vue: 'Vue',
         '@vue/composition-api': 'vueCompositionApi',
         'portal-vue': 'PortalVue',
+        'vue-client-only': 'ClientOnly',
       },
       name: format === 'umd' ? 'Chusho' : undefined,
     },
-    external: ['vue', '@vue/composition-api', 'portal-vue'],
+    external: ['vue', '@vue/composition-api', 'portal-vue', 'vue-client-only'],
     plugins: [
       resolve(),
       typescript({
