@@ -7,6 +7,8 @@ import { UseToggle } from './CToggle';
 export default defineComponent({
   name: 'CToggleBtn',
 
+  inheritAttrs: false,
+
   setup(props, { attrs, slots, listeners }) {
     const toggle = inject(ToggleSymbol) as UseToggle;
 
