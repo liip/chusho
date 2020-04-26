@@ -1,4 +1,4 @@
-import { DeepPartial } from 'ts-essentials';
+import { DeepPartial, Dictionary } from 'ts-essentials';
 
 declare module 'vue/types/vue' {
   interface Vue {
@@ -54,9 +54,7 @@ type TabClassGenerator = (
 interface ComponentsOptions {
   btn?: {
     defaultClass?: string;
-    variants?: {
-      [key: string]: string;
-    };
+    variants?: Dictionary<string>;
     disabledClass?: string;
   };
   icon?: {
@@ -72,16 +70,10 @@ interface ComponentsOptions {
     containerClass?: string;
     itemClass?: string;
     gaps?: {
-      x?: {
-        [key: string]: ContainerItemClass;
-      };
-      y?: {
-        [key: string]: ContainerItemClass;
-      };
+      x?: Dictionary<ContainerItemClass>;
+      y?: Dictionary<ContainerItemClass>;
     };
-    widths?: {
-      [key: string]: string;
-    };
+    widths?: Dictionary<string>;
     defaultWidth?: string;
     responsiveWidthGenerator(breakpoint: string, width: string): string;
   };
