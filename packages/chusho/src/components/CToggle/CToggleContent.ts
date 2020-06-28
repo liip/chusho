@@ -3,10 +3,11 @@ import { inject, createElement, defineComponent } from '@vue/composition-api';
 import { ToggleSymbol } from './CToggle';
 import { UseToggle } from './CToggle';
 import { isPlainObject } from '../../utils/objects';
+import { VueTransitionProps } from '../../types';
 
-interface ToggleContentProps {
-  transition: object | boolean;
-}
+type ToggleContentProps = {
+  transition: VueTransitionProps | boolean;
+};
 
 export default defineComponent<ToggleContentProps>({
   name: 'CToggleContent',
@@ -30,7 +31,7 @@ export default defineComponent<ToggleContentProps>({
   setup(props, { slots, attrs, parent }) {
     const toggleConfig = parent!.$chusho?.options?.components?.toggle;
     const toggle = inject(ToggleSymbol) as UseToggle;
-    let transition: object;
+    let transition: VueTransitionProps;
 
     if (isPlainObject(props.transition)) {
       transition = props.transition;

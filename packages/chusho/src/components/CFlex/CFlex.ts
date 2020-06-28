@@ -9,7 +9,7 @@ import { mergeData } from 'vue-functional-data-merge';
 import { ContainerItemClass } from '../../types';
 import { warn } from '../../utils/debug';
 
-export const FlexSymbol: InjectionKey<object> = Symbol();
+export const FlexSymbol: InjectionKey<UseFlex> = Symbol();
 
 export interface UseFlex {
   gapX?: ContainerItemClass;

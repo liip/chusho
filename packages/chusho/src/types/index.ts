@@ -3,7 +3,7 @@ import { DeepPartial, Dictionary } from 'ts-essentials';
 declare module 'vue/types/vue' {
   interface Vue {
     $chusho: DollarChusho;
-    $nuxt?: object;
+    $nuxt?: Dictionary<unknown>;
   }
 
   interface VueConstructor {
@@ -13,7 +13,7 @@ declare module 'vue/types/vue' {
   }
 }
 
-declare module '@vue/composition-api/dist/component/component' {
+declare module '@vue/composition-api' {
   interface SetupContext {
     readonly refs: { [key: string]: Vue | Element | Vue[] | Element[] };
   }
@@ -21,7 +21,7 @@ declare module '@vue/composition-api/dist/component/component' {
 
 export interface DollarChusho {
   options: ChushoOptions;
-  openDialogs: object[];
+  openDialogs: Vue[];
 }
 
 export interface VueTransitionProps {
@@ -39,7 +39,14 @@ export interface VueTransitionProps {
   appearClass?: string;
   appearActiveClass?: string;
   appearToClass?: string;
-  duration?: [number, string, object];
+  duration?: [
+    number,
+    string,
+    {
+      enter: number;
+      leave: number;
+    }
+  ];
 }
 
 export interface ContainerItemClass {
@@ -47,9 +54,12 @@ export interface ContainerItemClass {
   itemClass: string;
 }
 
-type TabClassGenerator = (
-  active: boolean
-) => string | object | Array<object | string>;
+type VueClassBinding =
+  | string
+  | Dictionary<boolean, string>
+  | Array<Dictionary<boolean, string> | string>;
+
+export type ClassGenerator = (active: boolean) => VueClassBinding;
 
 interface ComponentsOptions {
   btn?: {
@@ -81,8 +91,8 @@ interface ComponentsOptions {
     tabsClass?: string;
     tabListClass?: string;
     tabPanelsClass?: string;
-    tabPanelClass?: string | TabClassGenerator;
-    tabClass?: string | TabClassGenerator;
+    tabPanelClass?: string | ClassGenerator;
+    tabClass?: string | ClassGenerator;
   };
   dialog?: {
     overlayClass?: string;
@@ -92,11 +102,8 @@ interface ComponentsOptions {
 }
 
 export interface ChushoOptions {
-  rtl: Function;
+  rtl: () => boolean;
   components: ComponentsOptions;
 }
 
-export interface ChushoUserOptions {
-  rtl?: Function;
-  components?: DeepPartial<ComponentsOptions>;
-}
+export type ChushoUserOptions = DeepPartial<ChushoOptions>;

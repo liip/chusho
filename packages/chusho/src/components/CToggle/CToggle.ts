@@ -10,12 +10,12 @@ import {
 } from '@vue/composition-api';
 import uuid from '../../utils/uuid';
 
-export const ToggleSymbol: InjectionKey<object> = Symbol();
+export const ToggleSymbol: InjectionKey<UseToggle> = Symbol();
 
 export interface UseToggle {
   uuid: number;
   open: Readonly<Ref<boolean>>;
-  toggle: Function;
+  toggle: () => void;
 }
 
 interface ToggleProps {
@@ -43,7 +43,7 @@ export default defineComponent<ToggleProps>({
   setup(props, { slots, emit }) {
     const open = ref(false);
 
-    function toggle(): void {
+    function toggle() {
       open.value = !open.value;
       // Update potential parent v-model value
       emit('toggle', open.value);

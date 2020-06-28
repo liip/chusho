@@ -3,10 +3,11 @@ import { defineComponent, createElement, inject } from '@vue/composition-api';
 
 import { TabsSymbol, UseTabs } from './CTabs';
 import TabsMixin from './mixin';
+import { ClassGenerator } from 'src/types';
 
 interface TabPanelProps {
   id: number | string;
-  classGenerator?: Function;
+  classGenerator?: ClassGenerator;
   bare?: boolean;
 }
 

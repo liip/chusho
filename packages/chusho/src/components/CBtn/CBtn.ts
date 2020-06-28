@@ -1,10 +1,11 @@
 import Vue, { VNodeData } from 'vue';
 import { mergeData } from 'vue-functional-data-merge';
 import { VNode } from 'vue/types/umd';
+import { RawLocation } from 'vue-router';
 
 interface BtnProps {
   href: string;
-  to: string | object;
+  to: RawLocation;
   type: string;
   variant: string;
   disabled: boolean;

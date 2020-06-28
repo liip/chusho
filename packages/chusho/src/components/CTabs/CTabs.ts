@@ -12,7 +12,7 @@ import uuid from '../../utils/uuid';
 import { VNodeData } from 'vue/types/umd';
 import TabsMixin from './mixin';
 
-export const TabsSymbol: InjectionKey<object> = Symbol();
+export const TabsSymbol: InjectionKey<UseTabs> = Symbol();
 
 export declare type TabId = string | number;
 
@@ -25,8 +25,8 @@ export interface UseTabs {
   uuid: number;
   currentTab: Readonly<Ref<TabId | undefined>>;
   tabs: Readonly<Ref<readonly TabId[]>>;
-  setCurrentTab: Function;
-  registerTab: Function;
+  setCurrentTab: (id: TabId) => void;
+  registerTab: (id: TabId) => void;
 }
 
 interface TabsProps {
@@ -71,13 +71,13 @@ export default defineComponent<TabsProps>({
       tabs: [],
     });
 
-    function setCurrentTab(id: TabId): void {
+    function setCurrentTab(id: TabId) {
       state.currentTab = id;
       // Update potential parent v-model value
       emit('change', id);
     }
 
-    function registerTab(id: TabId): void {
+    function registerTab(id: TabId) {
       state.tabs.push(id);
 
       if (state.tabs.length === 1 && !state.currentTab) {

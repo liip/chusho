@@ -4,6 +4,7 @@ import { Dictionary } from 'ts-essentials';
 import { mergeDeep } from './utils/objects';
 import { DollarChusho, ChushoOptions, ChushoUserOptions } from './types';
 import * as components from './components';
+import { VueConstructor } from 'vue';
 
 const defaultOptions: ChushoOptions = {
   rtl: function () {
@@ -29,7 +30,7 @@ const Chusho: PluginObject<ChushoUserOptions> = {
     } as DollarChusho;
 
     // Install components
-    const pluginComponents = components as Dictionary<object | Function>;
+    const pluginComponents = components as Dictionary<VueConstructor>;
 
     Object.keys(pluginComponents).forEach((componentName) => {
       Vue.component(componentName, pluginComponents[componentName]);
