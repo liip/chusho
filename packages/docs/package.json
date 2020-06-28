@@ -25,7 +25,7 @@
     "sass": "^1.26.9",
     "sass-loader": "^8.0.2",
     "vue-docgen-api": "^4.25.0",
-    "vuepress": "^1.4.0",
+    "vuepress": "^1.5.2",
     "vuepress-plugin-live": "^1.5.3"
   },
   "dependencies": {
