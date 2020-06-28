@@ -19,6 +19,12 @@ module.exports = {
   },
   overrides: [
     {
+      files: ['./src/**/*.js'],
+      rules: {
+        '@typescript-eslint/explicit-module-boundary-types': 0,
+      },
+    },
+    {
       files: ['./src/**/*.spec.{j,t}s'],
       env: {
         jest: true,

@@ -9,28 +9,28 @@
   },
   "dependencies": {
     "@chusho/preset-tailwind": "^0.1.0-alpha.3",
-    "@vue/composition-api": "^0.5.0",
+    "@vue/composition-api": "^0.6.7",
     "chusho": "^0.1.0-alpha.3",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
-    "vue-property-decorator": "^8.4.1"
+    "vue-property-decorator": "^9.0.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.27.0",
-    "@typescript-eslint/parser": "^2.27.0",
-    "@vue/cli-plugin-babel": "~4.3.1",
-    "@vue/cli-plugin-eslint": "~4.3.1",
-    "@vue/cli-plugin-typescript": "~4.3.1",
-    "@vue/cli-service": "~4.3.1",
+    "@typescript-eslint/eslint-plugin": "^3.4.0",
+    "@typescript-eslint/parser": "^3.4.0",
+    "@vue/cli-plugin-babel": "~4.4.6",
+    "@vue/cli-plugin-eslint": "~4.4.6",
+    "@vue/cli-plugin-typescript": "~4.4.6",
+    "@vue/cli-service": "~4.4.6",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^5.0.2",
-    "eslint": "^6.8.0",
-    "eslint-plugin-prettier": "^3.1.2",
+    "eslint": "^7.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^6.2.2",
-    "prettier": "^2.0.4",
-    "typescript": "~3.8.3",
-    "vue-cli-plugin-tailwind": "~1.2.0",
+    "prettier": "^2.0.5",
+    "typescript": "~3.9.5",
+    "vue-cli-plugin-tailwind": "~1.4.1",
     "vue-template-compiler": "^2.6.11"
   }
 }
