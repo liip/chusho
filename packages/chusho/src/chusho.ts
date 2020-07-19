@@ -44,7 +44,3 @@ export const utils = {
   mergeDeep,
 };
 export default Chusho;
-
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(Chusho);
-}
