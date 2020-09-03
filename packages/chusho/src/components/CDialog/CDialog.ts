@@ -62,6 +62,8 @@ export default Vue.extend({
 
   methods: {
     activate(): void {
+      if (this.$chusho.openDialogs.includes(this)) return;
+
       this.savedActiveElement = document.activeElement as HTMLElement;
 
       // Store the dialog instance in a global array
