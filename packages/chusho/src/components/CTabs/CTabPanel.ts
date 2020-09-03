@@ -1,5 +1,5 @@
 import { VNodeData } from 'vue/types/umd';
-import { defineComponent, createElement, inject } from '@vue/composition-api';
+import { defineComponent, h, inject } from '@vue/composition-api';
 
 import { TabsSymbol, UseTabs } from './CTabs';
 import TabsMixin from './mixin';
@@ -70,11 +70,7 @@ export default defineComponent<TabPanelProps>({
         componentData.class.push(props.classGenerator(isActive));
       }
 
-      return createElement(
-        'div',
-        componentData,
-        slots.default && slots.default()
-      );
+      return h('div', componentData, slots.default && slots.default());
     };
   },
 });

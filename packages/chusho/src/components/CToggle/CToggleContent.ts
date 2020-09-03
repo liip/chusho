@@ -1,5 +1,5 @@
 import { VNode } from 'vue/types/umd';
-import { inject, createElement, defineComponent } from '@vue/composition-api';
+import { inject, h, defineComponent } from '@vue/composition-api';
 import { ToggleSymbol } from './CToggle';
 import { UseToggle } from './CToggle';
 import { isPlainObject } from '../../utils/objects';
@@ -45,7 +45,7 @@ export default defineComponent<ToggleContentProps>({
 
     function renderContent(): VNode | null {
       if (toggle.open.value) {
-        return createElement(
+        return h(
           'div',
           {
             attrs: {
@@ -61,9 +61,7 @@ export default defineComponent<ToggleContentProps>({
 
     return () => {
       if (!transition) return renderContent();
-      return createElement('transition', { props: transition }, [
-        renderContent(),
-      ]);
+      return h('transition', { props: transition }, [renderContent()]);
     };
   },
 });

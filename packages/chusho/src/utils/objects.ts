@@ -53,7 +53,7 @@ const allowedKeys = [
 ];
 
 /**
- * Filter object to keep only VNodeData keys accepted in createElement
+ * Filter object to keep only VNodeData keys accepted in `h`
  */
 export function filterVueData(data: VNodeData = {}): VNodeData {
   const res: VNodeData = {};

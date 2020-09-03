@@ -1,6 +1,6 @@
 import { CBtn } from '../CBtn';
 import { VNodeData } from 'vue/types/umd';
-import { inject, defineComponent, createElement } from '@vue/composition-api';
+import { inject, defineComponent, h } from '@vue/composition-api';
 import { ToggleSymbol } from './CToggle';
 import { UseToggle } from './CToggle';
 
@@ -26,7 +26,7 @@ export default defineComponent({
           },
         },
       };
-      return createElement(CBtn, componentData, slots.default());
+      return h(CBtn, componentData, slots.default());
     };
   },
 });

@@ -3,7 +3,7 @@ import {
   computed,
   InjectionKey,
   defineComponent,
-  createElement,
+  h,
   watchEffect,
   Ref,
   reactive,
@@ -108,11 +108,7 @@ export default defineComponent<TabsProps>({
     };
 
     return () => {
-      return createElement(
-        'div',
-        componentData,
-        slots.default && slots.default()
-      );
+      return h('div', componentData, slots.default && slots.default());
     };
   },
 });
