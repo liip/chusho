@@ -4,7 +4,7 @@ import {
   computed,
   InjectionKey,
   defineComponent,
-  createElement,
+  h,
   watchEffect,
   Ref,
 } from '@vue/composition-api';
@@ -64,6 +64,6 @@ export default defineComponent<ToggleProps>({
       }
     });
 
-    return () => createElement('div', slots.default && slots.default());
+    return () => h('div', slots.default && slots.default());
   },
 });

@@ -1,4 +1,4 @@
-import { defineComponent, createElement, inject } from '@vue/composition-api';
+import { defineComponent, h, inject } from '@vue/composition-api';
 import { mergeData } from 'vue-functional-data-merge';
 import { VNodeData } from 'vue/types/umd';
 import { Dictionary } from 'ts-essentials';
@@ -89,11 +89,7 @@ export default defineComponent<FlexItemProps>({
         }
       );
 
-      return createElement(
-        'div',
-        componentData,
-        slots.default && slots.default()
-      );
+      return h('div', componentData, slots.default && slots.default());
     };
   },
 });

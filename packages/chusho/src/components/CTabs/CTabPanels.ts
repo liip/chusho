@@ -1,5 +1,5 @@
 import { VNodeData } from 'vue/types/umd';
-import { defineComponent, createElement } from '@vue/composition-api';
+import { defineComponent, h } from '@vue/composition-api';
 import TabsMixin from './mixin';
 
 interface TabPanelsProps {
@@ -22,11 +22,7 @@ export default defineComponent<TabPanelsProps>({
         class: props.bare ? null : tabsConfig?.tabPanelsClass,
       };
 
-      return createElement(
-        'div',
-        componentData,
-        slots.default && slots.default()
-      );
+      return h('div', componentData, slots.default && slots.default());
     };
   },
 });

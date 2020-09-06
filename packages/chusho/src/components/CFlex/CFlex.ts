@@ -1,6 +1,6 @@
 import {
   defineComponent,
-  createElement,
+  h,
   InjectionKey,
   provide,
 } from '@vue/composition-api';
@@ -73,11 +73,7 @@ export default defineComponent<FlexProps>({
         }
       );
 
-      return createElement(
-        'div',
-        componentData,
-        slots.default && slots.default()
-      );
+      return h('div', componentData, slots.default && slots.default());
     };
   },
 });
