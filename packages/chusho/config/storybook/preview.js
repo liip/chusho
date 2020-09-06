@@ -1,6 +1,3 @@
-import { addDecorator } from '@storybook/vue';
-import { withA11y } from '@storybook/addon-a11y';
-
 import Vue from 'vue';
 import VueCompositionApi from '@vue/composition-api';
 import Chusho, { utils } from '@/chusho';
@@ -8,12 +5,6 @@ import Chusho, { utils } from '@/chusho';
 import chushoPresetTailwind from '../../../preset-tailwind/index.ts';
 import tailwindConfig from '../../tailwind.config';
 import '@/assets/tailwind.css';
-
-/**
- * Customize Storybook
- */
-
-addDecorator(withA11y);
 
 /**
  * Configure Vue global behavior within Storybook
