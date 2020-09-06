@@ -32,7 +32,7 @@ describe('CIcon', () => {
     });
     const id = wrapper.find('svg').attributes('aria-labelledby');
     const title = wrapper.find(`#${id}`);
-    expect(title.is('title')).toBe(true);
+    expect(title.element.tagName).toBe('title');
     expect(title.text()).toBe(alt);
   });
 

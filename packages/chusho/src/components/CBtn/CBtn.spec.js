@@ -43,7 +43,7 @@ describe('CBtn', () => {
         RouterLink: RouterLinkStub,
       },
     });
-    expect(wrapper.is(RouterLinkStub)).toBe(true);
+    expect(wrapper.findComponent(RouterLinkStub).exists()).toBe(true);
     expect(wrapper.html()).toBe('<a></a>');
   });
 
@@ -60,7 +60,7 @@ describe('CBtn', () => {
         NuxtLink: RouterLinkStub,
       },
     });
-    expect(wrapper.is(RouterLinkStub)).toBe(true);
+    expect(wrapper.findComponent(RouterLinkStub).exists()).toBe(true);
     expect(wrapper.html()).toBe('<a></a>');
   });
 
@@ -179,7 +179,7 @@ describe('CBtn', () => {
         click,
       },
     });
-    wrapper.find(CBtn).trigger('click');
+    wrapper.findComponent(CBtn).trigger('click');
     expect(click).toHaveBeenCalled();
   });
 });

@@ -15,7 +15,8 @@
     "sourceMap": true,
     "baseUrl": ".",
     "types": ["webpack-env", "jest"],
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "isolatedModules": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
   "exclude": ["node_modules"]

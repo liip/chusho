@@ -39,7 +39,7 @@ const Chusho: PluginObject<ChushoUserOptions> = {
 };
 
 export * from './components';
-export { ChushoUserOptions } from './types';
+export type { ChushoUserOptions } from './types';
 export const utils = {
   mergeDeep,
 };

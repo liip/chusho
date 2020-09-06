@@ -32,12 +32,3 @@ export const Controlled = () => ({
     </CToggleContent>
   </CToggle>`,
 });
-
-Controlled.story = {
-  parameters: {
-    docs: {
-      storyDescription:
-        'You can control the Toggle status with the `v-model` directive, for example to make it open by default or to programatically change its state.',
-    },
-  },
-};

@@ -13,6 +13,15 @@ Vue.use(
   Chusho,
   utils.mergeDeep(chushoPresetTailwind(tailwindConfig), {
     // Here goes your own config
+    components: {
+      btn: {
+        defaultClass: 'inline-block',
+        variants: {
+          medium: 'py-2 px-4',
+          primary: 'bg-blue-600 hover:bg-blue-500 text-white rounded',
+        },
+      },
+    },
   } as ChushoUserOptions)
 );
 

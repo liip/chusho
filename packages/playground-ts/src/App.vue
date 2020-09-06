@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <h1>Chūshō playground</h1>
-    <p>
+    <p class="mb-4">
       Modify <code>src/App.vue</code> to change this view, here’s an example
       using Chūshō’s Btn component:
     </p>
-    <CBtn @click="sayHello">Hello</CBtn>
+    <CBtn variant="medium primary" @click="sayHello">Hello</CBtn>
   </div>
 </template>
 

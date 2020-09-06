@@ -61,7 +61,6 @@ body {
   background-color: $gray-200;
 }
 
-
 /**
  * Components
  */
@@ -88,7 +87,7 @@ body {
     background-color: white;
   }
 
-  div[class*="language-"] {
+  div[class*='language-'] {
     margin: 0 !important;
   }
 }
@@ -97,7 +96,14 @@ body {
   margin-bottom: 1.75rem !important;
 }
 
-.theme-default-content code:not([class*="language-"]) {
+.prism-editor-wrapper {
+  font-size: 0.85rem;
+  font-family: 'source-code-pro', Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  line-height: 1.4;
+}
+
+.theme-default-content code:not([class*='language-']) {
   padding: 0.2rem 0.35rem;
 
   color: $gray-700;
@@ -105,7 +111,7 @@ body {
   background-color: transparentize($gray-500, 0.85);
 }
 
-div[class*="language-"] .highlight-lines .highlighted {
+div[class*='language-'] .highlight-lines .highlighted {
   background-color: $gray-900 !important;
 }
 
@@ -120,7 +126,7 @@ div[class*="language-"] .highlight-lines .highlighted {
 
 .custom-block.tip {
   background-color: $gray-300 !important;
-  border-color: #63B3ED !important;
+  border-color: #63b3ed !important;
 }
 
 blockquote {
