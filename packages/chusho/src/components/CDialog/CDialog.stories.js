@@ -12,6 +12,7 @@ export const Default = () => ({
   data() {
     return {
       open: false,
+      text: '',
     };
   },
 
@@ -31,9 +32,11 @@ export const Default = () => ({
           </div>
         </header>
 
-        <p>
+        <p class="mb-3">
           Lorem ipsum dolor sit amet.
         </p>
+
+        <input type="text" v-model="text" class="text-input border px-3 py-2" />
       </CDialog>
     </div>
   `,

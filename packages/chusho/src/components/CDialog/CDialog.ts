@@ -10,6 +10,7 @@ const KEY_TAB = 9;
 const KEY_ESC = 27;
 
 interface DialogData {
+  active: boolean;
   savedActiveElement: null | HTMLElement;
   focusableElements: Array<HTMLElement>;
 }
@@ -45,6 +46,7 @@ export default Vue.extend({
 
   data(): DialogData {
     return {
+      active: false,
       savedActiveElement: null,
       focusableElements: [],
     };
@@ -62,6 +64,9 @@ export default Vue.extend({
 
   methods: {
     activate(): void {
+      if (this.active) return;
+
+      this.active = true;
       this.savedActiveElement = document.activeElement as HTMLElement;
 
       // Store the dialog instance in a global array
@@ -80,6 +85,8 @@ export default Vue.extend({
     },
 
     deactivate(): void {
+      if (!this.active) return;
+
       this.releaseAccessToPageContent();
 
       const i = this.$chusho.openDialogs.indexOf(this);
@@ -88,6 +95,8 @@ export default Vue.extend({
       this.savedActiveElement?.focus();
 
       document.removeEventListener('keydown', this.handleKeyDown);
+
+      this.active = false;
     },
 
     createPortalIfNotExists(): void {
