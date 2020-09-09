@@ -34,6 +34,15 @@ describe('Dialog', () => {
     });
   });
 
+  it('does not activates multiple times', () => {
+    cy.contains('Open dialog').click();
+    cy.get('.text-input').type('Welcome');
+    // If the dialog activates again when we type in the field, focus would be moved to the close button
+    cy.get('.text-input').then(($el) => {
+      Cypress.dom.isFocused($el);
+    });
+  });
+
   it('closes when pressing the ESC key', () => {
     cy.contains('Open dialog').click();
     cy.get('.dialog').should('be.visible');
