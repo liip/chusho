@@ -6,6 +6,7 @@ For demonstration purpose, components in this documentation have been more or le
 
 ## Components available
 
+- [Alert](alert.html)
 - [Button](button.html)
 - [Dialog](dialog.html)
 - [Flex](flex.html)

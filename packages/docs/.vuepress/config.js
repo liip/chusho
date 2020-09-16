@@ -31,6 +31,7 @@ module.exports = {
           collapsable: false,
           path: '/guide/components/',
           children: [
+            'components/alert.md',
             'components/button.md',
             'components/dialog.md',
             'components/flex.md',

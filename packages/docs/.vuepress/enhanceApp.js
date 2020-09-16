@@ -69,6 +69,14 @@ export default ({ Vue }) => {
         overlayClass: 'dialog-overlay',
         dialogClass: 'dialog',
       },
+      alert: {
+        defaultClass: 'alert',
+        variants: {
+          error: 'alert--error',
+          warning: 'alert--warning',
+          inline: 'alert--inline',
+        },
+      },
     },
   });
 };
