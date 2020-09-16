@@ -5,12 +5,6 @@ declare module 'vue/types/vue' {
     $chusho: DollarChusho;
     $nuxt?: Dictionary<unknown>;
   }
-
-  interface VueConstructor {
-    util: {
-      warn(msg: string, vm?: Vue): void;
-    };
-  }
 }
 
 declare module '@vue/composition-api' {

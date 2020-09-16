@@ -54,11 +54,12 @@ function genConfig({ outFile, format, mode }) {
       typescript({
         typescript: require('typescript'),
       }),
-      replace({
-        'process.env.NODE_ENV': JSON.stringify(
-          isProd ? 'production' : 'development'
-        ),
-      }),
+      isProd &&
+        replace({
+          'process.env.NODE_ENV': JSON.stringify(
+            isProd ? 'production' : 'development'
+          ),
+        }),
       isProd && terser(),
     ].filter(Boolean),
   };

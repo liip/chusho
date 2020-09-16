@@ -1,5 +1,8 @@
-import Vue from 'vue';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+export let warn = (msg: string): void => {};
 
-export function warn(msg: string, vm?: Vue): void {
-  Vue.util.warn(`[Chūshō] ${msg}`, vm);
+if (process.env.NODE_ENV !== 'production') {
+  warn = (msg: string): void => {
+    console?.warn(`[Chūshō warn]: ${msg}`);
+  };
 }

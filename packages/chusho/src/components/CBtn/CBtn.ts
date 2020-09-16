@@ -2,6 +2,7 @@ import Vue, { VNodeData } from 'vue';
 import { mergeData } from 'vue-functional-data-merge';
 import { VNode } from 'vue/types/umd';
 import { RawLocation } from 'vue-router';
+import { warn } from '../../utils/debug';
 
 interface BtnProps {
   href: string;
@@ -88,11 +89,19 @@ export default Vue.extend<BtnProps>({
         classes.push(btnConfig.disabledClass);
       }
 
-      const variants = props.variant.split(' ');
-      variants.forEach((variant) => {
-        const target = btnConfig?.variants?.[variant];
-        if (target) classes.push(target);
-      });
+      if (props.variant) {
+        const variants = props.variant.split(' ');
+        variants.forEach((variant) => {
+          const target = btnConfig?.variants?.[variant];
+          if (target) {
+            classes.push(target);
+          } else {
+            warn(
+              `Cannot find an Button variant named “${variant}” under “button.variants” defined in the config, you must define it before referencing it.`
+            );
+          }
+        });
+      }
     }
 
     const componentData: VNodeData = {
