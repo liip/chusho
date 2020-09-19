@@ -23,18 +23,18 @@ Define if the current document direction is Right-to-left. This is used internal
 - **type:** `object`
 - **default:** `null`
 
-Configure each component globally, see each component for available options.
+Configure components globally, see each component page for available options.
 
-It will be an object that look like the following:
+It will be an object that looks like the following:
 
 ```js
 {
-  btn: {
-    // Here goes your global config for the Btn component
-  },
-  icon: {
-    // Config for the Icon component
-  },
-  // And so on…
+  alert: {},
+  btn: {},
+  dialog: {},
+  flex: {},
+  icon: {},
+  tabs: {},
+  toggle: {},
 }
 ```
