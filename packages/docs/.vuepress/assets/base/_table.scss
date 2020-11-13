@@ -1,4 +1,4 @@
-.table {
+table {
   padding: 1px;
   overflow-x: auto;
 
@@ -58,7 +58,8 @@
     background-color: transparent;
   }
 
-  tr, td {
+  tr,
+  td {
     border-color: $gray-300;
   }
 

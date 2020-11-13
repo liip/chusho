@@ -16,7 +16,7 @@
     "test:unit:dev": "vue-cli-service test:unit --watch"
   },
   "main": "dist/chusho.js",
-  "module": "dist/chusho.module.js",
+  "module": "dist/esm/chusho.js",
   "files": [
     "dist/"
   ],

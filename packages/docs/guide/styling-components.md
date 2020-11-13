@@ -1,5 +1,5 @@
 ---
-next: /guide/components/
+next: /guide/using-components.html
 ---
 
 # Styling components

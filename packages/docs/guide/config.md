@@ -1,8 +1,8 @@
 # Configuration
 
-To configure Chūshō’s, pass an object as the second argument of `app.use` when installing it:
+Chūshō options can be set by passing an object as the second argument of `app.use` when installing it:
 
-```js
+```js{6-14}
 import { createApp } from 'vue';
 import Chusho from 'chusho';
 
@@ -11,9 +11,9 @@ const app = createApp(App);
 app.use(Chusho, {
     components: {
         alert: {
-            // Alert component config
+            // Alert component options
         },
-        // Other components config…
+        // Other components options…
     },
     // Other options…
 });
