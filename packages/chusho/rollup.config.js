@@ -1,4 +1,3 @@
-import path from 'path';
 import typescript from 'rollup-plugin-typescript2';
 import resolve from 'rollup-plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
@@ -6,38 +5,52 @@ import replace from 'rollup-plugin-replace';
 
 const builds = {
   'cjs-dev': {
-    outFile: 'chusho.js',
+    output: {
+      file: './dist/chusho.js',
+    },
     format: 'cjs',
     mode: 'development',
   },
   'cjs-prod': {
-    outFile: 'chusho.min.js',
+    output: {
+      file: './dist/chusho.min.js',
+    },
     format: 'cjs',
     mode: 'production',
   },
   'umd-dev': {
-    outFile: 'chusho.umd.js',
+    output: {
+      file: './dist/chusho.umd.js',
+    },
     format: 'umd',
     mode: 'development',
   },
   'umd-prod': {
-    outFile: 'chusho.umd.min.js',
+    output: {
+      file: './dist/chusho.umd.min.js',
+    },
     format: 'umd',
     mode: 'production',
   },
   es: {
-    outFile: 'chusho.module.js',
+    output: {
+      dir: 'dist/esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+    },
     format: 'es',
     mode: 'development',
   },
 };
 
-function genConfig({ outFile, format, mode }) {
+function genConfig({ input, output, format, mode }) {
   const isProd = mode === 'production';
+  input = input || './src/chusho.ts';
+
   return {
-    input: './src/chusho.ts',
+    input,
     output: {
-      file: path.join('./dist', outFile),
+      ...output,
       exports: 'named',
       format: format,
       globals: {
@@ -50,6 +63,13 @@ function genConfig({ outFile, format, mode }) {
       resolve(),
       typescript({
         typescript: require('typescript'),
+        tsconfigOverride: {
+          compilerOptions: {
+            // ESM: transform most recent features such as optional chaining and nullish coalescing
+            // since those are currently erroring when using Webpack 4 if not being transpiled first
+            target: format === 'es' ? 'es2019' : 'es5',
+          },
+        },
       }),
       isProd &&
         replace({
