@@ -7,8 +7,14 @@
 </template>
 
 <script>
+import { CBtn } from 'chusho';
+
 export default {
   name: 'Home',
+
+  components: {
+    CBtn,
+  },
 
   methods: {
     sayHello() {

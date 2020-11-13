@@ -11,8 +11,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { CBtn } from 'chusho';
 
-@Component
+@Component({
+  components: {
+    CBtn,
+  },
+})
 export default class App extends Vue {
   sayHello(): void {
     alert('👋 Hello');

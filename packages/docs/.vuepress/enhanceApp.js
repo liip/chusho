@@ -1,5 +1,20 @@
 import CompositionApi from '@vue/composition-api';
-import Chusho from 'chusho';
+import Chusho, {
+  CAlert,
+  CBtn,
+  CDialog,
+  CFlex,
+  CFlexItem,
+  CIcon,
+  CTab,
+  CTabList,
+  CTabPanel,
+  CTabPanels,
+  CTabs,
+  CToggle,
+  CToggleBtn,
+  CToggleContent,
+} from 'chusho';
 
 import './assets/extras.scss';
 
@@ -79,4 +94,19 @@ export default ({ Vue }) => {
       },
     },
   });
+
+  Vue.component('CAlert', CAlert);
+  Vue.component('CBtn', CBtn);
+  Vue.component('CDialog', CDialog);
+  Vue.component('CFlex', CFlex);
+  Vue.component('CFlexItem', CFlexItem);
+  Vue.component('CIcon', CIcon);
+  Vue.component('CTab', CTab);
+  Vue.component('CTabList', CTabList);
+  Vue.component('CTabPanel', CTabPanel);
+  Vue.component('CTabPanels', CTabPanels);
+  Vue.component('CTabs', CTabs);
+  Vue.component('CToggle', CToggle);
+  Vue.component('CToggleBtn', CToggleBtn);
+  Vue.component('CToggleContent', CToggleContent);
 };
