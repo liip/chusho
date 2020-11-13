@@ -1,6 +1,6 @@
 {
   "name": "playground",
-  "version": "0.1.0-alpha.5",
+  "version": "0.1.0-alpha.6",
   "private": true,
   "scripts": {
     "build": "vue-cli-service build",
@@ -11,9 +11,9 @@
     "start": "vue-cli-service serve"
   },
   "dependencies": {
-    "@chusho/preset-tailwind": "^0.1.0-alpha.5",
+    "@chusho/preset-tailwind": "^0.1.0-alpha.6",
     "@vue/composition-api": "^1.0.0-beta.11",
-    "chusho": "^0.1.0-alpha.5",
+    "chusho": "^0.1.0-alpha.6",
     "core-js": "^3.6.5",
     "vue": "^2.6.12",
     "vue-router": "^3.4.3",
