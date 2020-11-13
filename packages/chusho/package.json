@@ -73,7 +73,7 @@
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.0.0-beta.11",
-    "vue": ">= 2.6"
+    "vue": ">= 2.6 < 3"
   },
   "bugs": {
     "url": "https://github.com/liip/chusho/issues"

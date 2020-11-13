@@ -44,7 +44,7 @@
     "typescript": "^4.0.2"
   },
   "peerDependencies": {
-    "chusho": "^0.1.0-alpha.3",
+    "chusho": "^0.1.0-alpha.5",
     "tailwindcss": "1.x"
   }
 }
