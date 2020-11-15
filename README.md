@@ -22,8 +22,7 @@ Then see packages’ own README.
 
 ## Packages
 
-- [chusho](https://github.com/liip/chusho/tree/master/packages/chusho/): the library main source code
-- [preset-tailwind](https://github.com/liip/chusho/tree/master/packages/preset-tailwind/): a configuration preset to ease integration with [TailwindCSS](https://tailwindcss.com/)
-- [playground](https://github.com/liip/chusho/tree/master/packages/playground/): play with Chūshō’s components and tools
-- [playground-ts](https://github.com/liip/chusho/tree/master/packages/playground-ts/): play with Chūshō’s components and tools in a TypeScript environment
-- [docs](https://github.com/liip/chusho/tree/master/packages/docs/): Chūshō’s documentation website
+-   [chusho](https://github.com/liip/chusho/tree/master/packages/chusho/): the library main source code
+-   [preset-tailwind](https://github.com/liip/chusho/tree/master/packages/preset-tailwind/): a configuration preset to ease integration with [TailwindCSS](https://tailwindcss.com/)
+-   [playground](https://github.com/liip/chusho/tree/master/packages/playground/): play with Chūshō’s components and tools
+-   [docs](https://github.com/liip/chusho/tree/master/packages/docs/): Chūshō’s documentation website
