@@ -68,18 +68,7 @@ interface ComponentsOptions {
     class?: string;
   };
   toggle?: {
-    transition?: VueTransitionProps;
-  };
-  flex: {
-    containerClass?: string;
-    itemClass?: string;
-    gaps?: {
-      x?: Dictionary<ContainerItemClass>;
-      y?: Dictionary<ContainerItemClass>;
-    };
-    widths?: Dictionary<string>;
-    defaultWidth?: string;
-    responsiveWidthGenerator(breakpoint: string, width: string): string;
+    transition?: BaseTransitionProps;
   };
   tabs?: {
     tabsClass?: string;

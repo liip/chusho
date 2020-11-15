@@ -8,9 +8,6 @@ module.exports = {
         './config/storybook/preview.js',
       ],
       whitelist: ['html', 'body'],
-      whitelistPatterns: [
-        /:w-/, // Responsive widths are generated for CFlexItem
-      ],
     },
   },
 };

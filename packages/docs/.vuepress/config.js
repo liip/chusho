@@ -34,7 +34,6 @@ module.exports = {
             'components/alert.md',
             'components/button.md',
             'components/dialog.md',
-            'components/flex.md',
             'components/icon.md',
             'components/tabs.md',
             'components/toggle.md',

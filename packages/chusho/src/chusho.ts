@@ -7,13 +7,7 @@ const defaultOptions: ChushoOptions = {
   rtl: function () {
     return document && document.dir === 'rtl';
   },
-  components: {
-    flex: {
-      responsiveWidthGenerator(breakpoint: string, width: string) {
-        return `${breakpoint}:${width}`;
-      },
-    },
-  },
+  components: {},
 };
 
 const Chusho: PluginObject<ChushoUserOptions> = {
