@@ -1,9 +1,7 @@
 import Vue from 'vue';
 import VueCompositionApi from '@vue/composition-api';
-import Chusho, { utils } from '@/chusho';
+import Chusho from '@/chusho';
 
-import chushoPresetTailwind from '../../../preset-tailwind/index.ts';
-import tailwindConfig from '../../tailwind.config';
 import '@/assets/tailwind.css';
 
 /**
@@ -12,7 +10,7 @@ import '@/assets/tailwind.css';
 
 Vue.use(VueCompositionApi);
 
-const config = utils.mergeDeep(chushoPresetTailwind(tailwindConfig), {
+const config = {
   components: {
     btn: {
       defaultClass: 'inline-block',
@@ -61,6 +59,6 @@ const config = utils.mergeDeep(chushoPresetTailwind(tailwindConfig), {
       },
     },
   },
-});
+};
 
 Vue.use(Chusho, config);

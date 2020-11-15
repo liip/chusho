@@ -40,16 +40,10 @@ module.exports = {
             'components/toggle.md',
           ],
         },
-        {
-          title: 'Presets',
-          collapsable: false,
-          path: '/guide/presets/',
-          children: ['presets/tailwind.md'],
-        },
       ],
     },
   },
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     // For some reasons, Chῡshō’s own dependencies can’t be resolved
     // despite being present in docs’ node_modules
     // Probably related to symlinks but the usual trick doesn’t work
