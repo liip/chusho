@@ -3,13 +3,24 @@
   "private": true,
   "scripts": {
     "postinstall": "lerna bootstrap",
-    "test": "cd packages/chusho && npm test",
+    "test": "npm run validate && cd packages/chusho && npm test",
     "build:chusho": "cd packages/chusho && npm run build",
     "build:docs": "cd packages/docs && npm run build",
     "build": "npm run build:chusho && npm run build:docs",
-    "release": "lerna publish --conventional-commits"
+    "release": "lerna publish --conventional-commits",
+    "validate": "eslint . --ignore-path .gitignore --ext .js,.ts,.vue",
+    "format": "npm run validate -- --fix"
   },
   "devDependencies": {
-    "lerna": "^3.22.1"
+    "@typescript-eslint/eslint-plugin": "^4.6.0",
+    "@typescript-eslint/parser": "^4.6.0",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-cypress": "^2.11.2",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-vue": "^7.1.0",
+    "lerna": "^3.22.1",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.5"
   }
 }

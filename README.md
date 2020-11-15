@@ -25,3 +25,19 @@ Then see packages’ own README.
 -   [chusho](https://github.com/liip/chusho/tree/master/packages/chusho/): the library main source code
 -   [playground](https://github.com/liip/chusho/tree/master/packages/playground/): play with Chūshō’s components and tools
 -   [docs](https://github.com/liip/chusho/tree/master/packages/docs/): Chūshō’s documentation website
+
+## Quode quality
+
+### Style
+
+To ensure the code match the style with EsLint & Prettier:
+
+```bash
+npm run validate
+```
+
+Autofix as many offenses as possible:
+
+```bash
+npm run format
+```
