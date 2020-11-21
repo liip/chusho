@@ -1,6 +1,5 @@
+import { inject, defineComponent, h, mergeProps } from 'vue';
 import { CBtn } from '../CBtn';
-import { VNodeData } from 'vue/types/umd';
-import { inject, defineComponent, h } from '@vue/composition-api';
 import { ToggleSymbol } from './CToggle';
 import { UseToggle } from './CToggle';
 
@@ -9,24 +8,19 @@ export default defineComponent({
 
   inheritAttrs: false,
 
-  setup(props, { attrs, slots, listeners }) {
+  setup(props, { attrs, slots }) {
     const toggle = inject(ToggleSymbol) as UseToggle;
 
     return () => {
-      const componentData: VNodeData = {
-        attrs: {
-          ...attrs,
+      return h(
+        CBtn,
+        mergeProps(attrs, {
           'aria-expanded': `${toggle.open.value}`,
-          'aria-controls': `chusho-toggle-${toggle.uuid}`,
-        },
-        on: {
-          ...listeners,
-          click: () => {
-            toggle.toggle();
-          },
-        },
-      };
-      return h(CBtn, componentData, slots.default());
+          'aria-controls': toggle.uuid,
+          onClick: toggle.toggle,
+        }),
+        slots?.default
+      );
     };
   },
 });

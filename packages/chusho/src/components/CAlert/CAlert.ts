@@ -1,16 +1,11 @@
-import Vue, { VNodeData } from 'vue';
-import { mergeData } from 'vue-functional-data-merge';
-import { VNode } from 'vue/types/umd';
+import { DollarChusho } from '../../types';
+import { defineComponent, h, inject, mergeProps } from 'vue';
 import { warn } from '../../utils/debug';
 
-interface AlertProps {
-  variant?: string;
-}
-
-export default Vue.extend<AlertProps>({
+export default defineComponent({
   name: 'CAlert',
 
-  functional: true,
+  inheritAttrs: false,
 
   props: {
     /**
@@ -22,12 +17,13 @@ export default Vue.extend<AlertProps>({
     },
   },
 
-  render(h, { props, data, parent, children }): VNode {
-    const alertConfig = parent?.$chusho?.options?.components?.alert;
-    const classes = [];
+  setup(props, { attrs, slots }) {
+    return () => {
+      const alertConfig = inject<DollarChusho | null>('$chusho', null)?.options
+        ?.components?.alert;
+      const classes = [];
 
-    if (alertConfig) {
-      if (alertConfig.defaultClass) {
+      if (alertConfig?.defaultClass) {
         classes.push(alertConfig.defaultClass);
       }
 
@@ -35,6 +31,7 @@ export default Vue.extend<AlertProps>({
         const variants = props.variant.split(' ');
         variants.forEach((variant) => {
           const target = alertConfig?.variants?.[variant];
+
           if (target) {
             classes.push(target);
           } else {
@@ -44,18 +41,16 @@ export default Vue.extend<AlertProps>({
           }
         });
       }
-    }
 
-    const componentData: VNodeData = {
-      attrs: {
+      const extraProps: Record<string, unknown> = {
         role: 'alert',
-      },
+      };
+
+      if (classes.length) {
+        extraProps['class'] = classes;
+      }
+
+      return h('div', mergeProps(attrs, extraProps), slots);
     };
-
-    if (classes.length) {
-      componentData.class = classes;
-    }
-
-    return h('div', mergeData(data, componentData), children);
   },
 });

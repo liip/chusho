@@ -1,33 +1,73 @@
-import Vue, { VNode, VNodeData } from 'vue';
-import { mergeData } from 'vue-functional-data-merge';
-import { MountingPortal } from 'portal-vue';
-import ClientOnly from 'vue-client-only';
-import { filterVueData, isPlainObject } from '../../utils/objects';
+import {
+  h,
+  VNode,
+  defineComponent,
+  Teleport,
+  Transition,
+  Ref,
+  ref,
+  reactive,
+  computed,
+  inject,
+  nextTick,
+  TransitionProps,
+  PropType,
+  mergeProps,
+  onUpdated,
+} from 'vue';
+import { isPlainObject } from '../../utils/objects';
 import { getFocusableElements } from '../../utils/keyboard';
+import { DollarChusho } from 'src/types';
 
 const PORTAL_ID = 'chusho-dialogs-portal';
 const KEY_TAB = 9;
 const KEY_ESC = 27;
 
-interface DialogData {
+export interface DialogData {
   active: boolean;
   savedActiveElement: null | HTMLElement;
   focusableElements: Array<HTMLElement>;
 }
 
-export default Vue.extend({
+function createPortalIfNotExists(): void {
+  if (!document.getElementById(PORTAL_ID)) {
+    const portalNode = document.createElement('div');
+    portalNode.setAttribute('id', PORTAL_ID);
+    document.body.insertAdjacentElement('beforeend', portalNode);
+  }
+}
+
+function getPortalNodeSiblings(): HTMLElement[] {
+  return Array.from(
+    document.body.children as HTMLCollectionOf<HTMLElement>
+  ).filter((el) => {
+    // Ignore already non-visible elements such as <script>
+    return el.offsetParent !== null && el.id != PORTAL_ID;
+  });
+}
+
+function preventAccessToPageContent(): void {
+  getPortalNodeSiblings().forEach((el) => {
+    el.setAttribute('aria-hidden', 'true');
+  });
+}
+
+function releaseAccessToPageContent(): void {
+  getPortalNodeSiblings().forEach((el) => {
+    el.removeAttribute('aria-hidden');
+  });
+}
+
+export default defineComponent({
   name: 'CDialog',
 
-  model: {
-    prop: 'open',
-    event: 'toggle',
-  },
+  inheritAttrs: false,
 
   props: {
     /**
      * Control the Dialog state
      */
-    open: {
+    modelValue: {
       type: Boolean,
       required: true,
     },
@@ -39,217 +79,169 @@ export default Vue.extend({
      * If you defined a default transition in the config and want to disable it, use `false`.
      */
     transition: {
-      type: [Object, Boolean],
+      type: [Object, Boolean] as PropType<TransitionProps | boolean>,
       default: null,
     },
   },
 
-  data(): DialogData {
-    return {
+  emits: ['update:modelValue'],
+
+  setup(props, { attrs, slots, emit }) {
+    const $chusho = inject<DollarChusho>('$chusho');
+    const state = reactive<DialogData>({
       active: false,
       savedActiveElement: null,
       focusableElements: [],
-    };
-  },
+    });
+    const dialogElement: Ref<HTMLElement | null> = ref(null);
+    const firstFocusableEl = computed<HTMLElement | undefined>(
+      () => state.focusableElements[0]
+    );
+    const lastFocusableEl = computed<HTMLElement | undefined>(
+      () => state.focusableElements[state.focusableElements.length - 1]
+    );
 
-  computed: {
-    firstFocusableEl(): HTMLElement | undefined {
-      return this.focusableElements[0];
-    },
+    onUpdated(() => {
+      if (dialogElement.value) {
+        state.focusableElements = getFocusableElements(dialogElement.value);
+      }
+    });
 
-    lastFocusableEl(): HTMLElement | undefined {
-      return this.focusableElements[this.focusableElements.length - 1];
-    },
-  },
+    function activate(): void {
+      if (state.active) return;
 
-  methods: {
-    activate(): void {
-      if (this.active) return;
-
-      this.active = true;
-      this.savedActiveElement = document.activeElement as HTMLElement;
+      state.active = true;
+      state.savedActiveElement = document.activeElement as HTMLElement;
 
       // Store the dialog instance in a global array
       // This allow closing only the last one when pressing ESC and multiple dialogs are open
-      this.$chusho.openDialogs.push(this);
+      $chusho?.openDialogs.push(state);
 
-      this.$nextTick(() => {
-        this.focusableElements = getFocusableElements(
-          this.$refs.dialog as Element
-        );
-        this.firstFocusableEl?.focus();
-        this.preventAccessToPageContent();
+      nextTick(() => {
+        if (!dialogElement.value) return;
+        state.focusableElements = getFocusableElements(dialogElement.value);
+        firstFocusableEl.value?.focus();
+        preventAccessToPageContent();
       });
 
-      document.addEventListener('keydown', this.handleKeyDown);
-    },
+      document.addEventListener('keydown', handleKeyDown);
+    }
 
-    deactivate(): void {
-      if (!this.active) return;
+    function deactivate(): void {
+      if (!state.active) return;
 
-      this.releaseAccessToPageContent();
+      releaseAccessToPageContent();
 
-      const i = this.$chusho.openDialogs.indexOf(this);
-      this.$chusho.openDialogs.splice(i, 1);
-
-      this.savedActiveElement?.focus();
-
-      document.removeEventListener('keydown', this.handleKeyDown);
-
-      this.active = false;
-    },
-
-    createPortalIfNotExists(): void {
-      if (!document.getElementById(PORTAL_ID)) {
-        const portalNode = document.createElement('div');
-        portalNode.setAttribute('id', PORTAL_ID);
-        document.body.insertAdjacentElement('beforeend', portalNode);
+      const index = $chusho?.openDialogs.indexOf(state);
+      if (index) {
+        $chusho?.openDialogs.splice(index, 1);
       }
-    },
 
-    getPortalNodeSiblings(): HTMLElement[] {
-      return Array.from(
-        document.body.children as HTMLCollectionOf<HTMLElement>
-      ).filter((el) => {
-        // Ignore already non-visible elements such as <script>
-        return el.offsetParent !== null && el.id != PORTAL_ID;
-      });
-    },
+      state.savedActiveElement?.focus();
 
-    preventAccessToPageContent(): void {
-      this.getPortalNodeSiblings().forEach((el) => {
-        el.setAttribute('aria-hidden', 'true');
-      });
-    },
+      document.removeEventListener('keydown', handleKeyDown);
 
-    releaseAccessToPageContent(): void {
-      this.getPortalNodeSiblings().forEach((el) => {
-        el.removeAttribute('aria-hidden');
-      });
-    },
+      state.active = false;
+    }
 
-    handleKeyDown(e: KeyboardEvent): void {
+    function handleKeyDown(e: KeyboardEvent): void {
       switch (e.keyCode) {
         case KEY_ESC:
-          if (
-            this ===
-            this.$chusho.openDialogs[this.$chusho.openDialogs.length - 1]
-          ) {
-            this.$emit('toggle', false);
+          if (state === $chusho?.openDialogs[$chusho.openDialogs.length - 1]) {
+            emit('update:modelValue', false);
           }
           break;
 
         case KEY_TAB:
-          if (this.focusableElements.length === 1) {
+          if (state.focusableElements.length === 1) {
             e.preventDefault();
           } else if (e.shiftKey) {
             if (
-              this.lastFocusableEl &&
-              document.activeElement === this.firstFocusableEl
+              lastFocusableEl.value &&
+              document.activeElement === firstFocusableEl.value
             ) {
               e.preventDefault();
-              this.lastFocusableEl.focus();
+              lastFocusableEl.value.focus();
             }
           } else {
             if (
-              this.firstFocusableEl &&
-              document.activeElement === this.lastFocusableEl
+              firstFocusableEl.value &&
+              document.activeElement === lastFocusableEl.value
             ) {
               e.preventDefault();
-              this.firstFocusableEl.focus();
+              firstFocusableEl.value.focus();
             }
           }
           break;
       }
-    },
-  },
+    }
 
-  render(h): VNode {
-    const dialogConfig = this.$parent?.$chusho?.options?.components?.dialog;
-    let children: VNode[] = [];
+    return () => {
+      const dialogConfig = $chusho?.options?.components?.dialog;
 
-    // Do not render dialogs on the server
-    if (!this.$isServer) {
-      this.createPortalIfNotExists();
+      // TODO: Do not render dialogs on the server
+      createPortalIfNotExists();
 
-      if (this.open) {
-        const overlayData: VNodeData = {
-          attrs: {
+      const getChildren = () => {
+        const children: VNode[] = [];
+
+        if (props.modelValue) {
+          let overlayProps: Record<string, unknown> = {
             tabindex: '-1',
-          },
-          on: {
-            click: (e: KeyboardEvent) => {
+            onClick: (e: KeyboardEvent) => {
               if (e.target !== e.currentTarget) return;
-              this.$emit('toggle', false);
+              emit('update:modelValue', false);
             },
-          },
-        };
-        const dialogData: VNodeData = {
-          attrs: {
+          };
+
+          let dialogProps = mergeProps(attrs, {
+            ...attrs,
             role: 'dialog',
-          },
-          ref: 'dialog',
-        };
+            ref: dialogElement,
+          });
 
-        if (dialogConfig?.overlayClass) {
-          overlayData.class = dialogConfig.overlayClass;
+          if (dialogConfig?.overlayClass) {
+            overlayProps = mergeProps(overlayProps, {
+              class: dialogConfig.overlayClass,
+            });
+          }
+          if (dialogConfig?.dialogClass) {
+            dialogProps = mergeProps(dialogProps, {
+              class: dialogConfig.dialogClass,
+            });
+          }
+
+          children.push(h('div', overlayProps, h('div', dialogProps, slots)));
+
+          nextTick(activate);
+        } else {
+          nextTick(deactivate);
         }
-        if (dialogConfig?.dialogClass) {
-          dialogData.class = dialogConfig.dialogClass;
-        }
 
-        children.push(
-          h('div', overlayData, [
-            h(
-              'div',
-              mergeData(filterVueData(this.$vnode.data), dialogData),
-              this.$slots.default
-            ),
-          ])
-        );
+        return children;
+      };
 
-        this.$nextTick(this.activate);
-      } else {
-        this.$nextTick(this.deactivate);
-      }
+      let transitionProps: TransitionProps | null = null;
 
-      let transition;
-
-      if (isPlainObject(this.transition)) {
-        transition = this.transition;
+      if (isPlainObject(props.transition)) {
+        transitionProps = props.transition;
       } else if (
-        this.transition !== false &&
+        props.transition !== false &&
         dialogConfig &&
         dialogConfig.transition
       ) {
-        transition = dialogConfig.transition;
+        transitionProps = dialogConfig.transition;
       }
 
-      if (transition) {
-        children = [
-          h(
-            'transition',
-            {
-              props: transition,
-              key: 'transition',
-            },
-            children
-          ),
-        ];
-      }
-    }
-
-    return h(ClientOnly, [
-      h(
-        MountingPortal,
+      return h(
+        Teleport,
         {
-          props: {
-            append: true,
-            mountTo: `#${PORTAL_ID}`,
-          },
+          to: `#${PORTAL_ID}`,
         },
-        children
-      ),
-    ]);
+        transitionProps
+          ? h(Transition, transitionProps, { default: getChildren })
+          : getChildren()
+      );
+    };
   },
 });

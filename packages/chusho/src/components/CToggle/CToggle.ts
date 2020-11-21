@@ -4,41 +4,33 @@ import {
   computed,
   InjectionKey,
   defineComponent,
-  h,
   watchEffect,
   Ref,
-} from '@vue/composition-api';
+} from 'vue';
 import uuid from '../../utils/uuid';
 
 export const ToggleSymbol: InjectionKey<UseToggle> = Symbol();
 
 export interface UseToggle {
-  uuid: number;
+  uuid: string;
   open: Readonly<Ref<boolean>>;
   toggle: () => void;
 }
 
-interface ToggleProps {
-  open: boolean;
-}
-
-export default defineComponent<ToggleProps>({
+export default defineComponent({
   name: 'CToggle',
-
-  model: {
-    prop: 'open',
-    event: 'toggle',
-  },
 
   props: {
     /**
      * Optionally bind the Toggle state with the parent component.
      */
-    open: {
+    modelValue: {
       type: Boolean,
       default: undefined,
     },
   },
+
+  emits: ['update:modelValue'],
 
   setup(props, { slots, emit }) {
     const open = ref(false);
@@ -46,24 +38,27 @@ export default defineComponent<ToggleProps>({
     function toggle() {
       open.value = !open.value;
       // Update potential parent v-model value
-      emit('toggle', open.value);
+      if (typeof props.modelValue === 'boolean') {
+        emit('update:modelValue', open.value);
+      }
     }
 
     // Provide api to sub-components
     const api: UseToggle = {
-      uuid: uuid(),
+      uuid: uuid('chusho-toggle'),
       open: computed(() => open.value),
       toggle,
     };
+
     provide(ToggleSymbol, api);
 
     // Watch potential parent v-model value changes and update state accordingly
     watchEffect(() => {
-      if (typeof props.open === 'boolean') {
-        open.value = props.open;
+      if (typeof props.modelValue === 'boolean') {
+        open.value = props.modelValue;
       }
     });
 
-    return () => h('div', slots.default && slots.default());
+    return () => slots?.default?.();
   },
 });

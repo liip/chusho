@@ -1,17 +1,11 @@
-import Vue, { VNode, VNodeData } from 'vue';
-import { mergeData } from 'vue-functional-data-merge';
+import { defineComponent, h, inject, mergeProps } from 'vue';
+import { DollarChusho } from '../../types';
 import uuid from '../../utils/uuid';
 
-interface IconProps {
-  id: string;
-  scale: number;
-  alt: string;
-}
-
-export default Vue.extend<IconProps>({
+export default defineComponent({
   name: 'CIcon',
 
-  functional: true,
+  inheritAttrs: false,
 
   props: {
     /**
@@ -42,48 +36,43 @@ export default Vue.extend<IconProps>({
     },
   },
 
-  render(h, { props, data, parent }): VNode {
-    const iconConfig = parent?.$chusho?.options?.components?.icon;
-    const componentData: VNodeData = {
-      attrs: {
+  setup(props, { attrs }) {
+    return () => {
+      const iconConfig = inject<DollarChusho | null>('$chusho', null)?.options
+        ?.components?.icon;
+      let elementProps: Record<string, unknown> = mergeProps(attrs, {
         focusable: 'false',
-      },
-      style: {
-        width: `${(iconConfig?.width || 24) * props.scale}px`,
-        height: `${(iconConfig?.height || 24) * props.scale}px`,
-      },
-    };
-    const uid = `chusho-icon-${uuid()}`;
-
-    if (iconConfig?.class) {
-      componentData.class = iconConfig.class;
-    }
-
-    if (componentData.attrs) {
-      if (props.alt) {
-        componentData.attrs['aria-labelledby'] = uid;
-      } else {
-        componentData.attrs['aria-hidden'] = true;
-      }
-    }
-
-    return h('svg', mergeData(data, componentData), [
-      props.alt &&
-        h(
-          'title',
-          {
-            attrs: {
-              id: uid,
-            },
-          },
-          [props.alt]
-        ),
-      h('use', {
-        key: props.id,
-        attrs: {
-          'xlink:href': `${iconConfig?.spriteUrl || ''}#${props.id}`,
+        style: {
+          width: `${(iconConfig?.width || 24) * props.scale}px`,
+          height: `${(iconConfig?.height || 24) * props.scale}px`,
         },
-      }),
-    ]);
+      });
+      const id = uuid('chusho-icon');
+
+      if (iconConfig?.class) {
+        elementProps = mergeProps(elementProps, { class: iconConfig.class });
+      }
+
+      if (props.alt) {
+        elementProps['aria-labelledby'] = id;
+      } else {
+        elementProps['aria-hidden'] = true;
+      }
+
+      return h('svg', elementProps, [
+        props.alt &&
+          h(
+            'title',
+            {
+              id,
+            },
+            [props.alt]
+          ),
+        h('use', {
+          key: props.id,
+          'xlink:href': `${iconConfig?.spriteUrl || ''}#${props.id}`,
+        }),
+      ]);
+    };
   },
 });

@@ -1,3 +1,4 @@
+import { DollarChusho } from '../../types';
 import {
   provide,
   computed,
@@ -7,10 +8,12 @@ import {
   watchEffect,
   Ref,
   reactive,
-} from '@vue/composition-api';
+  PropType,
+  inject,
+  mergeProps,
+} from 'vue';
 import uuid from '../../utils/uuid';
-import { VNodeData } from 'vue/types/umd';
-import TabsMixin from './mixin';
+import { props as sharedProps } from './shared';
 
 export const TabsSymbol: InjectionKey<UseTabs> = Symbol();
 
@@ -22,35 +25,26 @@ interface TabsState {
 }
 
 export interface UseTabs {
-  uuid: number;
+  uuid: string;
   currentTab: Readonly<Ref<TabId | undefined>>;
   tabs: Readonly<Ref<readonly TabId[]>>;
   setCurrentTab: (id: TabId) => void;
   registerTab: (id: TabId) => void;
 }
 
-interface TabsProps {
-  currentTab?: TabId;
-  defaultTab?: TabId;
-  bare?: boolean;
-}
-
-export default defineComponent<TabsProps>({
+export default defineComponent({
   name: 'CTabs',
 
-  mixins: [TabsMixin],
-
-  model: {
-    prop: 'currentTab',
-    event: 'change',
-  },
+  inheritAttrs: false,
 
   props: {
+    ...sharedProps,
+
     /**
      * Optionally bind the Tabs state with the parent component.
      */
-    currentTab: {
-      type: [Number, String],
+    modelValue: {
+      type: [Number, String] as PropType<TabId>,
       default: null,
     },
     /**
@@ -59,22 +53,25 @@ export default defineComponent<TabsProps>({
      * Defaults to the first tab.
      */
     defaultTab: {
-      type: [Number, String],
+      type: [Number, String] as PropType<TabId>,
       default: null,
     },
   },
 
-  setup(props, { slots, attrs, parent, emit }) {
-    const tabsConfig = parent!.$chusho?.options?.components?.tabs;
+  emits: ['update:modelValue'],
+
+  setup(props, { slots, attrs, emit }) {
     const state = reactive<TabsState>({
-      currentTab: props.currentTab || props.defaultTab,
+      currentTab: props.modelValue || props.defaultTab,
       tabs: [],
     });
 
     function setCurrentTab(id: TabId) {
       state.currentTab = id;
       // Update potential parent v-model value
-      emit('change', id);
+      if (['string', 'number'].includes(typeof props.modelValue)) {
+        emit('update:modelValue', id);
+      }
     }
 
     function registerTab(id: TabId) {
@@ -97,18 +94,21 @@ export default defineComponent<TabsProps>({
 
     // Watch potential parent v-model value changes and update state accordingly
     watchEffect(() => {
-      if (props.currentTab) {
-        state.currentTab = props.currentTab;
+      if (['string', 'number'].includes(typeof props.modelValue)) {
+        state.currentTab = props.modelValue;
       }
     });
 
-    const componentData: VNodeData = {
-      attrs,
-      class: props.bare ? null : tabsConfig?.tabsClass,
-    };
-
     return () => {
-      return h('div', componentData, slots.default && slots.default());
+      const tabsConfig = inject<DollarChusho | null>('$chusho', null)?.options
+        ?.components?.tabs;
+      const elementProps: Record<string, unknown> = {};
+
+      if (tabsConfig?.tabsClass) {
+        elementProps.class = tabsConfig?.tabsClass;
+      }
+
+      return h('div', mergeProps(attrs, elementProps), slots);
     };
   },
 });

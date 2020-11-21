@@ -1,11 +1,11 @@
-import { mount, createLocalVue } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import CAlert from './CAlert';
 
 describe('CAlert', () => {
   it('should render the default slot as alert content', () => {
     const wrapper = mount(CAlert, {
-      context: {
-        children: ['Message'],
+      slots: {
+        default: ['Message'],
       },
     });
     expect(wrapper.html()).toBe('<div role="alert">Message</div>');
@@ -17,38 +17,42 @@ describe('CAlert', () => {
   });
 
   it('should apply the "defaultClass" defined in the config', () => {
-    const localVue = createLocalVue();
-    localVue.prototype.$chusho = {
-      options: {
-        components: {
-          alert: {
-            defaultClass: 'alert',
+    const wrapper = mount(CAlert, {
+      global: {
+        provide: {
+          $chusho: {
+            options: {
+              components: {
+                alert: {
+                  defaultClass: 'alert',
+                },
+              },
+            },
           },
         },
       },
-    };
-    const wrapper = mount(CAlert, {
-      localVue,
     });
     expect(wrapper.html()).toBe('<div role="alert" class="alert"></div>');
   });
 
   it('should apply the variant class defined in the config when "variant" prop is provided', () => {
-    const localVue = createLocalVue();
-    localVue.prototype.$chusho = {
-      options: {
-        components: {
-          alert: {
-            variants: {
-              error: 'alert--error',
+    const wrapper = mount(CAlert, {
+      global: {
+        provide: {
+          $chusho: {
+            options: {
+              components: {
+                alert: {
+                  variants: {
+                    error: 'alert--error',
+                  },
+                },
+              },
             },
           },
         },
       },
-    };
-    const wrapper = mount(CAlert, {
-      localVue,
-      propsData: {
+      props: {
         variant: 'error',
       },
     });
@@ -58,22 +62,24 @@ describe('CAlert', () => {
   });
 
   it('should apply all the variants class defined in the config when "variant" prop contains multiple variants', () => {
-    const localVue = createLocalVue();
-    localVue.prototype.$chusho = {
-      options: {
-        components: {
-          alert: {
-            variants: {
-              error: 'alert--error',
-              inline: 'inline-block',
+    const wrapper = mount(CAlert, {
+      global: {
+        provide: {
+          $chusho: {
+            options: {
+              components: {
+                alert: {
+                  variants: {
+                    error: 'alert--error',
+                    inline: 'inline-block',
+                  },
+                },
+              },
             },
           },
         },
       },
-    };
-    const wrapper = mount(CAlert, {
-      localVue,
-      propsData: {
+      props: {
         variant: 'error inline',
       },
     });
@@ -82,9 +88,36 @@ describe('CAlert', () => {
     );
   });
 
+  it('should combine class attribute', () => {
+    const wrapper = mount(CAlert, {
+      global: {
+        provide: {
+          $chusho: {
+            options: {
+              components: {
+                alert: {
+                  variants: {
+                    error: 'alert--error',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      props: {
+        variant: 'error',
+        class: 'extra-class',
+      },
+    });
+    expect(wrapper.html()).toBe(
+      '<div class="extra-class alert--error" role="alert"></div>'
+    );
+  });
+
   it('should forward other attributes', () => {
     const wrapper = mount(CAlert, {
-      propsData: {
+      props: {
         id: 'alert',
       },
     });
@@ -92,13 +125,13 @@ describe('CAlert', () => {
   });
 
   it('should forward event listeners to the native element', () => {
-    const click = jest.fn();
+    const onClick = jest.fn();
     const wrapper = mount(CAlert, {
-      listeners: {
-        click,
+      props: {
+        onClick,
       },
     });
     wrapper.findComponent(CAlert).trigger('click');
-    expect(click).toHaveBeenCalled();
+    expect(onClick).toHaveBeenCalled();
   });
 });

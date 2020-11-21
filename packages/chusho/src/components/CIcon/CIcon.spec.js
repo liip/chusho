@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import CIcon from './CIcon';
 
 describe('CIcon', () => {
@@ -6,10 +6,8 @@ describe('CIcon', () => {
 
   beforeEach(() => {
     wrapper = shallowMount(CIcon, {
-      context: {
-        props: {
-          id: 'foo',
-        },
+      props: {
+        id: 'foo',
       },
     });
   });
@@ -41,24 +39,22 @@ describe('CIcon', () => {
   });
 
   it('should link the sprite url and the icon id when sprite is specified', () => {
-    const localVue = createLocalVue();
-
-    localVue.prototype.$chusho = {
-      options: {
-        components: {
-          icon: {
-            spriteUrl: '/path/to/icons-sprite.svg',
+    wrapper = shallowMount(CIcon, {
+      global: {
+        provide: {
+          $chusho: {
+            options: {
+              components: {
+                icon: {
+                  spriteUrl: '/path/to/icons-sprite.svg',
+                },
+              },
+            },
           },
         },
       },
-    };
-
-    wrapper = shallowMount(CIcon, {
-      localVue,
-      context: {
-        props: {
-          id: 'foo',
-        },
+      props: {
+        id: 'foo',
       },
     });
 

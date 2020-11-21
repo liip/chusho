@@ -2,7 +2,7 @@ module.exports = {
   preset: '@vue/cli-plugin-unit-jest/presets/typescript-and-babel',
   testMatch: ['<rootDir>src/**/?(*.)+(spec).[jt]s?(x)'],
   moduleFileExtensions: ['ts', 'js', 'd.ts', 'json', 'jsx', 'tsx', 'node'],
-  setupFiles: ['<rootDir>config/jest/setup.js'],
+  setupFilesAfterEnv: ['<rootDir>config/jest/setup.js'],
   globals: {
     'ts-jest': {
       diagnostics: {
