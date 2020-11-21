@@ -25,21 +25,21 @@ Rollup will create the various bundles in the `dist` folder.
 npm run build
 ```
 
+You can also run the build in watch mode with:
+
+```
+npm run build:watch
+```
+
+To speed it up, for example during development, you can target a specific bundle, here the ES build:
+
+```
+TARGET=es npm run build:watch
+```
+
+See `rollup.config.js` for available targets.
+
 ## Quode quality
-
-### Style
-
-To ensure the code match the style with EsLint & Prettier:
-
-```bash
-npm run validate
-```
-
-Autofix as many offenses as possible:
-
-```bash
-npm run format
-```
 
 ### Unit tests
 
@@ -53,24 +53,4 @@ Or start Jest in watch mode:
 
 ```bash
 npm run test:unit:dev
-```
-
-### End-to-end tests
-
-To run the end-to-end tests, you need to start the development server first:
-
-```bash
-npm start
-```
-
-Then, in another process, you can start Cypress in interactive mode (great for development):
-
-```bash
-npm run test:e2e:dev
-```
-
-Or in headless mode (great to quickly check once that the suites pass):
-
-```
-npm run test:e2e:headless
 ```

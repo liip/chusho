@@ -41,3 +41,8 @@ Autofix as many offenses as possible:
 ```bash
 npm run format
 ```
+
+### Tests
+
+-   Unit tests are located in the [chusho](https://github.com/liip/chusho/tree/master/packages/chusho/) package
+-   End-to-end tests are located in the [playground](https://github.com/liip/chusho/tree/master/packages/chusho/) package

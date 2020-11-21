@@ -1,0 +1,125 @@
+{
+  "components": {
+    "label": "Components",
+    "items": {
+      "alert": {
+        "label": "Alert",
+        "variants": [
+          {
+            "label": "Default",
+            "component": "Default"
+          },
+          {
+            "label": "With Variant",
+            "component": "WithVariant"
+          },
+          {
+            "label": "With Multiple Variants",
+            "component": "WithMultipleVariants"
+          }
+        ]
+      },
+      "btn": {
+        "label": "Button",
+        "variants": [
+          {
+            "label": "Default",
+            "component": "Default"
+          },
+          {
+            "label": "As Link",
+            "component": "AsLink"
+          },
+          {
+            "label": "As Router Link",
+            "component": "AsRouterLink"
+          },
+          {
+            "label": "Disabled",
+            "component": "Disabled"
+          },
+          {
+            "label": "Type Submit",
+            "component": "TypeSubmit"
+          },
+          {
+            "label": "With Variant",
+            "component": "WithVariant"
+          },
+          {
+            "label": "With Custom Classes",
+            "component": "WithCustomClasses"
+          }
+        ]
+      },
+      "dialog": {
+        "label": "Dialog",
+        "variants": [
+          {
+            "label": "Default",
+            "component": "Default"
+          },
+          {
+            "label": "Open By Default",
+            "component": "OpenByDefault"
+          },
+          {
+            "label": "Nested",
+            "component": "Nested"
+          },
+          {
+            "label": "With Transition",
+            "component": "WithTransition"
+          }
+        ]
+      },
+      "icon": {
+        "label": "Icon",
+        "variants": [
+          {
+            "label": "Default",
+            "component": "Default"
+          },
+          {
+            "label": "Custom Scale",
+            "component": "CustomScale"
+          },
+          {
+            "label": "With Alternate Text",
+            "component": "WithAlternateText"
+          }
+        ]
+      },
+      "tabs": {
+        "label": "Tabs",
+        "variants": [
+          {
+            "label": "Default",
+            "component": "Default"
+          },
+          {
+            "label": "Controlled",
+            "component": "Controlled"
+          },
+          {
+            "label": "Override Style",
+            "component": "OverrideStyle"
+          }
+        ]
+      },
+      "toggle": {
+        "label": "Toggle",
+        "variants": [
+          {
+            "label": "Default",
+            "component": "Default"
+          },
+          {
+            "label": "Controlled",
+            "component": "Controlled"
+          }
+        ]
+      }
+    }
+  }
+}
