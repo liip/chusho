@@ -20,8 +20,6 @@ Object.values(components).forEach((component) => {
 });
 
 Object.values(directives).forEach((directive) => {
-  console.log('register directive', directive);
-
   app.directive(directive.name, directive);
 });
 
