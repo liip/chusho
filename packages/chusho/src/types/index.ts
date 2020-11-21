@@ -1,46 +1,18 @@
-import { DeepPartial, Dictionary } from 'ts-essentials';
+import { BaseTransitionProps } from 'vue';
 
-declare module 'vue/types/vue' {
-  interface Vue {
-    $chusho: DollarChusho;
-    $nuxt?: Dictionary<unknown>;
-  }
-}
+import { DialogData } from '../components/CDialog/CDialog';
 
-declare module '@vue/composition-api' {
-  interface SetupContext {
-    readonly refs: { [key: string]: Vue | Element | Vue[] | Element[] };
-  }
-}
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends (infer U)[]
+    ? DeepPartial<U>[]
+    : T[P] extends Readonly<infer U>[]
+    ? Readonly<DeepPartial<U>>[]
+    : DeepPartial<T[P]>;
+};
 
 export interface DollarChusho {
   options: ChushoOptions;
-  openDialogs: Vue[];
-}
-
-export interface VueTransitionProps {
-  name?: string;
-  appear?: boolean;
-  css?: boolean;
-  mode?: string;
-  type?: string;
-  enterClass?: string;
-  leaveClass?: string;
-  enterToClass?: string;
-  leaveToClass?: string;
-  enterActiveClass?: string;
-  leaveActiveClass?: string;
-  appearClass?: string;
-  appearActiveClass?: string;
-  appearToClass?: string;
-  duration?: [
-    number,
-    string,
-    {
-      enter: number;
-      leave: number;
-    }
-  ];
+  openDialogs: DialogData[];
 }
 
 export interface ContainerItemClass {
@@ -48,17 +20,17 @@ export interface ContainerItemClass {
   itemClass: string;
 }
 
-type VueClassBinding =
+export type VueClassBinding =
   | string
-  | Dictionary<boolean, string>
-  | Array<Dictionary<boolean, string> | string>;
+  | Record<string, boolean>
+  | Array<Record<string, boolean> | string>;
 
 export type ClassGenerator = (active: boolean) => VueClassBinding;
 
 interface ComponentsOptions {
   btn?: {
     defaultClass?: string;
-    variants?: Dictionary<string>;
+    variants?: Record<string, string>;
     disabledClass?: string;
   };
   icon?: {
@@ -80,11 +52,11 @@ interface ComponentsOptions {
   dialog?: {
     overlayClass?: string;
     dialogClass?: string;
-    transition?: VueTransitionProps;
+    transition?: BaseTransitionProps;
   };
   alert?: {
     defaultClass?: string;
-    variants?: Dictionary<string>;
+    variants?: Record<string, string>;
   };
 }
 

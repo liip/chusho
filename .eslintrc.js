@@ -31,7 +31,7 @@ module.exports = {
       },
     },
     {
-      files: ['**/*.spec.{j,t}s'],
+      files: ['**/*.spec.{j,t}s', '**/jest/**/*'],
       env: {
         jest: true,
       },

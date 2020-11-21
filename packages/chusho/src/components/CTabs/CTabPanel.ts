@@ -1,22 +1,17 @@
-import { VNodeData } from 'vue/types/umd';
-import { defineComponent, h, inject } from '@vue/composition-api';
+import { defineComponent, h, inject, mergeProps, PropType } from 'vue';
 
 import { TabsSymbol, UseTabs } from './CTabs';
-import TabsMixin from './mixin';
-import { ClassGenerator } from 'src/types';
+import { props as sharedProps } from './shared';
+import { ClassGenerator, DollarChusho, VueClassBinding } from '../../types';
 
-interface TabPanelProps {
-  id: number | string;
-  classGenerator?: ClassGenerator;
-  bare?: boolean;
-}
-
-export default defineComponent<TabPanelProps>({
+export default defineComponent({
   name: 'CTabPanel',
 
-  mixins: [TabsMixin],
+  inheritAttrs: false,
 
   props: {
+    ...sharedProps,
+
     /**
      * A unique ID to target the Tab.
      */
@@ -30,47 +25,46 @@ export default defineComponent<TabPanelProps>({
      * For example: `(active) => ({ 'tab-panel': true, 'tab-panel--active': active })`
      */
     classGenerator: {
-      type: Function,
+      type: Function as PropType<ClassGenerator>,
+      default: null,
     },
   },
 
-  setup(props, { attrs, parent, slots }) {
-    const tabsConfig = parent!.$chusho?.options?.components?.tabs;
+  setup(props, { attrs, slots }) {
     const tabs = inject(TabsSymbol) as UseTabs;
 
     tabs.registerTab(props.id);
 
     return () => {
+      const tabsConfig = inject<DollarChusho | null>('$chusho', null)?.options
+        ?.components?.tabs;
       const isActive = props.id === tabs.currentTab.value;
 
       if (!isActive) return null;
 
-      const componentData: VNodeData = {
-        attrs: {
-          ...attrs,
-          id: `chusho-tabs-${tabs.uuid}-tabpanel-${props.id}`,
-          role: 'tabpanel',
-          'aria-labelledby': `chusho-tabs-${tabs.uuid}-tab-${props.id}`,
-          tabindex: '0',
-        },
-        class: [],
+      const elementProps = {
+        id: `chusho-tabs-${tabs.uuid}-tabpanel-${props.id}`,
+        role: 'tabpanel',
+        'aria-labelledby': `chusho-tabs-${tabs.uuid}-tab-${props.id}`,
+        tabindex: '0',
+        class: <VueClassBinding[]>[],
       };
 
       if (!props.bare) {
         if (tabsConfig?.tabPanelClass) {
           if (typeof tabsConfig.tabPanelClass === 'function') {
-            componentData.class.push(tabsConfig.tabPanelClass(isActive));
+            elementProps.class.push(tabsConfig.tabPanelClass(isActive));
           } else {
-            componentData.class.push(tabsConfig.tabPanelClass);
+            elementProps.class.push(tabsConfig.tabPanelClass);
           }
         }
       }
 
       if (props.classGenerator) {
-        componentData.class.push(props.classGenerator(isActive));
+        elementProps.class.push(props.classGenerator(isActive));
       }
 
-      return h('div', componentData, slots.default && slots.default());
+      return h('div', mergeProps(attrs, elementProps), slots);
     };
   },
 });

@@ -1,21 +1,20 @@
-import Vue, { VNodeData } from 'vue';
-import { mergeData } from 'vue-functional-data-merge';
-import { VNode } from 'vue/types/umd';
-import { RawLocation } from 'vue-router';
+import {
+  defineComponent,
+  h,
+  inject,
+  mergeProps,
+  PropType,
+  resolveComponent,
+} from 'vue';
+import { RouteLocationRaw } from 'vue-router';
+
+import { DollarChusho } from '../../types';
 import { warn } from '../../utils/debug';
 
-interface BtnProps {
-  href: string;
-  to: RawLocation;
-  type: string;
-  variant: string;
-  disabled: boolean;
-}
-
-export default Vue.extend<BtnProps>({
+export default defineComponent({
   name: 'CBtn',
 
-  functional: true,
+  inheritAttrs: false,
 
   props: {
     /**
@@ -32,7 +31,7 @@ export default Vue.extend<BtnProps>({
      * Note that you can also pass all other `router-link` props such as `activeClass`, `replace`, … See [Vue router documentation](https://router.vuejs.org/api/#router-link) for a complete list of available props.
      */
     to: {
-      type: [String, Object],
+      type: [String, Object] as PropType<RouteLocationRaw>,
       default: null,
     },
 
@@ -51,7 +50,7 @@ export default Vue.extend<BtnProps>({
      */
     variant: {
       type: String,
-      default: '',
+      default: null,
     },
 
     /**
@@ -63,60 +62,70 @@ export default Vue.extend<BtnProps>({
     },
   },
 
-  render(h, { props, data, parent, children }): VNode {
-    const btnConfig = parent?.$chusho?.options?.components?.btn;
-    const classes = [];
-    let tag = 'button';
-    let attrs = {};
+  setup(props, { attrs, slots }) {
+    return () => {
+      const btnConfig = inject<DollarChusho | null>('$chusho', null)?.options
+        ?.components?.btn;
+      const classes = [];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let tag: any = 'button';
+      let extraAttrs: Record<string, unknown> = {};
 
-    if (props.to) {
-      tag = parent.$nuxt ? 'nuxt-link' : 'router-link';
-      attrs = {
-        to: props.to,
-      };
-    } else if (props.href) {
-      tag = 'a';
-      attrs = {
-        href: props.href,
-      };
-    }
+      if (props.to) {
+        // TODO: Update logic once we know how to detect Nuxt with Vue 3
+        tag = resolveComponent('router-link');
 
-    if (btnConfig) {
-      if (btnConfig.defaultClass) {
-        classes.push(btnConfig.defaultClass);
+        if (tag === 'router-link') {
+          warn(
+            `CBtn got a “to” prop but RouterLink component couldn’t be found. Is Vue Router installed? To make a CBtn behave like a traditional link, use the prop “href” instead.`
+          );
+        }
+
+        extraAttrs = {
+          to: props.to,
+        };
+      } else if (props.href) {
+        tag = 'a';
+        extraAttrs = {
+          href: props.href,
+        };
       }
-      if (btnConfig.disabledClass && props.disabled) {
-        classes.push(btnConfig.disabledClass);
+
+      if (btnConfig) {
+        if (btnConfig.defaultClass) {
+          classes.push(btnConfig.defaultClass);
+        }
+        if (btnConfig.disabledClass && props.disabled) {
+          classes.push(btnConfig.disabledClass);
+        }
+
+        if (props.variant) {
+          const variants = props.variant.split(' ');
+          variants.forEach((variant: string) => {
+            const target = btnConfig?.variants?.[variant];
+            if (target) {
+              classes.push(target);
+            } else {
+              warn(
+                `Cannot find Button variant named “${variant}” under “button.variants” defined in the config, you must define it before referencing it.`
+              );
+            }
+          });
+        }
       }
 
-      if (props.variant) {
-        const variants = props.variant.split(' ');
-        variants.forEach((variant) => {
-          const target = btnConfig?.variants?.[variant];
-          if (target) {
-            classes.push(target);
-          } else {
-            warn(
-              `Cannot find an Button variant named “${variant}” under “button.variants” defined in the config, you must define it before referencing it.`
-            );
-          }
-        });
-      }
-    }
-
-    const componentData: VNodeData = {
-      attrs: {
-        ...attrs,
+      const elementProps: Record<string, unknown> = {
+        ...extraAttrs,
         // Concerns only on button tags, skip for anchors
         ...(props.disabled && tag === 'button' && { disabled: true }),
         ...(props.type && tag === 'button' && { type: props.type }),
-      },
+      };
+
+      if (classes.length) {
+        elementProps.class = classes;
+      }
+
+      return h(tag, mergeProps(attrs, elementProps), slots);
     };
-
-    if (classes.length) {
-      componentData.class = classes;
-    }
-
-    return h(tag, mergeData(data, componentData), children);
   },
 });

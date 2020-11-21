@@ -1,4 +1,4 @@
-import { PluginObject } from 'vue/types/plugin';
+import { App, Plugin, reactive } from 'vue';
 
 import { mergeDeep } from './utils/objects';
 import { DollarChusho, ChushoOptions, ChushoUserOptions } from './types';
@@ -10,19 +10,21 @@ const defaultOptions: ChushoOptions = {
   components: {},
 };
 
-const Chusho: PluginObject<ChushoUserOptions> = {
-  install: function (Vue, userOptions?: ChushoUserOptions) {
-    const options = mergeDeep(defaultOptions, userOptions) as ChushoOptions;
+export const $chusho: DollarChusho = reactive({
+  options: defaultOptions,
+  openDialogs: [],
+});
 
-    // Provide configuration
-    Vue.prototype.$chusho = {
-      options,
-      openDialogs: [],
-    } as DollarChusho;
+const Chusho: Plugin = {
+  install: function (app: App, userOptions?: ChushoUserOptions) {
+    const options = mergeDeep(defaultOptions, userOptions) as ChushoOptions;
+    $chusho.options = options;
+
+    app.provide('$chusho', $chusho);
   },
 };
 
-export * from './components';
+export * as components from './components';
 export type { ChushoUserOptions } from './types';
 export const utils = {
   mergeDeep,

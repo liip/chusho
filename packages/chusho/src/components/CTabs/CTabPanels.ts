@@ -1,28 +1,27 @@
-import { VNodeData } from 'vue/types/umd';
-import { defineComponent, h } from '@vue/composition-api';
-import TabsMixin from './mixin';
+import { DollarChusho } from '../../types';
+import { defineComponent, h, inject, mergeProps } from 'vue';
+import { props as sharedProps } from './shared';
 
-interface TabPanelsProps {
-  bare?: boolean;
-}
-
-export default defineComponent<TabPanelsProps>({
+export default defineComponent({
   name: 'CTabPanels',
 
-  mixins: [TabsMixin],
+  inheritAttrs: false,
 
-  props: {},
+  props: {
+    ...sharedProps,
+  },
 
-  setup(props, { attrs, parent, slots }) {
-    const tabsConfig = parent!.$chusho?.options?.components?.tabs;
-
+  setup(props, { attrs, slots }) {
     return () => {
-      const componentData: VNodeData = {
-        attrs,
-        class: props.bare ? null : tabsConfig?.tabPanelsClass,
-      };
+      const tabsConfig = inject<DollarChusho | null>('$chusho', null)?.options
+        ?.components?.tabs;
+      const elementProps: Record<string, unknown> = {};
 
-      return h('div', componentData, slots.default && slots.default());
+      if (tabsConfig?.tabPanelsClass) {
+        elementProps.class = tabsConfig.tabPanelsClass;
+      }
+
+      return h('div', mergeProps(attrs, elementProps), slots);
     };
   },
 });

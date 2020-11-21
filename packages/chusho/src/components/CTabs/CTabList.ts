@@ -1,32 +1,30 @@
-import Vue from 'vue';
-import { VNodeData } from 'vue/types/umd';
-import { defineComponent, h, inject } from '@vue/composition-api';
+import { defineComponent, h, inject, ref, nextTick, mergeProps } from 'vue';
 
 import { TabsSymbol, UseTabs } from './CTabs';
-import TabsMixin from './mixin';
+import { props as sharedProps } from './shared';
 import { getSiblingIndexByArrowKey } from '../../utils/keyboard';
+import { DollarChusho } from '../../types';
 
-interface TabListProps {
-  bare?: boolean;
-}
-
-export default defineComponent<TabListProps>({
+export default defineComponent({
   name: 'CTabList',
 
-  mixins: [TabsMixin],
+  inheritAttrs: false,
 
-  props: {},
+  props: {
+    ...sharedProps,
+  },
 
-  setup(props, { attrs, slots, parent, refs }) {
-    const tabsConfig = parent!.$chusho?.options?.components?.tabs;
+  setup(props, { attrs, slots }) {
+    const chushoOptions = inject<DollarChusho | null>('$chusho', null)?.options;
     const tabs = inject(TabsSymbol) as UseTabs;
+    const tabList = ref<null | Element>(null);
 
     function handleNavigation(e: KeyboardEvent): void {
       if (!tabs.currentTab.value) return;
 
       const activeTabIndex = tabs.tabs.value.indexOf(tabs.currentTab.value);
       const activeTabId = tabs.tabs.value[activeTabIndex];
-      const rtl = parent!.$chusho?.options?.rtl;
+      const rtl = chushoOptions?.rtl;
       const newIndex = getSiblingIndexByArrowKey(
         tabs.tabs.value,
         activeTabId,
@@ -39,9 +37,9 @@ export default defineComponent<TabListProps>({
 
         tabs.setCurrentTab(tabs.tabs.value[newIndex]);
 
-        Vue.nextTick(() => {
-          if (refs && refs.tabList && refs.tabList instanceof Element) {
-            const activeTab: HTMLElement | null = refs.tabList.querySelector(
+        nextTick(() => {
+          if (tabList.value) {
+            const activeTab: HTMLElement | null = tabList.value.querySelector(
               '[aria-selected="true"]'
             );
             if (activeTab) {
@@ -53,19 +51,18 @@ export default defineComponent<TabListProps>({
     }
 
     return () => {
-      const componentData: VNodeData = {
-        attrs: {
-          ...attrs,
-          role: 'tablist',
-        },
-        class: props.bare ? null : tabsConfig?.tabListClass,
-        on: {
-          keydown: handleNavigation,
-        },
-        ref: 'tabList',
+      const tabsConfig = chushoOptions?.components?.tabs;
+      const elementProps: Record<string, unknown> = {
+        role: 'tablist',
+        onKeydown: handleNavigation,
+        ref: tabList,
       };
 
-      return h('div', componentData, slots.default && slots.default());
+      if (tabsConfig?.tabListClass) {
+        elementProps.class = tabsConfig.tabListClass;
+      }
+
+      return h('div', mergeProps(attrs, elementProps), slots);
     };
   },
 });

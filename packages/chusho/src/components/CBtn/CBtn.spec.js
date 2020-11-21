@@ -1,11 +1,11 @@
-import { mount, RouterLinkStub, createLocalVue } from '@vue/test-utils';
+import { mount, RouterLinkStub } from '@vue/test-utils';
 import CBtn from './CBtn';
 
 describe('CBtn', () => {
   it('should render the default slot as button content', () => {
     const wrapper = mount(CBtn, {
-      context: {
-        children: ['Action'],
+      slots: {
+        default: ['Action'],
       },
     });
     expect(wrapper.html()).toBe('<button type="button">Action</button>');
@@ -18,7 +18,7 @@ describe('CBtn', () => {
 
   it('should be a button with type submit when prop "type" is set to submit', () => {
     const wrapper = mount(CBtn, {
-      propsData: {
+      props: {
         type: 'submit',
       },
     });
@@ -27,37 +27,70 @@ describe('CBtn', () => {
 
   it('should be a link if prop "href" is given', () => {
     const wrapper = mount(CBtn, {
-      propsData: {
+      props: {
         href: '#',
       },
+      slots: {
+        default: ['Action'],
+      },
     });
-    expect(wrapper.html()).toBe('<a href="#"></a>');
+    expect(wrapper.html()).toBe('<a href="#">Action</a>');
   });
 
   it('should be a RouterLink if prop "to" is given', () => {
     const wrapper = mount(CBtn, {
-      propsData: {
+      global: {
+        components: {
+          RouterLink: RouterLinkStub,
+        },
+      },
+      props: {
         to: { name: 'home' },
       },
-      stubs: {
-        RouterLink: RouterLinkStub,
+      slots: {
+        default: '',
       },
     });
+
     expect(wrapper.findComponent(RouterLinkStub).exists()).toBe(true);
     expect(wrapper.html()).toBe('<a></a>');
   });
 
-  it('should be a NuxtLink if prop "to" is given in a Nuxt app', () => {
-    const localVue = createLocalVue();
-    localVue.prototype.$nuxt = {};
-
-    const wrapper = mount(CBtn, {
-      localVue,
-      propsData: {
+  it('should warn if prop "to" is given and no RouterLink can be found', () => {
+    mount(CBtn, {
+      global: {
+        config: {
+          warnHandler: () => {
+            // Mute Vue warnings
+          },
+        },
+      },
+      props: {
         to: { name: 'home' },
       },
-      stubs: {
-        NuxtLink: RouterLinkStub,
+      slots: {
+        default: 'Action',
+      },
+    });
+
+    expect('RouterLink component couldn’t be found').toHaveBeenWarned();
+  });
+
+  it.skip('should be a NuxtLink if prop "to" is given in a Nuxt app', () => {
+    const wrapper = mount(CBtn, {
+      global: {
+        provide: {
+          $nuxt: {},
+        },
+        components: {
+          NuxtLink: RouterLinkStub,
+        },
+      },
+      props: {
+        to: { name: 'home' },
+      },
+      slots: {
+        default: '',
       },
     });
     expect(wrapper.findComponent(RouterLinkStub).exists()).toBe(true);
@@ -65,60 +98,66 @@ describe('CBtn', () => {
   });
 
   it('should apply the "defaultClass" defined in the config', () => {
-    const localVue = createLocalVue();
-    localVue.prototype.$chusho = {
-      options: {
-        components: {
-          btn: {
-            defaultClass: 'btn',
+    const wrapper = mount(CBtn, {
+      global: {
+        provide: {
+          $chusho: {
+            options: {
+              components: {
+                btn: {
+                  defaultClass: 'btn',
+                },
+              },
+            },
           },
         },
       },
-    };
-    const wrapper = mount(CBtn, {
-      localVue,
     });
     expect(wrapper.html()).toBe('<button type="button" class="btn"></button>');
   });
 
   it('should apply the "disabledClass" defined in the config in addition to the "disabled" attribute when prop "disabled" is true', () => {
-    const localVue = createLocalVue();
-    localVue.prototype.$chusho = {
-      options: {
-        components: {
-          btn: {
-            disabledClass: 'btn--disabled',
-          },
-        },
-      },
-    };
     const wrapper = mount(CBtn, {
-      localVue,
-      propsData: {
-        disabled: true,
-      },
-    });
-    expect(wrapper.html()).toBe(
-      '<button disabled="disabled" type="button" class="btn--disabled"></button>'
-    );
-  });
-
-  it('should apply the variant class defined in the config when "variant" prop is provided', () => {
-    const localVue = createLocalVue();
-    localVue.prototype.$chusho = {
-      options: {
-        components: {
-          btn: {
-            variants: {
-              primary: 'btn--primary',
+      global: {
+        provide: {
+          $chusho: {
+            options: {
+              components: {
+                btn: {
+                  disabledClass: 'btn--disabled',
+                },
+              },
             },
           },
         },
       },
-    };
+      props: {
+        disabled: true,
+      },
+    });
+    expect(wrapper.html()).toBe(
+      '<button disabled="" type="button" class="btn--disabled"></button>'
+    );
+  });
+
+  it('should apply the variant class defined in the config when "variant" prop is provided', () => {
     const wrapper = mount(CBtn, {
-      localVue,
-      propsData: {
+      global: {
+        provide: {
+          $chusho: {
+            options: {
+              components: {
+                btn: {
+                  variants: {
+                    primary: 'btn--primary',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      props: {
         variant: 'primary',
       },
     });
@@ -127,23 +166,50 @@ describe('CBtn', () => {
     );
   });
 
-  it('should apply all the variants class defined in the config when "variant" prop contains multiple variants', () => {
-    const localVue = createLocalVue();
-    localVue.prototype.$chusho = {
-      options: {
-        components: {
-          btn: {
-            variants: {
-              primary: 'btn--primary',
-              medium: 'btn--medium',
+  it('should warn if requested variant does not exists', () => {
+    mount(CBtn, {
+      global: {
+        provide: {
+          $chusho: {
+            options: {
+              components: {
+                btn: {
+                  variants: {
+                    somethingelse: 'something',
+                  },
+                },
+              },
             },
           },
         },
       },
-    };
+      props: {
+        variant: 'doesnotexist',
+      },
+    });
+
+    expect('Cannot find Button variant named').toHaveBeenWarned();
+  });
+
+  it('should apply all the variants class defined in the config when "variant" prop contains multiple variants', () => {
     const wrapper = mount(CBtn, {
-      localVue,
-      propsData: {
+      global: {
+        provide: {
+          $chusho: {
+            options: {
+              components: {
+                btn: {
+                  variants: {
+                    primary: 'btn--primary',
+                    medium: 'btn--medium',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      props: {
         variant: 'primary medium',
       },
     });
@@ -154,7 +220,7 @@ describe('CBtn', () => {
 
   it('should not apply "disabled" nor "type" props on links', () => {
     const wrapper = mount(CBtn, {
-      propsData: {
+      props: {
         href: '#',
         disabled: true,
         type: 'submit',
@@ -165,7 +231,7 @@ describe('CBtn', () => {
 
   it('should forward other attributes', () => {
     const wrapper = mount(CBtn, {
-      propsData: {
+      props: {
         id: 'button',
       },
     });
@@ -173,13 +239,13 @@ describe('CBtn', () => {
   });
 
   it('should forward event listeners to the native element', () => {
-    const click = jest.fn();
+    const onClick = jest.fn();
     const wrapper = mount(CBtn, {
-      listeners: {
-        click,
+      props: {
+        onClick,
       },
     });
     wrapper.findComponent(CBtn).trigger('click');
-    expect(click).toHaveBeenCalled();
+    expect(onClick).toHaveBeenCalled();
   });
 });
