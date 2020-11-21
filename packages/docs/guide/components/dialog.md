@@ -44,14 +44,14 @@ Example of what the DOM structure should look like when a dialog is open:
 
 ```html
 <body>
-  <!-- Hidden from screen readers through the `aria-hidden` attribute -->
-  <div id="app" aria-hidden="true">
-    <!-- Content of the page -->
-  </div>
+    <!-- Hidden from screen readers through the `aria-hidden` attribute -->
+    <div id="app" aria-hidden="true">
+        <!-- Content of the page -->
+    </div>
 
-  <div id="chusho-dialogs-portal">
-    <!-- Dialogs currently open -->
-  </div>
+    <div id="chusho-dialogs-portal">
+        <!-- Dialogs currently open -->
+    </div>
 </body>
 ```
 
@@ -63,7 +63,7 @@ Here’s an example using a button with just a “close” icon. As you can see 
 
 ```jsx
 <CBtn v-on:click="dialogOpen = false">
-  <CIcon id="close" alt="Close dialog" />
+    <CIcon id="close" alt="Close dialog" />
 </CBtn>
 ```
 
@@ -71,19 +71,19 @@ Here’s an example using a button with just a “close” icon. As you can see 
 
 ### overlayClass
 
-- **type:** `string`
+-   **type:** `string`
 
 Class applied to all overlays (the element containing the dialog).
 
 ### dialogClass
 
-- **type:** `string`
+-   **type:** `string`
 
 Class applied to all dialogs.
 
 ### transition
 
-- **type:** `object`
+-   **type:** `object`
 
 Apply a common transition to all Dialogs. The object can contain any Vue built-in [transition component props](https://vuejs.org/v2/api/#transition).
 
@@ -142,23 +142,23 @@ This example use the following style to have a different transition between the 
 ```css
 .dialog-enter-active,
 .dialog-leave-active {
-  transition: opacity 0.2s;
+    transition: opacity 0.2s;
 
-  .dialog {
-    transition-duration: 0.3s;
-    transition-property: opacity transform;
-    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.4);
-  }
+    .dialog {
+        transition-duration: 0.3s;
+        transition-property: opacity transform;
+        transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.4);
+    }
 }
 
-.dialog-enter,
+.dialog-enter-from,
 .dialog-leave-to {
-  opacity: 0;
-
-  .dialog {
     opacity: 0;
-    transform: scale(0.9);
-  }
+
+    .dialog {
+        opacity: 0;
+        transform: scale(0.9);
+    }
 }
 ```
 

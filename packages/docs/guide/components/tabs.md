@@ -28,25 +28,25 @@ Accessible tabs component.
 
 ### tabsClass
 
-- **type:** `string`
+-   **type:** `string`
 
 Class applied to all CTabs components.
 
 ### tabListClass
 
-- **type:** `string`
+-   **type:** `string`
 
 Class applied to all CTabList components.
 
 ### tabPanelsClass
 
-- **type:** `string`
+-   **type:** `string`
 
 Class applied to all CTabPanels components.
 
 ### tabPanelClass
 
-- **type:** `string | function`
+-   **type:** `string | function`
 
 Example with a function:
 
@@ -65,7 +65,7 @@ Provide a `function` to dynamically apply classes based on the state, in this ca
 
 ### tabClass
 
-- **type:** `string | function`
+-   **type:** `string | function`
 
 Example with a function:
 

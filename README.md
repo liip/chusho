@@ -5,7 +5,7 @@
 
 # Chūshō
 
-A library of bare accessible Vue components and tools.
+A library of bare & accessible components and tools for Vue.js 3
 
 [Documentation](https://www.chusho.dev/guide/)
 

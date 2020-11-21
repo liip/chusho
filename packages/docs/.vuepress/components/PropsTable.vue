@@ -11,40 +11,45 @@
       </thead>
       <tbody>
         <template v-for="(section, i) in sections">
-          <tr v-if="section.label">
-            <th colspan="4">
-              {{ section.label }}
-            </th>
-          </tr>
-          <template v-if="section.rows && section.rows.length">
-            <tr v-for="row in section.rows" :key="row.name">
-              <td>
-                {{ row.name }}&nbsp;<abbr
-                  v-if="row.required"
-                  title="Required"
-                  class="required"
-                  >*</abbr
-                >
-              </td>
-              <td>
-                <code>{{ row.type.name }}</code>
-              </td>
-              <td>
-                <code v-if="row.defaultValue">{{
-                  row.defaultValue.value
-                }}</code>
-              </td>
-              <td
-                class="free-text"
-                v-html="$options.filters.md(row.description)"
-              ></td>
+          <template v-if="section.rows">
+            <tr v-if="section.label">
+              <th colspan="4">
+                {{ section.label }}
+              </th>
             </tr>
+            <template>
+              <tr v-for="row in section.rows" :key="row.name">
+                <template v-if="section.type === 'props'">
+                  <td>
+                    {{ row.name }}&nbsp;<abbr
+                      v-if="row.required"
+                      title="Required"
+                      class="required"
+                      >*</abbr
+                    >
+                  </td>
+                  <td>
+                    <code>{{ row.type.name }}</code>
+                  </td>
+                  <td>
+                    <code v-if="row.defaultValue">{{
+                      row.defaultValue.value
+                    }}</code>
+                  </td>
+                  <td
+                    class="free-text"
+                    v-html="$options.filters.md(row.description)"
+                  ></td>
+                </template>
+                <template v-else-if="section.type === 'events'">
+                  <td>
+                    {{ row.name }}
+                  </td>
+                  <td colspan="3"></td>
+                </template>
+              </tr>
+            </template>
           </template>
-          <tr v-else>
-            <td colspan="4">
-              <em>This component doesn’t accept any props.</em>
-            </td>
-          </tr>
         </template>
       </tbody>
     </table>
