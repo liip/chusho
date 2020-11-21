@@ -2,7 +2,7 @@
 
 Uniformized button style for `router-link`, `nuxt-link`, `a` or `button` elements.
 
-```vue live
+```vue
 <CBtn>Submit</CBtn>
 ```
 
@@ -46,13 +46,13 @@ For example:
 
 Transform the button tag into an `a` by providing the `href` prop.
 
-```vue live
+```vue
 <CBtn href="#">Click me</CBtn>
 ```
 
 You can also make it a `router-link` (or `nuxt-link` in a Nuxt app, this will be detected automatically), by providing the `to` prop. It works just like `router-link` prop of the same name.
 
-```vue live
+```vue
 <CBtn to="/">Go home</CBtn>
 ```
 
@@ -64,7 +64,7 @@ When a button is rendered as a link (i.e. an `a` tag), it will not apply the `ty
 
 Change the type of the button so it can trigger the submit of a form.
 
-```vue live
+```vue
 <CBtn type="submit">Click me</CBtn>
 ```
 
@@ -72,7 +72,7 @@ Change the type of the button so it can trigger the submit of a form.
 
 Apply one or multiple pre-defined styling variants (separated by a space) defined in the component config.
 
-```vue live
+```vue
 <CBtn variant="default medium">Click me</CBtn>
 ```
 
@@ -80,7 +80,7 @@ Apply one or multiple pre-defined styling variants (separated by a space) define
 
 Just like a normal button, you can disabled it.
 
-```vue live
+```vue
 <CBtn disabled>Click me</CBtn>
 ```
 
@@ -92,8 +92,8 @@ This prop has no effect when used in combination with either `href` or `to` prop
 
 Any extra attribute or event listener will be forwared to the main element.
 
-```vue live
-<CBtn id="pick-color-btn" v-on:click="() => {}">
+```vue
+<CBtn id="pick-color-btn" @click="() => {}">
   Click me
 </CBtn>
 ```

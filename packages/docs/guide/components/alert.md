@@ -2,7 +2,7 @@
 
 Announce important messages.
 
-```vue live
+```vue
 <CAlert>An important message.</CAlert>
 ```
 
@@ -40,10 +40,6 @@ For example:
 
 Apply one or multiple pre-defined styling variants (separated by a space) defined in the component config.
 
-```vue live
-<CAlert variant="error">An important message.</CAlert>
-```
-
-```vue live
+```vue
 <CAlert variant="warning inline">An important inline message.</CAlert>
 ```
