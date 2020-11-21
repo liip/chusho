@@ -38,7 +38,6 @@ export default {
         const data = this.$page.componentsDocgen[cmp];
         if (data && (data.props || data.events)) docs.push(data);
       });
-      console.log(docs);
       return docs;
     },
   },
