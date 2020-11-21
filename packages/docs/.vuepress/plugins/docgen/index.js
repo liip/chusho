@@ -8,7 +8,7 @@ glob(
   '../../../../chusho/src/components/C*/C*.ts',
   { cwd: path.resolve(__dirname) },
   (err, components) => {
-    components.forEach(async component => {
+    components.forEach(async (component) => {
       const parsed = await docGen.parse(path.resolve(__dirname, component));
       componentsDocgen[parsed.displayName] = parsed;
     });

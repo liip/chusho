@@ -2,7 +2,7 @@
 
 Display a scalable SVG icon from a pre-existing sprite.
 
-```vue live
+```vue
 <CIcon id="palette" />
 ```
 
@@ -40,7 +40,7 @@ Class applied to all Icon instances.
 
 ### Custom Scale
 
-```vue live
+```vue
 <CIcon id="picture" :scale="0.5" />
 ```
 
@@ -48,7 +48,7 @@ Class applied to all Icon instances.
 
 When used to depict an interactive element without any label close-by, use the alternate text to describe the action.
 
-```vue live
+```vue
 <CBtn>
   <CIcon id="picture" alt="View larger picture" />
 </CBtn>
