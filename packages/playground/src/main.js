@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import Chusho, { $chusho, components } from 'chusho';
+import Chusho, { $chusho, components, directives } from 'chusho';
 import chushoConfig from '../chusho.config.ts';
 
 import './assets/tailwind.css';
@@ -13,10 +13,16 @@ app.use(router);
 app.use(Chusho, chushoConfig);
 
 /**
- * Register all components globally
+ * Register all components & directives globally
  */
 Object.values(components).forEach((component) => {
   app.component(component.name, component);
+});
+
+Object.values(directives).forEach((directive) => {
+  console.log('register directive', directive);
+
+  app.directive(directive.name, directive);
 });
 
 app.mount('#app');
