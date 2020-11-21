@@ -10,25 +10,25 @@ Display a scalable SVG icon from a pre-existing sprite.
 
 ### spriteUrl
 
-- **type:** `string`
+-   **type:** `string`
 
 Load the sprite from a remote URL. This technique doesn’t work on Internet Explorer, but it can be polyfilled with [svgxuse](https://github.com/Keyamoon/svgxuse). Learn more about [SVG Sprites](https://css-tricks.com/svg-sprites-use-better-icon-fonts/) on CSS-Tricks.
 
 ### width
 
-- **type:** `number`
-- **default:** `24`
+-   **type:** `number`
+-   **default:** `24`
 
 ### height
 
-- **type:** `number`
-- **default:** `24`
+-   **type:** `number`
+-   **default:** `24`
 
 Icon viewBox height.
 
 ### class
 
-- **type:** `string`
+-   **type:** `string`
 
 Class applied to all Icon instances.
 

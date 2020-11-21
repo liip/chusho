@@ -10,19 +10,19 @@ Uniformized button style for `router-link`, `nuxt-link`, `a` or `button` element
 
 ### defaultClass
 
-- **type:** `string`
+-   **type:** `string`
 
 Class applied to all CBtn components.
 
 ### disabledClass
 
-- **type:** `string`
+-   **type:** `string`
 
 Class applied to Btn when prop `disabled` is set to `true`.
 
 ### variants
 
-- **type:** `object`
+-   **type:** `object`
 
 Predefined set of styling variants.
 

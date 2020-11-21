@@ -9,35 +9,31 @@ next: /guide/config.html
 
 Existing components should be stable but they are pretty young and some edge cases might have been missed. You’re more than welcome to try them now and [report any problem](https://github.com/liip/chusho/issues) you might encounter.
 
-We’ll add more components before releasing the first stable version, you can [follow the progress](https://github.com/liip/chusho/projects/1).
+We’ll add more components before releasing the first stable version.
 :::
 
-Install Chūshō and its dependencies with npm:
+Install Chūshō with npm:
 
 ```bash
-npm install chusho @vue/composition-api
+npm install chusho
 ```
 
 Or yarn:
 
 ```bash
-yarn add chusho @vue/composition-api
+yarn add chusho
 ```
-
-::: tip Vue compatibility
-Chūshō was started before Vue 3 was finalized. **At the moment it works only with Vue 2 and the Composition API plugin.** A [Vue 3 version](https://github.com/liip/chusho/pull/54) is in progress though. If your project doesn’t use the Composition API already, you should install and load it before Chūshō.
-:::
 
 In your main entry point, provide Chūshō to your app with:
 
 ```js
-import Vue from 'vue';
-import CompositionApi from '@vue/composition-api';
+import { createApp } from 'vue';
 import Chusho from 'chusho';
 
-Vue.use(CompositionApi);
-Vue.use(Chusho, {
-  // Here goes your own Chūshō config
+const app = createApp(App);
+
+app.use(Chusho, {
+    // Here goes your own Chūshō config
 });
 ```
 
@@ -61,27 +57,27 @@ Or locally in the components they are used:
 
 ```vue
 <template>
-  <CToggle>
-    <CToggleBtn>...</CToggleBtn>
-    <CToggleContent>
-      <!-- ... -->
-    </CToggleContent>
-  </CToggle>
+    <CToggle>
+        <CToggleBtn>...</CToggleBtn>
+        <CToggleContent>
+            <!-- ... -->
+        </CToggleContent>
+    </CToggle>
 </template>
 
 <script>
 import { CToggle, CToggleBtn, CToggleContent } from 'chusho';
 
 export default {
-  name: 'MyComponent',
+    name: 'MyComponent',
 
-  components: {
-    CToggle,
-    CToggleBtn,
-    CToggleContent,
-  },
+    components: {
+        CToggle,
+        CToggleBtn,
+        CToggleContent,
+    },
 
-  // ...
+    // ...
 };
 </script>
 ```

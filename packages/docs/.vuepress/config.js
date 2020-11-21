@@ -2,8 +2,9 @@ const path = require('path');
 
 module.exports = {
   title: 'Chūshō',
-  description: 'A library of bare accessible Vue.js components and tools.',
-  plugins: [require('./plugins/docgen'), 'live'],
+  description:
+    'A library of bare & accessible components and tools for Vue.js 3',
+  plugins: [require('./plugins/docgen')],
   themeConfig: {
     lastUpdated: 'Last updated',
     repo: 'liip/chusho',

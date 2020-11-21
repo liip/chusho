@@ -2,7 +2,7 @@
 home: true
 heroImage: /logo.svg
 heroText: Chūshō
-tagline: A library of bare accessible Vue.js components and tools
+tagline: A library of bare & accessible components and tools for Vue.js 3
 actionText: Get Started →
 actionLink: /guide/
 features:

@@ -1,34 +1,22 @@
 <template>
   <div class="mt-4">
-    <CTabs v-if="docs.length > 1">
-      <CTabList aria-label="Components">
-        <CTab v-for="(doc, i) in docs" :key="i" :target="doc.displayName">{{
-          doc.displayName
-        }}</CTab>
-      </CTabList>
-
-      <CTabPanels>
-        <CTabPanel v-for="(doc, i) in docs" :key="i" :id="doc.displayName">
-          <PropsTable
-            :sections="[
-              {
-                label: 'Props',
-                rows: doc.props,
-              },
-            ]"
-          />
-        </CTabPanel>
-      </CTabPanels>
-    </CTabs>
-    <PropsTable
-      v-else
-      :sections="[
-        {
-          label: 'Props',
-          rows: docs[0].props,
-        },
-      ]"
-    />
+    <div v-for="(doc, i) in docs" :key="i" :id="doc.displayName">
+      <h3>{{ doc.displayName }}</h3>
+      <PropsTable
+        :sections="[
+          {
+            label: 'Props',
+            type: 'props',
+            rows: doc.props,
+          },
+          {
+            label: 'Events',
+            type: 'events',
+            rows: doc.events,
+          },
+        ]"
+      />
+    </div>
   </div>
 </template>
 
@@ -45,7 +33,13 @@ export default {
 
   computed: {
     docs() {
-      return this.components.map(cmp => this.$page.componentsDocgen[cmp]);
+      const docs = [];
+      this.components.forEach(cmp => {
+        const data = this.$page.componentsDocgen[cmp];
+        if (data && (data.props || data.events)) docs.push(data);
+      });
+      console.log(docs);
+      return docs;
     },
   },
 };

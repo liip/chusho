@@ -15,7 +15,7 @@ Conditionnaly display some content.
 
 ### transition
 
-- **type:** `object`
+-   **type:** `object`
 
 Apply a common transition to all Toggles. The object can contain any Vue built-in [transition component props](https://vuejs.org/v2/api/#transition).
 

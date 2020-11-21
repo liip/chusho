@@ -10,13 +10,13 @@ Announce important messages.
 
 ### defaultClass
 
-- **type:** `string`
+-   **type:** `string`
 
 Class applied to all CAlert components.
 
 ### variants
 
-- **type:** `object`
+-   **type:** `object`
 
 Predefined set of styling variants.
 
