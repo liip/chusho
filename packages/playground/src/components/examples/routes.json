@@ -121,5 +121,19 @@
         ]
       }
     }
+  },
+  "directives": {
+    "label": "Directives",
+    "items": {
+      "click-outside": {
+        "label": "Click outside",
+        "variants": [
+          {
+            "label": "Default",
+            "component": "Default"
+          }
+        ]
+      }
+    }
   }
 }

@@ -25,6 +25,7 @@ const Chusho: Plugin = {
 };
 
 export * as components from './components';
+export * as directives from './directives';
 export type { ChushoUserOptions } from './types';
 export const utils = {
   mergeDeep,
