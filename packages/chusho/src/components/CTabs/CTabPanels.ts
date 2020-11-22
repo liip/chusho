@@ -17,7 +17,7 @@ export default defineComponent({
         ?.components?.tabs;
       const elementProps: Record<string, unknown> = {};
 
-      if (tabsConfig?.tabPanelsClass) {
+      if (!props.bare && tabsConfig?.tabPanelsClass) {
         elementProps.class = tabsConfig.tabPanelsClass;
       }
 

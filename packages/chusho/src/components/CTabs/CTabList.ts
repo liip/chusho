@@ -58,7 +58,7 @@ export default defineComponent({
         ref: tabList,
       };
 
-      if (tabsConfig?.tabListClass) {
+      if (!props.bare && tabsConfig?.tabListClass) {
         elementProps.class = tabsConfig.tabListClass;
       }
 

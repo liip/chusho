@@ -51,13 +51,11 @@ export default defineComponent({
         },
       };
 
-      if (!props.bare) {
-        if (tabsConfig?.tabClass) {
-          if (typeof tabsConfig.tabClass === 'function') {
-            elementProps.class.push(tabsConfig.tabClass(isActive));
-          } else {
-            elementProps.class.push(tabsConfig.tabClass);
-          }
+      if (!props.bare && tabsConfig?.tabClass) {
+        if (typeof tabsConfig.tabClass === 'function') {
+          elementProps.class.push(tabsConfig.tabClass(isActive));
+        } else {
+          elementProps.class.push(tabsConfig.tabClass);
         }
       }
 
