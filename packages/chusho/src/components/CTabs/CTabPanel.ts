@@ -50,13 +50,11 @@ export default defineComponent({
         class: <VueClassBinding[]>[],
       };
 
-      if (!props.bare) {
-        if (tabsConfig?.tabPanelClass) {
-          if (typeof tabsConfig.tabPanelClass === 'function') {
-            elementProps.class.push(tabsConfig.tabPanelClass(isActive));
-          } else {
-            elementProps.class.push(tabsConfig.tabPanelClass);
-          }
+      if (!props.bare && tabsConfig?.tabPanelClass) {
+        if (typeof tabsConfig.tabPanelClass === 'function') {
+          elementProps.class.push(tabsConfig.tabPanelClass(isActive));
+        } else {
+          elementProps.class.push(tabsConfig.tabPanelClass);
         }
       }
 

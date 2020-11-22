@@ -110,16 +110,24 @@ describe('Tabs Override Style', () => {
     cy.get('[data-test="tabpanel-3"]').should('be.visible');
   });
 
-  it('applies class to elements properly', () => {
+  it('applies locally defined classes but not config classes when bare prop is true', () => {
+    cy.get('[data-test="tabs"]')
+      .should('have.class', 'custom-tabs')
+      .and('not.have.class', 'tabs');
     cy.get('[data-test="tablist"]')
       .should('have.class', 'mb-3')
       .and('not.have.class', 'mx-4');
-    cy.get('[data-test="tab-1"]')
+    cy.get('[data-test="tab-1"][aria-selected="false"]')
       .should('have.class', 'text-red-700')
       .and('not.have.class', 'text-gray-700');
-    cy.get('[data-test="tab-3"]')
+    cy.get('[data-test="tab-3"][aria-selected="true"]')
       .should('have.class', 'bg-red-700')
       .and('not.have.class', 'text-blue-800');
-    cy.get('[data-test="tab-panel-3"]').should('not.have.class', 'tabpanel');
+    cy.get('[data-test="tabpanels"]')
+      .should('have.class', 'custom-tabpanels')
+      .and('not.have.class', 'bg-gray-200');
+    cy.get('[data-test="tabpanel-3"]')
+      .should('have.class', 'custom-tabpanel')
+      .and('not.have.class', 'tabpanel');
   });
 });

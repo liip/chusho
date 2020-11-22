@@ -1,5 +1,5 @@
 <template>
-  <CTabs default-tab="3">
+  <CTabs default-tab="3" data-test="tabs" class="custom-tabs" bare>
     <CTabList
       data-test="tablist"
       aria-label="Example of tabs with different style"
@@ -32,20 +32,20 @@
       >
     </CTabList>
 
-    <CTabPanels>
-      <CTabPanel id="1" data-test="tabpanel-1" bare>
+    <CTabPanels data-test="tabpanels" class="custom-tabpanels" bare>
+      <CTabPanel id="1" data-test="tabpanel-1" class="custom-tabpanel" bare>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam in,
         iste id nobis dolor excepturi dolore expedita vero quae. Nobis fuga
         cupiditate suscipit blanditiis, aliquid minima harum molestias pariatur
         tempora ab.
       </CTabPanel>
-      <CTabPanel id="2" data-test="tabpanel-2" bare>
+      <CTabPanel id="2" data-test="tabpanel-2" class="custom-tabpanel" bare>
         Nobis fuga cupiditate suscipit blanditiis, aliquid minima harum
         molestias pariatur tempora ab, libero quo maiores sapiente doloribus
         nihil commodi eaque accusantium praesentium! Nobis natus qui voluptate
         inventore molestias quisquam, consequuntur harum?
       </CTabPanel>
-      <CTabPanel id="3" data-test="tabpanel-3" bare>
+      <CTabPanel id="3" data-test="tabpanel-3" class="custom-tabpanel" bare>
         Laboriosam in, iste id nobis dolor excepturi dolore expedita vero quae.
         Nobis natus qui voluptate inventore molestias quisquam, consequuntur
         harum?
