@@ -67,7 +67,8 @@ export default defineComponent({
 
   data() {
     return {
-      previewSrc: this.$route.query.preview || '/examples/alert/default',
+      previewSrc:
+        this.$route.query.preview || '/examples/components/alert/default',
     };
   },
 
@@ -110,7 +111,7 @@ export default defineComponent({
 
   mounted() {
     if (!this.$route.query.preview) {
-      this.updatePreview('/examples/alert/default');
+      this.updatePreview('/examples/components/alert/default');
     }
   },
 
