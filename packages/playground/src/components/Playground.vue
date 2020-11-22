@@ -14,7 +14,7 @@
           <div class="mb-2 px-5 font-bold">{{ category.label }}</div>
           <ul>
             <li v-for="group in category.groups" :key="group.id">
-              <CToggle>
+              <CToggle :model-value="group.open">
                 <CToggleBtn
                   class="block w-full text-left py-1 px-5 font-medium text-sm hover:bg-gray-300"
                 >
@@ -99,10 +99,16 @@ export default defineComponent({
           };
         }
 
-        group.variants.push({
+        const variant = {
           label: example.meta.label,
           to: `/examples/${example.path}`,
-        });
+        };
+
+        if (variant.to === this.$route.query.preview) {
+          group.open = true;
+        }
+
+        group.variants.push(variant);
       });
 
       return categories;
