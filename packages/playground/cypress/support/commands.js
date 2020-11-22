@@ -3,5 +3,5 @@
 // ***********************************************
 
 Cypress.Commands.add('visitComponent', (path) => {
-  cy.visit(`/examples/${path}`);
+  cy.visit(`/examples/components/${path}`);
 });
