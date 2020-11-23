@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import clickOutside from '../clickOutside';
+import clickOutside from './clickOutside';
 
 describe('clickOutside', () => {
   let wrapper;
