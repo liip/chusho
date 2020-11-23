@@ -17,10 +17,11 @@
               <CToggle :model-value="group.open">
                 <CToggleBtn
                   class="block w-full text-left py-1 px-5 font-medium text-sm hover:bg-gray-300"
+                  bare
                 >
                   {{ group.label }}
                 </CToggleBtn>
-                <CToggleContent :transition="false">
+                <CToggleContent :transition="false" bare>
                   <ul>
                     <li v-for="variant in group.variants" :key="variant.to">
                       <a
@@ -43,13 +44,23 @@
         </div>
       </div>
 
-      <div class="flex flex-col w-full">
-        <iframe
-          ref="iframe"
-          :src="previewSrc"
-          frameborder="0"
-          class="h-full w-full"
-        />
+      <div class="flex flex-col w-4/5">
+        <div class="flex-1">
+          <iframe
+            ref="iframe"
+            :src="previewSrc"
+            frameborder="0"
+            class="h-full w-full"
+            @load="iframeLoaded"
+          />
+        </div>
+        <div
+          class="code flex-1 bg-gray-100 border-t border-gray-300 overflow-y-auto"
+        >
+          <pre
+            class="h-full p-5"
+          ><code language="hljs xml" v-html="code"></code></pre>
+        </div>
       </div>
     </div>
   </div>
@@ -57,6 +68,14 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+
+import prettier from 'prettier/esm/standalone';
+import parserHtml from 'prettier/esm/parser-html';
+import hljs from 'highlight.js/lib/core';
+import xml from 'highlight.js/lib/languages/xml';
+import 'highlight.js/styles/atom-one-light.css';
+
+hljs.registerLanguage('xml', xml);
 
 export default defineComponent({
   setup() {
@@ -69,6 +88,9 @@ export default defineComponent({
     return {
       previewSrc:
         this.$route.query.preview || '/examples/components/alert/default',
+      previewNode: null,
+      code: '',
+      observer: null,
     };
   },
 
@@ -116,12 +138,25 @@ export default defineComponent({
   },
 
   mounted() {
+    this.observer = new MutationObserver(this.updateCode);
+
     if (!this.$route.query.preview) {
       this.updatePreview('/examples/components/alert/default');
     }
   },
 
   methods: {
+    iframeLoaded() {
+      this.previewNode = this.$refs.iframe.contentDocument.querySelector(
+        '#preview'
+      );
+      this.observer.observe(this.previewNode, {
+        childList: true,
+        subtree: true,
+      });
+      this.updateCode();
+    },
+
     updatePreview(to) {
       this.$router.replace({
         query: {
@@ -135,6 +170,19 @@ export default defineComponent({
           window.location
         );
       }
+    },
+
+    updateCode() {
+      console.log('updateCode');
+
+      this.code = hljs.highlight(
+        'xml',
+        prettier.format(this.previewNode.innerHTML, {
+          parser: 'html',
+          plugins: [parserHtml],
+          htmlWhitespaceSensitivity: 'ignore',
+        })
+      ).value;
     },
   },
 });
