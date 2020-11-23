@@ -1,3 +1,1 @@
-import clickOutside from './clickOutside';
-
-export { clickOutside };
+export * from './clickOutside';
