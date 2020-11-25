@@ -1,6 +1,6 @@
 **This project is currently in active development, we’d love to have feedback on existing components but we do not recommend using them in production yet. Stay tuned for more components!**
 
-[![Build Status](https://api.travis-ci.org/liip/chusho.svg?branch=master)](https://travis-ci.org/liip/chusho)
+[![Build Status](https://img.shields.io/github/workflow/status/liip/chusho/test)](https://github.com/liip/chusho/actions)
 [![npm Package](https://img.shields.io/npm/v/chusho)](https://www.npmjs.com/package/chusho)
 
 # Chūshō
