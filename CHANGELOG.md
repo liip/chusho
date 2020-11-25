@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0-beta.0](https://github.com/liip/chusho/compare/v0.1.0-alpha.6...v0.2.0-beta.0) (2020-11-25)
+
+
+### Bug Fixes
+
+* **Tabs:** properly apply classes based on `bare` prop ([b34adef](https://github.com/liip/chusho/commit/b34adefead9b1ece4ea352cbd5992b9f11b2c2ab))
+
+
+### Features
+
+* **core:** allow to dynamically style all components globally ([56964f5](https://github.com/liip/chusho/commit/56964f54b7e4add40ab2580c1b4d24c7f55111f1))
+* **Directives:** introduce clickOutside directive ([bd59230](https://github.com/liip/chusho/commit/bd592303e42048250cebf65fa42ccd01eae5b312))
+* move to Vue 3 ([0793f36](https://github.com/liip/chusho/commit/0793f361a9947cf78d1591964f782ad7fdab8607))
+* remove CFlex component ([8a710f8](https://github.com/liip/chusho/commit/8a710f8cc9042ce85baeea3822a19c179acd4eef))
+* **Preset:** drop Tailwind preset ([bcdf7da](https://github.com/liip/chusho/commit/bcdf7daefa352d58facb1801ab83567bbc06d5da))
+
+
+### BREAKING CHANGES
+
+* Chūshō now works only with Vue 3.
+* This component was causing too many issues with PurgeCSS due to its dynamic classes. Most of it can now be easily achieved with Tailwind’s « space » helpers and CSS « gap » property.
+* **Preset:** Tailwind preset was removed and shouldn’t be used anymore. Have a look at Tailwind’s « flex » and « space » helpers instead.
+
+
+
+
+
 # [0.1.0-alpha.6](https://github.com/liip/chusho/compare/v0.1.0-alpha.5...v0.1.0-alpha.6) (2020-11-13)
 
 
