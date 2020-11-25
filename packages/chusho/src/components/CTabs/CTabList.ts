@@ -1,9 +1,9 @@
-import { defineComponent, h, inject, ref, nextTick, mergeProps } from 'vue';
+import { defineComponent, h, inject, nextTick, mergeProps } from 'vue';
 
 import { DollarChusho } from '../../types';
 import { getSiblingIndexByArrowKey } from '../../utils/keyboard';
 import { generateConfigClass } from '../../utils/components';
-import componentMixin from '../shared';
+import componentMixin from '../mixin';
 import { TabsSymbol, UseTabs } from './CTabs';
 
 export default defineComponent({
@@ -13,19 +13,27 @@ export default defineComponent({
 
   inheritAttrs: false,
 
-  setup(props, { attrs, slots }) {
-    const chushoOptions = inject<DollarChusho | null>('$chusho', null)?.options;
+  setup() {
+    const chusho = inject<DollarChusho | null>('$chusho', null);
     const tabs = inject(TabsSymbol) as UseTabs;
-    const tabList = ref<null | Element>(null);
 
-    function handleNavigation(e: KeyboardEvent): void {
-      if (!tabs.currentTab.value) return;
+    return {
+      chusho,
+      tabs,
+    };
+  },
 
-      const activeTabIndex = tabs.tabs.value.indexOf(tabs.currentTab.value);
-      const activeTabId = tabs.tabs.value[activeTabIndex];
-      const rtl = chushoOptions?.rtl;
+  methods: {
+    handleNavigation(e: KeyboardEvent): void {
+      if (!this.tabs.currentTab.value) return;
+
+      const activeTabIndex = this.tabs.tabs.value.indexOf(
+        this.tabs.currentTab.value
+      );
+      const activeTabId = this.tabs.tabs.value[activeTabIndex];
+      const rtl = this.chusho?.options?.rtl;
       const newIndex = getSiblingIndexByArrowKey(
-        tabs.tabs.value,
+        this.tabs.tabs.value,
         activeTabId,
         e.key,
         rtl && rtl()
@@ -34,11 +42,13 @@ export default defineComponent({
       if (newIndex !== undefined) {
         e.preventDefault();
 
-        tabs.setCurrentTab(tabs.tabs.value[newIndex]);
+        this.tabs.setCurrentTab(this.tabs.tabs.value[newIndex]);
 
         nextTick(() => {
-          if (tabList.value) {
-            const activeTab: HTMLElement | null = tabList.value.querySelector(
+          const tabList = this.$refs.tabList as HTMLElement | null;
+
+          if (tabList) {
+            const activeTab: HTMLElement | null = tabList.querySelector(
               '[aria-selected="true"]'
             );
             if (activeTab) {
@@ -47,18 +57,18 @@ export default defineComponent({
           }
         });
       }
-    }
+    },
+  },
 
-    return () => {
-      const tabListConfig = chushoOptions?.components?.tabList;
-      const elementProps: Record<string, unknown> = {
-        role: 'tablist',
-        onKeydown: handleNavigation,
-        ref: tabList,
-        ...generateConfigClass(tabListConfig?.class, props),
-      };
-
-      return h('div', mergeProps(attrs, elementProps), slots);
+  render() {
+    const tabListConfig = this.chusho?.options?.components?.tabList;
+    const elementProps: Record<string, unknown> = {
+      role: 'tablist',
+      onKeydown: this.handleNavigation,
+      ref: 'tabList',
+      ...generateConfigClass(tabListConfig?.class, this.$props),
     };
+
+    return h('div', mergeProps(this.$attrs, elementProps), this.$slots);
   },
 });

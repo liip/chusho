@@ -2,7 +2,7 @@ import { defineComponent, h, inject, mergeProps } from 'vue';
 
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
-import componentMixin from '../shared';
+import componentMixin from '../mixin';
 
 export default defineComponent({
   name: 'CAlert',
@@ -11,17 +11,14 @@ export default defineComponent({
 
   inheritAttrs: false,
 
-  setup(props, { attrs, slots }) {
-    return () => {
-      const alertConfig = inject<DollarChusho | null>('$chusho', null)?.options
-        ?.components?.alert;
-
-      const extraProps: Record<string, unknown> = {
-        role: 'alert',
-        ...generateConfigClass(alertConfig?.class, props),
-      };
-
-      return h('div', mergeProps(attrs, extraProps), slots);
+  render() {
+    const alertConfig = inject<DollarChusho | null>('$chusho', null)?.options
+      ?.components?.alert;
+    const elementProps: Record<string, unknown> = {
+      role: 'alert',
+      ...generateConfigClass(alertConfig?.class, this.$props),
     };
+
+    return h('div', mergeProps(this.$attrs, elementProps), this.$slots);
   },
 });

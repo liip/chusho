@@ -2,7 +2,7 @@ import { defineComponent, h, inject, mergeProps } from 'vue';
 
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
-import componentMixin from '../shared';
+import componentMixin from '../mixin';
 import { TabsSymbol, UseTabs } from './CTabs';
 
 export default defineComponent({
@@ -22,31 +22,35 @@ export default defineComponent({
     },
   },
 
-  setup(props, { attrs, slots }) {
+  setup() {
     const tabs = inject(TabsSymbol) as UseTabs;
 
-    return () => {
-      const tabConfig = inject<DollarChusho | null>('$chusho', null)?.options
-        ?.components?.tab;
-      const isActive = props.target === tabs.currentTab.value;
-      const elementProps = {
-        type: 'button',
-        id: `chusho-tabs-${tabs.uuid}-tab-${props.target}`,
-        role: 'tab',
-        'aria-selected': `${isActive}`,
-        'aria-controls': `chusho-tabs-${tabs.uuid}-tabpanel-${props.target}`,
-        tabindex: isActive ? '0' : '-1',
-        onClick() {
-          if (!props.target) return;
-          tabs.setCurrentTab(props.target);
-        },
-        ...generateConfigClass(tabConfig?.class, {
-          ...props,
-          active: isActive,
-        }),
-      };
-
-      return h('button', mergeProps(attrs, elementProps), slots);
+    return {
+      tabs,
     };
+  },
+
+  render() {
+    const tabConfig = inject<DollarChusho | null>('$chusho', null)?.options
+      ?.components?.tab;
+    const isActive = this.target === this.tabs.currentTab.value;
+    const elementProps = {
+      type: 'button',
+      id: `chusho-tabs-${this.tabs.uuid}-tab-${this.target}`,
+      role: 'tab',
+      'aria-selected': `${isActive}`,
+      'aria-controls': `chusho-tabs-${this.tabs.uuid}-tabpanel-${this.target}`,
+      tabindex: isActive ? '0' : '-1',
+      onClick: () => {
+        if (!this.target) return;
+        this.tabs.setCurrentTab(this.target);
+      },
+      ...generateConfigClass(tabConfig?.class, {
+        ...this.$props,
+        active: isActive,
+      }),
+    };
+
+    return h('button', mergeProps(this.$attrs, elementProps), this.$slots);
   },
 });

@@ -2,7 +2,7 @@ import { defineComponent, h, inject, mergeProps } from 'vue';
 
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
-import componentMixin from '../shared';
+import componentMixin from '../mixin';
 import { TabsSymbol, UseTabs } from './CTabs';
 
 export default defineComponent({
@@ -22,30 +22,34 @@ export default defineComponent({
     },
   },
 
-  setup(props, { attrs, slots }) {
+  setup(props) {
     const tabs = inject(TabsSymbol) as UseTabs;
 
     tabs.registerTab(props.id);
 
-    return () => {
-      const tabPanelConfig = inject<DollarChusho | null>('$chusho', null)
-        ?.options?.components?.tabPanel;
-      const isActive = props.id === tabs.currentTab.value;
-
-      if (!isActive) return null;
-
-      const elementProps = {
-        id: `chusho-tabs-${tabs.uuid}-tabpanel-${props.id}`,
-        role: 'tabpanel',
-        'aria-labelledby': `chusho-tabs-${tabs.uuid}-tab-${props.id}`,
-        tabindex: '0',
-        ...generateConfigClass(tabPanelConfig?.class, {
-          ...props,
-          active: isActive,
-        }),
-      };
-
-      return h('div', mergeProps(attrs, elementProps), slots);
+    return {
+      tabs,
     };
+  },
+
+  render() {
+    const tabPanelConfig = inject<DollarChusho | null>('$chusho', null)?.options
+      ?.components?.tabPanel;
+    const isActive = this.id === this.tabs.currentTab.value;
+
+    if (!isActive) return null;
+
+    const elementProps = {
+      id: `chusho-tabs-${this.tabs.uuid}-tabpanel-${this.id}`,
+      role: 'tabpanel',
+      'aria-labelledby': `chusho-tabs-${this.tabs.uuid}-tab-${this.id}`,
+      tabindex: '0',
+      ...generateConfigClass(tabPanelConfig?.class, {
+        ...this.$props,
+        active: isActive,
+      }),
+    };
+
+    return h('div', mergeProps(this.$attrs, elementProps), this.$slots);
   },
 });

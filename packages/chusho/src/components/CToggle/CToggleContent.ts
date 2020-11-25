@@ -11,7 +11,7 @@ import {
 import { DollarChusho } from '../../types';
 import { isPlainObject } from '../../utils/objects';
 import { generateConfigClass } from '../../utils/components';
-import componentMixin from '../shared';
+import componentMixin from '../mixin';
 import { ToggleSymbol } from './CToggle';
 import { UseToggle } from './CToggle';
 
@@ -36,37 +36,46 @@ export default defineComponent({
     },
   },
 
-  setup(props, { slots, attrs }) {
+  setup() {
+    const chusho = inject<DollarChusho | null>('$chusho', null);
     const toggle = inject(ToggleSymbol) as UseToggle;
 
-    function renderContent() {
-      const toggleConfig = inject<DollarChusho | null>('$chusho', null)?.options
-        ?.components?.toggleContent;
+    return {
+      chusho,
+      toggle,
+    };
+  },
+
+  methods: {
+    renderContent() {
       const elementProps: Record<string, unknown> = {
-        id: toggle.uuid,
-        ...generateConfigClass(toggleConfig?.class, props),
+        id: this.toggle.uuid,
+        ...generateConfigClass(
+          this.chusho?.options?.components?.toggleContent?.class,
+          this.$props
+        ),
       };
 
-      if (toggle.open.value) {
-        return h('div', mergeProps(attrs, elementProps), slots);
+      if (this.toggle.open.value) {
+        return h('div', mergeProps(this.$attrs, elementProps), this.$slots);
       }
+
       return null;
+    },
+  },
+
+  render() {
+    const toggleConfig = this.chusho?.options?.components?.toggleContent;
+    let transitionProps: BaseTransitionProps | null = null;
+
+    if (isPlainObject(this.transition)) {
+      transitionProps = this.transition;
+    } else if (this.transition !== false && toggleConfig?.transition) {
+      transitionProps = toggleConfig.transition;
     }
 
-    return () => {
-      const toggleConfig = inject<DollarChusho | null>('$chusho', null)?.options
-        ?.components?.toggleContent;
-      let transitionProps: BaseTransitionProps | null = null;
-
-      if (isPlainObject(props.transition)) {
-        transitionProps = props.transition;
-      } else if (props.transition !== false && toggleConfig?.transition) {
-        transitionProps = toggleConfig.transition;
-      }
-
-      return transitionProps
-        ? h(Transition, transitionProps, renderContent)
-        : renderContent();
-    };
+    return transitionProps
+      ? h(Transition, transitionProps, this.renderContent)
+      : this.renderContent();
   },
 });

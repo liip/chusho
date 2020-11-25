@@ -2,7 +2,7 @@ import { defineComponent, h, inject, mergeProps } from 'vue';
 
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
-import componentMixin from '../shared';
+import componentMixin from '../mixin';
 
 export default defineComponent({
   name: 'CTabPanels',
@@ -11,15 +11,13 @@ export default defineComponent({
 
   inheritAttrs: false,
 
-  setup(props, { attrs, slots }) {
-    return () => {
-      const tabPanelsConfig = inject<DollarChusho | null>('$chusho', null)
-        ?.options?.components?.tabPanels;
-      const elementProps: Record<string, unknown> = {
-        ...generateConfigClass(tabPanelsConfig?.class, props),
-      };
-
-      return h('div', mergeProps(attrs, elementProps), slots);
+  render() {
+    const tabPanelsConfig = inject<DollarChusho | null>('$chusho', null)
+      ?.options?.components?.tabPanels;
+    const elementProps: Record<string, unknown> = {
+      ...generateConfigClass(tabPanelsConfig?.class, this.$props),
     };
+
+    return h('div', mergeProps(this.$attrs, elementProps), this.$slots);
   },
 });

@@ -11,7 +11,7 @@ import { RouteLocationRaw } from 'vue-router';
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import { warn } from '../../utils/debug';
-import componentMixin from '../shared';
+import componentMixin from '../mixin';
 
 export default defineComponent({
   name: 'CBtn',
@@ -56,43 +56,40 @@ export default defineComponent({
     },
   },
 
-  setup(props, { attrs, slots }) {
-    return () => {
-      const btnConfig = inject<DollarChusho | null>('$chusho', null)?.options
-        ?.components?.btn;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let tag: any = 'button';
-      let extraAttrs: Record<string, unknown> = {};
+  render() {
+    const btnConfig = inject<DollarChusho | null>('$chusho', null)?.options
+      ?.components?.btn;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let tag: any = 'button';
+    let extraAttrs: Record<string, unknown> = {};
 
-      if (props.to) {
-        // TODO: Update logic once we know how to detect Nuxt with Vue 3
-        tag = resolveComponent('router-link');
+    if (this.to) {
+      tag = resolveComponent('router-link');
 
-        if (tag === 'router-link') {
-          warn(
-            `CBtn got a “to” prop but RouterLink component couldn’t be found. Is Vue Router installed? To make a CBtn behave like a traditional link, use the prop “href” instead.`
-          );
-        }
-
-        extraAttrs = {
-          to: props.to,
-        };
-      } else if (props.href) {
-        tag = 'a';
-        extraAttrs = {
-          href: props.href,
-        };
+      if (tag === 'router-link') {
+        warn(
+          `CBtn got a “to” prop but RouterLink component couldn’t be found. Is Vue Router installed? To make a CBtn behave like a traditional link, use the prop “href” instead.`
+        );
       }
 
-      const elementProps: Record<string, unknown> = {
-        ...extraAttrs,
-        // Concerns only on button tags, skip for anchors
-        ...(props.disabled && tag === 'button' && { disabled: true }),
-        ...(props.type && tag === 'button' && { type: props.type }),
-        ...generateConfigClass(btnConfig?.class, props),
+      extraAttrs = {
+        to: this.to,
       };
+    } else if (this.href) {
+      tag = 'a';
+      extraAttrs = {
+        href: this.href,
+      };
+    }
 
-      return h(tag, mergeProps(attrs, elementProps), slots);
+    const elementProps: Record<string, unknown> = {
+      ...extraAttrs,
+      // Concerns only on button tags, skip for anchors
+      ...(this.disabled && tag === 'button' && { disabled: true }),
+      ...(this.type && tag === 'button' && { type: this.type }),
+      ...generateConfigClass(btnConfig?.class, this.$props),
     };
+
+    return h(tag, mergeProps(this.$attrs, elementProps), this.$slots);
   },
 });

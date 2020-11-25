@@ -14,7 +14,7 @@ import {
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
-import componentMixin from '../shared';
+import componentMixin from '../mixin';
 
 export const ToggleSymbol: InjectionKey<UseToggle> = Symbol();
 
@@ -43,7 +43,7 @@ export default defineComponent({
 
   emits: ['update:modelValue'],
 
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { emit }) {
     const open = ref(false);
 
     function toggle() {
@@ -69,15 +69,15 @@ export default defineComponent({
         open.value = props.modelValue;
       }
     });
+  },
 
-    return () => {
-      const toggleConfig = inject<DollarChusho | null>('$chusho', null)?.options
-        ?.components?.toggle;
-      const elementProps: Record<string, unknown> = {
-        ...generateConfigClass(toggleConfig?.class, props),
-      };
-
-      return h('div', mergeProps(attrs, elementProps), slots?.default?.());
+  render() {
+    const toggleConfig = inject<DollarChusho | null>('$chusho', null)?.options
+      ?.components?.toggle;
+    const elementProps: Record<string, unknown> = {
+      ...generateConfigClass(toggleConfig?.class, this.$props),
     };
+
+    return h('div', mergeProps(this.$attrs, elementProps), this.$slots);
   },
 });

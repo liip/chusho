@@ -15,7 +15,7 @@ import uuid from '../../utils/uuid';
 
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
-import componentMixin from '../shared';
+import componentMixin from '../mixin';
 
 export const TabsSymbol: InjectionKey<UseTabs> = Symbol();
 
@@ -62,7 +62,7 @@ export default defineComponent({
 
   emits: ['update:modelValue'],
 
-  setup(props, { slots, attrs, emit }) {
+  setup(props, { emit }) {
     const state = reactive<TabsState>({
       currentTab: props.modelValue || props.defaultTab,
       tabs: [],
@@ -100,15 +100,15 @@ export default defineComponent({
         state.currentTab = props.modelValue;
       }
     });
+  },
 
-    return () => {
-      const tabsConfig = inject<DollarChusho | null>('$chusho', null)?.options
-        ?.components?.tabs;
-      const elementProps: Record<string, unknown> = {
-        ...generateConfigClass(tabsConfig?.class, props),
-      };
-
-      return h('div', mergeProps(attrs, elementProps), slots);
+  render() {
+    const tabsConfig = inject<DollarChusho | null>('$chusho', null)?.options
+      ?.components?.tabs;
+    const elementProps: Record<string, unknown> = {
+      ...generateConfigClass(tabsConfig?.class, this.$props),
     };
+
+    return h('div', mergeProps(this.$attrs, elementProps), this.$slots);
   },
 });
