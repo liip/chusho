@@ -1,20 +1,23 @@
 <template>
   <div>
-    <CBtn variant="default medium" @click="open = true">Open dialog</CBtn>
+    <CBtn @click="open = true">Open dialog</CBtn>
 
     <CDialog
       v-model="open"
       class="w-full sm:w-3/4 md:w-1/2 lg:w-1/3"
-      aria-labelledby="dialog-title"
+      aria-labelledby="dialog-title-1"
     >
       <header class="flex pb-3 mb-6 border-b">
         <div class="flex-1">
-          <h1 id="dialog-title" class="text-lg font-semibold">Dialog title</h1>
+          <h1 id="dialog-title-1" class="text-lg font-semibold">
+            Dialog title
+          </h1>
         </div>
         <div class="ml-4">
           <CBtn
             class="p-2 leading-none"
             aria-label="Close dialog"
+            bare
             @click="open = false"
           >
             <span>✗</span>
@@ -25,10 +28,7 @@
       <p>Lorem ipsum dolor sit amet.</p>
 
       <div class="mt-4">
-        <CBtn
-          variant="default medium"
-          data-test="nested-trigger"
-          @click="childOpen = true"
+        <CBtn data-test="nested-trigger" @click="childOpen = true"
           >Open Child Dialog</CBtn
         >
       </div>
@@ -36,12 +36,20 @@
 
     <CDialog
       v-model="childOpen"
-      class="w-full sm:w-3/4 md:w-1/2 lg:w-1/3"
-      aria-labelledby="dialog-title"
+      class="p-10 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 bg-white rounded-xl shadow-xl"
+      :overlay="{
+        class:
+          'fixed inset-0 p-4 flex flex-columns items-center justify-center bg-blue-500 bg-opacity-75',
+      }"
+      bare
     >
-      <div>Hello, I’m a nested Dialog, nice to meet you.</div>
+      <div>
+        Hello, I’m a nested Dialog with different styling, nice to meet you.
+      </div>
 
-      <CBtn class="font-semibold mt-4" @click="childOpen = false">Cancel</CBtn>
+      <CBtn class="font-semibold mt-4" bare @click="childOpen = false"
+        >Cancel</CBtn
+      >
     </CDialog>
   </div>
 </template>

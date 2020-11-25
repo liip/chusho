@@ -1,3 +1,3 @@
 <template>
-  <CBtn class="font-bold">Click me</CBtn>
+  <CBtn class="w-full">Click me</CBtn>
 </template>

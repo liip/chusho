@@ -1,5 +1,5 @@
 <template>
-  <CTabs default-tab="3" data-test="tabs" class="custom-tabs" bare>
+  <CTabs v-model="activeTab" data-test="tabs" class="custom-tabs" bare>
     <CTabList
       data-test="tablist"
       aria-label="Example of tabs with different style"
@@ -7,28 +7,17 @@
       bare
     >
       <CTab
-        target="1"
-        data-test="tab-1"
-        :class-generator="getTabClass"
+        v-for="num in ['1', '2', '3']"
+        :key="num"
+        :target="num"
+        :data-test="`tab-${num}`"
         class="py-2 px-5 rounded-full"
+        :class="{
+          'text-red-700': activeTab !== num,
+          'text-white font-semibold bg-red-700': activeTab === num,
+        }"
         bare
-        >Tab 1</CTab
-      >
-      <CTab
-        target="2"
-        data-test="tab-2"
-        :class-generator="getTabClass"
-        class="py-2 px-5 rounded-full"
-        bare
-        >Tab 2</CTab
-      >
-      <CTab
-        target="3"
-        data-test="tab-3"
-        :class-generator="getTabClass"
-        class="py-2 px-5 rounded-full"
-        bare
-        >Tab 3</CTab
+        >Tab {{ num }}</CTab
       >
     </CTabList>
 
@@ -56,13 +45,10 @@
 
 <script>
 export default {
-  methods: {
-    getTabClass(active) {
-      return {
-        'text-red-700': !active,
-        'text-white font-semibold bg-red-700': active,
-      };
-    },
+  data() {
+    return {
+      activeTab: '3',
+    };
   },
 };
 </script>
