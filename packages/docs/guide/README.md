@@ -1,16 +1,10 @@
 ---
-next: /guide/config.html
+next: /guide/config
 ---
 
 # Getting started
 
-::: warning
-**Chūshō is currently in active development.**
-
-Existing components should be stable but they are pretty young and some edge cases might have been missed. You’re more than welcome to try them now and [report any problem](https://github.com/liip/chusho/issues) you might encounter.
-
-We’ll add more components before releasing the first stable version.
-:::
+## Installation
 
 Install Chūshō with npm:
 
@@ -24,7 +18,9 @@ Or yarn:
 yarn add chusho
 ```
 
-In your main entry point, provide Chūshō to your app with:
+## Setup
+
+In your main entry point, enable Chūshō with:
 
 ```js
 import { createApp } from 'vue';
@@ -33,17 +29,15 @@ import Chusho from 'chusho';
 const app = createApp(App);
 
 app.use(Chusho, {
-    // Here goes your own Chūshō config
+    // Here goes the config
 });
 ```
 
-See the [config page](/guide/config.html) for available options.
+See the [configuration](/guide/config.html) for available options.
 
 ## Using components
 
-Components aren’t registered automatically to take advantage of bundler’s [tree shaking](https://en.wikipedia.org/wiki/Tree_shaking) optimizations by default.
-
-You need to register Chūshō’s components you’re using either globally, for example in your main entry point:
+You need to register Chūshō’s components you want to use either globally, for example in your main entry point:
 
 ```js
 import Vue from 'vue';

@@ -42,10 +42,9 @@
                   ></td>
                 </template>
                 <template v-else-if="section.type === 'events'">
-                  <td>
+                  <td colspan="4">
                     {{ row.name }}
                   </td>
-                  <td colspan="3"></td>
                 </template>
               </tr>
             </template>
