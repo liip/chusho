@@ -97,7 +97,7 @@ describe('CBtn', () => {
     expect(wrapper.html()).toBe('<a></a>');
   });
 
-  it('should apply the "defaultClass" defined in the config', () => {
+  it('should apply the "class" defined in the config', () => {
     const wrapper = mount(CBtn, {
       global: {
         provide: {
@@ -105,7 +105,7 @@ describe('CBtn', () => {
             options: {
               components: {
                 btn: {
-                  defaultClass: 'btn',
+                  class: 'btn',
                 },
               },
             },
@@ -116,7 +116,7 @@ describe('CBtn', () => {
     expect(wrapper.html()).toBe('<button type="button" class="btn"></button>');
   });
 
-  it('should apply the "disabledClass" defined in the config in addition to the "disabled" attribute when prop "disabled" is true', () => {
+  it('should not apply the "class" defined in the config when `bare` prop is true', () => {
     const wrapper = mount(CBtn, {
       global: {
         provide: {
@@ -124,7 +124,7 @@ describe('CBtn', () => {
             options: {
               components: {
                 btn: {
-                  disabledClass: 'btn--disabled',
+                  class: 'btn',
                 },
               },
             },
@@ -132,11 +132,12 @@ describe('CBtn', () => {
         },
       },
       props: {
-        disabled: true,
+        bare: true,
+        class: 'berry',
       },
     });
     expect(wrapper.html()).toBe(
-      '<button disabled="" type="button" class="btn--disabled"></button>'
+      '<button class="berry" type="button"></button>'
     );
   });
 
@@ -148,9 +149,9 @@ describe('CBtn', () => {
             options: {
               components: {
                 btn: {
-                  variants: {
-                    primary: 'btn--primary',
-                  },
+                  class: ({ variant }) => ({
+                    'btn--primary': variant.includes('primary'),
+                  }),
                 },
               },
             },
@@ -163,58 +164,6 @@ describe('CBtn', () => {
     });
     expect(wrapper.html()).toBe(
       '<button type="button" class="btn--primary"></button>'
-    );
-  });
-
-  it('should warn if requested variant does not exists', () => {
-    mount(CBtn, {
-      global: {
-        provide: {
-          $chusho: {
-            options: {
-              components: {
-                btn: {
-                  variants: {
-                    somethingelse: 'something',
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-      props: {
-        variant: 'doesnotexist',
-      },
-    });
-
-    expect('Cannot find Button variant named').toHaveBeenWarned();
-  });
-
-  it('should apply all the variants class defined in the config when "variant" prop contains multiple variants', () => {
-    const wrapper = mount(CBtn, {
-      global: {
-        provide: {
-          $chusho: {
-            options: {
-              components: {
-                btn: {
-                  variants: {
-                    primary: 'btn--primary',
-                    medium: 'btn--medium',
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-      props: {
-        variant: 'primary medium',
-      },
-    });
-    expect(wrapper.html()).toBe(
-      '<button type="button" class="btn--primary btn--medium"></button>'
     );
   });
 

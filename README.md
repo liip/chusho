@@ -28,6 +28,12 @@ Then see packages’ own README.
 
 ## Quode quality
 
+From the root directory, you can run all the tests in a single command with:
+
+```
+npm test
+```
+
 ### Style
 
 To ensure the code match the style with EsLint & Prettier:

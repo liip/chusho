@@ -25,38 +25,52 @@ export type VueClassBinding =
   | Record<string, boolean>
   | Array<Record<string, boolean> | string>;
 
-export type ClassGenerator = (active: boolean) => VueClassBinding;
+export type ClassGenerator = (ctx?: Record<string, unknown>) => VueClassBinding;
 
 interface ComponentsOptions {
+  alert?: {
+    class?: VueClassBinding | ClassGenerator;
+  };
   btn?: {
-    defaultClass?: string;
-    variants?: Record<string, string>;
-    disabledClass?: string;
+    class?: VueClassBinding | ClassGenerator;
+  };
+  dialog?: {
+    class?: VueClassBinding | ClassGenerator;
+    overlayClass?: VueClassBinding | ClassGenerator;
+    transition?: BaseTransitionProps;
   };
   icon?: {
     spriteUrl?: string;
     width?: number;
     height?: number;
-    class?: string;
-  };
-  toggle?: {
-    transition?: BaseTransitionProps;
+    class?: VueClassBinding | ClassGenerator;
   };
   tabs?: {
-    tabsClass?: string;
-    tabListClass?: string;
-    tabPanelsClass?: string;
-    tabPanelClass?: string | ClassGenerator;
-    tabClass?: string | ClassGenerator;
+    class?: VueClassBinding | ClassGenerator;
   };
-  dialog?: {
-    overlayClass?: string;
-    dialogClass?: string;
+  tabList?: {
+    class?: VueClassBinding | ClassGenerator;
+  };
+  tab?: {
+    class?: VueClassBinding | ClassGenerator;
+  };
+  tabPanels?: {
+    class?: VueClassBinding | ClassGenerator;
+  };
+  tabPanel?: {
+    class?: VueClassBinding | ClassGenerator;
+  };
+  toggle?: {
+    class?: VueClassBinding | ClassGenerator;
     transition?: BaseTransitionProps;
   };
-  alert?: {
-    defaultClass?: string;
-    variants?: Record<string, string>;
+  toggleBtn?: {
+    class?: VueClassBinding | ClassGenerator;
+    inheritBtnClass: boolean;
+  };
+  toggleContent?: {
+    class?: VueClassBinding | ClassGenerator;
+    transition?: BaseTransitionProps;
   };
 }
 

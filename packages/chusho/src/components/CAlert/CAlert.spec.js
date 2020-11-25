@@ -16,7 +16,7 @@ describe('CAlert', () => {
     expect(wrapper.html()).toBe('<div role="alert"></div>');
   });
 
-  it('should apply the "defaultClass" defined in the config', () => {
+  it('should apply the "class" defined in the config', () => {
     const wrapper = mount(CAlert, {
       global: {
         provide: {
@@ -24,7 +24,7 @@ describe('CAlert', () => {
             options: {
               components: {
                 alert: {
-                  defaultClass: 'alert',
+                  class: 'alert',
                 },
               },
             },
@@ -43,9 +43,9 @@ describe('CAlert', () => {
             options: {
               components: {
                 alert: {
-                  variants: {
-                    error: 'alert--error',
-                  },
+                  class: ({ variant }) => ({
+                    'alert--error': variant.includes('error'),
+                  }),
                 },
               },
             },
@@ -61,33 +61,6 @@ describe('CAlert', () => {
     );
   });
 
-  it('should apply all the variants class defined in the config when "variant" prop contains multiple variants', () => {
-    const wrapper = mount(CAlert, {
-      global: {
-        provide: {
-          $chusho: {
-            options: {
-              components: {
-                alert: {
-                  variants: {
-                    error: 'alert--error',
-                    inline: 'inline-block',
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-      props: {
-        variant: 'error inline',
-      },
-    });
-    expect(wrapper.html()).toBe(
-      '<div role="alert" class="alert--error inline-block"></div>'
-    );
-  });
-
   it('should combine class attribute', () => {
     const wrapper = mount(CAlert, {
       global: {
@@ -96,9 +69,9 @@ describe('CAlert', () => {
             options: {
               components: {
                 alert: {
-                  variants: {
-                    error: 'alert--error',
-                  },
+                  class: ({ variant }) => ({
+                    'alert--error': variant.includes('error'),
+                  }),
                 },
               },
             },
@@ -113,6 +86,32 @@ describe('CAlert', () => {
     expect(wrapper.html()).toBe(
       '<div class="extra-class alert--error" role="alert"></div>'
     );
+  });
+
+  it('should not apply config class when `bare` prop is true', () => {
+    const wrapper = mount(CAlert, {
+      global: {
+        provide: {
+          $chusho: {
+            options: {
+              components: {
+                alert: {
+                  class: ({ variant }) => ({
+                    'alert--error': variant.includes('error'),
+                  }),
+                },
+              },
+            },
+          },
+        },
+      },
+      props: {
+        variant: 'error',
+        class: 'extra-class',
+        bare: true,
+      },
+    });
+    expect(wrapper.html()).toBe('<div class="extra-class" role="alert"></div>');
   });
 
   it('should forward other attributes', () => {

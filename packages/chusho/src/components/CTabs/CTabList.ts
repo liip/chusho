@@ -1,18 +1,17 @@
 import { defineComponent, h, inject, ref, nextTick, mergeProps } from 'vue';
 
-import { TabsSymbol, UseTabs } from './CTabs';
-import { props as sharedProps } from './shared';
-import { getSiblingIndexByArrowKey } from '../../utils/keyboard';
 import { DollarChusho } from '../../types';
+import { getSiblingIndexByArrowKey } from '../../utils/keyboard';
+import { generateConfigClass } from '../../utils/components';
+import componentMixin from '../shared';
+import { TabsSymbol, UseTabs } from './CTabs';
 
 export default defineComponent({
   name: 'CTabList',
 
-  inheritAttrs: false,
+  mixins: [componentMixin],
 
-  props: {
-    ...sharedProps,
-  },
+  inheritAttrs: false,
 
   setup(props, { attrs, slots }) {
     const chushoOptions = inject<DollarChusho | null>('$chusho', null)?.options;
@@ -51,16 +50,13 @@ export default defineComponent({
     }
 
     return () => {
-      const tabsConfig = chushoOptions?.components?.tabs;
+      const tabListConfig = chushoOptions?.components?.tabList;
       const elementProps: Record<string, unknown> = {
         role: 'tablist',
         onKeydown: handleNavigation,
         ref: tabList,
+        ...generateConfigClass(tabListConfig?.class, props),
       };
-
-      if (!props.bare && tabsConfig?.tabListClass) {
-        elementProps.class = tabsConfig.tabListClass;
-      }
 
       return h('div', mergeProps(attrs, elementProps), slots);
     };

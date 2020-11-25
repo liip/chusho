@@ -1,25 +1,23 @@
-import { DollarChusho } from '../../types';
 import { defineComponent, h, inject, mergeProps } from 'vue';
-import { props as sharedProps } from './shared';
+
+import { DollarChusho } from '../../types';
+import { generateConfigClass } from '../../utils/components';
+import componentMixin from '../shared';
 
 export default defineComponent({
   name: 'CTabPanels',
 
-  inheritAttrs: false,
+  mixins: [componentMixin],
 
-  props: {
-    ...sharedProps,
-  },
+  inheritAttrs: false,
 
   setup(props, { attrs, slots }) {
     return () => {
-      const tabsConfig = inject<DollarChusho | null>('$chusho', null)?.options
-        ?.components?.tabs;
-      const elementProps: Record<string, unknown> = {};
-
-      if (!props.bare && tabsConfig?.tabPanelsClass) {
-        elementProps.class = tabsConfig.tabPanelsClass;
-      }
+      const tabPanelsConfig = inject<DollarChusho | null>('$chusho', null)
+        ?.options?.components?.tabPanels;
+      const elementProps: Record<string, unknown> = {
+        ...generateConfigClass(tabPanelsConfig?.class, props),
+      };
 
       return h('div', mergeProps(attrs, elementProps), slots);
     };
