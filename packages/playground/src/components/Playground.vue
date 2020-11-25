@@ -175,8 +175,6 @@ export default defineComponent({
     },
 
     updateCode() {
-      console.log('updateCode');
-
       this.code = hljs.highlight(
         'xml',
         prettier.format(this.previewNode.innerHTML, {
