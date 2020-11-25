@@ -49,6 +49,10 @@
           {
             "label": "With Custom Classes",
             "component": "WithCustomClasses"
+          },
+          {
+            "label": "Bare",
+            "component": "Bare"
           }
         ]
       },

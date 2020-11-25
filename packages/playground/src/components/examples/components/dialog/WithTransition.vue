@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CBtn variant="default medium" @click="open = true">Open dialog</CBtn>
+    <CBtn @click="open = true">Open dialog</CBtn>
 
     <CDialog
       v-model="open"
@@ -16,6 +16,7 @@
           <CBtn
             class="p-2 leading-none"
             aria-label="Close dialog"
+            bare
             @click="open = false"
           >
             <span>✗</span>

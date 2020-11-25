@@ -1,20 +1,26 @@
 <template>
-  <CToggle v-model="toggleOpen">
-    <CToggleBtn variant="medium default" data-test="toggle-button">
-      {{ toggleOpen ? 'Close' : 'Open' }}
-    </CToggleBtn>
-    <CToggleContent
-      class="bg-gray-200 px-4 py-3 rounded mt-2"
-      data-test="toggle-content"
-    >
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam in,
-      iste id nobis dolor excepturi dolore expedita vero quae. Nobis fuga
-      cupiditate suscipit blanditiis, aliquid minima harum molestias pariatur
-      tempora ab, libero quo maiores sapiente doloribus nihil commodi eaque
-      accusantium praesentium! Nobis natus qui voluptate inventore molestias
-      quisquam, consequuntur harum?
-    </CToggleContent>
-  </CToggle>
+  <div>
+    <CToggle v-model="toggleOpen" class="relative">
+      <CToggleBtn data-test="toggle-button">
+        {{ toggleOpen ? 'Close' : 'Open' }}
+      </CToggleBtn>
+      <CToggleContent
+        data-test="toggle-content"
+        class="absolute max-w-xs mt-3 py-3 px-4 text-blue-800 bg-blue-200 border-2 border-blue-300 shadow-lg rounded"
+        bare
+      >
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      </CToggleContent>
+    </CToggle>
+
+    <p class="mt-5">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, vitae autem
+      adipisci necessitatibus cum quae quam? Dignissimos nesciunt nemo
+      voluptate, animi reiciendis aperiam a vel amet earum, iure reprehenderit
+      nulla. Quaerat iusto aspernatur perspiciatis ad temporibus. Nisi ipsam
+      eaque consectetur!
+    </p>
+  </div>
 </template>
 
 <script>

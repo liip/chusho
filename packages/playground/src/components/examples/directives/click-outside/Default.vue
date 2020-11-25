@@ -1,7 +1,5 @@
 <template>
-  <CBtn v-clickOutside="clickOutside" variant="default medium" @click="click">
-    Click inside
-  </CBtn>
+  <CBtn v-clickOutside="clickOutside" @click="click"> Click inside </CBtn>
 </template>
 
 <script>

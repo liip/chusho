@@ -57,9 +57,11 @@
         <div
           class="code flex-1 bg-gray-100 border-t border-gray-300 overflow-y-auto"
         >
+          <!-- eslint-disable vue/no-v-html -->
           <pre
             class="h-full p-5"
           ><code language="hljs xml" v-html="code"></code></pre>
+          <!-- eslint-enable vue/no-v-html -->
         </div>
       </div>
     </div>

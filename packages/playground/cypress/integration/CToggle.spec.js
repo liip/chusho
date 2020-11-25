@@ -16,7 +16,8 @@ describe('Toggle', () => {
   it('renders the ToggleBtn with correct attributes', () => {
     cy.get('[data-test="toggle-button"]')
       .should('have.attr', 'aria-expanded', 'false')
-      .should('have.class', 'bg-blue-200')
+      .should('have.class', 'border-gray-500')
+      .should('not.have.class', 'text-blue-500')
       .trigger('click')
       .should('have.attr', 'aria-expanded', 'true');
 

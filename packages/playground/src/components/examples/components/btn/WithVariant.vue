@@ -1,3 +1,3 @@
 <template>
-  <CBtn variant="default medium">Click me</CBtn>
+  <CBtn variant="primary">Click me</CBtn>
 </template>

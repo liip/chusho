@@ -70,11 +70,11 @@ describe('Dialog Nested', () => {
   it('closes only the last dialog when pressing ESC', () => {
     cy.contains('Open dialog').click();
     cy.contains('Open Child Dialog').click();
-    cy.get('.dialog').should('have.length', 2);
+    cy.get('[role="dialog"]').should('have.length', 2);
     cy.get('body').trigger('keydown', { keyCode: 27 });
-    cy.get('.dialog').should('have.length', 1);
+    cy.get('[role="dialog"]').should('have.length', 1);
     cy.get('body').trigger('keydown', { keyCode: 27 });
-    cy.get('.dialog').should('not.exist');
+    cy.get('[role="dialog"]').should('not.exist');
   });
 });
 
