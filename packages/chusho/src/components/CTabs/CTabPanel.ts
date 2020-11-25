@@ -1,32 +1,24 @@
-import { defineComponent, h, inject, mergeProps, PropType } from 'vue';
+import { defineComponent, h, inject, mergeProps } from 'vue';
 
+import { DollarChusho } from '../../types';
+import { generateConfigClass } from '../../utils/components';
+import componentMixin from '../shared';
 import { TabsSymbol, UseTabs } from './CTabs';
-import { props as sharedProps } from './shared';
-import { ClassGenerator, DollarChusho, VueClassBinding } from '../../types';
 
 export default defineComponent({
   name: 'CTabPanel',
 
+  mixins: [componentMixin],
+
   inheritAttrs: false,
 
   props: {
-    ...sharedProps,
-
     /**
-     * A unique ID to target the Tab.
+     * A unique ID to target the panel with CTab.
      */
     id: {
       type: [Number, String],
       required: true,
-    },
-    /**
-     * Generate classes based on the current component state. It should return a valid Vue “class” syntax (object, array or string), see [Vue class documentation](https://vuejs.org/v2/guide/class-and-style.html).
-     *
-     * For example: `(active) => ({ 'tab-panel': true, 'tab-panel--active': active })`
-     */
-    classGenerator: {
-      type: Function as PropType<ClassGenerator>,
-      default: null,
     },
   },
 
@@ -36,8 +28,8 @@ export default defineComponent({
     tabs.registerTab(props.id);
 
     return () => {
-      const tabsConfig = inject<DollarChusho | null>('$chusho', null)?.options
-        ?.components?.tabs;
+      const tabPanelConfig = inject<DollarChusho | null>('$chusho', null)
+        ?.options?.components?.tabPanel;
       const isActive = props.id === tabs.currentTab.value;
 
       if (!isActive) return null;
@@ -47,20 +39,11 @@ export default defineComponent({
         role: 'tabpanel',
         'aria-labelledby': `chusho-tabs-${tabs.uuid}-tab-${props.id}`,
         tabindex: '0',
-        class: <VueClassBinding[]>[],
+        ...generateConfigClass(tabPanelConfig?.class, {
+          ...props,
+          active: isActive,
+        }),
       };
-
-      if (!props.bare && tabsConfig?.tabPanelClass) {
-        if (typeof tabsConfig.tabPanelClass === 'function') {
-          elementProps.class.push(tabsConfig.tabPanelClass(isActive));
-        } else {
-          elementProps.class.push(tabsConfig.tabPanelClass);
-        }
-      }
-
-      if (props.classGenerator) {
-        elementProps.class.push(props.classGenerator(isActive));
-      }
 
       return h('div', mergeProps(attrs, elementProps), slots);
     };

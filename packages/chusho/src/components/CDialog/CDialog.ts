@@ -15,9 +15,12 @@ import {
   mergeProps,
   onUpdated,
 } from 'vue';
+
+import { DollarChusho } from 'src/types';
 import { isPlainObject } from '../../utils/objects';
 import { getFocusableElements } from '../../utils/keyboard';
-import { DollarChusho } from 'src/types';
+import { generateConfigClass } from '../../utils/components';
+import componentMixin from '../shared';
 
 const PORTAL_ID = 'chusho-dialogs-portal';
 const KEY_TAB = 9;
@@ -61,26 +64,39 @@ function releaseAccessToPageContent(): void {
 export default defineComponent({
   name: 'CDialog',
 
+  mixins: [componentMixin],
+
   inheritAttrs: false,
 
   props: {
     /**
-     * Control the Dialog state
+     * Define if the dialog should be visible or not
      */
     modelValue: {
       type: Boolean,
       required: true,
     },
+
     /**
-     * The object can contain any Vue built-in [transition component props](https://vuejs.org/v2/api/#transition).
+     * The object can contain any Vue built-in [transition component props](https://v3.vuejs.org/api/built-in-components.html#transition).
      *
      * For example: `{ name: "fade", mode: "out-in" }`.
      *
      * If you defined a default transition in the config and want to disable it, use `false`.
      */
     transition: {
-      type: [Object, Boolean] as PropType<TransitionProps | boolean>,
+      type: [Object, Boolean] as PropType<TransitionProps | false>,
       default: null,
+    },
+
+    /**
+     * Attributes to be applied to the overlay element.
+     *
+     * For example: `{ class: 'custom-overlay', id: 'gallery-modal'  }`
+     */
+    overlay: {
+      type: Object as PropType<Record<string, unknown>>,
+      default: () => ({}),
     },
   },
 
@@ -186,30 +202,23 @@ export default defineComponent({
         const children: VNode[] = [];
 
         if (props.modelValue) {
-          let overlayProps: Record<string, unknown> = {
-            tabindex: '-1',
-            onClick: (e: KeyboardEvent) => {
-              if (e.target !== e.currentTarget) return;
-              emit('update:modelValue', false);
-            },
-          };
+          const overlayProps: Record<string, unknown> = mergeProps(
+            props.overlay,
+            {
+              tabindex: '-1',
+              onClick: (e: KeyboardEvent) => {
+                if (e.target !== e.currentTarget) return;
+                emit('update:modelValue', false);
+              },
+              ...generateConfigClass(dialogConfig?.overlayClass, props),
+            }
+          );
 
-          let dialogProps = mergeProps(attrs, {
-            ...attrs,
+          const dialogProps = mergeProps(attrs, {
             role: 'dialog',
             ref: dialogElement,
+            ...generateConfigClass(dialogConfig?.class, props),
           });
-
-          if (dialogConfig?.overlayClass) {
-            overlayProps = mergeProps(overlayProps, {
-              class: dialogConfig.overlayClass,
-            });
-          }
-          if (dialogConfig?.dialogClass) {
-            dialogProps = mergeProps(dialogProps, {
-              class: dialogConfig.dialogClass,
-            });
-          }
 
           children.push(h('div', overlayProps, h('div', dialogProps, slots)));
 

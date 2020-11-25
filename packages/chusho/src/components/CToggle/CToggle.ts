@@ -6,8 +6,15 @@ import {
   defineComponent,
   watchEffect,
   Ref,
+  h,
+  inject,
+  mergeProps,
 } from 'vue';
+
+import { DollarChusho } from '../../types';
+import { generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
+import componentMixin from '../shared';
 
 export const ToggleSymbol: InjectionKey<UseToggle> = Symbol();
 
@@ -19,6 +26,10 @@ export interface UseToggle {
 
 export default defineComponent({
   name: 'CToggle',
+
+  mixins: [componentMixin],
+
+  inheritAttrs: false,
 
   props: {
     /**
@@ -32,7 +43,7 @@ export default defineComponent({
 
   emits: ['update:modelValue'],
 
-  setup(props, { slots, emit }) {
+  setup(props, { attrs, slots, emit }) {
     const open = ref(false);
 
     function toggle() {
@@ -59,6 +70,14 @@ export default defineComponent({
       }
     });
 
-    return () => slots?.default?.();
+    return () => {
+      const toggleConfig = inject<DollarChusho | null>('$chusho', null)?.options
+        ?.components?.toggle;
+      const elementProps: Record<string, unknown> = {
+        ...generateConfigClass(toggleConfig?.class, props),
+      };
+
+      return h('div', mergeProps(attrs, elementProps), slots?.default?.());
+    };
   },
 });

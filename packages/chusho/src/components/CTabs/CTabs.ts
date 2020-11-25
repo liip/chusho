@@ -1,4 +1,3 @@
-import { DollarChusho } from '../../types';
 import {
   provide,
   computed,
@@ -13,7 +12,10 @@ import {
   mergeProps,
 } from 'vue';
 import uuid from '../../utils/uuid';
-import { props as sharedProps } from './shared';
+
+import { DollarChusho } from '../../types';
+import { generateConfigClass } from '../../utils/components';
+import componentMixin from '../shared';
 
 export const TabsSymbol: InjectionKey<UseTabs> = Symbol();
 
@@ -35,11 +37,11 @@ export interface UseTabs {
 export default defineComponent({
   name: 'CTabs',
 
+  mixins: [componentMixin],
+
   inheritAttrs: false,
 
   props: {
-    ...sharedProps,
-
     /**
      * Optionally bind the Tabs state with the parent component.
      */
@@ -48,7 +50,7 @@ export default defineComponent({
       default: null,
     },
     /**
-     * The id of the Tab to display by default. This will be ignored if `v-model` is used.
+     * The id of the Tab to display by default. This is ignored if `v-model` is used.
      *
      * Defaults to the first tab.
      */
@@ -102,11 +104,9 @@ export default defineComponent({
     return () => {
       const tabsConfig = inject<DollarChusho | null>('$chusho', null)?.options
         ?.components?.tabs;
-      const elementProps: Record<string, unknown> = {};
-
-      if (!props.bare && tabsConfig?.tabsClass) {
-        elementProps.class = tabsConfig?.tabsClass;
-      }
+      const elementProps: Record<string, unknown> = {
+        ...generateConfigClass(tabsConfig?.class, props),
+      };
 
       return h('div', mergeProps(attrs, elementProps), slots);
     };

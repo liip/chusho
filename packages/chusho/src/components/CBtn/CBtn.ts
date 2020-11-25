@@ -9,16 +9,20 @@ import {
 import { RouteLocationRaw } from 'vue-router';
 
 import { DollarChusho } from '../../types';
+import { generateConfigClass } from '../../utils/components';
 import { warn } from '../../utils/debug';
+import componentMixin from '../shared';
 
 export default defineComponent({
   name: 'CBtn',
+
+  mixins: [componentMixin],
 
   inheritAttrs: false,
 
   props: {
     /**
-     * Make the button a link to the given location
+     * Make the button a link to the given URL.
      */
     href: {
       type: String,
@@ -36,7 +40,7 @@ export default defineComponent({
     },
 
     /**
-     * In case the Btn is a `button` element, specify its type
+     * Specifies the button type, does not apply when `to` or `href` props are used. Example: `submit`.
      */
     type: {
       type: String,
@@ -44,17 +48,7 @@ export default defineComponent({
     },
 
     /**
-     * Customize the button appearance by applying one or multiple variants defined in the config (btn.variants). Multiple variants should be separated by a space.
-     *
-     * Example: `"primary large"`
-     */
-    variant: {
-      type: String,
-      default: null,
-    },
-
-    /**
-     * Disable the button (doesn’t apply to links) and apply the associated class from the config (btn.disabledClass).
+     * Disable the button, does not apply when `to` or `href` props are used.
      */
     disabled: {
       type: Boolean,
@@ -66,7 +60,6 @@ export default defineComponent({
     return () => {
       const btnConfig = inject<DollarChusho | null>('$chusho', null)?.options
         ?.components?.btn;
-      const classes = [];
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let tag: any = 'button';
       let extraAttrs: Record<string, unknown> = {};
@@ -91,39 +84,13 @@ export default defineComponent({
         };
       }
 
-      if (btnConfig) {
-        if (btnConfig.defaultClass) {
-          classes.push(btnConfig.defaultClass);
-        }
-        if (btnConfig.disabledClass && props.disabled) {
-          classes.push(btnConfig.disabledClass);
-        }
-
-        if (props.variant) {
-          const variants = props.variant.split(' ');
-          variants.forEach((variant: string) => {
-            const target = btnConfig?.variants?.[variant];
-            if (target) {
-              classes.push(target);
-            } else {
-              warn(
-                `Cannot find Button variant named “${variant}” under “button.variants” defined in the config, you must define it before referencing it.`
-              );
-            }
-          });
-        }
-      }
-
       const elementProps: Record<string, unknown> = {
         ...extraAttrs,
         // Concerns only on button tags, skip for anchors
         ...(props.disabled && tag === 'button' && { disabled: true }),
         ...(props.type && tag === 'button' && { type: props.type }),
+        ...generateConfigClass(btnConfig?.class, props),
       };
-
-      if (classes.length) {
-        elementProps.class = classes;
-      }
 
       return h(tag, mergeProps(attrs, elementProps), slots);
     };
