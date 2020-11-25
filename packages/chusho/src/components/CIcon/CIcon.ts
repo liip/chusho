@@ -3,7 +3,7 @@ import { defineComponent, h, inject, mergeProps } from 'vue';
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
-import componentMixin from '../shared';
+import componentMixin from '../mixin';
 
 export default defineComponent({
   name: 'CIcon',
@@ -43,38 +43,36 @@ export default defineComponent({
     },
   },
 
-  setup(props, { attrs }) {
-    return () => {
-      const iconConfig = inject<DollarChusho | null>('$chusho', null)?.options
-        ?.components?.icon;
-      const elementProps: Record<string, unknown> = mergeProps(attrs, {
-        focusable: 'false',
-        width: `${(iconConfig?.width || 24) * props.scale}`,
-        height: `${(iconConfig?.height || 24) * props.scale}`,
-        ...generateConfigClass(iconConfig?.class, props),
-      });
-      const id = uuid('chusho-icon');
+  render() {
+    const iconConfig = inject<DollarChusho | null>('$chusho', null)?.options
+      ?.components?.icon;
+    const elementProps: Record<string, unknown> = mergeProps(this.$attrs, {
+      focusable: 'false',
+      width: `${(iconConfig?.width || 24) * this.scale}`,
+      height: `${(iconConfig?.height || 24) * this.scale}`,
+      ...generateConfigClass(iconConfig?.class, this.$props),
+    });
+    const id = uuid('chusho-icon');
 
-      if (props.alt) {
-        elementProps['aria-labelledby'] = id;
-      } else {
-        elementProps['aria-hidden'] = true;
-      }
+    if (this.alt) {
+      elementProps['aria-labelledby'] = id;
+    } else {
+      elementProps['aria-hidden'] = true;
+    }
 
-      return h('svg', elementProps, [
-        props.alt &&
-          h(
-            'title',
-            {
-              id,
-            },
-            [props.alt]
-          ),
-        h('use', {
-          key: props.id,
-          'xlink:href': `${iconConfig?.spriteUrl || ''}#${props.id}`,
-        }),
-      ]);
-    };
+    return h('svg', elementProps, [
+      this.alt &&
+        h(
+          'title',
+          {
+            id,
+          },
+          [this.alt]
+        ),
+      h('use', {
+        key: this.id,
+        'xlink:href': `${iconConfig?.spriteUrl || ''}#${this.id}`,
+      }),
+    ]);
   },
 });
