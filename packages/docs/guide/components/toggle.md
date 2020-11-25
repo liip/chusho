@@ -4,8 +4,8 @@ Conditionnaly display some content.
 
 ```vue
 <CToggle>
-  <CToggleBtn variant="medium default">Toggle</CToggleBtn>
-  <CToggleContent class="mt-4">
+  <CToggleBtn>Toggle</CToggleBtn>
+  <CToggleContent>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam in, iste id nobis dolor excepturi dolore expedita vero quae. Nobis fuga cupiditate suscipit blanditiis, aliquid minima harum molestias pariatur tempora ab, libero quo maiores sapiente doloribus nihil commodi eaque accusantium praesentium! Nobis natus qui voluptate inventore molestias quisquam, consequuntur harum?
   </CToggleContent>
 </CToggle>
@@ -13,13 +13,46 @@ Conditionnaly display some content.
 
 ## Config
 
-### transition
+### CToggle, CToggleBtn and CToggleContent
+
+#### class
+
+Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
+
+-   **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
+-   **default:** `null`
+
+##### Example
+
+Using the `CToggleBtn` component:
+
+```js
+class({ active }) {
+    return ['toggle-btn', {
+        'toggle-btn--active': active,
+    }]
+}
+```
+
+### CToggleBtn
+
+#### inheritBtnClass
+
+Since the CToggleBtn is a CBtn in the background, it will inherits its `class` config option. To disable this behavior, set this option to `false`.
+
+-   **type:** `Boolean`
+-   **default:** `true`
+
+### CToggleContent
+
+#### transition
+
+Apply a common transition to all Toggles. The object can contain any Vue built-in [transition component props](https://v3.vuejs.org/api/built-in-components.html#transition).
 
 -   **type:** `object`
+-   **default:** `null`
 
-Apply a common transition to all Toggles. The object can contain any Vue built-in [transition component props](https://vuejs.org/v2/api/#transition).
-
-For example:
+##### Example
 
 ```js
 { name: 'fade', mode: 'out-in' }
@@ -46,11 +79,8 @@ export default {
 
 <template>
     <CToggle v-model="toggleOpen">
-        <CToggleBtn variant="medium default">
-            {{ toggleOpen ? 'Close' : 'Open' }}
-        </CToggleBtn>
-
-        <CToggleContent class="mt-4">
+        <CToggleBtn>{{ toggleOpen ? 'Close' : 'Open' }}</CToggleBtn>
+        <CToggleContent>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
             in, iste id nobis dolor excepturi dolore expedita vero quae. Nobis
             fuga cupiditate suscipit blanditiis, aliquid minima harum molestias
@@ -68,8 +98,8 @@ Here’s an example where the transition is directly passed as a prop to the `CT
 
 ```vue
 <CToggle>
-  <CToggleBtn variant="medium default">Toggle with transition</CToggleBtn>
-  <CToggleContent :transition="{ name: 'fade' }" class="mt-4">
+  <CToggleBtn>Toggle with transition</CToggleBtn>
+  <CToggleContent :transition="{ name: 'fade' }">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam in, iste id nobis dolor excepturi dolore expedita vero quae. Nobis fuga cupiditate suscipit blanditiis, aliquid minima harum molestias pariatur tempora ab, libero quo maiores sapiente doloribus nihil commodi eaque accusantium praesentium! Nobis natus qui voluptate inventore molestias quisquam, consequuntur harum?
   </CToggleContent>
 </CToggle>

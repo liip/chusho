@@ -8,31 +8,23 @@ Uniformized button style for `router-link`, `nuxt-link`, `a` or `button` element
 
 ## Config
 
-### defaultClass
+### class
 
--   **type:** `string`
+Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
 
-Class applied to all CBtn components.
+-   **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
+-   **default:** `null`
 
-### disabledClass
-
--   **type:** `string`
-
-Class applied to Btn when prop `disabled` is set to `true`.
-
-### variants
-
--   **type:** `object`
-
-Predefined set of styling variants.
-
-For example:
+#### Example
 
 ```js
-{
-  primary: 'bg-blue-500 text-white rounded',
-  large: 'btn--large',
-  block: 'w-full',
+class({ variant, disabled }) {
+    return ['btn', {
+        'btn--default': !variant,
+        'btn--primary': variant?.includes('primary'),
+        'btn--block': variant?.includes('block'),
+        'btn--disabled': disabled
+    }]
 }
 ```
 
@@ -57,7 +49,7 @@ You can also make it a `router-link` (or `nuxt-link` in a Nuxt app, this will be
 ```
 
 ::: warning
-When a button is rendered as a link (i.e. an `a` tag), it will not apply the `type` nor the `disabled` prop as they aren't valid attributes for such HTML tag.
+When a button is rendered as a link (i.e. an `a` element), it will not apply the `type` nor the `disabled` props as they aren’t valid attributes for this HTML element.
 :::
 
 ### Type Submit
@@ -68,17 +60,9 @@ Change the type of the button so it can trigger the submit of a form.
 <CBtn type="submit">Click me</CBtn>
 ```
 
-### With style variant
-
-Apply one or multiple pre-defined styling variants (separated by a space) defined in the component config.
-
-```vue
-<CBtn variant="default medium">Click me</CBtn>
-```
-
 ### Disabled
 
-Just like a normal button, you can disabled it.
+Just like a normal button, you can disable it.
 
 ```vue
 <CBtn disabled>Click me</CBtn>
@@ -90,7 +74,7 @@ This prop has no effect when used in combination with either `href` or `to` prop
 
 ### Attributes and events
 
-Any extra attribute or event listener will be forwared to the main element.
+Any extra attribute or event listener will be forwarded to the main element.
 
 ```vue
 <CBtn id="pick-color-btn" @click="() => {}">

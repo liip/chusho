@@ -25,7 +25,7 @@ module.exports = {
           title: 'Getting Started',
           path: '/guide/',
           collapsable: false,
-          children: ['config'],
+          children: ['config', 'styling-components'],
         },
         {
           title: 'Components',

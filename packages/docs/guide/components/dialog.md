@@ -14,27 +14,63 @@ export default {
 </script>
 
 <template>
-    <div>
-        <CBtn variant="default medium" @click="dialogOpen = true">
-            Open Dialog
-        </CBtn>
+    <CBtn @click="dialogOpen = true">Open Dialog</CBtn>
 
-        <CDialog v-model="dialogOpen">
-            <div>Dialog Content</div>
-
-            <div>
-                <CBtn
-                    variant="default medium"
-                    class="mt-4"
-                    @click="dialogOpen = false"
-                >
-                    Close Dialog
-                </CBtn>
-            </div>
-        </CDialog>
-    </div>
+    <CDialog v-model="dialogOpen">Dialog Content</CDialog>
 </template>
 ```
+
+## Config
+
+### class
+
+Classes applied to the component dialog element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
+
+-   **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
+-   **default:** `null`
+
+#### Example
+
+```js
+class({ variant }) {
+    return ['dialog', {
+        'dialog--large': variant?.includes('large'),
+        'dialog--fullscreen': variant?.includes('fullscreen'),
+    }]
+}
+```
+
+### overlayClass
+
+Classes applied to the component overlay element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
+
+The overlay is the element that contains the dialog, it’s usually covering the screen and clicking on it closes the dialog.
+
+-   **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
+-   **default:** `null`
+
+#### Example
+
+```js
+class: 'dialog-overlay'
+```
+
+### transition
+
+Apply a common transition to all Dialogs. The object can contain any Vue built-in [transition component props](https://v3.vuejs.org/api/built-in-components.html#transition).
+
+-   **type:** `object`
+-   **default:** `null`
+
+#### Example
+
+```js
+{ name: 'fade', mode: 'out-in' }
+```
+
+## API
+
+<Docgen :components="['CDialog']" />
 
 ## Behavior
 
@@ -44,7 +80,7 @@ Example of what the DOM structure should look like when a dialog is open:
 
 ```html
 <body>
-    <!-- Hidden from screen readers through the `aria-hidden` attribute -->
+    <!-- Ignored by screen readers with the `aria-hidden` attribute -->
     <div id="app" aria-hidden="true">
         <!-- Content of the page -->
     </div>
@@ -61,41 +97,11 @@ Once open, a dialog can be closed with the <kbd>ESC</kbd> key, by clicking on it
 
 Here’s an example using a button with just a “close” icon. As you can see we provide an alternate text for the icon so it stays accessible for everyone.
 
-```jsx
-<CBtn v-on:click="dialogOpen = false">
+```vue
+<CBtn @click="dialogOpen = false">
     <CIcon id="close" alt="Close dialog" />
 </CBtn>
 ```
-
-## Config
-
-### overlayClass
-
--   **type:** `string`
-
-Class applied to all overlays (the element containing the dialog).
-
-### dialogClass
-
--   **type:** `string`
-
-Class applied to all dialogs.
-
-### transition
-
--   **type:** `object`
-
-Apply a common transition to all Dialogs. The object can contain any Vue built-in [transition component props](https://vuejs.org/v2/api/#transition).
-
-For example:
-
-```js
-{ name: 'fade', mode: 'out-in' }
-```
-
-## API
-
-<Docgen :components="['CDialog']" />
 
 ## Examples
 
@@ -115,25 +121,13 @@ export default {
 </script>
 
 <template>
-    <div>
-        <CBtn variant="default medium" @click="dialogOpen = true">
-            Open Dialog
-        </CBtn>
+    <CBtn @click="dialogOpen = true">Open Dialog</CBtn>
 
-        <CDialog v-model="dialogOpen" :transition="{ name: 'dialog' }">
-            <div>Dialog Content</div>
+    <CDialog v-model="dialogOpen" :transition="{ name: 'dialog' }">
+        <div>Dialog Content</div>
 
-            <div>
-                <CBtn
-                    variant="default medium"
-                    class="mt-4"
-                    @click="dialogOpen = false"
-                >
-                    Close Dialog
-                </CBtn>
-            </div>
-        </CDialog>
-    </div>
+        <CBtn @click="dialogOpen = false">Close Dialog</CBtn>
+    </CDialog>
 </template>
 ```
 
@@ -160,107 +154,6 @@ This example use the following style to have a different transition between the 
         transform: scale(0.9);
     }
 }
-```
-
-### With scrollable body
-
-Here’s an example of a more complex modal with a scrollable inner body. Take a look at the source code to see what CSS we used and feel free to take it and adapt it for your project!
-
-```vue
-<script>
-export default {
-    data() {
-        return {
-            dialogOpen: false,
-        };
-    },
-};
-</script>
-
-<template>
-    <div>
-        <CBtn variant="default medium" @click="dialogOpen = true">
-            Open Dialog
-        </CBtn>
-        <CDialog v-model="dialogOpen" aria-labelledby="example-dialog-title">
-            <header class="dialog-header">
-                <h1 id="example-dialog-title" class="my-0">Dialog title</h1>
-                <CBtn @click="dialogOpen = false" aria-label="Close dialog">
-                    <span aria-hidden>✗</span>
-                </CBtn>
-            </header>
-
-            <div class="dialog-body">
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Omnis eius minus, nam rerum corrupti nihil doloribus
-                    blanditiis officia fugit debitis nesciunt, corporis unde
-                    atque ratione voluptatem quisquam. Ullam, ut omnis fugiat
-                    ipsum accusantium esse debitis reprehenderit vero impedit
-                    consequatur quia repellat nesciunt voluptatem ipsam! Ea
-                    eveniet placeat culpa similique voluptatem sunt ut
-                    voluptatum corrupti id aut rem, eum saepe aperiam! Voluptas
-                    repellendus sint ullam architecto quidem corporis,
-                    voluptatibus eligendi, distinctio voluptatum explicabo ab
-                    tempore laboriosam quas cupiditate inventore aperiam quo
-                    voluptates ducimus nobis recusandae.
-                </p>
-                <p>
-                    Deserunt repellendus nesciunt officiis excepturi delectus
-                    inventore debitis consequatur nihil unde tempore aspernatur
-                    sit minima voluptates quis, numquam, repudiandae laudantium
-                    recusandae dolor velit libero, tempora asperiores rem? Natus
-                    accusamus nostrum praesentium minima adipisci, numquam
-                    cupiditate eos ratione sit sapiente asperiores quas ipsa
-                    deleniti porro, repellat recusandae. Facere enim dolores
-                    eius accusamus corporis assumenda quisquam alias deleniti
-                    sapiente exercitationem a, ea repellendus beatae culpa
-                    molestiae inventore voluptas provident ducimus neque, magnam
-                    facilis sit deserunt possimus repudiandae.
-                </p>
-                <p>
-                    Quae fugit ea non velit perspiciatis nisi sapiente itaque
-                    praesentium, nesciunt, sint exercitationem voluptatum! At
-                    eos non esse doloremque soluta eveniet vel itaque ullam
-                    quibusdam quod, voluptas ad alias ea, hic error fugit odit
-                    officiis nostrum! Ex eligendi consequuntur in, quibusdam sed
-                    animi itaque? Dolorum cum ratione molestias laudantium ullam
-                    fuga praesentium tenetur maiores ad repellendus sequi
-                    officiis iusto sunt consequuntur dolore reiciendis
-                    perspiciatis distinctio, eos cupiditate atque nostrum.
-                    Voluptatibus aspernatur veritatis aliquid sint corrupti
-                    eaque.
-                </p>
-                <p>
-                    Placeat nostrum veniam sit deserunt ipsum explicabo beatae
-                    quia magni aliquam, accusantium nam temporibus quaerat in
-                    commodi modi, quam, nemo amet labore at dolorem culpa
-                    voluptate. Soluta inventore at dolore neque rerum!
-                </p>
-                <p>
-                    Deleniti accusantium amet ex quibusdam aut sed ab ad autem!
-                    Accusamus exercitationem in sapiente perspiciatis incidunt
-                    enim corporis non, tenetur commodi et, harum reiciendis
-                    esse, inventore distinctio voluptas dolore! In, dignissimos
-                    facilis officia commodi quod architecto corporis accusamus
-                    deleniti accusantium maxime et vitae placeat repudiandae
-                    dolorum ea nam velit esse qui? Dicta voluptate aliquid quo,
-                    excepturi voluptatum, autem eveniet labore quaerat ad vitae
-                    facere consectetur at minima eos veritatis nostrum nisi
-                    aliquam modi consequatur officia culpa numquam impedit
-                    velit?
-                </p>
-            </div>
-
-            <footer class="dialog-footer">
-                <CBtn variant="default medium" @click="dialogOpen = false">
-                    Agree
-                </CBtn>
-            </footer>
-        </CDialog>
-    </div>
-</template>
-};
 ```
 
 ::: tip

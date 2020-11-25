@@ -8,25 +8,21 @@ Announce important messages.
 
 ## Config
 
-### defaultClass
+### class
 
--   **type:** `string`
+Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
 
-Class applied to all CAlert components.
+-   **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
+-   **default:** `null`
 
-### variants
-
--   **type:** `object`
-
-Predefined set of styling variants.
-
-For example:
+#### Example
 
 ```js
-{
-  error: 'bg-red-200 text-red-900',
-  warning: 'bg-orange-200 text-orange-900',
-  success: 'bg-success-200 text-success-900',
+class({ variant }) {
+    return ['alert', {
+        'alert--error': variant?.includes('error'),
+        'alert--warning': variant?.includes('warning'),
+    }]
 }
 ```
 
@@ -36,10 +32,10 @@ For example:
 
 ## Examples
 
-### With style variant
-
-Apply one or multiple pre-defined styling variants (separated by a space) defined in the component config.
+```vue
+<CAlert variant="error">An important message.</CAlert>
+```
 
 ```vue
-<CAlert variant="warning inline">An important inline message.</CAlert>
+<CAlert variant="warning">Another less important message.</CAlert>
 ```

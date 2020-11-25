@@ -26,61 +26,26 @@ Accessible tabs component.
 
 ## Config
 
-### tabsClass
+### CTabs, CTabList, CTab, CTabPanels and CTabPanel
 
--   **type:** `string`
+#### class
 
-Class applied to all CTabs components.
+Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
 
-### tabListClass
+-   **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
+-   **default:** `null`
 
--   **type:** `string`
+##### Example
 
-Class applied to all CTabList components.
-
-### tabPanelsClass
-
--   **type:** `string`
-
-Class applied to all CTabPanels components.
-
-### tabPanelClass
-
--   **type:** `string | function`
-
-Example with a function:
+Using the `CTab` component:
 
 ```js
-function(active) {
-  return [
-    'tab-panel', // Apply `tab-panel` all the time
-    { 'tab-panel--active': active } // Apply `tab-panel--active` only when it’s active
-  ]
+class({ variant, active }) {
+    return ['tab', {
+        'tab--active': active,
+    }]
 }
 ```
-
-Class applied to all CTabPanel components.
-
-Provide a `function` to dynamically apply classes based on the state, in this case it should return a valid Vue “class” syntax (object, array or string), see [Vue class documentation](https://vuejs.org/v2/guide/class-and-style.html).
-
-### tabClass
-
--   **type:** `string | function`
-
-Example with a function:
-
-```js
-function(active) {
-  return [
-    'tab', // Apply `tab-panel` all the time
-    { 'tab--active': active } // Apply `tab--active` only when it’s active
-  ]
-}
-```
-
-Class applied to all CTab components.
-
-Provide a `function` to dynamically apply classes based on the state, in this case it should return a valid Vue “class” syntax (object, array or string), see [Vue class documentation](https://vuejs.org/v2/guide/class-and-style.html).
 
 ## API
 
@@ -125,57 +90,4 @@ export default {
         </CTabPanels>
     </CTabs>
 </template>
-```
-
-### Local styling override
-
-Take advantage of the `bare` prop to disable global styling inheritance and create styling variants.
-
-```vue
-<script>
-export default {
-    methods: {
-        getTabClass(active) {
-            return { 'tab-alt--active': active };
-        },
-    },
-};
-</script>
-
-<template>
-    <CTabs>
-        <CTabList aria-label="Example of tabs with different style">
-            <CTab
-                target="1"
-                :classGenerator="getTabClass"
-                class="btn tab-alt"
-                bare
-            >
-                Tab 1
-            </CTab>
-            <CTab
-                target="2"
-                :classGenerator="getTabClass"
-                class="btn tab-alt"
-                bare
-            >
-                Tab 2
-            </CTab>
-        </CTabList>
-
-        <CTabPanels>
-            <CTabPanel id="1">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Laboriosam in, iste id nobis dolor excepturi dolore expedita
-                vero quae. Nobis fuga cupiditate suscipit blanditiis.
-            </CTabPanel>
-            <CTabPanel id="2">
-                Nobis fuga cupiditate suscipit blanditiis, aliquid minima harum
-                molestias pariatur tempora ab, libero quo maiores sapiente
-                doloribus nihil commodi eaque accusantium praesentium!
-            </CTabPanel>
-        </CTabPanels>
-    </CTabs>
-</template>
-};
 ```
