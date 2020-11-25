@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0-beta.1](https://github.com/liip/chusho/compare/v0.2.0-beta.0...v0.2.0-beta.1) (2020-11-25)
+
+
+### Bug Fixes
+
+* bring back dedicated export per component ([1e7fbdf](https://github.com/liip/chusho/commit/1e7fbdf6125f072c03eb47cb06f27bef98305754))
+
+
+
+
+
 # [0.2.0-beta.0](https://github.com/liip/chusho/compare/v0.1.0-alpha.6...v0.2.0-beta.0) (2020-11-25)
 
 
