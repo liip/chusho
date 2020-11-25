@@ -40,6 +40,12 @@ module.exports = {
             'components/toggle.md',
           ],
         },
+        {
+          title: 'Directives',
+          collapsable: false,
+          path: '/guide/directives/',
+          children: ['directives/click-outside.md'],
+        },
       ],
     },
   },
