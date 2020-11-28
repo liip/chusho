@@ -105,6 +105,10 @@ export default defineComponent({
     }
   },
 
+  beforeUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown);
+  },
+
   methods: {
     refreshFocusableElements(): void {
       if (this.$refs.dialogElement && this.modelValue) {
