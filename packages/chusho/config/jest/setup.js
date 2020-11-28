@@ -45,6 +45,7 @@ afterEach(() => {
   warn.mockRestore();
   if (nonAssertedWarnings.length) {
     nonAssertedWarnings.forEach((warning) => {
+      // eslint-disable-next-line no-console
       console.warn(warning);
     });
     throw new Error(`test case threw unexpected warnings.`);

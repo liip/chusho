@@ -147,8 +147,6 @@ export default defineComponent({
     },
 
     handleKeyDown(e: KeyboardEvent): void {
-      console.log('key down', e);
-
       switch (e.keyCode) {
         case KEY_ESC:
           if (
