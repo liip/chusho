@@ -1,6 +1,6 @@
 # Chūshō playground
 
-A Vue app to play with Chūshō’s components and tools.
+A Vue app to develop and test the components and tools.
 
 ## Usage
 
@@ -14,26 +14,6 @@ npm start
 
 ## Playing while modifying the library
 
-If you make changes in the core library, you must manually build it again for the playground to pick it up.
+If you make changes in the core library, you must build it again for the playground to pick it up.
 
-## Quode quality
-
-### End-to-end tests
-
-This app is used for a suite of end-to-end tests. To run it, you need to start the development server first:
-
-```bash
-npm start
-```
-
-Then, in another process, you can start Cypress in interactive mode (great for development):
-
-```bash
-npm run test:e2e:dev
-```
-
-Or in headless mode (great to quickly check once that the suites pass):
-
-```
-npm run test:e2e:headless
-```
+See [contributing guide](https://github.com/liip/chusho/blob/master/CONTRIBUTING.md)
