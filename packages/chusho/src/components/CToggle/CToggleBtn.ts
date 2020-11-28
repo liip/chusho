@@ -36,6 +36,10 @@ export default defineComponent({
       bare: toggleBtnConfig?.inheritBtnClass === false,
     };
 
-    return h(CBtn, mergeProps(this.$attrs, elementProps), this.$slots.default);
+    return h(
+      CBtn,
+      mergeProps(this.$attrs, this.$props, elementProps),
+      this.$slots.default
+    );
   },
 });
