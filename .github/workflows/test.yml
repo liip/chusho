@@ -20,4 +20,3 @@ jobs:
       - run: npm test
         env:
           CI: true
-          NODE_ENV: production
