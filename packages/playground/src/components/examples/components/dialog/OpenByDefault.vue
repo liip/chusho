@@ -5,6 +5,8 @@
     v-model="open"
     class="w-full sm:w-3/4 md:w-1/2 lg:w-1/3"
     aria-labelledby="dialog-title"
+    data-test="dialog"
+    :overlay="{ 'data-test': 'dialog-overlay' }"
   >
     <header class="flex pb-3 mb-6 border-b">
       <div class="flex-1">
@@ -14,6 +16,8 @@
         <CBtn
           class="p-2 leading-none"
           aria-label="Close dialog"
+          bare
+          data-test="close-btn"
           @click="open = false"
         >
           <span>✗</span>

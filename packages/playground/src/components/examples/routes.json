@@ -74,6 +74,10 @@
           {
             "label": "With Transition",
             "component": "WithTransition"
+          },
+          {
+            "label": "Dynamic Content",
+            "component": "DynamicContent"
           }
         ]
       },

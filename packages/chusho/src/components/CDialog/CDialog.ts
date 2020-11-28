@@ -97,19 +97,23 @@ export default defineComponent({
     lastFocusableEl(): HTMLElement | undefined {
       return this.focusableElements[this.focusableElements.length - 1];
     },
-
-    dialogElement(): HTMLElement | undefined {
-      return this.$refs.dialogElement as HTMLElement | undefined;
-    },
   },
 
   updated() {
-    if (this.dialogElement) {
-      this.focusableElements = getFocusableElements(this.dialogElement);
+    if (this.modelValue && this.active) {
+      this.refreshFocusableElements();
     }
   },
 
   methods: {
+    refreshFocusableElements(): void {
+      if (this.$refs.dialogElement && this.modelValue) {
+        this.focusableElements = getFocusableElements(
+          this.$refs.dialogElement as HTMLElement
+        );
+      }
+    },
+
     activate(): void {
       if (this.active) return;
 
@@ -120,13 +124,9 @@ export default defineComponent({
       // This allow closing only the last one when pressing ESC and multiple dialogs are open
       this.chusho?.openDialogs.push(this);
 
-      nextTick(() => {
-        if (!this.dialogElement) return;
-
-        this.focusableElements = getFocusableElements(this.dialogElement);
-        this.firstFocusableEl?.focus();
-        preventAccessToPageContent();
-      });
+      this.refreshFocusableElements();
+      this.firstFocusableEl?.focus();
+      preventAccessToPageContent();
 
       document.addEventListener('keydown', this.handleKeyDown);
     },

@@ -25,31 +25,25 @@
       </div>
     </header>
 
-    <p>Lorem ipsum dolor sit amet.</p>
+    <p class="mb-3">Lorem ipsum dolor sit amet.</p>
 
-    <div class="mt-4">
-      <CBtn data-test="nested-trigger" @click="childOpen = true"
-        >Open Child Dialog</CBtn
-      >
-    </div>
-  </CDialog>
-
-  <CDialog
-    v-model="childOpen"
-    class="p-10 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 bg-white rounded-xl shadow-xl"
-    :overlay="{
-      class:
-        'fixed inset-0 p-4 flex flex-columns items-center justify-center bg-blue-500 bg-opacity-75',
-    }"
-    bare
-  >
-    <div>
-      Hello, I’m a nested Dialog with different styling, nice to meet you.
-    </div>
-
-    <CBtn class="font-semibold mt-4" bare @click="childOpen = false"
-      >Cancel</CBtn
-    >
+    <ul class="space-y-5">
+      <li v-for="item in items" :key="item">
+        <input
+          type="text"
+          :name="`item-${item}`"
+          class="w-full border px-3 py-2"
+          data-test="input"
+          :value="`Input ${item}`"
+        />
+      </li>
+      <li class="flex justify-stretch space-x-4">
+        <CBtn variant="primary" data-test="add-item" @click="addItem"
+          >Add item</CBtn
+        >
+        <CBtn data-test="remove-item" @click="removeItem">Remove item</CBtn>
+      </li>
+    </ul>
   </CDialog>
 </template>
 
@@ -57,9 +51,19 @@
 export default {
   data() {
     return {
-      open: false,
-      childOpen: false,
+      open: true,
+      items: [1],
     };
+  },
+
+  methods: {
+    addItem() {
+      this.items.push(this.items.length + 1);
+    },
+
+    removeItem() {
+      this.items.pop();
+    },
   },
 };
 </script>
