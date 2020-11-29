@@ -7,7 +7,6 @@
     "build:chusho": "cd packages/chusho && npm run build",
     "build:docs": "cd packages/docs && npm run build",
     "build": "npm run build:chusho && npm run build:docs",
-    "release": "lerna publish --conventional-commits",
     "validate": "eslint . --ignore-path .gitignore --ext .js,.ts,.vue",
     "format": "npm run validate -- --fix"
   },
