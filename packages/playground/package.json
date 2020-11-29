@@ -1,6 +1,6 @@
 {
   "name": "@chusho/playground",
-  "version": "0.2.0-beta.1",
+  "version": "0.2.0-beta.2",
   "private": true,
   "scripts": {
     "start": "vite",
@@ -11,7 +11,7 @@
     "test:e2e:headless": "cypress run --headless"
   },
   "dependencies": {
-    "chusho": "^0.2.0-beta.1",
+    "chusho": "^0.2.0-beta.2",
     "highlight.js": "^10.4.0",
     "prettier": "^2.2.1",
     "tailwindcss": "^1.9.6",
