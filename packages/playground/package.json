@@ -2,6 +2,21 @@
   "name": "@chusho/playground",
   "version": "0.2.0-beta.2",
   "private": true,
+  "license": "MIT",
+  "description": "Chūshō playground to develop and test components",
+  "author": {
+    "name": "Liip",
+    "url": "https://www.liip.ch/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liip/chusho.git",
+    "directory": "packages/playground"
+  },
+  "bugs": {
+    "url": "https://github.com/liip/chusho/issues"
+  },
+  "homepage": "https://www.chusho.dev/",
   "scripts": {
     "start": "vite",
     "build": "vite build",
