@@ -32,6 +32,10 @@ export default defineComponent({
     };
   },
 
+  beforeUnmount() {
+    this.tabs.unregisterTab(this.id);
+  },
+
   render() {
     const tabPanelConfig = inject<DollarChusho | null>('$chusho', null)?.options
       ?.components?.tabPanel;

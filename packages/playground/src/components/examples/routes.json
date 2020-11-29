@@ -112,6 +112,10 @@
           {
             "label": "Override Style",
             "component": "OverrideStyle"
+          },
+          {
+            "label": "Dynamic",
+            "component": "Dynamic"
           }
         ]
       },

@@ -32,6 +32,7 @@ export interface UseTabs {
   tabs: Readonly<Ref<readonly TabId[]>>;
   setCurrentTab: (id: TabId) => void;
   registerTab: (id: TabId) => void;
+  unregisterTab: (id: TabId) => void;
 }
 
 export default defineComponent({
@@ -84,6 +85,14 @@ export default defineComponent({
       }
     }
 
+    function unregisterTab(id: TabId) {
+      if (state.currentTab === id) {
+        state.currentTab = state.tabs[0];
+      }
+
+      state.tabs.splice(state.tabs.indexOf(id), 1);
+    }
+
     // Provide api to sub-components
     const api: UseTabs = {
       uuid: uuid(),
@@ -91,6 +100,7 @@ export default defineComponent({
       tabs: computed(() => state.tabs),
       setCurrentTab,
       registerTab,
+      unregisterTab,
     };
     provide(TabsSymbol, api);
 

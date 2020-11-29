@@ -131,3 +131,36 @@ describe('Tabs Override Style', () => {
       .and('not.have.class', 'tabpanel');
   });
 });
+
+describe('Tabs Dynamic', () => {
+  beforeEach(() => {
+    cy.visitComponent('tabs/dynamic');
+  });
+
+  it('handles dynamically added tabs', () => {
+    cy.contains('Tab 4').should('not.exist');
+    cy.contains('Add tab').click();
+    cy.contains('Tab 4').click();
+    cy.get('[data-test="tabpanels"]').should('contain', 'Tab 4 content');
+    cy.focused()
+      .trigger('keydown', { key: 'Right' })
+      .trigger('keydown', { key: 'Right' })
+      .trigger('keydown', { key: 'Right' })
+      .trigger('keydown', { key: 'Right' });
+    cy.focused().should('have.attr', 'data-test', 'tab-4');
+  });
+
+  it('handles dynamically removed tabs', () => {
+    cy.contains('Tab 2').click();
+    cy.contains('Remove tab').click();
+    cy.get('[data-test="tablist"] [data-test^="tab"]').should('have.length', 2);
+    cy.contains('Tab 1').click().trigger('keydown', { key: 'Right' });
+    cy.focused().should('have.attr', 'data-test', 'tab-2');
+  });
+
+  it('activates first tab when currently active tab is removed', () => {
+    cy.contains('Tab 3').click();
+    cy.contains('Remove tab').click();
+    cy.contains('Tab 1').should('have.attr', 'aria-selected', 'true');
+  });
+});
