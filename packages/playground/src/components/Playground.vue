@@ -14,14 +14,14 @@
           <div class="mb-2 px-5 font-bold">{{ category.label }}</div>
           <ul>
             <li v-for="group in category.groups" :key="group.id">
-              <CToggle :model-value="group.open">
-                <CToggleBtn
+              <CCollapse :model-value="group.open">
+                <CCollapseBtn
                   class="block w-full text-left py-1 px-5 font-medium text-sm hover:bg-gray-300"
                   bare
                 >
                   {{ group.label }}
-                </CToggleBtn>
-                <CToggleContent :transition="false" bare>
+                </CCollapseBtn>
+                <CCollapseContent :transition="false" bare>
                   <ul>
                     <li v-for="variant in group.variants" :key="variant.to">
                       <a
@@ -37,8 +37,8 @@
                       </a>
                     </li>
                   </ul>
-                </CToggleContent>
-              </CToggle>
+                </CCollapseContent>
+              </CCollapse>
             </li>
           </ul>
         </div>

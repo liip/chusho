@@ -26,7 +26,7 @@ import {
 const KEY_TAB = 9;
 const KEY_ESC = 27;
 
-export interface Data {
+export interface DialogData {
   active: boolean;
   savedActiveElement: null | HTMLElement;
   focusableElements: Array<HTMLElement>;
@@ -81,7 +81,7 @@ export default defineComponent({
     };
   },
 
-  data(): Data {
+  data(): DialogData {
     return {
       active: false,
       savedActiveElement: null,

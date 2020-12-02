@@ -1,16 +1,16 @@
 <template>
-  <CToggle v-model="toggleOpen" class="relative">
-    <CToggleBtn data-test="toggle-button">
-      {{ toggleOpen ? 'Close' : 'Open' }}
-    </CToggleBtn>
-    <CToggleContent
-      data-test="toggle-content"
+  <CCollapse v-model="collapseOpen" class="relative">
+    <CCollapseBtn data-test="collapse-button">
+      {{ collapseOpen ? 'Close' : 'Open' }}
+    </CCollapseBtn>
+    <CCollapseContent
+      data-test="collapse-content"
       class="absolute max-w-xs mt-3 py-3 px-4 text-blue-800 bg-blue-200 border-2 border-blue-300 shadow-lg rounded"
       bare
     >
       Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    </CToggleContent>
-  </CToggle>
+    </CCollapseContent>
+  </CCollapse>
 
   <p class="mt-5">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, vitae autem
@@ -24,7 +24,7 @@
 export default {
   data() {
     return {
-      toggleOpen: true,
+      collapseOpen: true,
     };
   },
 };

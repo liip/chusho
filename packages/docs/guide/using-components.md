@@ -22,24 +22,24 @@ Or locally in the components they are used:
 
 ```vue{11,17-19}
 <template>
-    <CToggle>
-        <CToggleBtn>...</CToggleBtn>
-        <CToggleContent>
+    <CCollapse>
+        <CCollapseBtn>...</CCollapseBtn>
+        <CCollapseContent>
             <!-- ... -->
-        </CToggleContent>
-    </CToggle>
+        </CCollapseContent>
+    </CCollapse>
 </template>
 
 <script>
-import { CToggle, CToggleBtn, CToggleContent } from 'chusho';
+import { CCollapse, CCollapseBtn, CCollapseContent } from 'chusho';
 
 export default {
     name: 'MyComponent',
 
     components: {
-        CToggle,
-        CToggleBtn,
-        CToggleContent,
+        CCollapse,
+        CCollapseBtn,
+        CCollapseContent,
     },
 
     // ...

@@ -42,7 +42,7 @@ module.exports = {
             'components/dialog.md',
             'components/icon.md',
             'components/tabs.md',
-            'components/toggle.md',
+            'components/collapse.md',
           ],
         },
         {

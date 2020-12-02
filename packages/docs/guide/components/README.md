@@ -5,4 +5,4 @@
 -   [Dialog](dialog.html)
 -   [Icon](icon.html)
 -   [Tabs](tabs.html)
--   [Toggle](toggle.html)
+-   [Collapse](collapse.html)

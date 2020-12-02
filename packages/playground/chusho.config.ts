@@ -58,7 +58,7 @@ export default {
         ];
       },
     },
-    toggleBtn: {
+    collapseBtn: {
       inheritBtnClass: false,
       class({ active }) {
         return [
@@ -70,7 +70,7 @@ export default {
         ];
       },
     },
-    toggleContent: {
+    collapseContent: {
       transition: {
         name: 'fade',
       },

@@ -1,4 +1,4 @@
-# Toggle
+# Collapse
 
 Conditionnaly display some content.
 
@@ -6,7 +6,7 @@ Conditionnaly display some content.
 
 ## Config
 
-### CToggle, CToggleBtn and CToggleContent
+### CCollapse, CCollapseBtn and CCollapseContent
 
 #### class
 
@@ -17,30 +17,30 @@ Classes applied to the component root element, except when the prop `bare` is se
 
 ##### Example
 
-Using the `CToggleBtn` component:
+Using the `CCollapseBtn` component:
 
 ```js
 class({ active }) {
-    return ['toggle-btn', {
-        'toggle-btn--active': active,
+    return ['collapse-btn', {
+        'collapse-btn--active': active,
     }]
 }
 ```
 
-### CToggleBtn
+### CCollapseBtn
 
 #### inheritBtnClass
 
-Since the CToggleBtn is a CBtn in the background, it will inherits its `class` config option. To disable this behavior, set this option to `false`.
+Since the CCollapseBtn is a CBtn in the background, it will inherits its `class` config option. To disable this behavior, set this option to `false`.
 
 -   **type:** `Boolean`
 -   **default:** `true`
 
-### CToggleContent
+### CCollapseContent
 
 #### transition
 
-Apply a common transition to all Toggles. The object can contain any Vue built-in [transition component props](https://v3.vuejs.org/api/built-in-components.html#transition).
+Apply a common transition to all Collapses. The object can contain any Vue built-in [transition component props](https://v3.vuejs.org/api/built-in-components.html#transition).
 
 -   **type:** `object`
 -   **default:** `null`
@@ -53,58 +53,58 @@ Apply a common transition to all Toggles. The object can contain any Vue built-i
 
 ## API
 
-<Docgen :components="['CToggle', 'CToggleBtn', 'CToggleContent']" />
+<Docgen :components="['CCollapse', 'CCollapseBtn', 'CCollapseContent']" />
 
 ## Examples
 
 ### Simplest
 
 ```vue
-<CToggle>
-  <CToggleBtn>Toggle</CToggleBtn>
-  <CToggleContent>
+<CCollapse>
+  <CCollapseBtn>Collapse</CCollapseBtn>
+  <CCollapseContent>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam in, iste id nobis dolor excepturi dolore expedita vero quae. Nobis fuga cupiditate suscipit blanditiis, aliquid minima harum molestias pariatur tempora ab, libero quo maiores sapiente doloribus nihil commodi eaque accusantium praesentium! Nobis natus qui voluptate inventore molestias quisquam, consequuntur harum?
-  </CToggleContent>
-</CToggle>
+  </CCollapseContent>
+</CCollapse>
 ```
 
 ### Controlled
 
-You can control the Toggle status with the `v-model` directive, for example to make it open by default or to programatically change its state.
+You can control the Collapse status with the `v-model` directive, for example to make it open by default or to programatically change its state.
 
 ```vue
 <script>
 export default {
     data() {
-        return { toggleOpen: true };
+        return { collapseOpen: true };
     },
 };
 </script>
 
 <template>
-    <CToggle v-model="toggleOpen">
-        <CToggleBtn>{{ toggleOpen ? 'Close' : 'Open' }}</CToggleBtn>
-        <CToggleContent>
+    <CCollapse v-model="collapseOpen">
+        <CCollapseBtn>{{ collapseOpen ? 'Close' : 'Open' }}</CCollapseBtn>
+        <CCollapseContent>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
             in, iste id nobis dolor excepturi dolore expedita vero quae. Nobis
             fuga cupiditate suscipit blanditiis, aliquid minima harum molestias
             pariatur tempora ab, libero quo maiores sapiente doloribus nihil
             commodi eaque accusantium praesentium! Nobis natus qui voluptate
             inventore molestias quisquam, consequuntur harum?
-        </CToggleContent>
-    </CToggle>
+        </CCollapseContent>
+    </CCollapse>
 </template>
 ```
 
 ### With transition
 
-Here’s an example where the transition is directly passed as a prop to the `CToggleContent`. You can also define it globally for all your toggles; see the [config](#config).
+Here’s an example where the transition is directly passed as a prop to the `CCollapseContent`. You can also define it globally for all your collapses; see the [config](#config).
 
 ```vue
-<CToggle>
-  <CToggleBtn>Toggle with transition</CToggleBtn>
-  <CToggleContent :transition="{ name: 'fade' }">
+<CCollapse>
+  <CCollapseBtn>Collapse with transition</CCollapseBtn>
+  <CCollapseContent :transition="{ name: 'fade' }">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam in, iste id nobis dolor excepturi dolore expedita vero quae. Nobis fuga cupiditate suscipit blanditiis, aliquid minima harum molestias pariatur tempora ab, libero quo maiores sapiente doloribus nihil commodi eaque accusantium praesentium! Nobis natus qui voluptate inventore molestias quisquam, consequuntur harum?
-  </CToggleContent>
-</CToggle>
+  </CCollapseContent>
+</CCollapse>
 ```

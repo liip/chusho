@@ -60,15 +60,15 @@ interface ComponentsOptions {
   tabPanel?: {
     class?: VueClassBinding | ClassGenerator;
   };
-  toggle?: {
+  collapse?: {
     class?: VueClassBinding | ClassGenerator;
     transition?: BaseTransitionProps;
   };
-  toggleBtn?: {
+  collapseBtn?: {
     class?: VueClassBinding | ClassGenerator;
     inheritBtnClass: boolean;
   };
-  toggleContent?: {
+  collapseContent?: {
     class?: VueClassBinding | ClassGenerator;
     transition?: BaseTransitionProps;
   };

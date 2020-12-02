@@ -4,36 +4,36 @@ import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixin';
 import { CBtn } from '../CBtn';
-import { ToggleSymbol } from './CToggle';
-import { UseToggle } from './CToggle';
+import { CollapseSymbol } from './CCollapse';
+import { UseCollapse } from './CCollapse';
 
 export default defineComponent({
-  name: 'CToggleBtn',
+  name: 'CCollapseBtn',
 
   mixins: [componentMixin],
 
   inheritAttrs: false,
 
   setup() {
-    const toggle = inject(ToggleSymbol) as UseToggle;
+    const collapse = inject(CollapseSymbol) as UseCollapse;
 
     return {
-      toggle,
+      collapse,
     };
   },
 
   render() {
-    const toggleBtnConfig = inject<DollarChusho | null>('$chusho', null)
-      ?.options?.components?.toggleBtn;
+    const collapseBtnConfig = inject<DollarChusho | null>('$chusho', null)
+      ?.options?.components?.collapseBtn;
     const elementProps: Record<string, unknown> = {
-      'aria-expanded': `${this.toggle.open.value}`,
-      'aria-controls': this.toggle.uuid,
-      onClick: this.toggle.toggle,
-      ...generateConfigClass(toggleBtnConfig?.class, {
+      'aria-expanded': `${this.collapse.open.value}`,
+      'aria-controls': this.collapse.uuid,
+      onClick: this.collapse.toggle,
+      ...generateConfigClass(collapseBtnConfig?.class, {
         ...this.$props,
-        active: this.toggle.open.value,
+        active: this.collapse.open.value,
       }),
-      bare: toggleBtnConfig?.inheritBtnClass === false,
+      bare: collapseBtnConfig?.inheritBtnClass === false,
     };
 
     return h(

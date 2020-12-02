@@ -119,8 +119,8 @@
           }
         ]
       },
-      "toggle": {
-        "label": "Toggle",
+      "collapse": {
+        "label": "Collapse",
         "variants": [
           {
             "label": "Default",

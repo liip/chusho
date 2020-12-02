@@ -16,16 +16,16 @@ import { generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
 import componentMixin from '../mixin';
 
-export const ToggleSymbol: InjectionKey<UseToggle> = Symbol();
+export const CollapseSymbol: InjectionKey<UseCollapse> = Symbol();
 
-export interface UseToggle {
+export interface UseCollapse {
   uuid: string;
   open: Readonly<Ref<boolean>>;
   toggle: () => void;
 }
 
 export default defineComponent({
-  name: 'CToggle',
+  name: 'CCollapse',
 
   mixins: [componentMixin],
 
@@ -33,7 +33,7 @@ export default defineComponent({
 
   props: {
     /**
-     * Optionally bind the Toggle state with the parent component.
+     * Optionally bind the Collapse state with the parent component.
      */
     modelValue: {
       type: Boolean,
@@ -55,13 +55,13 @@ export default defineComponent({
     }
 
     // Provide api to sub-components
-    const api: UseToggle = {
-      uuid: uuid('chusho-toggle'),
+    const api: UseCollapse = {
+      uuid: uuid('chusho-collapse'),
       open: computed(() => open.value),
       toggle,
     };
 
-    provide(ToggleSymbol, api);
+    provide(CollapseSymbol, api);
 
     // Watch potential parent v-model value changes and update state accordingly
     watchEffect(() => {
@@ -69,13 +69,20 @@ export default defineComponent({
         open.value = props.modelValue;
       }
     });
+
+    return {
+      collapse: api,
+    };
   },
 
   render() {
-    const toggleConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.toggle;
+    const collapseConfig = inject<DollarChusho | null>('$chusho', null)?.options
+      ?.components?.collapse;
     const elementProps: Record<string, unknown> = {
-      ...generateConfigClass(toggleConfig?.class, this.$props),
+      ...generateConfigClass(collapseConfig?.class, {
+        ...this.$props,
+        active: this.collapse.open.value,
+      }),
     };
 
     return h('div', mergeProps(this.$attrs, elementProps), this.$slots);

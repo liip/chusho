@@ -41,9 +41,9 @@ This object accept the following properties, one for each component:
     tab: {},
     tabPanels: {},
     tabPanel: {},
-    toggle: {},
-    toggleBtn: {},
-    toggleContent: {},
+    collapse: {},
+    collapseBtn: {},
+    collapseContent: {},
 }
 ```
 

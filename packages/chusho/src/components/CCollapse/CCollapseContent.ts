@@ -12,11 +12,11 @@ import { DollarChusho } from '../../types';
 import { isPlainObject } from '../../utils/objects';
 import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixin';
-import { ToggleSymbol } from './CToggle';
-import { UseToggle } from './CToggle';
+import { CollapseSymbol } from './CCollapse';
+import { UseCollapse } from './CCollapse';
 
 export default defineComponent({
-  name: 'CToggleContent',
+  name: 'CCollapseContent',
 
   mixins: [componentMixin],
 
@@ -38,25 +38,25 @@ export default defineComponent({
 
   setup() {
     const chusho = inject<DollarChusho | null>('$chusho', null);
-    const toggle = inject(ToggleSymbol) as UseToggle;
+    const collapse = inject(CollapseSymbol) as UseCollapse;
 
     return {
       chusho,
-      toggle,
+      collapse,
     };
   },
 
   methods: {
     renderContent() {
       const elementProps: Record<string, unknown> = {
-        id: this.toggle.uuid,
+        id: this.collapse.uuid,
         ...generateConfigClass(
-          this.chusho?.options?.components?.toggleContent?.class,
+          this.chusho?.options?.components?.collapseContent?.class,
           this.$props
         ),
       };
 
-      if (this.toggle.open.value) {
+      if (this.collapse.open.value) {
         return h('div', mergeProps(this.$attrs, elementProps), this.$slots);
       }
 
@@ -65,13 +65,13 @@ export default defineComponent({
   },
 
   render() {
-    const toggleConfig = this.chusho?.options?.components?.toggleContent;
+    const collapseConfig = this.chusho?.options?.components?.collapseContent;
     let transitionProps: BaseTransitionProps | null = null;
 
     if (isPlainObject(this.transition)) {
       transitionProps = this.transition;
-    } else if (this.transition !== false && toggleConfig?.transition) {
-      transitionProps = toggleConfig.transition;
+    } else if (this.transition !== false && collapseConfig?.transition) {
+      transitionProps = collapseConfig.transition;
     }
 
     return transitionProps
