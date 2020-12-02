@@ -2,14 +2,7 @@
 
 Conditionnaly display some content.
 
-```vue
-<CToggle>
-  <CToggleBtn>Toggle</CToggleBtn>
-  <CToggleContent>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam in, iste id nobis dolor excepturi dolore expedita vero quae. Nobis fuga cupiditate suscipit blanditiis, aliquid minima harum molestias pariatur tempora ab, libero quo maiores sapiente doloribus nihil commodi eaque accusantium praesentium! Nobis natus qui voluptate inventore molestias quisquam, consequuntur harum?
-  </CToggleContent>
-</CToggle>
-```
+<Sandbox id="ccollapse-w80b1" />
 
 ## Config
 
@@ -63,6 +56,17 @@ Apply a common transition to all Toggles. The object can contain any Vue built-i
 <Docgen :components="['CToggle', 'CToggleBtn', 'CToggleContent']" />
 
 ## Examples
+
+### Simplest
+
+```vue
+<CToggle>
+  <CToggleBtn>Toggle</CToggleBtn>
+  <CToggleContent>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam in, iste id nobis dolor excepturi dolore expedita vero quae. Nobis fuga cupiditate suscipit blanditiis, aliquid minima harum molestias pariatur tempora ab, libero quo maiores sapiente doloribus nihil commodi eaque accusantium praesentium! Nobis natus qui voluptate inventore molestias quisquam, consequuntur harum?
+  </CToggleContent>
+</CToggle>
+```
 
 ### Controlled
 

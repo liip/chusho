@@ -2,9 +2,7 @@
 
 Uniformized button style for `router-link`, `nuxt-link`, `a` or `button` elements.
 
-```vue
-<CBtn>Submit</CBtn>
-```
+<Sandbox id="cbtn-6upn2" />
 
 ## Config
 
@@ -33,6 +31,12 @@ class({ variant, disabled }) {
 <Docgen :components="['CBtn']" />
 
 ## Examples
+
+### Simplest
+
+```vue
+<CBtn>Click me</CBtn>
+```
 
 ### As link
 

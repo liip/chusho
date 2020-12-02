@@ -2,9 +2,7 @@
 
 Announce important messages.
 
-```vue
-<CAlert>An important message.</CAlert>
-```
+<Sandbox id="calert-3j3ve" />
 
 ## Config
 
@@ -32,10 +30,14 @@ class({ variant }) {
 
 ## Examples
 
-```vue
-<CAlert variant="error">An important message.</CAlert>
-```
+### Simplest
 
 ```vue
-<CAlert variant="warning">Another less important message.</CAlert>
+<CAlert>An important message.</CAlert>
+```
+
+### With variant
+
+```vue
+<CAlert variant="error">An important message.</CAlert>
 ```

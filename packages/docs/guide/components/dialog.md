@@ -2,23 +2,7 @@
 
 Display content in a modal dialog, on top of the page content.
 
-```vue
-<script>
-export default {
-    data() {
-        return {
-            dialogOpen: false,
-        };
-    },
-};
-</script>
-
-<template>
-    <CBtn @click="dialogOpen = true">Open Dialog</CBtn>
-
-    <CDialog v-model="dialogOpen">Dialog Content</CDialog>
-</template>
-```
+<Sandbox id="cdialog-bnw6j" />
 
 ## Config
 
@@ -104,6 +88,26 @@ Here’s an example using a button with just a “close” icon. As you can see 
 ```
 
 ## Examples
+
+### Simplest
+
+```vue
+<script>
+export default {
+    data() {
+        return {
+            dialogOpen: false,
+        };
+    },
+};
+</script>
+
+<template>
+    <CBtn @click="dialogOpen = true">Open Dialog</CBtn>
+
+    <CDialog v-model="dialogOpen">Dialog Content</CDialog>
+</template>
+```
 
 ### With transition
 

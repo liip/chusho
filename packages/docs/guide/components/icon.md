@@ -2,9 +2,7 @@
 
 Display a scalable SVG icon from a pre-existing sprite.
 
-```vue
-<CIcon id="palette" />
-```
+<Sandbox id="cicon-dhc4r" />
 
 ## Config
 
@@ -52,6 +50,12 @@ class({ variant }) {
 <Docgen :components="['CIcon']" />
 
 ## Examples
+
+### Simplest
+
+```vue
+<CIcon id="palette" />
+```
 
 ### Custom Scale
 
