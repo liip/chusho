@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.2.0-beta.3 (2020-12-02)
+
+
+### Features
+
+* **build:** split ES bundle to leverage treeshaking ([9d22cba](https://github.com/liip/chusho/commit/9d22cbaf08c646948feed90fc0695c1de6eb86f3)), closes [#30](https://github.com/liip/chusho/issues/30)
+
+
+
+
+
 # 0.2.0-beta.2 (2020-11-29)
 
 **Note:** Version bump only for package chusho
