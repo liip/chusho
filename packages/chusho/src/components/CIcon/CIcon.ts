@@ -3,7 +3,7 @@ import { defineComponent, h, inject, mergeProps } from 'vue';
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
-import componentMixin from '../mixin';
+import componentMixin from '../mixins/componentMixin';
 
 export default defineComponent({
   name: 'CIcon',

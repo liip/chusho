@@ -11,30 +11,17 @@ import {
 import { DollarChusho } from '../../types';
 import { isPlainObject } from '../../utils/objects';
 import { generateConfigClass } from '../../utils/components';
-import componentMixin from '../mixin';
+import componentMixin from '../mixins/componentMixin';
+import transitionMixin from '../mixins/transitionMixin';
 import { CollapseSymbol } from './CCollapse';
 import { UseCollapse } from './CCollapse';
 
 export default defineComponent({
   name: 'CCollapseContent',
 
-  mixins: [componentMixin],
+  mixins: [componentMixin, transitionMixin],
 
   inheritAttrs: false,
-
-  props: {
-    /**
-     * The object can contain any Vue built-in [transition component props](https://v3.vuejs.org/api/built-in-components.html#transition).
-     *
-     * For example: `{ name: "fade", mode: "out-in" }`.
-     *
-     * If you defined a default transition in the config and want to disable it, use `false`.
-     */
-    transition: {
-      type: [Object, Boolean] as PropType<BaseTransitionProps | false>,
-      default: null,
-    },
-  },
 
   setup() {
     const chusho = inject<DollarChusho | null>('$chusho', null);

@@ -15,7 +15,7 @@ import uuid from '../../utils/uuid';
 
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
-import componentMixin from '../mixin';
+import componentMixin from '../mixins/componentMixin';
 
 export const TabsSymbol: InjectionKey<UseTabs> = Symbol();
 

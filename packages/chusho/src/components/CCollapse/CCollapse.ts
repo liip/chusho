@@ -14,7 +14,7 @@ import {
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
-import componentMixin from '../mixin';
+import componentMixin from '../mixins/componentMixin';
 
 export const CollapseSymbol: InjectionKey<UseCollapse> = Symbol();
 

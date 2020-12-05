@@ -11,7 +11,7 @@ import { RouteLocationRaw } from 'vue-router';
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import { warn } from '../../utils/debug';
-import componentMixin from '../mixin';
+import componentMixin from '../mixins/componentMixin';
 
 export default defineComponent({
   name: 'CBtn',

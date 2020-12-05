@@ -2,7 +2,7 @@ import { defineComponent, h, inject, mergeProps } from 'vue';
 
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
-import componentMixin from '../mixin';
+import componentMixin from '../mixins/componentMixin';
 import { TabsSymbol, UseTabs } from './CTabs';
 
 export default defineComponent({

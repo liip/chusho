@@ -14,7 +14,8 @@ import {
 import { isPlainObject } from '../../utils/objects';
 import { getFocusableElements } from '../../utils/keyboard';
 import { generateConfigClass } from '../../utils/components';
-import componentMixin from '../mixin';
+import componentMixin from '../mixins/componentMixin';
+import transitionMixin from '../mixins/transitionMixin';
 import { DollarChusho } from '../../types';
 import {
   createPortalIfNotExists,
@@ -35,7 +36,7 @@ export interface DialogData {
 export default defineComponent({
   name: 'CDialog',
 
-  mixins: [componentMixin],
+  mixins: [componentMixin, transitionMixin],
 
   inheritAttrs: false,
 
@@ -47,19 +48,6 @@ export default defineComponent({
       type: Boolean,
       required: true,
     },
-
-    /**
-     * The object can contain any Vue built-in [transition component props](https://v3.vuejs.org/api/built-in-components.html#transition).
-     *
-     * For example: `{ name: "fade", mode: "out-in" }`.
-     *
-     * If you defined a default transition in the config and want to disable it, use `false`.
-     */
-    transition: {
-      type: [Object, Boolean] as PropType<TransitionProps | false>,
-      default: null,
-    },
-
     /**
      * Attributes to be applied to the overlay element.
      *
