@@ -5,7 +5,7 @@
     </CCollapseBtn>
     <CCollapseContent
       data-test="collapse-content"
-      class="absolute max-w-xs mt-3 py-3 px-4 text-blue-800 bg-blue-200 border-2 border-blue-300 shadow-lg rounded"
+      class="absolute max-w-xs mt-3 py-3 px-4 text-blue-800 bg-blue-100 border-2 border-blue-200 shadow-lg rounded"
       bare
     >
       Lorem ipsum dolor sit amet consectetur adipisicing elit.

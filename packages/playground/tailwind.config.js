@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors');
+
 module.exports = {
   future: {
     removeDeprecatedGapUtilities: true,
@@ -9,6 +11,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        gray: colors.blueGray,
         black: {
           default: '#000',
           50: 'rgba(0,0,0,.5)',

@@ -16,7 +16,7 @@ describe('Collapse', () => {
   it('renders the CollapseBtn with correct attributes', () => {
     cy.get('[data-test="collapse-button"]')
       .should('have.attr', 'aria-expanded', 'false')
-      .should('have.class', 'border-gray-500')
+      .should('have.class', 'border-gray-400')
       .should('not.have.class', 'text-blue-500')
       .trigger('click')
       .should('have.attr', 'aria-expanded', 'true');
@@ -34,7 +34,7 @@ describe('Collapse', () => {
     cy.get('[data-test="collapse-button"]').trigger('click');
     cy.get('[data-test="collapse-content"]').should(
       'have.class',
-      'bg-gray-200'
+      'bg-gray-100'
     );
   });
 });

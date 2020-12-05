@@ -42,7 +42,7 @@ export default {
       class: 'flex mx-4',
     },
     tabPanels: {
-      class: 'py-3 px-4 bg-gray-200 rounded',
+      class: 'py-3 px-4 bg-gray-100 rounded',
     },
     tabPanel: {
       class: 'tabpanel',
@@ -53,7 +53,7 @@ export default {
           'inline-block py-2 px-5 border-b-2 border-transparent',
           {
             'text-gray-700': !active,
-            'text-blue-800 bg-blue-100 border-blue-300 rounded-t': active,
+            'text-blue-700 bg-blue-50 border-blue-200 rounded-t': active,
           },
         ];
       },
@@ -62,9 +62,9 @@ export default {
       inheritBtnClass: false,
       class({ active }) {
         return [
-          'py-2 px-4 border-2 border-gray-500 rounded',
+          'py-2 px-4 border-2 border-gray-400 rounded',
           {
-            'shadow-inner bg-gray-200': active,
+            'shadow-inner bg-gray-100': active,
             'shadow-lg': !active,
           },
         ];
@@ -74,9 +74,7 @@ export default {
       transition: {
         name: 'fade',
       },
-      class() {
-        return 'p-6 bg-gray-200 rounded mt-2';
-      },
+      class: 'p-6 bg-gray-100 rounded mt-2',
     },
   },
 } as ChushoUserOptions;

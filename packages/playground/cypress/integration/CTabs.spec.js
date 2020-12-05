@@ -33,7 +33,7 @@ describe('Tabs', () => {
               Cypress.$(`[data-test="tabpanel-1"]`).attr('id')
             )
             .and('have.attr', 'tabindex', '0')
-            .and('have.class', 'text-blue-800')
+            .and('have.class', 'text-blue-700')
             .and('not.have.class', 'text-gray-700');
         } else {
           cy.wrap($tab)
@@ -46,7 +46,7 @@ describe('Tabs', () => {
   });
 
   it('renders the tabpanels with proper attributes', () => {
-    cy.get('[data-test="tabpanels"]').should('have.class', 'bg-gray-200');
+    cy.get('[data-test="tabpanels"]').should('have.class', 'bg-gray-100');
   });
 
   it('renders the current tabpanel with proper attributes', () => {

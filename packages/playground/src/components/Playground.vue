@@ -1,14 +1,14 @@
 <template>
   <div class="h-screen flex flex-col">
     <header
-      class="z-10 py-4 px-5 text-white bg-gray-800 border-b border-gray-900 shadow-md"
+      class="z-10 py-4 px-5 text-white bg-gray-700 border-b border-gray-800 shadow-md"
     >
       <h1 class="font-bold text-lg">Chūshō playground</h1>
     </header>
 
     <div class="flex flex-grow overflow-hidden">
       <div
-        class="w-1/5 bg-gray-200 border-r border-gray-300 overflow-y-auto space-y-6"
+        class="w-1/5 bg-gray-100 border-r border-gray-200 overflow-y-auto space-y-6"
       >
         <div v-for="category in categories" :key="category.id" class="my-4">
           <div class="mb-2 px-5 font-bold">{{ category.label }}</div>
@@ -16,7 +16,7 @@
             <li v-for="group in category.groups" :key="group.id">
               <CCollapse :model-value="group.open">
                 <CCollapseBtn
-                  class="block w-full text-left py-1 px-5 font-medium text-sm hover:bg-gray-300"
+                  class="block w-full text-left py-1 px-5 font-medium text-sm hover:bg-gray-200"
                   bare
                 >
                   {{ group.label }}
@@ -26,9 +26,9 @@
                     <li v-for="variant in group.variants" :key="variant.to">
                       <a
                         :href="variant.to"
-                        class="block py-1 px-8 text-gray-600 text-sm hover:bg-gray-300"
+                        class="block py-1 px-8 text-gray-500 text-sm hover:bg-gray-200"
                         :class="{
-                          'bg-gray-300 font-medium text-gray-800 border-r-4 border-accent-500':
+                          'bg-gray-200 font-medium text-gray-700 border-r-4 border-accent-500':
                             variant.to === $route.query.preview,
                         }"
                         @click.prevent="updatePreview(variant.to)"
@@ -55,7 +55,7 @@
           />
         </div>
         <div
-          class="code flex-1 bg-gray-100 border-t border-gray-300 overflow-y-auto"
+          class="code flex-1 bg-gray-50 border-t border-gray-200 overflow-y-auto"
         >
           <!-- eslint-disable vue/no-v-html -->
           <pre
