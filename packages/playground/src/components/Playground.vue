@@ -175,14 +175,17 @@ export default defineComponent({
     },
 
     updateCode() {
-      this.code = hljs.highlight(
-        'xml',
-        prettier.format(this.previewNode.innerHTML, {
-          parser: 'html',
-          plugins: [parserHtml],
-          htmlWhitespaceSensitivity: 'ignore',
-        })
-      ).value;
+      // Defer update to avoid freezing the browser when code is heavy
+      setTimeout(() => {
+        this.code = hljs.highlight(
+          'xml',
+          prettier.format(this.previewNode.innerHTML, {
+            parser: 'html',
+            plugins: [parserHtml],
+            htmlWhitespaceSensitivity: 'ignore',
+          })
+        ).value;
+      }, 0);
     },
   },
 });
