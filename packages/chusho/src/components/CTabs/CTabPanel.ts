@@ -1,4 +1,5 @@
-import { defineComponent, h, inject, mergeProps } from 'vue';
+import { defineComponent, h, inject, mergeProps, PropType } from 'vue';
+import { SelectedItemId } from '../../composables/useSelected';
 
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
@@ -17,7 +18,7 @@ export default defineComponent({
      * A unique ID to target the panel with CTab.
      */
     id: {
-      type: [Number, String],
+      type: [String, Number] as PropType<SelectedItemId>,
       required: true,
     },
   },
@@ -25,7 +26,7 @@ export default defineComponent({
   setup(props) {
     const tabs = inject(TabsSymbol) as UseTabs;
 
-    tabs.registerTab(props.id);
+    tabs.addItem(props.id);
 
     return {
       tabs,
@@ -33,13 +34,13 @@ export default defineComponent({
   },
 
   beforeUnmount() {
-    this.tabs.unregisterTab(this.id);
+    this.tabs.removeItem(this.id);
   },
 
   render() {
     const tabPanelConfig = inject<DollarChusho | null>('$chusho', null)?.options
       ?.components?.tabPanel;
-    const isActive = this.id === this.tabs.currentTab.value;
+    const isActive = this.id === this.tabs.selectedItem.value;
 
     if (!isActive) return null;
 

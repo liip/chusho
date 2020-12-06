@@ -1,12 +1,8 @@
 import {
   provide,
-  computed,
   InjectionKey,
   defineComponent,
   h,
-  watchEffect,
-  Ref,
-  reactive,
   PropType,
   inject,
   mergeProps,
@@ -16,23 +12,15 @@ import uuid from '../../utils/uuid';
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
+import useSelected, {
+  UseSelected,
+  SelectedItemId,
+} from '../../composables/useSelected';
 
 export const TabsSymbol: InjectionKey<UseTabs> = Symbol();
 
-export declare type TabId = string | number;
-
-interface TabsState {
-  currentTab?: TabId;
-  tabs: TabId[];
-}
-
-export interface UseTabs {
+export interface UseTabs extends UseSelected {
   uuid: string;
-  currentTab: Readonly<Ref<TabId | undefined>>;
-  tabs: Readonly<Ref<readonly TabId[]>>;
-  setCurrentTab: (id: TabId) => void;
-  registerTab: (id: TabId) => void;
-  unregisterTab: (id: TabId) => void;
 }
 
 export default defineComponent({
@@ -47,7 +35,7 @@ export default defineComponent({
      * Optionally bind the Tabs state with the parent component.
      */
     modelValue: {
-      type: [Number, String] as PropType<TabId>,
+      type: [String, Number] as PropType<SelectedItemId>,
       default: null,
     },
     /**
@@ -56,60 +44,28 @@ export default defineComponent({
      * Defaults to the first tab.
      */
     defaultTab: {
-      type: [Number, String] as PropType<TabId>,
+      type: [String, Number] as PropType<SelectedItemId>,
       default: null,
     },
   },
 
   emits: ['update:modelValue'],
 
-  setup(props, { emit }) {
-    const state = reactive<TabsState>({
-      currentTab: props.modelValue || props.defaultTab,
-      tabs: [],
-    });
-
-    function setCurrentTab(id: TabId) {
-      state.currentTab = id;
-      // Update potential parent v-model value
-      if (['string', 'number'].includes(typeof props.modelValue)) {
-        emit('update:modelValue', id);
-      }
-    }
-
-    function registerTab(id: TabId) {
-      state.tabs.push(id);
-
-      if (state.tabs.length === 1 && !state.currentTab) {
-        state.currentTab = id;
-      }
-    }
-
-    function unregisterTab(id: TabId) {
-      if (state.currentTab === id) {
-        state.currentTab = state.tabs[0];
-      }
-
-      state.tabs.splice(state.tabs.indexOf(id), 1);
-    }
-
-    // Provide api to sub-components
+  setup(props) {
+    const selected = useSelected(
+      props.modelValue || props.defaultTab || null,
+      'modelValue'
+    );
     const api: UseTabs = {
       uuid: uuid(),
-      currentTab: computed(() => state.currentTab),
-      tabs: computed(() => state.tabs),
-      setCurrentTab,
-      registerTab,
-      unregisterTab,
+      ...selected,
     };
+
     provide(TabsSymbol, api);
 
-    // Watch potential parent v-model value changes and update state accordingly
-    watchEffect(() => {
-      if (['string', 'number'].includes(typeof props.modelValue)) {
-        state.currentTab = props.modelValue;
-      }
-    });
+    return {
+      tabs: api,
+    };
   },
 
   render() {

@@ -25,16 +25,12 @@ export default defineComponent({
 
   methods: {
     handleNavigation(e: KeyboardEvent): void {
-      if (!this.tabs.currentTab.value) return;
+      if (!this.tabs.selectedItem.value) return;
 
-      const activeTabIndex = this.tabs.tabs.value.indexOf(
-        this.tabs.currentTab.value
-      );
-      const activeTabId = this.tabs.tabs.value[activeTabIndex];
       const rtl = this.chusho?.options?.rtl;
       const newIndex = getSiblingIndexByArrowKey(
-        this.tabs.tabs.value,
-        activeTabId,
+        this.tabs.items.value,
+        this.tabs.selectedItem.value,
         e.key,
         rtl && rtl()
       );
@@ -42,7 +38,7 @@ export default defineComponent({
       if (newIndex !== undefined) {
         e.preventDefault();
 
-        this.tabs.setCurrentTab(this.tabs.tabs.value[newIndex]);
+        this.tabs.setSelectedItem(this.tabs.items.value[newIndex]);
 
         nextTick(() => {
           const tabList = this.$refs.tabList as HTMLElement | null;

@@ -1,5 +1,6 @@
-import { defineComponent, h, inject, mergeProps } from 'vue';
+import { defineComponent, h, inject, mergeProps, PropType } from 'vue';
 
+import { SelectedItemId } from '../../composables/useSelected';
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
@@ -17,7 +18,7 @@ export default defineComponent({
      * The id of the Tab this button should control.
      */
     target: {
-      type: [Number, String],
+      type: [String, Number] as PropType<SelectedItemId>,
       required: true,
     },
   },
@@ -33,7 +34,7 @@ export default defineComponent({
   render() {
     const tabConfig = inject<DollarChusho | null>('$chusho', null)?.options
       ?.components?.tab;
-    const isActive = this.target === this.tabs.currentTab.value;
+    const isActive = this.target === this.tabs.selectedItem.value;
     const elementProps = {
       type: 'button',
       id: `chusho-tabs-${this.tabs.uuid}-tab-${this.target}`,
@@ -43,7 +44,7 @@ export default defineComponent({
       tabindex: isActive ? '0' : '-1',
       onClick: () => {
         if (!this.target) return;
-        this.tabs.setCurrentTab(this.target);
+        this.tabs.setSelectedItem(this.target);
       },
       ...generateConfigClass(tabConfig?.class, {
         ...this.$props,
