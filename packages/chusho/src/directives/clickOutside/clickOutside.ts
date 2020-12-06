@@ -25,7 +25,9 @@ export default {
     handlers.set(el, (e: MouseEvent) => {
       handleClick(e, el, binding);
     });
-    document.addEventListener('click', handlers.get(el));
+    document.addEventListener('click', handlers.get(el), {
+      passive: true,
+    });
   },
 
   beforeUnmount(el): void {
