@@ -3,17 +3,17 @@ import {
   VNode,
   defineComponent,
   Teleport,
-  Transition,
   nextTick,
-  TransitionProps,
   PropType,
   mergeProps,
   inject,
 } from 'vue';
 
-import { isPlainObject } from '../../utils/objects';
 import { getFocusableElements } from '../../utils/keyboard';
-import { generateConfigClass } from '../../utils/components';
+import {
+  generateConfigClass,
+  renderWithTransition,
+} from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
 import transitionMixin from '../mixins/transitionMixin';
 import { DollarChusho } from '../../types';
@@ -208,28 +208,21 @@ export default defineComponent({
 
   render() {
     const dialogConfig = this.chusho?.options?.components?.dialog;
-    let transitionProps: TransitionProps | null = null;
 
     createPortalIfNotExists();
-
-    if (isPlainObject(this.transition)) {
-      transitionProps = this.transition;
-    } else if (
-      this.transition !== false &&
-      dialogConfig &&
-      dialogConfig.transition
-    ) {
-      transitionProps = dialogConfig.transition;
-    }
 
     return h(
       Teleport,
       {
         to: `#${PORTAL_ID}`,
       },
-      transitionProps
-        ? h(Transition, transitionProps, { default: this.renderChildren })
-        : this.renderChildren()
+      [
+        renderWithTransition(
+          this.renderChildren,
+          this.transition,
+          dialogConfig?.transition
+        ),
+      ]
     );
   },
 });

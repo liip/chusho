@@ -1,16 +1,10 @@
-import {
-  inject,
-  h,
-  defineComponent,
-  PropType,
-  BaseTransitionProps,
-  Transition,
-  mergeProps,
-} from 'vue';
+import { inject, h, defineComponent, mergeProps } from 'vue';
 
 import { DollarChusho } from '../../types';
-import { isPlainObject } from '../../utils/objects';
-import { generateConfigClass } from '../../utils/components';
+import {
+  generateConfigClass,
+  renderWithTransition,
+} from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
 import transitionMixin from '../mixins/transitionMixin';
 import { CollapseSymbol } from './CCollapse';
@@ -51,16 +45,11 @@ export default defineComponent({
 
   render() {
     const collapseConfig = this.chusho?.options?.components?.collapseContent;
-    let transitionProps: BaseTransitionProps | null = null;
 
-    if (isPlainObject(this.transition)) {
-      transitionProps = this.transition;
-    } else if (this.transition !== false && collapseConfig?.transition) {
-      transitionProps = collapseConfig.transition;
-    }
-
-    return transitionProps
-      ? h(Transition, transitionProps, this.renderContent)
-      : this.renderContent();
+    return renderWithTransition(
+      this.renderContent,
+      this.transition,
+      collapseConfig?.transition
+    );
   },
 });
