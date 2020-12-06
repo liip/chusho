@@ -10,4 +10,7 @@ module.exports = {
       },
     },
   },
+  collectCoverageFrom: ['src/**/*.ts'],
+  coverageDirectory: 'coverage',
+  coverageReporters: ['html', 'lcov', 'text'],
 };
