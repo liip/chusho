@@ -54,4 +54,11 @@ describe('Collapse Controlled', () => {
       .trigger('click')
       .should('contain', 'Open');
   });
+
+  it('changes when v-model value changes', () => {
+    cy.get('[data-test="collapse-button"]').trigger('click');
+    cy.get('[data-test="collapse-content"]').should('not.exist');
+    cy.get('[data-test="model-toggle"]').trigger('click');
+    cy.get('[data-test="collapse-content"]').should('be.visible');
+  });
 });
