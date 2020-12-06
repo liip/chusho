@@ -23,13 +23,13 @@ import {
   preventAccessToPageContent,
   releaseAccessToPageContent,
 } from './utils';
+import useActiveElement from '../../composables/useActiveElement';
 
 const KEY_TAB = 9;
 const KEY_ESC = 27;
 
 export interface DialogData {
   active: boolean;
-  savedActiveElement: null | HTMLElement;
   focusableElements: Array<HTMLElement>;
 }
 
@@ -66,13 +66,13 @@ export default defineComponent({
 
     return {
       chusho,
+      activeElement: useActiveElement(),
     };
   },
 
   data(): DialogData {
     return {
       active: false,
-      savedActiveElement: null,
       focusableElements: [],
     };
   },
@@ -110,7 +110,7 @@ export default defineComponent({
       if (this.active) return;
 
       this.active = true;
-      this.savedActiveElement = document.activeElement as HTMLElement;
+      this.activeElement.save();
 
       // Store the dialog instance in a global array
       // This allow closing only the last one when pressing ESC and multiple dialogs are open
@@ -133,7 +133,7 @@ export default defineComponent({
         this.chusho?.openDialogs.splice(index, 1);
       }
 
-      this.savedActiveElement?.focus();
+      this.activeElement.restore();
       document.removeEventListener('keydown', this.handleKeyDown);
       this.active = false;
     },
