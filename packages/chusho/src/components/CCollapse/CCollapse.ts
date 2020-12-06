@@ -1,15 +1,12 @@
 import {
-  ref,
   provide,
-  computed,
   InjectionKey,
   defineComponent,
-  watchEffect,
-  Ref,
   h,
   inject,
   mergeProps,
 } from 'vue';
+import useToggle, { UseToggle } from '../../composables/useToggle';
 
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
@@ -20,8 +17,7 @@ export const CollapseSymbol: InjectionKey<UseCollapse> = Symbol();
 
 export interface UseCollapse {
   uuid: string;
-  open: Readonly<Ref<boolean>>;
-  toggle: () => void;
+  toggle: UseToggle;
 }
 
 export default defineComponent({
@@ -37,38 +33,19 @@ export default defineComponent({
      */
     modelValue: {
       type: Boolean,
-      default: undefined,
+      default: false,
     },
   },
 
   emits: ['update:modelValue'],
 
-  setup(props, { emit }) {
-    const open = ref(false);
-
-    function toggle() {
-      open.value = !open.value;
-      // Update potential parent v-model value
-      if (typeof props.modelValue === 'boolean') {
-        emit('update:modelValue', open.value);
-      }
-    }
-
-    // Provide api to sub-components
+  setup(props) {
     const api: UseCollapse = {
       uuid: uuid('chusho-collapse'),
-      open: computed(() => open.value),
-      toggle,
+      toggle: useToggle(props.modelValue),
     };
 
     provide(CollapseSymbol, api);
-
-    // Watch potential parent v-model value changes and update state accordingly
-    watchEffect(() => {
-      if (typeof props.modelValue === 'boolean') {
-        open.value = props.modelValue;
-      }
-    });
 
     return {
       collapse: api,
@@ -81,7 +58,7 @@ export default defineComponent({
     const elementProps: Record<string, unknown> = {
       ...generateConfigClass(collapseConfig?.class, {
         ...this.$props,
-        active: this.collapse.open.value,
+        active: this.collapse.toggle.isOpen.value,
       }),
     };
 

@@ -36,18 +36,16 @@ export default defineComponent({
   methods: {
     renderContent() {
       const elementProps: Record<string, unknown> = {
-        id: this.collapse.uuid,
+        ...this.collapse.toggle.attrs.target.value,
         ...generateConfigClass(
           this.chusho?.options?.components?.collapseContent?.class,
           this.$props
         ),
       };
 
-      if (this.collapse.open.value) {
-        return h('div', mergeProps(this.$attrs, elementProps), this.$slots);
-      }
-
-      return null;
+      return this.collapse.toggle.renderIfOpen(() =>
+        h('div', mergeProps(this.$attrs, elementProps), this.$slots)
+      );
     },
   },
 

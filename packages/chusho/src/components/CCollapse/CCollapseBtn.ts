@@ -26,12 +26,10 @@ export default defineComponent({
     const collapseBtnConfig = inject<DollarChusho | null>('$chusho', null)
       ?.options?.components?.collapseBtn;
     const elementProps: Record<string, unknown> = {
-      'aria-expanded': `${this.collapse.open.value}`,
-      'aria-controls': this.collapse.uuid,
-      onClick: this.collapse.toggle,
+      ...this.collapse.toggle.attrs.btn.value,
       ...generateConfigClass(collapseBtnConfig?.class, {
         ...this.$props,
-        active: this.collapse.open.value,
+        active: this.collapse.toggle.isOpen.value,
       }),
       bare: collapseBtnConfig?.inheritBtnClass === false,
     };
