@@ -13,7 +13,7 @@ function handleClick(e: MouseEvent, el: Element, binding: DirectiveBinding) {
     if (typeof binding.value === 'function') {
       binding.value(e);
     } else {
-      warn('Click-outside value must be a Function.');
+      warn('clickOutside value must be a Function.');
     }
   }
 }
