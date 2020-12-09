@@ -70,14 +70,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-
-import prettier from 'prettier/esm/standalone';
-import parserHtml from 'prettier/esm/parser-html';
-import hljs from 'highlight.js/lib/core';
-import xml from 'highlight.js/lib/languages/xml';
 import 'highlight.js/styles/atom-one-light.css';
-
-hljs.registerLanguage('xml', xml);
 
 export default defineComponent({
   setup() {
@@ -93,6 +86,7 @@ export default defineComponent({
       previewNode: null,
       code: '',
       observer: null,
+      highlightWorker: null,
     };
   },
 
@@ -141,6 +135,11 @@ export default defineComponent({
 
   mounted() {
     this.observer = new MutationObserver(this.updateCode);
+    this.highlightWorker = new Worker('/highlightWorker.js');
+
+    this.highlightWorker.addEventListener('message', (e) => {
+      this.code = e.data;
+    });
 
     if (!this.$route.query.preview) {
       this.updatePreview('/examples/components/alert/default');
@@ -175,17 +174,7 @@ export default defineComponent({
     },
 
     updateCode() {
-      // Defer update to avoid freezing the browser when code is heavy
-      setTimeout(() => {
-        this.code = hljs.highlight(
-          'xml',
-          prettier.format(this.previewNode.innerHTML, {
-            parser: 'html',
-            plugins: [parserHtml],
-            htmlWhitespaceSensitivity: 'ignore',
-          })
-        ).value;
-      }, 0);
+      this.highlightWorker.postMessage(this.previewNode.innerHTML);
     },
   },
 });
