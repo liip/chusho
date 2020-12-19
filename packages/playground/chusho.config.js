@@ -1,5 +1,3 @@
-import { ChushoUserOptions } from 'chusho';
-
 export default {
   components: {
     alert: {
@@ -77,4 +75,4 @@ export default {
       class: 'p-6 bg-gray-100 rounded mt-2',
     },
   },
-} as ChushoUserOptions;
+};

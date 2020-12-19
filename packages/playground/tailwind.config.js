@@ -7,7 +7,7 @@ module.exports = {
     defaultLineHeights: true,
     standardFontWeights: true,
   },
-  purge: ['./chusho.config.ts', './index.html', './src/**/*.{js,ts,vue}'],
+  purge: ['./chusho.config.js', './index.html', './src/**/*.{js,ts,vue}'],
   theme: {
     extend: {
       colors: {
