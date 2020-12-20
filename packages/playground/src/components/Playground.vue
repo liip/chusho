@@ -16,7 +16,7 @@
             <li v-for="group in category.groups" :key="group.id">
               <CCollapse :model-value="group.open">
                 <CCollapseBtn
-                  class="block w-full text-left py-1 px-5 font-medium text-sm hover:bg-gray-200"
+                  class="block w-full text-left py-2 px-5 font-medium text-sm hover:bg-gray-200"
                   bare
                 >
                   {{ group.label }}
@@ -26,7 +26,7 @@
                     <li v-for="variant in group.variants" :key="variant.to">
                       <a
                         :href="variant.to"
-                        class="block py-1 px-8 text-gray-500 text-sm hover:bg-gray-200"
+                        class="block py-2 px-8 text-gray-500 text-sm hover:bg-gray-200"
                         :class="{
                           'bg-gray-200 font-medium text-gray-700 border-r-4 border-accent-500':
                             variant.to === $route.query.preview,
@@ -68,7 +68,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, ref } from 'vue';
 import 'highlight.js/styles/atom-one-light.css';
 
