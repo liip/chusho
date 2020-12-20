@@ -13,7 +13,7 @@ import { generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
 import componentMixin from '../mixins/componentMixin';
 
-export const CollapseSymbol: InjectionKey<UseCollapse> = Symbol();
+export const CollapseSymbol: InjectionKey<UseCollapse> = Symbol('CCollapse');
 
 export interface UseCollapse {
   uuid: string;

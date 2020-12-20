@@ -17,7 +17,7 @@ import useSelected, {
   SelectedItemId,
 } from '../../composables/useSelected';
 
-export const TabsSymbol: InjectionKey<UseTabs> = Symbol();
+export const TabsSymbol: InjectionKey<UseTabs> = Symbol('CTabs');
 
 export interface UseTabs extends UseSelected {
   uuid: string;
