@@ -8,7 +8,6 @@ import {
 import componentMixin from '../mixins/componentMixin';
 import transitionMixin from '../mixins/transitionMixin';
 import { CollapseSymbol } from './CCollapse';
-import { UseCollapse } from './CCollapse';
 
 export default defineComponent({
   name: 'CCollapseContent',
@@ -19,7 +18,7 @@ export default defineComponent({
 
   setup() {
     const chusho = inject<DollarChusho | null>('$chusho', null);
-    const collapse = inject(CollapseSymbol) as UseCollapse;
+    const collapse = inject(CollapseSymbol);
 
     return {
       chusho,
@@ -29,6 +28,8 @@ export default defineComponent({
 
   methods: {
     renderContent() {
+      if (!this.collapse) return null;
+
       const elementProps: Record<string, unknown> = {
         ...this.collapse.toggle.attrs.target.value,
         ...generateConfigClass(
