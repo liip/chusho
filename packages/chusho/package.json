@@ -11,7 +11,7 @@
     "test:unit": "jest",
     "build:watch": "npm run build -- -w",
     "prepublishOnly": "npm run build",
-    "test": "npm run test:unit",
+    "test": "npm run test:unit -- --coverage",
     "test:unit:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
     "test:unit:dev": "npm run test:unit -- --watch"
   },
