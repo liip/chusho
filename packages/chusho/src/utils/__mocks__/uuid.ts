@@ -1,4 +1,4 @@
 export default jest.fn().mockImplementation((prefix = '') => {
-  const id = '{uniqueId}';
+  const id = 'UNIQUE_ID';
   return prefix ? `${prefix}-${id}` : id;
 });

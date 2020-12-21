@@ -2,19 +2,9 @@ import { mount } from '@vue/test-utils';
 import { h } from 'vue';
 
 import CTabs from './CTabs';
-import CTabList from './CTabList';
+import CTabPanels from './CTabPanels';
 
-describe('CTabs', () => {
-  it('provides tabs API', () => {
-    const wrapper = mount(CTabs, {
-      slots: {
-        default: h(CTabList),
-      },
-    });
-
-    expect(wrapper.findComponent(CTabList).vm.tabs).toEqual(wrapper.vm.tabs);
-  });
-
+describe('CTabPanels', () => {
   it('renders with config class', () => {
     const wrapper = mount(CTabs, {
       global: {
@@ -22,16 +12,19 @@ describe('CTabs', () => {
           $chusho: {
             options: {
               components: {
-                tabs: {
-                  class: 'tabs',
+                tabPanels: {
+                  class: 'tab-panels',
                 },
               },
             },
           },
         },
       },
+      slots: {
+        default: h(CTabPanels),
+      },
     });
 
-    expect(wrapper.classes()).toEqual(['tabs']);
+    expect(wrapper.findComponent(CTabPanels).classes()).toEqual(['tab-panels']);
   });
 });

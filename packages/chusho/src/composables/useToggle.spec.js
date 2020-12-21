@@ -3,13 +3,7 @@ import { mount } from '@vue/test-utils';
 import useToggle from './useToggle';
 import uuid from '../utils/uuid';
 
-jest.mock('../utils/uuid');
-
 describe('useToggle', () => {
-  beforeEach(() => {
-    uuid.mockClear();
-  });
-
   it('initialize with default value', () => {
     const toggle = useToggle(true);
 
@@ -20,7 +14,7 @@ describe('useToggle', () => {
     const toggle = useToggle();
 
     expect(uuid).toHaveBeenCalledWith('chusho-toggle');
-    expect(toggle.id).toBe('chusho-toggle-{uniqueId}');
+    expect(toggle.id).toBe('chusho-toggle-UNIQUE_ID');
   });
 
   it('emits when there’s a component instance and the value change using default prop name', () => {

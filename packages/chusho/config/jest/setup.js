@@ -1,3 +1,9 @@
+import uuid from '../../src/utils/uuid';
+
+/*----------------------------------------*\
+  Spy on console.warn to assert on it
+\*----------------------------------------*/
+
 expect.extend({
   toHaveBeenWarned(received) {
     asserted.add(received);
@@ -50,4 +56,14 @@ afterEach(() => {
     });
     throw new Error(`test case threw unexpected warnings.`);
   }
+});
+
+/*----------------------------------------*\
+  Mock UUID generator globally
+\*----------------------------------------*/
+
+jest.mock('../../src/utils/uuid');
+
+afterEach(() => {
+  uuid.mockClear();
 });

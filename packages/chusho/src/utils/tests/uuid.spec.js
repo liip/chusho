@@ -1,4 +1,4 @@
-import uuid from '../uuid';
+const uuid = jest.requireActual('../uuid').default;
 
 describe('uuid', () => {
   it('should automatically increments', () => {
