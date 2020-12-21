@@ -29,6 +29,7 @@ describe('CDialog', () => {
       global: {
         provide: {
           $chusho: {
+            openDialogs: [],
             options: {
               components: {
                 dialog: {
