@@ -12,18 +12,6 @@ describe('Dialog', () => {
     cy.get('[data-test="dialog"]').should('be.visible');
   });
 
-  it('has the proper attributes', () => {
-    cy.contains('Open dialog').click();
-    cy.get('[data-test="dialog"]')
-      .should('have.attr', 'role', 'dialog')
-      .and('have.class', 'w-full');
-    cy.get('[data-test="dialog-overlay"]').should(
-      'have.attr',
-      'tabindex',
-      '-1'
-    );
-  });
-
   it('focuses the close button on open', () => {
     cy.contains('Open dialog').click();
     cy.get('[data-test="close-btn"]').should('have.focus');
@@ -59,10 +47,18 @@ describe('Dialog', () => {
     cy.focused().should('have.attr', 'data-test', 'input');
   });
 
+  it('restores focus after being closed', () => {
+    cy.contains('Open dialog').click();
+    cy.get('[data-test="dialog"]').should('be.visible');
+    cy.get('body').trigger('keydown', { key: 'Escape' });
+    cy.get('[data-test="dialog"]').should('not.exist');
+    cy.contains('Open dialog').should('have.focus');
+  });
+
   it('closes when pressing the ESC key', () => {
     cy.contains('Open dialog').click();
     cy.get('[data-test="dialog"]').should('be.visible');
-    cy.get('body').trigger('keydown', { keyCode: 27 });
+    cy.get('body').trigger('keydown', { key: 'Escape' });
     cy.get('[data-test="dialog"]').should('not.exist');
   });
 
@@ -100,9 +96,9 @@ describe('Dialog Nested', () => {
     cy.contains('Open dialog').click();
     cy.contains('Open Child Dialog').click();
     cy.get('[role="dialog"]').should('have.length', 2);
-    cy.get('body').trigger('keydown', { keyCode: 27 });
+    cy.get('body').trigger('keydown', { key: 'Escape' });
     cy.get('[role="dialog"]').should('have.length', 1);
-    cy.get('body').trigger('keydown', { keyCode: 27 });
+    cy.get('body').trigger('keydown', { key: 'Escape' });
     cy.get('[role="dialog"]').should('not.exist');
   });
 });
@@ -128,7 +124,7 @@ describe('Dialog with transition', () => {
       'have.class',
       'fade-enter-active'
     );
-    cy.get('body').trigger('keydown', { keyCode: 27 });
+    cy.get('body').trigger('keydown', { key: 'Escape' });
     cy.get('[data-test="dialog-overlay"]').should(
       'have.class',
       'fade-leave-to'

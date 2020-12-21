@@ -25,9 +25,6 @@ import {
 } from './utils';
 import useActiveElement from '../../composables/useActiveElement';
 
-const KEY_TAB = 9;
-const KEY_ESC = 27;
-
 export interface DialogData {
   active: boolean;
   focusableElements: Array<HTMLElement>;
@@ -139,8 +136,9 @@ export default defineComponent({
     },
 
     handleKeyDown(e: KeyboardEvent): void {
-      switch (e.keyCode) {
-        case KEY_ESC:
+      switch (e.key) {
+        case 'Esc':
+        case 'Escape':
           if (
             this ===
             this.chusho?.openDialogs[this.chusho.openDialogs.length - 1]
@@ -149,7 +147,7 @@ export default defineComponent({
           }
           break;
 
-        case KEY_TAB:
+        case 'Tab':
           if (this.focusableElements.length === 1) {
             e.preventDefault();
           } else if (e.shiftKey) {

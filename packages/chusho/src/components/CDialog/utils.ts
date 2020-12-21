@@ -13,7 +13,7 @@ export function getPortalNodeSiblings(): HTMLElement[] {
     document.body.children as HTMLCollectionOf<HTMLElement>
   ).filter((el) => {
     // Ignore already non-visible elements such as <script>
-    return el.offsetParent !== null && el.id != PORTAL_ID;
+    return el.offsetParent !== null && el.id !== PORTAL_ID;
   });
 }
 
