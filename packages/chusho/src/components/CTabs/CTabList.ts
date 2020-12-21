@@ -4,7 +4,7 @@ import { DollarChusho } from '../../types';
 import { getSiblingIndexByArrowKey } from '../../utils/keyboard';
 import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
-import { TabsSymbol, UseTabs } from './CTabs';
+import { TabsSymbol } from './CTabs';
 
 export default defineComponent({
   name: 'CTabList',
@@ -15,7 +15,7 @@ export default defineComponent({
 
   setup() {
     const chusho = inject<DollarChusho | null>('$chusho', null);
-    const tabs = inject(TabsSymbol) as UseTabs;
+    const tabs = inject(TabsSymbol);
 
     return {
       chusho,
@@ -25,7 +25,7 @@ export default defineComponent({
 
   methods: {
     handleNavigation(e: KeyboardEvent): void {
-      if (!this.tabs.selectedItem.value) return;
+      if (!this.tabs?.selectedItem.value) return;
 
       const rtl = this.chusho?.options?.rtl;
       const newIndex = getSiblingIndexByArrowKey(

@@ -57,7 +57,7 @@ export default defineComponent({
       'modelValue'
     );
     const api: UseTabs = {
-      uuid: uuid(),
+      uuid: uuid('chusho-tabs'),
       ...selected,
     };
 

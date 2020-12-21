@@ -4,7 +4,7 @@ import { SelectedItemId } from '../../composables/useSelected';
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
-import { TabsSymbol, UseTabs } from './CTabs';
+import { TabsSymbol } from './CTabs';
 
 export default defineComponent({
   name: 'CTabPanel',
@@ -24,9 +24,9 @@ export default defineComponent({
   },
 
   setup(props) {
-    const tabs = inject(TabsSymbol) as UseTabs;
+    const tabs = inject(TabsSymbol);
 
-    tabs.addItem(props.id);
+    tabs?.addItem(props.id);
 
     return {
       tabs,
@@ -34,10 +34,12 @@ export default defineComponent({
   },
 
   beforeUnmount() {
-    this.tabs.removeItem(this.id);
+    this.tabs?.removeItem(this.id);
   },
 
   render() {
+    if (!this.tabs) return;
+
     const tabPanelConfig = inject<DollarChusho | null>('$chusho', null)?.options
       ?.components?.tabPanel;
     const isActive = this.id === this.tabs.selectedItem.value;
@@ -45,9 +47,9 @@ export default defineComponent({
     if (!isActive) return null;
 
     const elementProps = {
-      id: `chusho-tabs-${this.tabs.uuid}-tabpanel-${this.id}`,
+      id: `${this.tabs.uuid}-tabpanel-${this.id}`,
       role: 'tabpanel',
-      'aria-labelledby': `chusho-tabs-${this.tabs.uuid}-tab-${this.id}`,
+      'aria-labelledby': `${this.tabs.uuid}-tab-${this.id}`,
       tabindex: '0',
       ...generateConfigClass(tabPanelConfig?.class, {
         ...this.$props,

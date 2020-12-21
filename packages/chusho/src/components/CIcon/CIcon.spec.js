@@ -1,11 +1,11 @@
-import { shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import CIcon from './CIcon';
 
 describe('CIcon', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallowMount(CIcon, {
+    wrapper = mount(CIcon, {
       props: {
         id: 'foo',
       },
@@ -22,7 +22,7 @@ describe('CIcon', () => {
 
   it('should be labelled by the alt value when provided', () => {
     const alt = 'alt text';
-    const wrapper = shallowMount(CIcon, {
+    const wrapper = mount(CIcon, {
       propsData: {
         id: 'foo',
         alt,
@@ -39,7 +39,7 @@ describe('CIcon', () => {
   });
 
   it('should link the sprite url and the icon id when sprite is specified', () => {
-    wrapper = shallowMount(CIcon, {
+    wrapper = mount(CIcon, {
       global: {
         provide: {
           $chusho: {

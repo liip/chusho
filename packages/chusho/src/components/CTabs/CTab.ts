@@ -4,7 +4,7 @@ import { SelectedItemId } from '../../composables/useSelected';
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
-import { TabsSymbol, UseTabs } from './CTabs';
+import { TabsSymbol } from './CTabs';
 
 export default defineComponent({
   name: 'CTab',
@@ -24,7 +24,7 @@ export default defineComponent({
   },
 
   setup() {
-    const tabs = inject(TabsSymbol) as UseTabs;
+    const tabs = inject(TabsSymbol);
 
     return {
       tabs,
@@ -32,19 +32,21 @@ export default defineComponent({
   },
 
   render() {
+    if (!this.tabs) return null;
+
     const tabConfig = inject<DollarChusho | null>('$chusho', null)?.options
       ?.components?.tab;
     const isActive = this.target === this.tabs.selectedItem.value;
     const elementProps = {
       type: 'button',
-      id: `chusho-tabs-${this.tabs.uuid}-tab-${this.target}`,
+      id: `${this.tabs.uuid}-tab-${this.target}`,
       role: 'tab',
       'aria-selected': `${isActive}`,
-      'aria-controls': `chusho-tabs-${this.tabs.uuid}-tabpanel-${this.target}`,
+      'aria-controls': `${this.tabs.uuid}-tabpanel-${this.target}`,
       tabindex: isActive ? '0' : '-1',
       onClick: () => {
         if (!this.target) return;
-        this.tabs.setSelectedItem(this.target);
+        this.tabs?.setSelectedItem(this.target);
       },
       ...generateConfigClass(tabConfig?.class, {
         ...this.$props,
