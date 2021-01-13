@@ -57,6 +57,9 @@ interface ComponentsOptions {
   collapseContent?: ComponentCommonOptions & {
     transition?: BaseTransitionProps;
   };
+  picture?: {
+    class?: VueClassBinding | ClassGenerator;
+  };
 }
 
 export interface ChushoOptions {
