@@ -131,6 +131,19 @@
             "component": "Controlled"
           }
         ]
+      },
+      "picture": {
+        "label": "Picture",
+        "variants": [
+          {
+            "label": "Default",
+            "component": "Default"
+          },
+          {
+            "label": "With Sources",
+            "component": "WithSources"
+          }
+        ]
       }
     }
   },

@@ -33,6 +33,9 @@ export default {
       height: 48,
       class: 'inline-block align-middle pointer-events-none fill-current',
     },
+    picture: {
+      class: 'picture',
+    },
     tabs: {
       class: 'tabs',
     },

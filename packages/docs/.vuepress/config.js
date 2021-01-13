@@ -41,6 +41,7 @@ module.exports = {
             'components/button.md',
             'components/dialog.md',
             'components/icon.md',
+            'components/picture.md',
             'components/tabs.md',
             'components/collapse.md',
           ],
