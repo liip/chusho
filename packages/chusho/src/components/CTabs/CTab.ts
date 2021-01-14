@@ -36,7 +36,7 @@ export default defineComponent({
 
     const tabConfig = inject<DollarChusho | null>('$chusho', null)?.options
       ?.components?.tab;
-    const isActive = this.target === this.tabs.selectedItem.value;
+    const isActive = this.target === this.tabs.selectedItemId.value;
     const elementProps = {
       type: 'button',
       id: `${this.tabs.uuid}-tab-${this.target}`,

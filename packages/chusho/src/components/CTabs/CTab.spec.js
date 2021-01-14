@@ -104,12 +104,12 @@ describe('CTab', () => {
       },
     });
 
-    expect(wrapper.vm.tabs.selectedItem.value).toBe('1');
+    expect(wrapper.vm.tabs.selectedItemId.value).toBe('1');
 
     // Let it set the first tab as default
     await nextTick();
     await wrapper.find('[role="tab"][aria-selected="false"]').trigger('click');
 
-    expect(wrapper.vm.tabs.selectedItem.value).toBe('2');
+    expect(wrapper.vm.tabs.selectedItemId.value).toBe('2');
   });
 });

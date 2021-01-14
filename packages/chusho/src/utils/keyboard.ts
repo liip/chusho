@@ -1,27 +1,105 @@
-export function getSiblingIndexByArrowKey(
-  list: Readonly<Array<string | number>>,
-  current: string | number,
-  key: string,
-  rtl?: boolean
-): number | undefined {
-  const currentIndex = list.indexOf(current);
-  const index = currentIndex > -1 ? currentIndex : 0;
-  const right = ['ArrowRight', 'Right'];
-  const left = ['ArrowLeft', 'Left'];
+export enum Focus {
+  First,
+  Previous,
+  Next,
+  Last,
+}
 
-  let newIndex;
+export function getNextFocusByKey(key: string, rtl = false): Focus | null {
+  switch (key) {
+    case 'ArrowRight':
+    case 'Right':
+    case 'ArrowDown':
+    case 'Down':
+      return rtl ? Focus.Previous : Focus.Next;
 
-  if ((left.includes(key) && rtl) || (right.includes(key) && !rtl)) {
-    newIndex = index === list.length - 1 ? 0 : index + 1;
-  } else if ((left.includes(key) && !rtl) || (right.includes(key) && rtl)) {
-    newIndex = index === 0 ? list.length - 1 : index - 1;
-  } else if (key === 'Home') {
-    newIndex = 0;
-  } else if (key === 'End') {
-    newIndex = list.length - 1;
+    case 'ArrowLeft':
+    case 'Left':
+    case 'ArrowUp':
+    case 'Up':
+      return rtl ? Focus.Next : Focus.Previous;
+
+    case 'Home':
+      return Focus.First;
+
+    case 'End':
+      return Focus.Last;
+
+    default:
+      return null;
   }
+}
 
-  return newIndex;
+/**
+ * Logic courtesy of Headless UI
+ * https://github.com/tailwindlabs/headlessui
+ */
+export function calculateActiveIndex<TItem>(
+  action: Focus,
+  resolvers: {
+    resolveItems(): TItem[];
+    resolveActiveIndex(): number | null;
+    resolveDisabled(item: TItem): boolean;
+  },
+  loop = false
+): number | null {
+  const items = resolvers.resolveItems();
+  if (items.length <= 0) return null;
+
+  const currentActiveIndex = resolvers.resolveActiveIndex();
+  const activeIndex = currentActiveIndex ?? -1;
+
+  const nextActiveIndex = (() => {
+    switch (action) {
+      case Focus.First:
+        return items.findIndex((item) => !resolvers.resolveDisabled(item));
+
+      case Focus.Previous: {
+        const index = items
+          .slice()
+          .reverse()
+          .findIndex((item, index, all) => {
+            if (activeIndex !== -1 && all.length - index - 1 >= activeIndex)
+              return false;
+            return !resolvers.resolveDisabled(item);
+          });
+        if (index === -1) {
+          if (loop) {
+            return calculateActiveIndex(Focus.Last, resolvers);
+          }
+          return index;
+        }
+        return items.length - 1 - index;
+      }
+
+      case Focus.Next: {
+        const index = items.findIndex((item, index) => {
+          if (index <= activeIndex) return false;
+          return !resolvers.resolveDisabled(item);
+        });
+
+        if (loop && index === -1) {
+          return calculateActiveIndex(Focus.First, resolvers);
+        }
+
+        return index;
+      }
+
+      case Focus.Last: {
+        const index = items
+          .slice()
+          .reverse()
+          .findIndex((item) => !resolvers.resolveDisabled(item));
+        if (index === -1) return index;
+        return items.length - 1 - index;
+      }
+
+      default:
+        throw new Error(`Unexpected focus: ${action}`);
+    }
+  })();
+
+  return nextActiveIndex === -1 ? currentActiveIndex : nextActiveIndex;
 }
 
 export function getFocusableElements(el: Element): Array<HTMLElement> {

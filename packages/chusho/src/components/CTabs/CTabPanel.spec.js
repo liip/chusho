@@ -73,4 +73,30 @@ describe('CTabPanel', () => {
       'active',
     ]);
   });
+
+  it('registers itself as a tab with id', () => {
+    const wrapper = mount(CTabs, {
+      slots: {
+        default: h(CTabPanel, { id: '1' }),
+      },
+    });
+
+    expect(wrapper.vm.tabs.items.value).toEqual([
+      {
+        id: '1',
+      },
+    ]);
+  });
+
+  it('unregisters itself when unmounted', () => {
+    const wrapper = mount(CTabs, {
+      slots: {
+        default: h(CTabPanel, { id: '1' }),
+      },
+    });
+
+    expect(wrapper.vm.tabs.items.value.length).toBe(1);
+    wrapper.unmount();
+    expect(wrapper.vm.tabs.items.value.length).toBe(0);
+  });
 });

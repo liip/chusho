@@ -28,6 +28,11 @@ export default defineComponent({
 
     tabs?.addItem(props.id);
 
+    // Set the first tab as active if none has been defined
+    if (tabs?.items.value.length === 1 && !tabs?.selectedItemId.value) {
+      tabs.setSelectedItem(props.id);
+    }
+
     return {
       tabs,
     };
@@ -42,7 +47,7 @@ export default defineComponent({
 
     const tabPanelConfig = inject<DollarChusho | null>('$chusho', null)?.options
       ?.components?.tabPanel;
-    const isActive = this.id === this.tabs.selectedItem.value;
+    const isActive = this.id === this.tabs.selectedItemId.value;
 
     if (!isActive) return null;
 

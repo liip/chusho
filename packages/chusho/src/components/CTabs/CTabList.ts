@@ -1,10 +1,11 @@
 import { defineComponent, h, inject, nextTick, mergeProps } from 'vue';
 
 import { DollarChusho } from '../../types';
-import { getSiblingIndexByArrowKey } from '../../utils/keyboard';
+import { getNextFocusByKey, calculateActiveIndex } from '../../utils/keyboard';
 import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
 import { TabsSymbol } from './CTabs';
+import { SelectedItem } from '../../composables/useSelected';
 
 export default defineComponent({
   name: 'CTabList',
@@ -28,31 +29,38 @@ export default defineComponent({
       if (!this.tabs?.selectedItem.value) return;
 
       const rtl = this.chusho?.options?.rtl;
-      const newIndex = getSiblingIndexByArrowKey(
-        this.tabs.items.value,
-        this.tabs.selectedItem.value,
-        e.key,
-        rtl && rtl()
+      const focus = getNextFocusByKey(e.key, rtl && rtl());
+
+      if (focus === null) return;
+
+      const newIndex = calculateActiveIndex<SelectedItem>(
+        focus,
+        {
+          resolveItems: () => this.tabs?.items.value ?? [],
+          resolveDisabled: () => false,
+          resolveActiveIndex: () => this.tabs?.selectedItemIndex.value ?? null,
+        },
+        true
       );
 
-      if (newIndex !== undefined) {
-        e.preventDefault();
+      if (newIndex === null) return;
 
-        this.tabs.setSelectedItem(this.tabs.items.value[newIndex]);
+      e.preventDefault();
 
-        nextTick(() => {
-          const tabList = this.$refs.tabList as HTMLElement | null;
+      this.tabs.setSelectedItem(this.tabs.items.value[newIndex].id);
 
-          if (tabList) {
-            const activeTab: HTMLElement | null = tabList.querySelector(
-              '[aria-selected="true"]'
-            );
-            if (activeTab) {
-              activeTab.focus();
-            }
+      nextTick(() => {
+        const tabList = this.$refs.tabList as HTMLElement | null;
+
+        if (tabList) {
+          const activeTab: HTMLElement | null = tabList.querySelector(
+            '[aria-selected="true"]'
+          );
+          if (activeTab) {
+            activeTab.focus();
           }
-        });
-      }
+        }
+      });
     },
   },
 

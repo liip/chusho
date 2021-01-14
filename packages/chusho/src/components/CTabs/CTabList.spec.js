@@ -45,6 +45,7 @@ describe('CTabList', () => {
 
   it('handles keypress to change active tab', async () => {
     const wrapper = mount(CTabs, {
+      attachTo: document.body,
       slots: {
         default: () => [
           h(CTabList, null, {
@@ -76,7 +77,13 @@ describe('CTabList', () => {
     await wrapper
       .find('[role="tab"][aria-selected="true"]')
       .trigger('keydown', { key: 'ArrowRight' });
+    await nextTick();
 
-    expect(wrapper.vm.tabs.selectedItem.value).toBe('2');
+    expect(wrapper.vm.tabs.selectedItemId.value).toBe('2');
+    expect(wrapper.findAllComponents(CTab)[1].vm.$el).toBe(
+      document.activeElement
+    );
+
+    wrapper.unmount();
   });
 });

@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useSelected addItem adds item to the list of items 1`] = `
+Array [
+  Object {
+    "id": "1",
+  },
+  Object {
+    "id": "2",
+  },
+  Object {
+    "id": "3",
+  },
+]
+`;
+
+exports[`useSelected removeItem removes item from the list of items 1`] = `
+Array [
+  Object {
+    "id": "1",
+  },
+  Object {
+    "id": "2",
+  },
+  Object {
+    "id": "3",
+  },
+]
+`;
+
+exports[`useSelected removeItem removes item from the list of items 2`] = `
+Array [
+  Object {
+    "id": "1",
+  },
+  Object {
+    "id": "3",
+  },
+]
+`;
+
+exports[`useSelected removeItem removes item from the list of items 3`] = `
+Array [
+  Object {
+    "id": "1",
+  },
+]
+`;
+
+exports[`useSelected removeItem removes item from the list of items 4`] = `Array []`;

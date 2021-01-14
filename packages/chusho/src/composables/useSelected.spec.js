@@ -6,7 +6,7 @@ describe('useSelected', () => {
   it('initialize with default value', () => {
     const selected = useSelected('1');
 
-    expect(selected.selectedItem.value).toBe('1');
+    expect(selected.selectedItemId.value).toBe('1');
   });
 
   it('emits when there’s a component instance, a prop name and the value changes', () => {
@@ -43,9 +43,12 @@ describe('useSelected', () => {
       }
     );
 
-    expect(wrapper.vm.selected.selectedItem.value).toEqual('1');
+    expect(wrapper.vm.selected.selectedItemId.value).toEqual('1');
     await wrapper.setProps({ modelValue: '2' });
-    expect(wrapper.vm.selected.selectedItem.value).toEqual('2');
+    expect(wrapper.vm.selected.selectedItemId.value).toEqual('2');
+    // It should do nothing if the value didn’t actually change
+    await wrapper.setProps({ modelValue: '2' });
+    expect(wrapper.vm.selected.selectedItemId.value).toEqual('2');
   });
 
   it('setSelectedItem changes selectedItem', () => {
@@ -53,7 +56,7 @@ describe('useSelected', () => {
 
     selected.setSelectedItem('2');
 
-    expect(selected.selectedItem.value).toBe('2');
+    expect(selected.selectedItemId.value).toBe('2');
   });
 
   it('addItem adds item to the list of items', () => {
@@ -63,7 +66,7 @@ describe('useSelected', () => {
     selected.addItem('2');
     selected.addItem('3');
 
-    expect(selected.items.value).toEqual(['1', '2', '3']);
+    expect(selected.items.value).toMatchSnapshot();
   });
 
   it('removeItem removes item from the list of items', () => {
@@ -73,15 +76,25 @@ describe('useSelected', () => {
     selected.addItem('2');
     selected.addItem('3');
 
-    expect(selected.items.value).toEqual(['1', '2', '3']);
+    expect(selected.items.value).toMatchSnapshot();
 
     selected.removeItem('2');
-    expect(selected.items.value).toEqual(['1', '3']);
+    expect(selected.items.value).toMatchSnapshot();
 
     selected.removeItem('3');
-    expect(selected.items.value).toEqual(['1']);
+    expect(selected.items.value).toMatchSnapshot();
 
     selected.removeItem('1');
-    expect(selected.items.value).toEqual([]);
+    expect(selected.items.value).toMatchSnapshot();
+  });
+
+  it('provides the selected item, its ID and index', () => {
+    const selected = useSelected('1');
+
+    selected.addItem('1');
+
+    expect(selected.selectedItem.value).toEqual({ id: '1' });
+    expect(selected.selectedItemId.value).toBe('1');
+    expect(selected.selectedItemIndex.value).toBe(0);
   });
 });

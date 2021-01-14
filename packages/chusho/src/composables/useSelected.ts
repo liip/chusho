@@ -1,59 +1,87 @@
-import { computed, ComputedRef, getCurrentInstance, ref, watch } from 'vue';
+import {
+  computed,
+  ComputedRef,
+  getCurrentInstance,
+  Ref,
+  ref,
+  watch,
+} from 'vue';
 
 export type SelectedItemId = string | number;
 
-export type UseSelected = {
-  selectedItem: ComputedRef<SelectedItemId | null>;
-  items: ComputedRef<SelectedItemId[]>;
-  setSelectedItem: (id: SelectedItemId) => void;
-  addItem: (id: SelectedItemId) => void;
-  removeItem: (id: SelectedItemId) => void;
-};
+export interface SelectedItem<DataT = null> {
+  id: SelectedItemId;
+  data?: DataT;
+}
 
-export default function useSelected(
+export interface UseSelected<ItemDataT = null> {
+  selectedItemId: ComputedRef<SelectedItemId | null>;
+  selectedItemIndex: ComputedRef<number | null>;
+  selectedItem: ComputedRef<SelectedItem<ItemDataT> | null>;
+  items: ComputedRef<SelectedItem<ItemDataT>[]>;
+  setSelectedItem: (id: SelectedItemId) => void;
+  addItem: (id: SelectedItemId, data?: Ref<ItemDataT>) => void;
+  removeItem: (id: SelectedItemId) => void;
+}
+
+export default function useSelected<ItemDataT = null>(
   initialValue: SelectedItemId | null = null,
   propName: string | null = null
-): UseSelected {
+) {
   const vm = getCurrentInstance();
-  const selectedItem = ref<SelectedItemId | null>(initialValue);
-  const items = ref<SelectedItemId[]>([]);
+  const selectedItemId = ref<SelectedItemId | null>(initialValue);
+  const items = ref([]) as Ref<SelectedItem<ItemDataT>[]>;
 
   function setSelectedItem(id: SelectedItemId) {
-    selectedItem.value = id;
-    if (propName) {
-      vm?.emit(`update:${propName}`, selectedItem.value);
+    selectedItemId.value = id;
+    if (propName && vm) {
+      vm.emit(`update:${propName}`, selectedItemId.value);
     }
   }
 
-  function addItem(id: SelectedItemId) {
-    items.value.push(id);
-
-    if (items.value.length === 1 && !selectedItem.value) {
-      selectedItem.value = id;
+  function addItem(id: SelectedItemId, data?: Ref<ItemDataT>) {
+    const item: SelectedItem<ItemDataT> = {
+      id,
+    };
+    if (data) {
+      item.data = data.value;
     }
+    items.value.push(item);
   }
 
   function removeItem(id: SelectedItemId) {
-    if (selectedItem.value === id) {
-      selectedItem.value = items.value[0];
+    if (selectedItemId.value === id) {
+      selectedItemId.value = items.value[0].id;
     }
 
-    items.value.splice(items.value.indexOf(id), 1);
+    items.value.splice(
+      items.value.findIndex((item) => item.id === id),
+      1
+    );
   }
 
   if (propName) {
     watch(
       () => vm?.props?.[propName],
       (val, oldVal) => {
-        if (val !== oldVal && typeof val === 'string') {
-          selectedItem.value = val;
+        if (
+          val !== oldVal &&
+          (typeof val === 'string' || typeof val === 'number')
+        ) {
+          selectedItemId.value = val;
         }
       }
     );
   }
 
   return {
-    selectedItem: computed(() => selectedItem.value),
+    selectedItemId: computed(() => selectedItemId.value),
+    selectedItemIndex: computed(() =>
+      items.value.findIndex((item) => item.id === selectedItemId.value)
+    ),
+    selectedItem: computed(
+      () => items.value.find((item) => item.id === selectedItemId.value) ?? null
+    ),
     items: computed(() => items.value),
     setSelectedItem,
     addItem,

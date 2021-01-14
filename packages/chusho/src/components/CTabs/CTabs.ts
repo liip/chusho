@@ -53,7 +53,7 @@ export default defineComponent({
 
   setup(props) {
     const selected = useSelected(
-      props.modelValue || props.defaultTab || null,
+      props.modelValue ?? props.defaultTab ?? null,
       'modelValue'
     );
     const api: UseTabs = {
