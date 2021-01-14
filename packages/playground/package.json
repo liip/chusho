@@ -39,6 +39,7 @@
     "cypress": "^6.6.0",
     "cypress-plugin-tab": "^1.0.5",
     "start-server-and-test": "^1.12.0",
+    "vee-validate": "^4.2.2",
     "vite": "^2.0.5"
   }
 }

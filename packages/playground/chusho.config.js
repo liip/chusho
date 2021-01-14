@@ -77,5 +77,35 @@ export default {
       },
       class: 'p-6 bg-gray-100 rounded mt-2',
     },
+    select: {
+      class: 'inline-block relative',
+    },
+    selectBtn: {
+      class: ({ disabled }) => {
+        return [
+          'w-56 flex justify-between py-2 px-4 border border-gray-400 bg-gray-100 rounded',
+          { 'cursor-not-allowed opacity-50': disabled },
+        ];
+      },
+    },
+    selectOptions: {
+      class:
+        'absolute top-full left-0 min-w-full max-h-56 overflow-y-auto mt-1 bg-gray-50 border border-gray-300 rounded shadow-md',
+    },
+    selectOption: {
+      class({ active, disabled }) {
+        return [
+          'relative pl-8 pr-4 leading-loose outline-none',
+          {
+            'hover:text-blue-700 focus:text-blue-700 hover:bg-blue-100 focus:bg-blue-100 cursor-pointer': !disabled,
+            'text-gray-400': disabled,
+            'text-blue-800': active,
+          },
+        ];
+      },
+    },
+    selectGroupLabel: {
+      class: 'relative px-4 leading-loose font-bold',
+    },
   },
 };

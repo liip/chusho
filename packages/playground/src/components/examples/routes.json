@@ -144,6 +144,31 @@
             "component": "WithSources"
           }
         ]
+      },
+      "select": {
+        "label": "Select",
+        "variants": [
+          {
+            "label": "Default",
+            "component": "Default"
+          },
+          {
+            "label": "Disabled Options",
+            "component": "DisabledOptions"
+          },
+          {
+            "label": "Options Group",
+            "component": "OptionsGroup"
+          },
+          {
+            "label": "With Validation",
+            "component": "WithValidation"
+          },
+          {
+            "label": "Disabled",
+            "component": "Disabled"
+          }
+        ]
       }
     }
   },

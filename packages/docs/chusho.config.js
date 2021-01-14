@@ -91,6 +91,37 @@ export default {
       class: 'block h-auto rounded-2xl',
     },
 
+    select: {
+      class: 'inline-block relative',
+    },
+
+    selectBtn: {
+      class:
+        'inline-block w-56 flex justify-between py-2 px-4 border border-gray-400 bg-gray-100 rounded',
+    },
+
+    selectOptions: {
+      class:
+        'absolute top-full left-0 z-20 min-w-full max-h-56 overflow-y-auto pl-0 mt-1 bg-gray-50 border border-gray-300 rounded shadow-md',
+    },
+
+    selectOption: {
+      class({ active, disabled }) {
+        return [
+          'list-none relative pl-8 pr-4 leading-loose outline-none',
+          {
+            'hover:text-blue-700 focus:text-blue-700 hover:bg-blue-100 focus:bg-blue-100 cursor-pointer': !disabled,
+            'text-gray-400': disabled,
+            'text-blue-800': active,
+          },
+        ];
+      },
+    },
+
+    selectGroupLabel: {
+      class: 'relative px-4 leading-loose font-bold',
+    },
+
     tabList: {
       class:
         'flex max-w-full overflow-x-auto overflow-y-hidden mb-6 space-x-6 border-0 border-b border-gray-200',

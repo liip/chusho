@@ -57,9 +57,17 @@ interface ComponentsOptions {
   collapseContent?: ComponentCommonOptions & {
     transition?: BaseTransitionProps;
   };
-  picture?: {
-    class?: VueClassBinding | ClassGenerator;
+  picture?: ComponentCommonOptions;
+  select?: ComponentCommonOptions;
+  selectBtn?: ComponentCommonOptions & {
+    inheritBtnClass: boolean;
   };
+  selectOptions?: ComponentCommonOptions & {
+    transition?: BaseTransitionProps;
+  };
+  selectOption?: ComponentCommonOptions;
+  selectGroup?: ComponentCommonOptions;
+  selectGroupLabel?: ComponentCommonOptions;
 }
 
 export interface ChushoOptions {
