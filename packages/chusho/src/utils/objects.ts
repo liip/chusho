@@ -8,6 +8,19 @@ export function isObject(obj: unknown): obj is Record<any, any> {
   return obj !== null && typeof obj === 'object';
 }
 
+export function isPrimitive(
+  value: unknown
+): value is undefined | boolean | number | string | bigint | symbol {
+  return [
+    'undefined',
+    'boolean',
+    'number',
+    'string',
+    'bigint',
+    'symbol',
+  ].includes(typeof value);
+}
+
 export function mergeDeep(
   /* eslint-disable @typescript-eslint/no-explicit-any */
   source: Record<any, any> = {},
