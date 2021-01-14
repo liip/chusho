@@ -6,7 +6,7 @@ import {
   inject,
   mergeProps,
 } from 'vue';
-import useToggle, { UseToggle } from '../../composables/useToggle';
+import useToggle from '../../composables/useToggle';
 
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
@@ -17,7 +17,7 @@ export const CollapseSymbol: InjectionKey<UseCollapse> = Symbol('CCollapse');
 
 export interface UseCollapse {
   uuid: string;
-  toggle: UseToggle;
+  toggle: ReturnType<typeof useToggle>;
 }
 
 export default defineComponent({

@@ -1,12 +1,6 @@
-import { computed, ComputedRef, Ref, ref } from 'vue';
+import { computed, Ref, ref } from 'vue';
 
-export type UseActiveElement = {
-  element: ComputedRef<HTMLElement | null>;
-  save: () => void;
-  restore: () => void;
-};
-
-export default function useActiveElement(): UseActiveElement {
+export default function useActiveElement() {
   const savedElement: Ref<HTMLElement | null> = ref(null);
 
   function save() {

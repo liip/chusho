@@ -20,12 +20,12 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    '@typescript-eslint/explicit-module-boundary-types': 0,
   },
   overrides: [
     {
       files: ['**/*.{js,vue}'],
       rules: {
-        '@typescript-eslint/explicit-module-boundary-types': 0,
         '@typescript-eslint/no-var-requires': 0,
         '@typescript-eslint/no-non-null-assertion': 0,
       },

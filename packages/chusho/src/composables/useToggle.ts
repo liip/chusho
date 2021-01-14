@@ -1,34 +1,11 @@
-import {
-  computed,
-  ComputedRef,
-  getCurrentInstance,
-  ref,
-  VNode,
-  watch,
-} from 'vue';
+import { computed, getCurrentInstance, ref, VNode, watch } from 'vue';
 
 import uuid from '../utils/uuid';
-
-export type UseToggle = {
-  id: string;
-  isOpen: ComputedRef<boolean>;
-  toggle: () => void;
-  close: () => void;
-  open: () => void;
-  renderIfOpen: (
-    render: () => VNode | VNode[],
-    fallback?: () => void
-  ) => VNode | VNode[] | null;
-  attrs: {
-    btn: ComputedRef<Record<string, unknown>>;
-    target: ComputedRef<Record<string, unknown>>;
-  };
-};
 
 export default function useToggle(
   initialValue = false,
   propName = 'modelValue'
-): UseToggle {
+) {
   const id = uuid('chusho-toggle');
   const isOpen = ref(initialValue);
   const vm = getCurrentInstance();

@@ -27,49 +27,34 @@ export type VueClassBinding =
 
 export type ClassGenerator = (ctx?: Record<string, unknown>) => VueClassBinding;
 
+type ComponentCommonOptions = {
+  class?: VueClassBinding | ClassGenerator;
+};
+
 interface ComponentsOptions {
-  alert?: {
-    class?: VueClassBinding | ClassGenerator;
-  };
-  btn?: {
-    class?: VueClassBinding | ClassGenerator;
-  };
-  dialog?: {
-    class?: VueClassBinding | ClassGenerator;
+  alert?: ComponentCommonOptions;
+  btn?: ComponentCommonOptions;
+  dialog?: ComponentCommonOptions & {
     overlayClass?: VueClassBinding | ClassGenerator;
     transition?: BaseTransitionProps;
   };
-  icon?: {
+  icon?: ComponentCommonOptions & {
     spriteUrl?: string;
     width?: number;
     height?: number;
-    class?: VueClassBinding | ClassGenerator;
   };
-  tabs?: {
-    class?: VueClassBinding | ClassGenerator;
-  };
-  tabList?: {
-    class?: VueClassBinding | ClassGenerator;
-  };
-  tab?: {
-    class?: VueClassBinding | ClassGenerator;
-  };
-  tabPanels?: {
-    class?: VueClassBinding | ClassGenerator;
-  };
-  tabPanel?: {
-    class?: VueClassBinding | ClassGenerator;
-  };
-  collapse?: {
-    class?: VueClassBinding | ClassGenerator;
+  tabs?: ComponentCommonOptions;
+  tabList?: ComponentCommonOptions;
+  tab?: ComponentCommonOptions;
+  tabPanels?: ComponentCommonOptions;
+  tabPanel?: ComponentCommonOptions;
+  collapse?: ComponentCommonOptions & {
     transition?: BaseTransitionProps;
   };
-  collapseBtn?: {
-    class?: VueClassBinding | ClassGenerator;
+  collapseBtn?: ComponentCommonOptions & {
     inheritBtnClass: boolean;
   };
-  collapseContent?: {
-    class?: VueClassBinding | ClassGenerator;
+  collapseContent?: ComponentCommonOptions & {
     transition?: BaseTransitionProps;
   };
 }
