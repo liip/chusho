@@ -42,7 +42,7 @@ describe('CTabPanel', () => {
     const panels = wrapper.findAllComponents(CTabPanel);
     expect(panels[0].html()).toEqual(undefined);
     expect(panels[1].html()).toEqual(
-      '<div id="chusho-tabs-UNIQUE_ID-tabpanel-2" role="tabpanel" aria-labelledby="chusho-tabs-UNIQUE_ID-tab-2" tabindex="0"></div>'
+      '<div id="chusho-tabs-0-tabpanel-2" role="tabpanel" aria-labelledby="chusho-tabs-0-tab-2" tabindex="0"></div>'
     );
   });
 

@@ -1,4 +1,4 @@
-import uuid from '../../src/utils/uuid';
+import { reset } from '../../src/utils/uuid';
 
 /*----------------------------------------*\
   Spy on console.warn to assert on it
@@ -59,11 +59,9 @@ afterEach(() => {
 });
 
 /*----------------------------------------*\
-  Mock UUID generator globally
+  Keep the same UUID sequence for each test
 \*----------------------------------------*/
 
-jest.mock('../../src/utils/uuid');
-
 afterEach(() => {
-  uuid.mockClear();
+  reset();
 });

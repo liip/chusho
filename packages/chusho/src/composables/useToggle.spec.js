@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils';
 
 import useToggle from './useToggle';
-import uuid from '../utils/uuid';
 
 describe('useToggle', () => {
   it('initialize with default value', () => {
@@ -13,8 +12,7 @@ describe('useToggle', () => {
   it('has a unique ID', () => {
     const toggle = useToggle();
 
-    expect(uuid).toHaveBeenCalledWith('chusho-toggle');
-    expect(toggle.id).toBe('chusho-toggle-UNIQUE_ID');
+    expect(toggle.id).toBe('chusho-toggle-0');
   });
 
   it('emits when there’s a component instance and the value change using default prop name', () => {

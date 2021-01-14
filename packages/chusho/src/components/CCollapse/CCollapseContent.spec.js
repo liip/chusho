@@ -26,7 +26,7 @@ describe('CCollapseContent', () => {
     });
 
     expect(wrapper.findComponent(CCollapseContent).html()).toBe(
-      '<div id="chusho-toggle-UNIQUE_ID"></div>'
+      '<div id="chusho-toggle-1"></div>'
     );
   });
 
@@ -76,7 +76,7 @@ describe('CCollapseContent', () => {
     });
 
     expect(wrapper.html()).toBe(
-      '<div><div id="chusho-toggle-UNIQUE_ID" class="fade-enter-active fade-enter-from"></div></div>'
+      '<div><div id="chusho-toggle-1" class="fade-enter-active fade-enter-from"></div></div>'
     );
   });
 });

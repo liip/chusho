@@ -41,10 +41,10 @@ describe('CTab', () => {
 
     const tabs = wrapper.findAllComponents(CTab);
     expect(tabs[0].html()).toEqual(
-      '<button type="button" id="chusho-tabs-UNIQUE_ID-tab-1" role="tab" aria-selected="true" aria-controls="chusho-tabs-UNIQUE_ID-tabpanel-1" tabindex="0"></button>'
+      '<button type="button" id="chusho-tabs-0-tab-1" role="tab" aria-selected="true" aria-controls="chusho-tabs-0-tabpanel-1" tabindex="0"></button>'
     );
     expect(tabs[1].html()).toEqual(
-      '<button type="button" id="chusho-tabs-UNIQUE_ID-tab-2" role="tab" aria-selected="false" aria-controls="chusho-tabs-UNIQUE_ID-tabpanel-2" tabindex="-1"></button>'
+      '<button type="button" id="chusho-tabs-0-tab-2" role="tab" aria-selected="false" aria-controls="chusho-tabs-0-tabpanel-2" tabindex="-1"></button>'
     );
   });
 
