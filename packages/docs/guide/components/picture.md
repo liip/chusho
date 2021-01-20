@@ -2,6 +2,8 @@
 
 Easily generate responsive images.
 
+<Sandbox id="cpicture-w5gt6" />
+
 ## Config
 
 ### class
