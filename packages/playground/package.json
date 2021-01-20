@@ -1,6 +1,6 @@
 {
   "name": "@chusho/playground",
-  "version": "0.2.0-beta.3",
+  "version": "0.2.0",
   "private": true,
   "license": "MIT",
   "description": "Chūshō playground to develop and test components",
@@ -26,7 +26,7 @@
     "test:e2e:headless": "cypress run --headless"
   },
   "dependencies": {
-    "chusho": "^0.2.0-beta.3",
+    "chusho": "^0.2.0",
     "highlight.js": "^10.4.1",
     "tailwindcss": "^2.0.1-compat",
     "vue": "^3.0.4",
