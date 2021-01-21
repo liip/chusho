@@ -6,6 +6,18 @@ Display content in a modal dialog, on top of the page content.
 
 ## Config
 
+The options below are to be set in the [global configuration](/guide/config.html) at the following location:
+
+```js
+{
+    components: {
+        dialog: {
+            // ...
+        },
+    }
+}
+```
+
 ### class
 
 Classes applied to the component dialog element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).

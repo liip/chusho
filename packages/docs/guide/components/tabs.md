@@ -6,6 +6,30 @@ Accessible tabs component.
 
 ## Config
 
+The options below are to be set in the [global configuration](/guide/config.html) at the following location:
+
+```js
+{
+    components: {
+        tabs: {
+            // ...
+        },
+        tabList: {
+            // ...
+        },
+        tab: {
+            // ...
+        },
+        tabPanels: {
+            // ...
+        },
+        tabPanel: {
+            // ...
+        },
+    }
+}
+```
+
 ### CTabs, CTabList, CTab, CTabPanels and CTabPanel
 
 #### class

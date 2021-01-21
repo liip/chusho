@@ -34,16 +34,17 @@ This object accept the following properties, one for each component:
 {
     alert: {},
     btn: {},
+    collapse: {},
+    collapseBtn: {},
+    collapseContent: {},
     dialog: {},
     icon: {},
+    picture: {},
     tabs: {},
     tabList: {},
     tab: {},
     tabPanels: {},
     tabPanel: {},
-    collapse: {},
-    collapseBtn: {},
-    collapseContent: {},
 }
 ```
 

@@ -6,6 +6,24 @@ Conditionnaly display some content.
 
 ## Config
 
+The options below are to be set in the [global configuration](/guide/config.html) at the following location:
+
+```js
+{
+    components: {
+        collapse: {
+            // ...
+        },
+        collapseBtn: {
+            // ...
+        }
+        collapseContent: {
+            // ...
+        }
+    }
+}
+```
+
 ### CCollapse, CCollapseBtn and CCollapseContent
 
 #### class

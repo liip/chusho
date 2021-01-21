@@ -6,6 +6,18 @@ Uniformized button style for `router-link`, `a` or `button` elements.
 
 ## Config
 
+The options below are to be set in the [global configuration](/guide/config.html) at the following location:
+
+```js
+{
+    components: {
+        btn: {
+            // ...
+        }
+    }
+}
+```
+
 ### class
 
 Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).

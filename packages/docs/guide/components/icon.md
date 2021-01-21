@@ -6,6 +6,18 @@ Display a scalable SVG icon from a pre-existing sprite.
 
 ## Config
 
+The options below are to be set in the [global configuration](/guide/config.html) at the following location:
+
+```js
+{
+    components: {
+        icon: {
+            // ...
+        },
+    }
+}
+```
+
 ### spriteUrl
 
 Load the sprite from a remote URL. This technique doesn’t work on Internet Explorer, but it can be polyfilled with [svgxuse](https://github.com/Keyamoon/svgxuse). Learn more about [SVG Sprites](https://css-tricks.com/svg-sprites-use-better-icon-fonts/) on CSS-Tricks.
