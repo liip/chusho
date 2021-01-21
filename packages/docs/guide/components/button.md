@@ -1,6 +1,6 @@
 # Button
 
-Uniformized button style for `router-link`, `nuxt-link`, `a` or `button` elements.
+Uniformized button style for `router-link`, `a` or `button` elements.
 
 <Sandbox id="cbtn-6upn2" />
 
@@ -46,7 +46,7 @@ Transform the button tag into an `a` by providing the `href` prop.
 <CBtn href="#">Click me</CBtn>
 ```
 
-You can also make it a `router-link` (or `nuxt-link` in a Nuxt app, this will be detected automatically), by providing the `to` prop. It works just like `router-link` prop of the same name.
+You can also make it a `router-link`, by providing the `to` prop. It works just like `router-link` prop of the same name.
 
 ```vue
 <CBtn to="/">Go home</CBtn>

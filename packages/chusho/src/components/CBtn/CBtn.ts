@@ -30,7 +30,7 @@ export default defineComponent({
     },
 
     /**
-     * Use a `router-link` (or `nuxt-link` in a Nuxt app) in the background, works juste like the `router-link` prop of the same name.
+     * Use a `router-link` in the background, works juste like the `router-link` prop of the same name.
      *
      * Note that you can also pass all other `router-link` props such as `activeClass`, `replace`, … See [Vue router documentation](https://router.vuejs.org/api/#router-link) for a complete list of available props.
      */
