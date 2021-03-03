@@ -17,37 +17,63 @@
                 {{ section.label }}
               </th>
             </tr>
-            <template>
-              <tr v-for="row in section.rows" :key="row.name">
-                <template v-if="section.type === 'props'">
-                  <td>
-                    {{ row.name }}&nbsp;<abbr
-                      v-if="row.required"
-                      title="Required"
-                      class="required"
-                      >*</abbr
-                    >
-                  </td>
-                  <td>
-                    <code>{{ row.type.name }}</code>
-                  </td>
-                  <td>
-                    <code v-if="row.defaultValue">{{
-                      row.defaultValue.value
-                    }}</code>
-                  </td>
-                  <td
-                    class="free-text"
-                    v-html="$options.filters.md(row.description)"
-                  ></td>
-                </template>
-                <template v-else-if="section.type === 'events'">
-                  <td colspan="4">
-                    {{ row.name }}
-                  </td>
-                </template>
-              </tr>
-            </template>
+            <tr v-for="row in section.rows" :key="row.name">
+              <template v-if="section.type === 'props'">
+                <td>
+                  {{ row.name }}&nbsp;<abbr
+                    v-if="row.required"
+                    title="Required"
+                    class="required"
+                    >*</abbr
+                  >
+                </td>
+                <td>
+                  <code>{{ row.type.name }}</code>
+                </td>
+                <td>
+                  <code v-if="row.defaultValue">{{
+                    row.defaultValue.value
+                  }}</code>
+                </td>
+                <td
+                  class="free-text"
+                  v-html="$options.filters.md(row.description)"
+                ></td>
+              </template>
+
+              <template v-else-if="section.type === 'events'">
+                <td colspan="4">
+                  {{ row.name }}
+                </td>
+              </template>
+
+              <template v-else-if="section.type === 'slots'">
+                <td>{{ row.name }}</td>
+                <td colspan="4" class="p-0">
+                  <div v-if="row.description" class="p-3">{{ row.description }}</div>
+
+                  <table v-if="row.bindings.length">
+                    <thead>
+                      <tr>
+                        <th>Binding name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="binding in row.bindings" :key="binding.name">
+                        <td>{{ binding.name }}</td>
+                        <td><code>{{ binding.type.name }}</code></td>
+                        <td
+                          class="free-text"
+                          v-html="$options.filters.md(binding.description)"
+                        ></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </template>
+            </tr>
           </template>
         </template>
       </tbody>

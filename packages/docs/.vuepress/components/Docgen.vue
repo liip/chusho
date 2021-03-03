@@ -14,6 +14,11 @@
             type: 'events',
             rows: doc.events,
           },
+          {
+            label: 'Slots',
+            type: 'slots',
+            rows: doc.slots,
+          },
         ]"
       />
     </div>
@@ -36,7 +41,7 @@ export default {
       const docs = [];
       this.components.forEach(cmp => {
         const data = this.$page.componentsDocgen[cmp];
-        if (data && (data.props || data.events)) docs.push(data);
+        if (data && (data.props || data.events || data.slots)) docs.push(data);
       });
       return docs;
     },
