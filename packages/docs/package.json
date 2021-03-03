@@ -22,9 +22,9 @@
     "build": "vuepress build"
   },
   "devDependencies": {
-    "sass": "^1.29.0",
+    "sass": "^1.32.8",
     "sass-loader": "^10.1.0",
-    "vue-docgen-api": "^4.33.9",
-    "vuepress": "^1.7.1"
+    "vue-docgen-api": "^4.35.0",
+    "vuepress": "^1.8.2"
   }
 }
