@@ -149,7 +149,7 @@ export default defineComponent({
   methods: {
     iframeLoaded() {
       this.previewNode = this.$refs.iframe.contentDocument.querySelector(
-        '#preview'
+        '#app'
       );
       this.observer.observe(this.previewNode, {
         childList: true,

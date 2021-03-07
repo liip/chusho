@@ -1,4 +1,3 @@
-import { defineAsyncComponent } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Playground from './components/Playground.vue';
@@ -16,11 +15,10 @@ const examples = Object.keys(examplesRoutes).flatMap((categoryKey) => {
       path: `${categoryKey}/${groupKey}/${label}`
         .toLowerCase()
         .replaceAll(' ', '-'),
-      component: defineAsyncComponent(() =>
+      component: () =>
         import(
           `./components/examples/${categoryKey}/${groupKey}/${component}.vue`
-        )
-      ),
+        ),
       meta: {
         category: { id: categoryKey, label: category.label },
         group: { id: groupKey, label: group.label },
