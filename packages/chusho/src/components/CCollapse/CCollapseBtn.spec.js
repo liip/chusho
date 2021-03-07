@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { h } from 'vue';
 
+import { CBtn } from '../CBtn';
 import CCollapse from './CCollapse';
 import CCollapseBtn from './CCollapseBtn';
 
@@ -80,5 +81,18 @@ describe('CCollapseBtn', () => {
     expect(wrapper.vm.collapse.toggle.isOpen.value).toBe(false);
     wrapper.findComponent(CCollapseBtn).trigger('click');
     expect(wrapper.vm.collapse.toggle.isOpen.value).toBe(true);
+  });
+
+  it('forwards active state to the underlying CBtn', () => {
+    const wrapper = mount(CCollapse, {
+      props: {
+        modelValue: true,
+      },
+      slots: {
+        default: h(CCollapseBtn),
+      },
+    });
+
+    expect(wrapper.findComponent(CBtn).props('active')).toBe(true);
   });
 });

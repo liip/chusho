@@ -24,13 +24,15 @@ export default defineComponent({
   render() {
     const collapseBtnConfig = inject<DollarChusho | null>('$chusho', null)
       ?.options?.components?.collapseBtn;
+    const isActive = this.collapse?.toggle.isOpen.value ?? false;
     const elementProps: Record<string, unknown> = {
       ...this.collapse?.toggle.attrs.btn.value,
       ...generateConfigClass(collapseBtnConfig?.class, {
         ...this.$props,
-        active: this.collapse?.toggle.isOpen.value,
+        active: isActive,
       }),
       bare: collapseBtnConfig?.inheritBtnClass === false,
+      active: isActive,
     };
 
     return h(
