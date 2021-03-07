@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import jpg from '../../../../assets/images/building.jpg';
-import webp from '../../../../assets/images/building.webp';
-import jpg2x from '../../../../assets/images/building@2x.jpg';
-import webp2x from '../../../../assets/images/building@2x.webp';
+import jpg from '@/assets/images/building.jpg';
+import webp from '@/assets/images/building.webp';
+import jpg2x from '@/assets/images/building@2x.jpg';
+import webp2x from '@/assets/images/building@2x.webp';
 
 export default {
   data() {

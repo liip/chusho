@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import jpg from '../../../../assets/images/building.jpg';
+import jpg from '@/assets/images/building.jpg';
 
 export default {
   data() {
