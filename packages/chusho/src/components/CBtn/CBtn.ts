@@ -54,6 +54,14 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+
+    /**
+     * Doesn’t influence the component behavior but allows to conditionally style an active button differently, just like the `variant`. It‘s used internally by some higher-order components such as `CCollapseBtn`.
+     */
+    active: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   render() {

@@ -167,6 +167,32 @@ describe('CBtn', () => {
     );
   });
 
+  it('should apply the active class defined in the config when "active" prop is provided', () => {
+    const wrapper = mount(CBtn, {
+      global: {
+        provide: {
+          $chusho: {
+            options: {
+              components: {
+                btn: {
+                  class: ({ active }) => ({
+                    'btn--active': active,
+                  }),
+                },
+              },
+            },
+          },
+        },
+      },
+      props: {
+        active: true,
+      },
+    });
+    expect(wrapper.html()).toBe(
+      '<button type="button" class="btn--active"></button>'
+    );
+  });
+
   it('should not apply "disabled" nor "type" props on links', () => {
     const wrapper = mount(CBtn, {
       props: {
