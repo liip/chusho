@@ -75,8 +75,9 @@ describe('CCollapseContent', () => {
       },
     });
 
-    expect(wrapper.html()).toBe(
-      '<div><div id="chusho-toggle-1" class="fade-enter-active fade-enter-from"></div></div>'
-    );
+    expect(wrapper.find('#chusho-toggle-1').classes()).toEqual([
+      'fade-enter-from',
+      'fade-enter-active',
+    ]);
   });
 });

@@ -11,6 +11,7 @@ describe('useSelected', () => {
 
   it('emits when there’s a component instance, a prop name and the value changes', () => {
     const wrapper = mount({
+      emits: ['update:selected'],
       setup() {
         return {
           selected: useSelected('1', 'selected'),

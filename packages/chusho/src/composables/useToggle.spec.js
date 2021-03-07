@@ -17,6 +17,7 @@ describe('useToggle', () => {
 
   it('emits when there’s a component instance and the value change using default prop name', () => {
     const wrapper = mount({
+      emits: ['update:modelValue'],
       setup() {
         return {
           toggle: useToggle(),
@@ -33,6 +34,7 @@ describe('useToggle', () => {
 
   it('emits when there’s a component instance and the value change using custom prop name', () => {
     const wrapper = mount({
+      emits: ['update:open'],
       setup() {
         return {
           toggle: useToggle(true, 'open'),

@@ -29,8 +29,8 @@
     "chusho": "^0.2.0",
     "highlight.js": "^10.6.0",
     "tailwindcss": "^2.0.3",
-    "vue": "^3.0.5",
-    "vue-router": "^4.0.0-rc.6"
+    "vue": "^3.0.7",
+    "vue-router": "^4.0.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.1.5",
