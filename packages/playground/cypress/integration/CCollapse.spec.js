@@ -5,7 +5,7 @@ describe('Collapse', () => {
 
   it('renders only the CollapseBtn by default', () => {
     cy.get('[data-test="collapse-button"]').should('be.visible');
-    cy.get('[data-test="collapse-content"]').should('not.be.visible');
+    cy.get('[data-test="collapse-content"]').should('not.exist');
   });
 
   it('opens the CollapseContent when clicking on the CollapseBtn', () => {

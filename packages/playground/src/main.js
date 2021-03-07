@@ -26,7 +26,7 @@ Object.values(directives).forEach((directive) => {
 app.mount('#app');
 
 if (import.meta.hot) {
-  import.meta.hot.acceptDeps('../chusho.config.js', (newConfig) => {
+  import.meta.hot.accept('../chusho.config.js', (newConfig) => {
     $chusho.options = Object.assign({}, $chusho.options, newConfig.default);
   });
 }

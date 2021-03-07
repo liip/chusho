@@ -5,8 +5,8 @@ describe('Tabs', () => {
 
   it('renders only the first tab panel by default', () => {
     cy.get('[data-test="tabpanel-1"]').should('be.visible');
-    cy.get('[data-test="tabpanel-2"]').should('not.be.visible');
-    cy.get('[data-test="tabpanel-3"]').should('not.be.visible');
+    cy.get('[data-test="tabpanel-2"]').should('not.exist');
+    cy.get('[data-test="tabpanel-3"]').should('not.exist');
   });
 
   it('handle keyboard navigation properly', () => {
