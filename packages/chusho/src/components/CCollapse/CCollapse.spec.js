@@ -62,6 +62,16 @@ describe('CCollapse', () => {
     expect(wrapper.html()).toBe('<div>Slot</div>');
   });
 
+  it('provides active state to default slot', () => {
+    const wrapper = mount(CCollapse, {
+      slots: {
+        default: (params) => JSON.stringify(params),
+      },
+    });
+
+    expect(wrapper.html()).toBe('<div>{"active":false}</div>');
+  });
+
   it('provides collapse API', () => {
     const wrapper = mount(CCollapse, {
       slots: {

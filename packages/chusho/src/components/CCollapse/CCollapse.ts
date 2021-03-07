@@ -52,16 +52,25 @@ export default defineComponent({
     };
   },
 
+  /**
+   * @slot
+   * @binding {boolean} active `true` when collapse is open
+   */
   render() {
     const collapseConfig = inject<DollarChusho | null>('$chusho', null)?.options
       ?.components?.collapse;
+    const isActive = this.collapse?.toggle.isOpen.value ?? false;
     const elementProps: Record<string, unknown> = {
       ...generateConfigClass(collapseConfig?.class, {
         ...this.$props,
-        active: this.collapse.toggle.isOpen.value,
+        active: isActive,
       }),
     };
 
-    return h('div', mergeProps(this.$attrs, elementProps), this.$slots);
+    return h(
+      'div',
+      mergeProps(this.$attrs, elementProps),
+      this.$slots?.default?.({ active: isActive }) ?? []
+    );
   },
 });
