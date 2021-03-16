@@ -1,6 +1,6 @@
 # Chūshō docs
 
-Documentation powered by [VuePress](https://vuepress.vuejs.org/) and deployed automatically to [chusho.dev](https://www.chusho.dev/) from `master` branch.
+Documentation powered by [VuePress](https://vuepress.vuejs.org/) and deployed automatically to [chusho.dev](https://www.chusho.dev/) from `main` branch.
 
 ## Useful commands
 

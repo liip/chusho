@@ -60,7 +60,7 @@ npm run format
 
 ### Unit tests
 
-Unit tests are located in the [chusho](https://github.com/liip/chusho/tree/master/packages/chusho/) package, the following commands should therefor be run in the `packages/chusho` directory.
+Unit tests are located in the [chusho](https://github.com/liip/chusho/tree/main/packages/chusho/) package, the following commands should therefor be run in the `packages/chusho` directory.
 
 Run the unit test suites once with Jest:
 
@@ -76,7 +76,7 @@ npm run test:unit:dev
 
 ### End-to-end tests
 
-End-to-end tests are located in the [playground](https://github.com/liip/chusho/tree/master/packages/chusho/) package, the following commands should therefor be run in the `packages/playground` directory.
+End-to-end tests are located in the [playground](https://github.com/liip/chusho/tree/main/packages/chusho/) package, the following commands should therefor be run in the `packages/playground` directory.
 
 To build the library, start the playground and then execute the tests in headless mode once, run:
 
