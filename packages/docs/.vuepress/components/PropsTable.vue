@@ -52,7 +52,7 @@
                 <td colspan="4" class="p-0">
                   <div v-if="row.description" class="p-3">{{ row.description }}</div>
 
-                  <table v-if="row.bindings.length">
+                  <table v-if="row.bindings && row.bindings.length">
                     <thead>
                       <tr>
                         <th>Binding name</th>
