@@ -66,7 +66,7 @@ module.exports = {
     },
   },
 
-  bundler: '@vuepress/vite',
+  bundler: '@vuepress/bundler-vite',
   bundlerConfig: {
     viteOptions: {
       css: {
