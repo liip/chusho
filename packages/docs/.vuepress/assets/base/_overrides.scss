@@ -5,8 +5,10 @@
 html,
 body {
   box-sizing: border-box;
+}
 
-  background-color: $gray-200 !important;
+#app {
+  min-height: 100vh;
 }
 
 *,
@@ -18,8 +20,6 @@ body {
 .navbar {
   color: white;
 
-  background-color: $gray-800;
-  border-bottom: 0;
   box-shadow: $shadow-md;
 
   @media (min-width: 719px) {
@@ -33,22 +33,14 @@ body {
     }
   }
 
-  .site-name {
+  .site-name,
+  .toggle-dark-button {
     color: white;
   }
 }
 
 .toggle-sidebar-button .icon span {
   background-color: $gray-300;
-}
-
-.sidebar {
-  background-color: $gray-100;
-  border-right-color: $gray-300;
-}
-
-.page {
-  background-color: $gray-200;
 }
 
 /**
@@ -62,10 +54,6 @@ body {
 .theme-default-content code:not([class*='language-']) {
   padding: 0.2rem 0.35rem;
 
-  color: $gray-700;
-  -webkit-font-smoothing: inherit !important;
-  -moz-osx-font-smoothing: inherit !important;
-
   background-color: transparentize($gray-500, 0.85);
 }
 
@@ -76,15 +64,8 @@ div[class*='language-'] .highlight-lines .highlight-line {
 .custom-container.tip,
 .custom-container.warning,
 .custom-container.danger {
-  margin-bottom: 1.75rem !important;
-
-  border-left-width: 6px !important;
+  margin-bottom: 1.75rem;
   border-radius: $border-radius;
-}
-
-.custom-container.tip {
-  background-color: $gray-300 !important;
-  border-color: #63b3ed !important;
 }
 
 .code-group__nav {

@@ -22,7 +22,6 @@ module.exports = {
     editLinks: true,
     editLinkText: 'Edit on GitHub',
     contributors: false,
-    darkMode: false,
     navbar: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/' },

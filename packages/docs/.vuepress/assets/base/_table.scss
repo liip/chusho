@@ -8,6 +8,10 @@
   border-radius: $border-radius;
   box-shadow: $shadow;
 
+  .dark & {
+    background-color: $gray-800;
+  }
+
   table {
     display: table !important;
     overflow: visible !important;
@@ -35,6 +39,11 @@
     > tr > th {
       color: $gray-600;
       background-color: $gray-100;
+
+      .dark & {
+        color: $gray-400;
+        background-color: rgba(255, 255, 255, 0.05);
+      }
     }
 
     > tr:first-child {
@@ -59,8 +68,13 @@
   }
 
   tr,
-  td {
+  td,
+  th {
     border-color: $gray-300;
+
+    .dark & {
+      border-color: $gray-700;
+    }
   }
 
   th,
