@@ -1,6 +1,37 @@
 <svg xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <symbol id="palette" viewBox="0 0 330 330"><path d="M165 0C74.019 0 0 74.019 0 165s74.019 165 165 165c24.814 0 45-20.187 45-45s-20.186-45-45-45c-8.271 0-15-6.729-15-15s6.729-15 15-15h146.996a15 15 0 0014.7-12.015A166.031 166.031 0 00330 165C330 74.019 255.981 0 165 0zm134.174 180H165c-24.813 0-45 20.187-45 45s20.187 45 45 45c8.271 0 15 6.729 15 15s-6.729 15-15 15c-74.439 0-135-60.561-135-135S90.561 30 165 30s135 60.561 135 135c0 5.015-.276 10.029-.826 15z"/><circle cx="226.413" cy="103.588" r="22.5"/><circle cx="165.002" cy="78.15" r="22.5"/><circle cx="103.589" cy="103.587" r="22.5"/></symbol>
-    <symbol id="picture" viewBox="0 0 330 330"><path d="M195 150c27.57 0 50-22.43 50-50s-22.43-50-50-50-50 22.43-50 50 22.43 50 50 50zm0-70c11.028 0 20 8.972 20 20s-8.972 20-20 20-20-8.972-20-20 8.972-20 20-20z"/><path d="M315 0H15C6.716 0 0 6.716 0 15v300c0 8.284 6.716 15 15 15h300c8.284 0 15-6.716 15-15V15c0-8.284-6.716-15-15-15zm-15 30v179.636l-32.957-44.388a14.999 14.999 0 00-24.086 0l-47.531 64.016-78.093-112.802a15 15 0 00-24.666 0L30 206.981V30h270zM30 300v-40.315l75-108.333 77.667 112.186a15 15 0 0024.376.404L255 199.352l45 60.607V300H30z"/></symbol>
+    <symbol id="chevron-down" viewBox="0 0 24 24">
+      <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </symbol>
+    <symbol id="chevron-up" viewBox="0 0 24 24">
+      <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+    </symbol>
+    <symbol id="cloud" viewBox="0 0 24 24">
+      <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+    </symbol>
+    <symbol id="emoji-happy" viewBox="0 0 24 24">
+      <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </symbol>
+    <symbol id="gift" viewBox="0 0 24 24">
+      <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+    </symbol>
+    <symbol id="heart" viewBox="0 0 24 24">
+      <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+    </symbol>
+    <symbol id="music-note" viewBox="0 0 24 24">
+      <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+    </symbol>
+    <symbol id="sparkles" viewBox="0 0 24 24">
+      <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+    </symbol>
+    <symbol id="thumb-up" viewBox="0 0 24 24">
+      <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+    </symbol>
+    <symbol id="star" viewBox="0 0 24 24">
+      <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+    </symbol>
+    <symbol id="lightning-bolt" viewBox="0 0 24 24">
+      <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+    </symbol>
   </defs>
 </svg>

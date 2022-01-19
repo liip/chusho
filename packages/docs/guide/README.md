@@ -1,22 +1,38 @@
 ---
-next: /guide/config
+next: /guide/config.md
 ---
 
 # Getting started
 
 ## Installation
 
-Install Chūshō with npm:
+Install Chūshō with your favorite package manager:
 
-```bash
+<CodeGroup>
+  <CodeGroupItem title="npm" active>
+
+```bash:no-line-numbers
 npm install chusho
 ```
 
-Or yarn:
+  </CodeGroupItem>
 
-```bash
+  <CodeGroupItem title="yarn">
+
+```bash:no-line-numbers
 yarn add chusho
 ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="pnpm">
+
+```bash:no-line-numbers
+pnpm add chusho
+```
+
+  </CodeGroupItem>
+</CodeGroup>
 
 ## Setup
 
@@ -29,7 +45,7 @@ import Chusho from 'chusho';
 const app = createApp(App);
 
 app.use(Chusho, {
-    // Here goes the config
+  // Here goes the config
 });
 ```
 

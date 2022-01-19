@@ -2,7 +2,7 @@
 
 Display content in a modal dialog, on top of the page content.
 
-<Sandbox id="cdialog-bnw6j" />
+[View demo on CodeSandbox](https://codesandbox.io/s/cdialog-bnw6j?file=/src/App.vue)
 
 ## Config
 
@@ -22,8 +22,8 @@ The options below are to be set in the [global configuration](/guide/config.html
 
 Classes applied to the component dialog element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
 
--   **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
--   **default:** `null`
+- **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
+- **default:** `null`
 
 #### Example
 
@@ -42,8 +42,8 @@ Classes applied to the component overlay element, except when the prop `bare` is
 
 The overlay is the element that contains the dialog, it’s usually covering the screen and clicking on it closes the dialog.
 
--   **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
--   **default:** `null`
+- **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
+- **default:** `null`
 
 #### Example
 
@@ -55,8 +55,8 @@ class: 'dialog-overlay'
 
 Apply a common transition to all Dialogs. The object can contain any Vue built-in [transition component props](https://v3.vuejs.org/api/built-in-components.html#transition).
 
--   **type:** `object`
--   **default:** `null`
+- **type:** `object`
+- **default:** `null`
 
 #### Example
 
@@ -76,14 +76,14 @@ Example of what the DOM structure should look like when a dialog is open:
 
 ```html
 <body>
-    <!-- Ignored by screen readers with the `aria-hidden` attribute -->
-    <div id="app" aria-hidden="true">
-        <!-- Content of the page -->
-    </div>
+  <!-- Ignored by screen readers with the `aria-hidden` attribute -->
+  <div id="app" aria-hidden="true">
+    <!-- Content of the page -->
+  </div>
 
-    <div id="chusho-dialogs-portal">
-        <!-- Dialogs currently open -->
-    </div>
+  <div id="chusho-dialogs-portal">
+    <!-- Dialogs currently open -->
+  </div>
 </body>
 ```
 
@@ -106,18 +106,19 @@ Here’s an example using a button with just a “close” icon. As you can see 
 ```vue
 <script>
 export default {
-    data() {
-        return {
-            dialogOpen: false,
-        };
-    },
+  data() {
+    return {
+      dialogOpen: false,
+    };
+  },
 };
 </script>
 
 <template>
+  <div>
     <CBtn @click="dialogOpen = true">Open Dialog</CBtn>
-
     <CDialog v-model="dialogOpen">Dialog Content</CDialog>
+  </div>
 </template>
 ```
 
@@ -128,22 +129,25 @@ Here’s an example where the transition is directly passed as a prop. You can a
 ```vue
 <script>
 export default {
-    data() {
-        return {
-            dialogOpen: false,
-        };
-    },
+  data() {
+    return {
+      dialogOpen: false,
+    };
+  },
 };
 </script>
 
 <template>
+  <div>
     <CBtn @click="dialogOpen = true">Open Dialog</CBtn>
-
-    <CDialog v-model="dialogOpen" :transition="{ name: 'dialog' }">
-        <div>Dialog Content</div>
-
-        <CBtn @click="dialogOpen = false">Close Dialog</CBtn>
+    <CDialog
+      variant="spaced"
+      v-model="dialogOpen"
+      :transition="{ name: 'dialog' }"
+    >
+      Dialog Content
     </CDialog>
+  </div>
 </template>
 ```
 
@@ -152,26 +156,64 @@ This example use the following style to have a different transition between the 
 ```css
 .dialog-enter-active,
 .dialog-leave-active {
-    transition: opacity 0.2s;
+  transition: opacity 0.2s;
 
-    .dialog {
-        transition-duration: 0.3s;
-        transition-property: opacity transform;
-        transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.4);
-    }
+  .dialog {
+    transition-duration: 0.3s;
+    transition-property: opacity transform;
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.4);
+  }
 }
 
 .dialog-enter-from,
 .dialog-leave-to {
-    opacity: 0;
+  opacity: 0;
 
-    .dialog {
-        opacity: 0;
-        transform: scale(0.9);
-    }
+  .dialog {
+    opacity: 0;
+    transform: scale(0.9);
+  }
 }
 ```
 
 ::: tip
 In the example above, we added an `aria-labelledby` attribute on the `CDialog` component that reference the `id` of the `h1` within the Dialog. This is a great accessibility practice to give more context to your dialog.
 :::
+
+### With title and close button
+
+```vue
+<template>
+  <div>
+    <CBtn @click="open = true">Open Modal</CBtn>
+
+    <CDialog
+      v-model="open"
+      :transition="{ name: 'dialog' }"
+      aria-labelledby="dialog-title"
+    >
+      <div class="py-6 px-8">
+        <h1 id="dialog-title" class="mb-3 text-2xl font-bold">Are you sure?</h1>
+        <p>
+          You’re about to delete the file “<strong>cute-kitten.jpg</strong>”,
+          are you sure? This action cannot be reverted.
+        </p>
+      </div>
+      <footer class="py-4 px-8 bg-gray-100 flex justify-between items-center">
+        <CBtn variant="link" @click="open = false">Cancel</CBtn>
+        <CBtn @click="open = false">Delete</CBtn>
+      </footer>
+    </CDialog>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      open: false,
+    };
+  },
+};
+</script>
+```

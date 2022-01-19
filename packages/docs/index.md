@@ -1,10 +1,13 @@
 ---
+permalink: /
 home: true
 heroImage: /logo.svg
 heroText: Chūshō
 tagline: A library of bare & accessible components and tools for Vue.js 3
-actionText: Get Started →
-actionLink: /guide/
+actions:
+    - text: Get Started →
+      link: /guide/
+      type: primary
 features:
     - title: Accessible
       details: All components are following the Web Content Accessibility Guidelines (WCAG) recommendations.

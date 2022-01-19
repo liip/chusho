@@ -15,15 +15,20 @@ body {
   box-sizing: inherit;
 }
 
-.navbar.navbar {
+.navbar {
+  color: white;
+
   background-color: $gray-800;
   border-bottom: 0;
   box-shadow: $shadow-md;
 
-  .links {
-    background-color: inherit;
+  @media (min-width: 719px) {
+    .navbar-links {
+      color: white;
+    }
 
-    @media (min-width: 719px) {
+    .navbar-items a:hover,
+    .navbar-items a.router-link-active {
       color: white;
     }
   }
@@ -33,31 +38,16 @@ body {
   }
 }
 
-.search-box.search-box input {
-  border: none;
-
-  &:focus {
-    box-shadow: 0 0 0 4px $gray-600;
-  }
+.toggle-sidebar-button .icon span {
+  background-color: $gray-300;
 }
 
-@media (min-width: 719px) {
-  .nav-links a:hover,
-  .nav-links a.router-link-active {
-    color: white !important;
-  }
-}
-
-.sidebar-button.sidebar-button {
-  color: $gray-300;
-}
-
-.sidebar.sidebar {
+.sidebar {
   background-color: $gray-100;
   border-right-color: $gray-300;
 }
 
-.page.page {
+.page {
   background-color: $gray-200;
 }
 
@@ -69,64 +59,57 @@ body {
   padding-top: 6rem !important;
 }
 
-.preview-code.preview-code {
-  margin-top: 1rem;
-  margin-bottom: 1.75rem;
-
-  border: none;
-  box-shadow: $shadow;
-
-  .preview {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 1em 2em;
-
-    text-align: left;
-
-    background-color: white;
-  }
-
-  div[class*='language-'] {
-    margin: 0 !important;
-  }
-}
-
-.theme-default-content pre:not(.prism-editor__code) {
-  margin-bottom: 1.75rem !important;
-}
-
-.prism-editor-wrapper {
-  font-size: 0.85rem;
-  font-family: 'source-code-pro', Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-  line-height: 1.4;
-}
-
 .theme-default-content code:not([class*='language-']) {
   padding: 0.2rem 0.35rem;
 
   color: $gray-700;
+  -webkit-font-smoothing: inherit !important;
+  -moz-osx-font-smoothing: inherit !important;
 
   background-color: transparentize($gray-500, 0.85);
 }
 
-div[class*='language-'] .highlight-lines .highlighted {
-  background-color: $gray-900 !important;
+div[class*='language-'] .highlight-lines .highlight-line {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-.custom-block.tip,
-.custom-block.warning,
-.custom-block.danger {
+.custom-container.tip,
+.custom-container.warning,
+.custom-container.danger {
   margin-bottom: 1.75rem !important;
 
   border-left-width: 6px !important;
   border-radius: $border-radius;
 }
 
-.custom-block.tip {
+.custom-container.tip {
   background-color: $gray-300 !important;
   border-color: #63b3ed !important;
+}
+
+.code-group__nav {
+  position: relative;
+
+  &::after {
+    content: '';
+    width: 100%;
+
+    position: absolute;
+    top: 40px;
+    left: 0;
+
+    border-bottom: 1px solid $gray-700;
+  }
+}
+
+.code-group__ul {
+  position: relative;
+  z-index: 1;
+}
+
+.code-group__nav-tab-active {
+  color: var(--c-brand-light);
+  border-bottom-width: 2px;
 }
 
 blockquote {

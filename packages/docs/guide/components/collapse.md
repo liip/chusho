@@ -2,7 +2,17 @@
 
 Conditionnaly display some content.
 
-<Sandbox id="ccollapse-w80b1" />
+<Showcase>
+    <CCollapse variant="panel" v-slot="{ active }" class="max-w-md">
+        <CCollapseBtn variant="panel">
+            Does the hero die at the end?
+            <CIcon :id="active ? 'chevron-up' : 'chevron-down'" />
+        </CCollapseBtn>
+        <CCollapseContent variant="panel">
+            Watch the movie and you’ll know ;-)
+        </CCollapseContent>
+    </CCollapse>
+</Showcase>
 
 ## Config
 
@@ -30,8 +40,8 @@ The options below are to be set in the [global configuration](/guide/config.html
 
 Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
 
--   **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
--   **default:** `null`
+- **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
+- **default:** `null`
 
 ##### Example
 
@@ -51,8 +61,8 @@ class({ active }) {
 
 Since the CCollapseBtn is a CBtn in the background, it will inherits its `class` config option. To disable this behavior, set this option to `false`.
 
--   **type:** `Boolean`
--   **default:** `true`
+- **type:** `Boolean`
+- **default:** `true`
 
 ### CCollapseContent
 
@@ -60,8 +70,8 @@ Since the CCollapseBtn is a CBtn in the background, it will inherits its `class`
 
 Apply a common transition to all Collapses. The object can contain any Vue built-in [transition component props](https://v3.vuejs.org/api/built-in-components.html#transition).
 
--   **type:** `object`
--   **default:** `null`
+- **type:** `object`
+- **default:** `null`
 
 ##### Example
 
@@ -81,7 +91,7 @@ Apply a common transition to all Collapses. The object can contain any Vue built
 <CCollapse>
   <CCollapseBtn>Collapse</CCollapseBtn>
   <CCollapseContent>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam in, iste id nobis dolor excepturi dolore expedita vero quae. Nobis fuga cupiditate suscipit blanditiis, aliquid minima harum molestias pariatur tempora ab, libero quo maiores sapiente doloribus nihil commodi eaque accusantium praesentium! Nobis natus qui voluptate inventore molestias quisquam, consequuntur harum?
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam in, iste id nobis dolor excepturi dolore expedita vero quae.
   </CCollapseContent>
 </CCollapse>
 ```
@@ -93,24 +103,22 @@ You can control the Collapse status with the `v-model` directive, for example to
 ```vue
 <script>
 export default {
-    data() {
-        return { collapseOpen: true };
-    },
+  data() {
+    return { collapseOpen: true };
+  },
 };
 </script>
 
 <template>
-    <CCollapse v-model="collapseOpen">
-        <CCollapseBtn>{{ collapseOpen ? 'Close' : 'Open' }}</CCollapseBtn>
-        <CCollapseContent>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
-            in, iste id nobis dolor excepturi dolore expedita vero quae. Nobis
-            fuga cupiditate suscipit blanditiis, aliquid minima harum molestias
-            pariatur tempora ab, libero quo maiores sapiente doloribus nihil
-            commodi eaque accusantium praesentium! Nobis natus qui voluptate
-            inventore molestias quisquam, consequuntur harum?
-        </CCollapseContent>
-    </CCollapse>
+  <CCollapse v-model="collapseOpen">
+    <CCollapseBtn>
+      {{ collapseOpen ? 'Close' : 'Open' }}
+    </CCollapseBtn>
+    <CCollapseContent class="mt-4">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam in,
+      iste id nobis dolor excepturi dolore expedita vero quae.
+    </CCollapseContent>
+  </CCollapse>
 </template>
 ```
 
@@ -121,8 +129,8 @@ Here’s an example where the transition is directly passed as a prop to the `CC
 ```vue
 <CCollapse>
   <CCollapseBtn>Collapse with transition</CCollapseBtn>
-  <CCollapseContent :transition="{ name: 'fade' }">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam in, iste id nobis dolor excepturi dolore expedita vero quae. Nobis fuga cupiditate suscipit blanditiis, aliquid minima harum molestias pariatur tempora ab, libero quo maiores sapiente doloribus nihil commodi eaque accusantium praesentium! Nobis natus qui voluptate inventore molestias quisquam, consequuntur harum?
+  <CCollapseContent :transition="{ name: 'fade' }" class="mt-4">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam in, iste id nobis dolor excepturi dolore expedita vero quae.
   </CCollapseContent>
 </CCollapse>
 ```

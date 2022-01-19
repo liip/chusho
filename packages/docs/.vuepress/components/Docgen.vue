@@ -26,7 +26,10 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+import { usePageData } from '@vuepress/client';
+
+export default defineComponent({
   name: 'Docgen',
 
   props: {
@@ -36,15 +39,23 @@ export default {
     },
   },
 
+  setup() {
+    const page = usePageData();
+
+    return {
+      page,
+    };
+  },
+
   computed: {
     docs() {
       const docs = [];
-      this.components.forEach(cmp => {
-        const data = this.$page.componentsDocgen[cmp];
+      this.components.forEach((cmp) => {
+        const data = this.page?.componentsDocgen?.[cmp];
         if (data && (data.props || data.events || data.slots)) docs.push(data);
       });
       return docs;
     },
   },
-};
+});
 </script>

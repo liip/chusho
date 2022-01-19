@@ -6,9 +6,9 @@ next: /guide/using-components.html
 
 All components behaves the same:
 
--   You can configure the CSS classes to apply globally for each component
--   These classes can be static or conditional, based on the component props
--   Classes defined globally can be extended or overrided locally
+- You can configure the CSS classes to apply globally for each component
+- These classes can be static or conditional, based on the component props
+- Classes defined globally can be extended or overrided locally
 
 ## Globally
 
@@ -56,10 +56,10 @@ components: {
 
 With the configuration above:
 
--   `<CBtn />` will render `<button class="btn btn--default"></button>`
--   `<CBtn variant="primary" />` will render `<button class="btn btn--primary"></button>`
--   `<CBtn disabled />` will render `<button class="btn btn--default btn--disabled"></button>`
--   `<CBtn variant="primary" disabled />` will render `<button class="btn btn--primary btn--disabled"></button>`
+- `<CBtn />` will render `<button class="btn btn--default"></button>`
+- `<CBtn variant="primary" />` will render `<button class="btn btn--primary"></button>`
+- `<CBtn disabled />` will render `<button class="btn btn--default btn--disabled"></button>`
+- `<CBtn variant="primary" disabled />` will render `<button class="btn btn--primary btn--disabled"></button>`
 
 ::: tip
 The `variant` prop exists on all components.
@@ -71,13 +71,13 @@ The `variant` prop exists on all components.
 
 Like any element, you can define a class locally:
 
-```vue
+```vue:no-line-numbers
 <CBtn class="btn--custom">Label</CBtn>
 ```
 
 If it turns out that you also have classes defined globally in the config for this component (`btn` in this example), they will be **merged together**:
 
-```html
+```html:no-line-numbers
 <button class="btn btn--custom">Label</button>
 ```
 
@@ -85,13 +85,13 @@ If it turns out that you also have classes defined globally in the config for th
 
 In case you need more control, you can **override the global classes** by passing the `bare` prop:
 
-```vue
+```vue:no-line-numbers
 <CBtn class="custom-button" bare>Label</CBtn>
 ```
 
 It will output only the locally defined classes:
 
-```html
+```html:no-line-numbers
 <button class="custom-button">Label</button>
 ```
 

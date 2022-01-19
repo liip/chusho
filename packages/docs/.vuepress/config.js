@@ -1,67 +1,80 @@
-const path = require('path');
-
 module.exports = {
   title: 'Chūshō',
   description:
     'A library of bare & accessible components and tools for Vue.js 3',
-  plugins: [require('./plugins/docgen')],
+
+  plugins: [
+    [
+      '@vuepress/plugin-docsearch',
+      {
+        appId: '0AUNCGL5SK',
+        apiKey: '90f8fd3ff1c0ff211678bfd5fbe884b7',
+        indexName: 'chusho',
+      },
+    ],
+    [require('./plugins/docgen'), true],
+  ],
+
   themeConfig: {
     lastUpdated: 'Last updated',
     repo: 'liip/chusho',
     docsDir: 'packages/docs',
     editLinks: true,
     editLinkText: 'Edit on GitHub',
-    algolia: {
-      apiKey: 'b4e0ea7e2c0655dd7ed73efc3acfff0c',
-      indexName: 'chusho',
-    },
-    nav: [
+    contributors: false,
+    darkMode: false,
+    navbar: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/' },
     ],
     sidebar: {
       '/guide/': [
         {
-          title: 'Getting Started',
-          path: '/guide/',
-          collapsable: false,
+          text: 'Getting Started',
+          link: '/guide/',
+          isGroup: true,
           children: [
-            'config',
-            'styling-components',
-            'using-components',
-            'builds',
+            '/guide/config.md',
+            '/guide/styling-components.md',
+            '/guide/using-components.md',
+            '/guide/builds.md',
           ],
         },
         {
-          title: 'Components',
-          collapsable: false,
-          path: '/guide/components/',
+          text: 'Components',
+          link: '/guide/components/',
+          isGroup: true,
           children: [
-            'components/alert.md',
-            'components/button.md',
-            'components/collapse.md',
-            'components/dialog.md',
-            'components/icon.md',
-            'components/picture.md',
-            'components/tabs.md',
+            '/guide/components/alert.md',
+            '/guide/components/button.md',
+            '/guide/components/collapse.md',
+            '/guide/components/dialog.md',
+            '/guide/components/icon.md',
+            '/guide/components/picture.md',
+            '/guide/components/tabs.md',
           ],
         },
         {
-          title: 'Directives',
-          collapsable: false,
-          path: '/guide/directives/',
-          children: ['directives/click-outside.md'],
+          text: 'Directives',
+          link: '/guide/directives/',
+          isGroup: true,
+          children: ['/guide/directives/click-outside.md'],
         },
       ],
     },
+    themePlugins: {
+      activeHeaderLinks: false,
+    },
   },
-  chainWebpack: (config) => {
-    // For some reasons, Chῡshō’s own dependencies can’t be resolved
-    // despite being present in docs’ node_modules
-    // Probably related to symlinks but the usual trick doesn’t work
-    // https://github.com/vuejs/vuepress/issues/193
-    config.resolve.modules.add(
-      path.resolve(__dirname, '../../chusho/node_modules')
-    );
+
+  bundler: '@vuepress/vite',
+  bundlerConfig: {
+    viteOptions: {
+      css: {
+        postcss: {
+          plugins: [require('tailwindcss')],
+        },
+      },
+    },
   },
 };
