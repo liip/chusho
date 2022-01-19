@@ -35,10 +35,7 @@
                     row.defaultValue.value
                   }}</code>
                 </td>
-                <td
-                  class="free-text"
-                  v-html="$options.filters.md(row.description)"
-                ></td>
+                <td class="free-text" v-html="md(row.description)"></td>
               </template>
 
               <template v-else-if="section.type === 'events'">
@@ -50,7 +47,9 @@
               <template v-else-if="section.type === 'slots'">
                 <td>{{ row.name }}</td>
                 <td colspan="4" class="p-0">
-                  <div v-if="row.description" class="p-3">{{ row.description }}</div>
+                  <div v-if="row.description" class="p-3">
+                    {{ row.description }}
+                  </div>
 
                   <table v-if="row.bindings && row.bindings.length">
                     <thead>
@@ -63,10 +62,12 @@
                     <tbody>
                       <tr v-for="binding in row.bindings" :key="binding.name">
                         <td>{{ binding.name }}</td>
-                        <td><code>{{ binding.type.name }}</code></td>
+                        <td>
+                          <code>{{ binding.type.name }}</code>
+                        </td>
                         <td
                           class="free-text"
-                          v-html="$options.filters.md(binding.description)"
+                          v-html="md(binding.description)"
                         ></td>
                       </tr>
                     </tbody>
@@ -82,7 +83,10 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+import MarkdownIt from 'markdown-it';
+
+export default defineComponent({
   name: 'PropsTable',
 
   props: {
@@ -91,7 +95,19 @@ export default {
       default: null,
     },
   },
-};
+
+  setup() {
+    return {
+      markdown: new MarkdownIt(),
+    };
+  },
+
+  methods: {
+    md(value) {
+      return value ? this.markdown.render(value) : '';
+    },
+  },
+});
 </script>
 
 <style scoped>
