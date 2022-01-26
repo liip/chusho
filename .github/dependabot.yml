@@ -1,11 +1,11 @@
 version: 2
 
 updates:
-  package-ecosystem: npm
-  directory: '/'
-  schedule:
-    interval: 'weekly'
-    day: 'wednesday'
-    time: '06:00'
-    timezone: 'Europe/Zurich'
-  versioning-strategy: 'increase'
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'wednesday'
+      time: '06:00'
+      timezone: 'Europe/Zurich'
+    versioning-strategy: 'increase'
