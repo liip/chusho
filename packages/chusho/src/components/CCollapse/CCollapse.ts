@@ -6,7 +6,7 @@ import {
   inject,
   mergeProps,
 } from 'vue';
-import useToggle from '../../composables/useToggle';
+import useTogglable from '../../composables/useTogglable';
 
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
@@ -17,7 +17,7 @@ export const CollapseSymbol: InjectionKey<UseCollapse> = Symbol('CCollapse');
 
 export interface UseCollapse {
   uuid: string;
-  toggle: ReturnType<typeof useToggle>;
+  toggle: ReturnType<typeof useTogglable>;
 }
 
 export default defineComponent({
@@ -42,7 +42,7 @@ export default defineComponent({
   setup(props) {
     const api: UseCollapse = {
       uuid: uuid('chusho-collapse'),
-      toggle: useToggle(props.modelValue),
+      toggle: useTogglable(props.modelValue),
     };
 
     provide(CollapseSymbol, api);

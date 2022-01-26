@@ -32,7 +32,7 @@ export default defineComponent({
   setup() {
     const chusho = inject<DollarChusho | null>('$chusho', null);
     const select = inject(SelectSymbol);
-    const active = ref<boolean>(select?.toggle.isOpen.value ?? false);
+    const active = ref<boolean>(select?.togglable.isOpen.value ?? false);
     const query = ref<string>('');
     const searchIndex = ref<number>(0);
     const clearQueryTimeout = ref<ReturnType<typeof setTimeout> | null>(null);
@@ -141,7 +141,7 @@ export default defineComponent({
       if (!this.select) return null;
 
       const elementProps: Record<string, unknown> = {
-        ...this.select.toggle.attrs.target.value,
+        ...this.select.togglable.attrs.target.value,
         role: 'listbox',
         'aria-activedescendant': this.select.selected.selectedItemId.value,
         onKeydown: this.handleKeydown,
@@ -151,7 +151,7 @@ export default defineComponent({
         ),
       };
 
-      return this.select.toggle.renderIfOpen(
+      return this.select.togglable.renderIfOpen(
         () => {
           nextTick(this.activate);
           return withDirectives(
@@ -160,7 +160,7 @@ export default defineComponent({
               [
                 clickOutside,
                 () => {
-                  this.select?.toggle.close();
+                  this.select?.togglable.close();
                 },
               ],
             ]

@@ -142,10 +142,10 @@ describe('CSelectOption', () => {
       },
     });
 
-    expect(wrapper.vm.select.toggle.isOpen.value).toBe(true);
+    expect(wrapper.vm.select.togglable.isOpen.value).toBe(true);
     await wrapper.findAllComponents(CSelectOption)[1].trigger('click');
     expect(wrapper.emitted('update:modelValue')).toEqual([['b']]);
-    expect(wrapper.vm.select.toggle.isOpen.value).toBe(false);
+    expect(wrapper.vm.select.togglable.isOpen.value).toBe(false);
   });
 
   it.each(['Enter', 'Spacebar', ' '])(
@@ -164,12 +164,12 @@ describe('CSelectOption', () => {
         },
       });
 
-      expect(wrapper.vm.select.toggle.isOpen.value).toBe(true);
+      expect(wrapper.vm.select.togglable.isOpen.value).toBe(true);
       await wrapper
         .findAllComponents(CSelectOption)[1]
         .trigger('keydown', { key });
       expect(wrapper.emitted('update:modelValue')).toEqual([['b']]);
-      expect(wrapper.vm.select.toggle.isOpen.value).toBe(false);
+      expect(wrapper.vm.select.togglable.isOpen.value).toBe(false);
     }
   );
 
