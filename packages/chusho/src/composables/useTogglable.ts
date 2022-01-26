@@ -2,7 +2,7 @@ import { computed, getCurrentInstance, ref, VNode, watch } from 'vue';
 
 import uuid from '../utils/uuid';
 
-export default function useToggle(
+export default function useTogglable(
   initialValue = false,
   propName = 'modelValue'
 ) {

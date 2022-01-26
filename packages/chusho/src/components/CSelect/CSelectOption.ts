@@ -71,7 +71,7 @@ export default defineComponent({
 
     const saveAndClose = () => {
       this.select?.setValue(this.value);
-      this.select?.toggle.close();
+      this.select?.togglable.close();
     };
 
     const elementProps: Record<string, unknown> = {

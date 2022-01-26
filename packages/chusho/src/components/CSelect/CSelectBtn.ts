@@ -25,9 +25,9 @@ export default defineComponent({
   render() {
     const selectBtnConfig = inject<DollarChusho | null>('$chusho', null)
       ?.options?.components?.selectBtn;
-    const open = this.select?.toggle.isOpen.value;
+    const open = this.select?.togglable.isOpen.value;
     const elementProps: Record<string, unknown> = {
-      ...this.select?.toggle.attrs.btn.value,
+      ...this.select?.togglable.attrs.btn.value,
       'aria-haspopup': 'listbox',
       ...generateConfigClass(selectBtnConfig?.class, {
         ...this.$props,

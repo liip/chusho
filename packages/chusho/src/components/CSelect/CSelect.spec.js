@@ -44,9 +44,9 @@ describe('CSelect', () => {
       },
     });
 
-    expect(wrapper.vm.select.toggle.isOpen.value).toEqual(true);
+    expect(wrapper.vm.select.togglable.isOpen.value).toEqual(true);
     wrapper.trigger('keydown', { key });
-    expect(wrapper.vm.select.toggle.isOpen.value).toEqual(false);
+    expect(wrapper.vm.select.togglable.isOpen.value).toEqual(false);
   });
 
   it.each([

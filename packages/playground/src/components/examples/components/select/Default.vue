@@ -1,5 +1,12 @@
 <template>
-  <CSelect v-model="value" v-model:open="open">
+  <CSelect
+    v-model="value"
+    v-model:open="open"
+    name="toto"
+    disabled
+    readonly
+    required
+  >
     <CSelectBtn class="flex items-center">
       <span>{{ value.label }}</span>
       <CIcon

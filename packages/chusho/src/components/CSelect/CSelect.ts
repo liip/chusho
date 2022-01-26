@@ -17,7 +17,7 @@ import useSelected, {
   SelectedItem,
   UseSelected,
 } from '../../composables/useSelected';
-import useToggle from '../../composables/useToggle';
+import useTogglable from '../../composables/useTogglable';
 import { isObject, isPrimitive } from '../../utils/objects';
 
 export const SelectSymbol: InjectionKey<UseSelect> = Symbol('CSelect');
@@ -36,7 +36,7 @@ export interface UseSelect {
   value: ComputedRef<SelectValue>;
   setValue: (value: SelectValue) => void;
   disabled: ComputedRef<boolean>;
-  toggle: ReturnType<typeof useToggle>;
+  togglable: ReturnType<typeof useTogglable>;
   selected: UseSelected<SelectOptionData>;
 }
 
@@ -111,7 +111,11 @@ export default defineComponent({
         emit('update:modelValue', value);
       },
 <<<<<<< HEAD
+<<<<<<< HEAD
       toggle: useToggle(props.open, 'open'),
+=======
+      togglable: useTogglable(props.open, 'open'),
+>>>>>>> 4cc2bdf (refactor(composables): rename useToggle as useTogglable)
       selected: useSelected<SelectOptionData>(),
 =======
       disabled: computed(() => props.disabled),
@@ -133,7 +137,7 @@ export default defineComponent({
         case 'Tab':
         case 'Esc':
         case 'Escape':
-          this.select.toggle.close();
+          this.select.togglable.close();
           break;
       }
     },
@@ -160,7 +164,7 @@ export default defineComponent({
       default: () => {
         const children =
           this.$slots?.default?.({
-            open: this.select.toggle.isOpen.value,
+            open: this.select.togglable.isOpen.value,
           }) ?? [];
         children.unshift(h('input', mergeProps(this.$props.input, inputProps)));
         return children;
