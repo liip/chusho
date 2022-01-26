@@ -45,7 +45,7 @@ export default defineComponent({
       'aria-controls': `${this.tabs.uuid}-tabpanel-${this.target}`,
       tabindex: isActive ? '0' : '-1',
       onClick: () => {
-        if (!this.target) return;
+        if (!['string', 'number'].includes(typeof this.target)) return;
         this.tabs?.setSelectedItem(this.target);
       },
       ...generateConfigClass(tabConfig?.class, {

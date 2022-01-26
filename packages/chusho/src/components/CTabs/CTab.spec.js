@@ -112,4 +112,44 @@ describe('CTab', () => {
 
     expect(wrapper.vm.tabs.selectedItemId.value).toBe('2');
   });
+
+  it('accepts 0 as a valid target value', async () => {
+    const wrapper = mount(CTabs, {
+      props: {
+        defaultTab: 1,
+      },
+      slots: {
+        default: () => [
+          h(CTabList, null, {
+            default: () => [
+              h(CTab, {
+                target: 0,
+              }),
+              h(CTab, {
+                target: 1,
+              }),
+            ],
+          }),
+          h(CTabPanels, null, {
+            default: () => [
+              h(CTabPanel, {
+                id: 0,
+              }),
+              h(CTabPanel, {
+                id: 1,
+              }),
+            ],
+          }),
+        ],
+      },
+    });
+
+    expect(wrapper.vm.tabs.selectedItemId.value).toBe(1);
+
+    // Let it set the first tab as default
+    await nextTick();
+    await wrapper.find('[role="tab"][aria-selected="false"]').trigger('click');
+
+    expect(wrapper.vm.tabs.selectedItemId.value).toBe(0);
+  });
 });
