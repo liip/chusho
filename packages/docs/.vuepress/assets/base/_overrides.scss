@@ -7,14 +7,39 @@ body {
   box-sizing: border-box;
 }
 
-#app {
-  min-height: 100vh;
-}
-
 *,
 *::before,
 *::after {
   box-sizing: inherit;
+
+  border-width: 0;
+  border-style: solid;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+#app {
+  min-height: 100vh;
 }
 
 .navbar {

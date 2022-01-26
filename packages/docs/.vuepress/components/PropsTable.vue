@@ -1,5 +1,5 @@
 <template>
-  <div class="table">
+  <div class="fancy-table">
     <table>
       <thead>
         <tr>

@@ -6,7 +6,6 @@ import PropsTable from './components/PropsTable.vue';
 import Showcase from './components/Showcase.vue';
 
 import './assets/extras.scss';
-import './assets/tailwind.css';
 
 import chushoConfig from '../chusho.config';
 

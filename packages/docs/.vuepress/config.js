@@ -3,6 +3,8 @@ module.exports = {
   description:
     'A library of bare & accessible components and tools for Vue.js 3',
 
+  head: [['link', { rel: 'stylesheet', href: '/dist/tailwind.css' }]],
+
   plugins: [
     [
       '@vuepress/plugin-docsearch',
@@ -69,10 +71,8 @@ module.exports = {
   bundler: '@vuepress/bundler-vite',
   bundlerConfig: {
     viteOptions: {
-      css: {
-        postcss: {
-          plugins: [require('tailwindcss')],
-        },
+      optimizeDeps: {
+        exclude: ['chusho'],
       },
     },
   },
