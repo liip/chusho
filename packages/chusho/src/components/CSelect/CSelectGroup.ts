@@ -12,9 +12,8 @@ import { generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
 import componentMixin from '../mixins/componentMixin';
 
-export const SelectGroupSymbol: InjectionKey<UseSelectGroup> = Symbol(
-  'CSelectGroup'
-);
+export const SelectGroupSymbol: InjectionKey<UseSelectGroup> =
+  Symbol('CSelectGroup');
 
 export interface UseSelectGroup {
   labelId: string;

@@ -110,7 +110,8 @@ export default {
         return [
           'list-none relative pl-8 pr-4 leading-loose outline-none',
           {
-            'hover:text-blue-700 focus:text-blue-700 hover:bg-blue-100 focus:bg-blue-100 cursor-pointer': !disabled,
+            'hover:text-blue-700 focus:text-blue-700 hover:bg-blue-100 focus:bg-blue-100 cursor-pointer':
+              !disabled,
             'text-gray-400': disabled,
             'text-blue-800': active,
           },
