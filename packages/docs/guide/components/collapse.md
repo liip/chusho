@@ -21,20 +21,14 @@ The options below are to be set in the [global configuration](/guide/config.html
 ```js
 {
     components: {
-        collapse: {
-            // ...
-        },
-        collapseBtn: {
-            // ...
-        }
-        collapseContent: {
-            // ...
-        }
-    }
+        collapse: { ... },
+        collapseBtn: { ... },
+        collapseContent: { ... },
+    },
 }
 ```
 
-### CCollapse, CCollapseBtn and CCollapseContent
+### All components
 
 #### class
 

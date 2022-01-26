@@ -26,10 +26,8 @@ The options below are to be set in the [global configuration](/guide/config.html
 ```js
 {
   components: {
-    alert: {
-      // ...
-    }
-  }
+    alert: { ... },
+  },
 }
 ```
 

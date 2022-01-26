@@ -1,3 +1,5 @@
+const { path } = require('@vuepress/utils');
+
 module.exports = {
   title: 'Chūshō',
   description:
@@ -12,6 +14,14 @@ module.exports = {
         appId: '0AUNCGL5SK',
         apiKey: '90f8fd3ff1c0ff211678bfd5fbe884b7',
         indexName: 'chusho',
+      },
+    ],
+    [
+      '@vuepress/register-components',
+      {
+        componentsDir: path.resolve(__dirname, './components'),
+        getComponentName: (filename) =>
+          path.trimExt(filename.replace(/\/|\\/g, '')),
       },
     ],
     [require('./plugins/docgen'), true],

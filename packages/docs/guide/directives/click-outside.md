@@ -4,22 +4,22 @@ Trigger a function when a click happens outside the element with the said direct
 
 ```vue
 <template>
-    <CBtn v-clickOutside="handleClickOutside">Label</CBtn>
+  <CBtn v-clickOutside="handleClickOutside">Label</CBtn>
 </template>
 
 <script>
 export default {
-    methods: {
-        handleClickOutside(event) {
-            // Do something
-        },
+  methods: {
+    handleClickOutside(event) {
+      // Do something
     },
+  },
 };
 </script>
 ```
 
 ## v-clickOutside
 
--   **Expects:** `Function`
+- **Expects:** `Function`
 
 The function receive the original click Event as the first argument.

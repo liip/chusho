@@ -1,3 +1,3 @@
 # Directives
 
--   [Click Outside](click-outside.html)
+- [Click Outside](click-outside.html)

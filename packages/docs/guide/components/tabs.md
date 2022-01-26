@@ -48,26 +48,16 @@ The options below are to be set in the [global configuration](/guide/config.html
 ```js
 {
     components: {
-        tabs: {
-            // ...
-        },
-        tabList: {
-            // ...
-        },
-        tab: {
-            // ...
-        },
-        tabPanels: {
-            // ...
-        },
-        tabPanel: {
-            // ...
-        },
-    }
+        tabs: { ... },
+        tabList: { ... },
+        tab: { ... },
+        tabPanels: { ... },
+        tabPanel: { ... },
+    },
 }
 ```
 
-### CTabs, CTabList, CTab, CTabPanels and CTabPanel
+### All components
 
 #### class
 

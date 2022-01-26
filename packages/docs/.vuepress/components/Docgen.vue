@@ -1,28 +1,35 @@
 <template>
-  <div class="mt-4">
-    <div v-for="(doc, i) in docs" :key="i" :id="doc.displayName">
-      <h3>{{ doc.displayName }}</h3>
-      <PropsTable
-        :sections="[
-          {
-            label: 'Props',
-            type: 'props',
-            rows: doc.props,
-          },
-          {
-            label: 'Events',
-            type: 'events',
-            rows: doc.events,
-          },
-          {
-            label: 'Slots',
-            type: 'slots',
-            rows: doc.slots,
-          },
-        ]"
-      />
-    </div>
-  </div>
+  <CTabs class="mt-4">
+    <CTabList>
+      <CTab :target="doc.displayName" v-for="(doc, i) in docs">
+        {{ doc.displayName }}
+      </CTab>
+    </CTabList>
+
+    <CTabPanels>
+      <CTabPanel :id="doc.displayName" v-for="(doc, i) in docs">
+        <PropsTable
+          :sections="[
+            {
+              label: 'Props',
+              type: 'props',
+              rows: doc.props,
+            },
+            {
+              label: 'Events',
+              type: 'events',
+              rows: doc.events,
+            },
+            {
+              label: 'Slots',
+              type: 'slots',
+              rows: doc.slots,
+            },
+          ]"
+        />
+      </CTabPanel>
+    </CTabPanels>
+  </CTabs>
 </template>
 
 <script>

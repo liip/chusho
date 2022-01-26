@@ -25,8 +25,8 @@ app.use(Chusho, {
 
 Configure components globally, see [each component](/guide/components) page for available options.
 
--   **type:** `object`
--   **default:** `null`
+- **type:** `object`
+- **default:** `null`
 
 This object accept the following properties, one for each component:
 
@@ -52,10 +52,10 @@ This object accept the following properties, one for each component:
 
 Define if the current document direction is Right-to-left. This is used internally to adapt some behaviors.
 
--   **type:** `function`
--   **default:**
-    ```js
-    function () {
-      return document && document.dir === 'rtl';
-    }
-    ```
+- **type:** `function`
+- **default:**
+  ```js
+  function () {
+    return document && document.dir === 'rtl';
+  }
+  ```
