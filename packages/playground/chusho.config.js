@@ -11,6 +11,7 @@ export default {
         ];
       },
     },
+
     btn: {
       class({ variant, disabled }) {
         return {
@@ -22,32 +23,40 @@ export default {
         };
       },
     },
+
     dialog: {
       class: 'dialog p-6 bg-white rounded shadow-lg',
       overlayClass:
         'dialog-overlay fixed inset-0 p-4 flex flex-columns items-center justify-center bg-black-50',
     },
+
     icon: {
       spriteUrl: '/icons.svg',
       width: 48,
       height: 48,
       class: 'inline-block align-middle pointer-events-none fill-current',
     },
+
     picture: {
       class: 'picture',
     },
+
     tabs: {
       class: 'tabs',
     },
+
     tabList: {
       class: 'flex mx-4',
     },
+
     tabPanels: {
       class: 'py-3 px-4 bg-gray-100 rounded',
     },
+
     tabPanel: {
       class: 'tabpanel',
     },
+
     tab: {
       class({ active }) {
         return [
@@ -59,6 +68,7 @@ export default {
         ];
       },
     },
+
     collapseBtn: {
       inheritBtnClass: false,
       class({ active }) {
@@ -71,15 +81,18 @@ export default {
         ];
       },
     },
+
     collapseContent: {
       transition: {
         name: 'fade',
       },
       class: 'p-6 bg-gray-100 rounded mt-2',
     },
+
     select: {
       class: 'inline-block relative',
     },
+
     selectBtn: {
       class: ({ disabled }) => {
         return [
@@ -88,10 +101,12 @@ export default {
         ];
       },
     },
+
     selectOptions: {
       class:
         'absolute top-full left-0 min-w-full max-h-56 overflow-y-auto mt-1 bg-gray-50 border border-gray-300 rounded shadow-md',
     },
+
     selectOption: {
       class({ active, disabled }) {
         return [
@@ -105,6 +120,7 @@ export default {
         ];
       },
     },
+
     selectGroupLabel: {
       class: 'relative px-4 leading-loose font-bold',
     },

@@ -1,17 +1,11 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
-    defaultLineHeights: true,
-    standardFontWeights: true,
-  },
-  purge: ['./chusho.config.js', './index.html', './src/**/*.{js,ts,vue}'],
+  content: ['./chusho.config.js', './index.html', './src/**/*.{js,ts,vue}'],
   theme: {
     extend: {
       colors: {
-        gray: colors.blueGray,
+        gray: colors.slate,
         black: {
           default: '#000',
           50: 'rgba(0,0,0,.5)',
@@ -30,6 +24,4 @@ module.exports = {
       },
     },
   },
-  variants: {},
-  plugins: [],
 };
