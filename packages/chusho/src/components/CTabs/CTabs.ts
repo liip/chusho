@@ -12,14 +12,14 @@ import uuid from '../../utils/uuid';
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
-import useSelected, {
-  UseSelected,
+import useSelectable, {
+  UseSelectable,
   SelectedItemId,
-} from '../../composables/useSelected';
+} from '../../composables/useSelectable';
 
 export const TabsSymbol: InjectionKey<UseTabs> = Symbol('CTabs');
 
-export interface UseTabs extends UseSelected {
+export interface UseTabs extends UseSelectable {
   uuid: string;
 }
 
@@ -52,7 +52,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup(props) {
-    const selected = useSelected(
+    const selected = useSelectable(
       props.modelValue ?? props.defaultTab ?? null,
       'modelValue'
     );

@@ -1,6 +1,6 @@
 import { defineComponent, h, inject, mergeProps, PropType } from 'vue';
 
-import { SelectedItemId } from '../../composables/useSelected';
+import { SelectedItemId } from '../../composables/useSelectable';
 import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
