@@ -5,7 +5,7 @@ import { getNextFocusByKey, calculateActiveIndex } from '../../utils/keyboard';
 import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
 import { TabsSymbol } from './CTabs';
-import { SelectedItem } from '../../composables/useSelected';
+import { SelectedItem } from '../../composables/useSelectable';
 
 export default defineComponent({
   name: 'CTabList',

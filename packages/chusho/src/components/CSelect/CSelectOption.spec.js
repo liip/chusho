@@ -92,7 +92,7 @@ describe('CSelectOption', () => {
       },
     });
 
-    expect(wrapper.vm.select.selected.items.value).toEqual([
+    expect(wrapper.vm.select.selectable.items.value).toEqual([
       {
         data: { disabled: false, text: 'label' },
         id: 'chusho-select-option-2',
@@ -107,9 +107,9 @@ describe('CSelectOption', () => {
       },
     });
 
-    expect(wrapper.vm.select.selected.items.value.length).toBe(1);
+    expect(wrapper.vm.select.selectable.items.value.length).toBe(1);
     wrapper.unmount();
-    expect(wrapper.vm.select.selected.items.value.length).toBe(0);
+    expect(wrapper.vm.select.selectable.items.value.length).toBe(0);
   });
 
   it('sets itself as the focused option if it is the currently selected option', () => {
@@ -122,7 +122,7 @@ describe('CSelectOption', () => {
       },
     });
 
-    expect(wrapper.vm.select.selected.selectedItem.value).toEqual({
+    expect(wrapper.vm.select.selectable.selectedItem.value).toEqual({
       data: { disabled: false, text: 'label' },
       id: 'chusho-select-option-2',
     });

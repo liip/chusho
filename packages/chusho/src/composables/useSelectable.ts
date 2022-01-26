@@ -14,7 +14,7 @@ export interface SelectedItem<DataT = null> {
   data?: DataT;
 }
 
-export interface UseSelected<ItemDataT = null> {
+export interface UseSelectable<ItemDataT = null> {
   selectedItemId: ComputedRef<SelectedItemId | null>;
   selectedItemIndex: ComputedRef<number | null>;
   selectedItem: ComputedRef<SelectedItem<ItemDataT> | null>;
@@ -24,7 +24,7 @@ export interface UseSelected<ItemDataT = null> {
   removeItem: (id: SelectedItemId) => void;
 }
 
-export default function useSelected<ItemDataT = null>(
+export default function useSelectable<ItemDataT = null>(
   initialValue: SelectedItemId | null = null,
   propName: string | null = null
 ) {

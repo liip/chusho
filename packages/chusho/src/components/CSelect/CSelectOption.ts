@@ -39,7 +39,7 @@ export default defineComponent({
     const id = uuid('chusho-select-option');
     const data = ref({ disabled: props.disabled, text: '' });
 
-    select?.selected.addItem(id, data);
+    select?.selectable.addItem(id, data);
 
     onMounted(() => {
       const vm = getCurrentInstance();
@@ -50,19 +50,19 @@ export default defineComponent({
     });
 
     if (props.value === select?.value.value) {
-      select?.selected.setSelectedItem(id);
+      select?.selectable.setSelectedItem(id);
     }
 
     return {
       select,
       id,
       isActive: computed(() => props.value === select?.value.value),
-      isFocused: computed(() => id === select?.selected.selectedItemId.value),
+      isFocused: computed(() => id === select?.selectable.selectedItemId.value),
     };
   },
 
   beforeUnmount() {
-    this.select?.selected.removeItem(this.id);
+    this.select?.selectable.removeItem(this.id);
   },
 
   render() {

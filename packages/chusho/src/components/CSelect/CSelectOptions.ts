@@ -17,7 +17,7 @@ import {
 import { getNextFocusByKey, calculateActiveIndex } from '../../utils/keyboard';
 import componentMixin from '../mixins/componentMixin';
 import transitionMixin from '../mixins/transitionMixin';
-import { SelectedItem } from '../../composables/useSelected';
+import { SelectedItem } from '../../composables/useSelectable';
 import useActiveElement from '../../composables/useActiveElement';
 
 import { SelectOption, SelectOptionData, SelectSymbol } from './CSelect';
@@ -62,7 +62,7 @@ export default defineComponent({
     },
 
     handleKeydown(e: KeyboardEvent) {
-      if (!this.select?.selected.selectedItemId.value) return;
+      if (!this.select?.selectable.selectedItemId.value) return;
 
       const focus = getNextFocusByKey(e.key);
       let newIndex = null;
@@ -71,9 +71,9 @@ export default defineComponent({
         newIndex = this.findItemToFocus(e.key);
       } else {
         newIndex = calculateActiveIndex<SelectOption>(focus, {
-          resolveItems: () => this.select?.selected.items.value ?? [],
+          resolveItems: () => this.select?.selectable.items.value ?? [],
           resolveActiveIndex: () =>
-            this.select?.selected.selectedItemIndex.value ?? -1,
+            this.select?.selectable.selectedItemIndex.value ?? -1,
           resolveDisabled: (item) => {
             return item.data?.disabled ?? false;
           },
@@ -84,15 +84,15 @@ export default defineComponent({
 
       e.preventDefault();
 
-      this.select.selected.setSelectedItem(
-        this.select.selected.items.value[newIndex].id
+      this.select.selectable.setSelectedItem(
+        this.select.selectable.items.value[newIndex].id
       );
     },
 
     findItemToFocus(character: string) {
-      const items = this.select?.selected.items.value ?? [];
+      const items = this.select?.selectable.items.value ?? [];
       const selectedItemIndex =
-        this.select?.selected.selectedItemIndex.value ?? -1;
+        this.select?.selectable.selectedItemIndex.value ?? -1;
 
       if (!this.query && selectedItemIndex) {
         this.searchIndex = selectedItemIndex;
@@ -143,7 +143,7 @@ export default defineComponent({
       const elementProps: Record<string, unknown> = {
         ...this.select.togglable.attrs.target.value,
         role: 'listbox',
-        'aria-activedescendant': this.select.selected.selectedItemId.value,
+        'aria-activedescendant': this.select.selectable.selectedItemId.value,
         onKeydown: this.handleKeydown,
         ...generateConfigClass(
           this.chusho?.options?.components?.selectOptions?.class,

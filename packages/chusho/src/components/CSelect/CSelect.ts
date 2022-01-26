@@ -13,10 +13,10 @@ import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
 import componentMixin from '../mixins/componentMixin';
-import useSelected, {
+import useSelectable, {
   SelectedItem,
-  UseSelected,
-} from '../../composables/useSelected';
+  UseSelectable,
+} from '../../composables/useSelectable';
 import useTogglable from '../../composables/useTogglable';
 import { isObject, isPrimitive } from '../../utils/objects';
 
@@ -37,7 +37,7 @@ export interface UseSelect {
   setValue: (value: SelectValue) => void;
   disabled: ComputedRef<boolean>;
   togglable: ReturnType<typeof useTogglable>;
-  selected: UseSelected<SelectOptionData>;
+  selectable: UseSelectable<SelectOptionData>;
 }
 
 export default defineComponent({
@@ -110,18 +110,9 @@ export default defineComponent({
       setValue: (value: unknown) => {
         emit('update:modelValue', value);
       },
-<<<<<<< HEAD
-<<<<<<< HEAD
-      toggle: useToggle(props.open, 'open'),
-=======
-      togglable: useTogglable(props.open, 'open'),
->>>>>>> 4cc2bdf (refactor(composables): rename useToggle as useTogglable)
-      selected: useSelected<SelectOptionData>(),
-=======
       disabled: computed(() => props.disabled),
       togglable: useTogglable(props.open, 'open'),
       selectable: useSelectable<SelectOptionData>(),
->>>>>>> 3d49c53 (select bis)
     };
 
     provide(SelectSymbol, api);
