@@ -14,22 +14,37 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
         with:
           token: ${{ secrets.ADMIN_TOKEN }}
+
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
+
       - name: Set Git identity
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-      - run: npm ci
-      - run: npx lerna version ${{ github.event.inputs.bump }} --conventional-commits --create-release github --yes --preid ${{ github.event.inputs.preid }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create release
+        run: npx lerna version ${{ github.event.inputs.bump }} --conventional-commits --create-release github --yes --preid ${{ github.event.inputs.preid }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: npx lerna publish from-git --yes --no-verify-access
+
+      - name: Publish release
+        run: npx lerna publish from-git --yes --no-verify-access
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Deploy documentation website
+        uses: netlify/actions/build@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
