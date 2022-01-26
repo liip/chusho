@@ -67,7 +67,7 @@ function genConfig({ input, output, format, mode }) {
           compilerOptions: {
             // ESM: transform most recent features such as optional chaining and nullish coalescing
             // since those are currently erroring when using Webpack 4 if not being transpiled first
-            target: format === 'es' ? 'es2019' : 'es5',
+            target: format === 'es' ? 'es2019' : 'es6',
           },
         },
       }),

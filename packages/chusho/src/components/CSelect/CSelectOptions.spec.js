@@ -156,7 +156,7 @@ describe('CSelectOption', () => {
     wrapper.unmount();
   });
 
-  it('moves focus to the best match when typing', async (done) => {
+  it('moves focus to the best match when typing', async () => {
     const wrapper = mount(CSelect, {
       attachTo: document.body,
       props: {
@@ -191,17 +191,19 @@ describe('CSelectOption', () => {
     await nextTick();
     expect(document.activeElement).toBe(options.vm.$el.children[2]);
 
-    // Wait for the previous search to clear itself before beginning a new one
-    setTimeout(async () => {
-      await options
-        .findAllComponents(CSelectOption)[0]
-        .trigger('keydown', { key: 'r' });
-      await nextTick();
-      expect(document.activeElement).toBe(options.vm.$el.children[0]);
+    await new Promise((resolve) => {
+      // Wait for the previous search to clear itself before beginning a new one
+      setTimeout(async () => {
+        await options
+          .findAllComponents(CSelectOption)[0]
+          .trigger('keydown', { key: 'r' });
+        await nextTick();
+        expect(document.activeElement).toBe(options.vm.$el.children[0]);
 
-      done();
+        wrapper.unmount();
 
-      wrapper.unmount();
-    }, 500);
+        resolve();
+      }, 500);
+    });
   });
 });

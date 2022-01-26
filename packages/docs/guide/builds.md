@@ -4,15 +4,11 @@ The [`dist` directory of the npm package](https://cdn.jsdelivr.net/npm/chusho/di
 
 | Filename          | Module type | JavaScript version | Environment | Package.json field | About                                                   |
 | ----------------- | ----------- | ------------------ | ----------- | ------------------ | ------------------------------------------------------- |
-| chusho.js         | CommonJS    | ES5<sup>1</sup>    | Development | main               | Used by old bundlers: Webpack 1, Browserify, …          |
-| chusho.min.js     | CommonJS    | ES5<sup>1</sup>    | Production  | -                  |                                                         |
-| chusho.umd.js     | UMD         | ES5<sup>1</sup>    | Development | umd:main           | To be used in the browser with a `<script />` tag       |
-| chusho.umd.min.js | UMD         | ES5<sup>1</sup>    | Production  | -                  |                                                         |
-| esm/chusho.js     | ES Module   | ES2019<sup>2</sup> | Development | module             | Used by modern bundlers: Vue CLI, Webpack 2+, Rollup, … |
-
-<sup>1</sup> ES5 is supported by all recent browsers and IE 11.
-
-<sup>2</sup> ES2019 is supported only by the most recent browsers.
+| chusho.js         | CommonJS    | ES2015             | Development | main               | Used by old bundlers: Webpack 1, Browserify, …          |
+| chusho.min.js     | CommonJS    | ES2015             | Production  | -                  |                                                         |
+| chusho.umd.js     | UMD         | ES2015             | Development | umd:main           | To be used in the browser with a `<script />` tag       |
+| chusho.umd.min.js | UMD         | ES2015             | Production  | -                  |                                                         |
+| esm/chusho.js     | ES Module   | ES2019             | Development | module             | Used by modern bundlers: Vue CLI, Webpack 2+, Rollup, … |
 
 ## Browsers support
 
