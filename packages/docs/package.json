@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@vuepress/plugin-docsearch": "^2.0.0-beta.35",
-    "@vuepress/plugin-register-components": "^2.0.0-beta.34",
+    "@vuepress/plugin-register-components": "^2.0.0-beta.35",
     "concurrently": "^7.0.0",
     "postcss": "^8.4.6",
     "sass": "^1.49.0",
