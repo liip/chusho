@@ -1,7 +1,7 @@
 module.exports = {
   testEnvironment: 'jsdom',
   preset: 'ts-jest/presets/js-with-babel',
-  testMatch: ['<rootDir>src/**/?(*.)+(spec).[jt]s?(x)'],
+  testMatch: ['<rootDir>lib/**/?(*.)+(spec).[jt]s?(x)'],
   moduleFileExtensions: ['ts', 'js', 'd.ts', 'json', 'jsx', 'tsx', 'node'],
   setupFilesAfterEnv: ['<rootDir>config/jest/setup.js'],
   globals: {
@@ -11,7 +11,7 @@ module.exports = {
       },
     },
   },
-  collectCoverageFrom: ['src/**/*.ts'],
+  collectCoverageFrom: ['lib/**/*.ts'],
   coverageDirectory: 'coverage',
   coverageReporters: ['html', 'lcov', 'text'],
 };
