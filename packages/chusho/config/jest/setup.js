@@ -1,4 +1,4 @@
-import { reset } from '../../src/utils/uuid';
+import { reset } from '../../lib/utils/uuid';
 
 /*----------------------------------------*\
   Spy on console.warn to assert on it

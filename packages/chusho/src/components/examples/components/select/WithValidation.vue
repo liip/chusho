@@ -1,5 +1,5 @@
 <template>
-  <CSelect v-model="value" disabled>
+  <CSelect v-slot="{ open }" v-model="value" disabled>
     <CSelectBtn class="flex items-center">
       <span>{{ value.label }}</span>
       <CIcon

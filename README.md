@@ -12,9 +12,8 @@ A library of bare & accessible components and tools for Vue.js 3
 
 ## Packages
 
--   [chusho](https://github.com/liip/chusho/tree/main/packages/chusho/): the library core source code
--   [playground](https://github.com/liip/chusho/tree/main/packages/playground/): used to develop and test Chūshō’s components and tools
--   [docs](https://github.com/liip/chusho/tree/main/packages/docs/): Chūshō’s documentation website
+- [chusho](https://github.com/liip/chusho/tree/main/packages/chusho/): the library core source code and a playground to develop and execute tests
+- [docs](https://github.com/liip/chusho/tree/main/packages/docs/): Chūshō’s documentation website
 
 ## Contributing
 

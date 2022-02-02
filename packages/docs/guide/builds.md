@@ -2,13 +2,11 @@
 
 The [`dist` directory of the npm package](https://cdn.jsdelivr.net/npm/chusho/dist/) contains different builds:
 
-| Filename          | Module type | JavaScript version | Environment | Package.json field | About                                                   |
-| ----------------- | ----------- | ------------------ | ----------- | ------------------ | ------------------------------------------------------- |
-| chusho.js         | CommonJS    | ES2015             | Development | main               | Used by old bundlers: Webpack 1, Browserify, …          |
-| chusho.min.js     | CommonJS    | ES2015             | Production  | -                  |                                                         |
-| chusho.umd.js     | UMD         | ES2015             | Development | umd:main           | To be used in the browser with a `<script />` tag       |
-| chusho.umd.min.js | UMD         | ES2015             | Production  | -                  |                                                         |
-| esm/chusho.js     | ES Module   | ES2019             | Development | module             | Used by modern bundlers: Vue CLI, Webpack 2+, Rollup, … |
+| Filename      | Module type | JavaScript version | Environment | Package.json field | About                                                   |
+| ------------- | ----------- | ------------------ | ----------- | ------------------ | ------------------------------------------------------- |
+| esm/chusho.js | ES Module   | ES2019             | Development | module             | Used by modern bundlers: Vue CLI, Webpack 2+, Rollup, … |
+| chusho.cjs.js | CommonJS    | ES2019             | Development | main               | Used by old bundlers: Webpack 1, Browserify, …          |
+| chusho.umd.js | UMD         | ES2019             | Development | umd:main           | To be used in the browser with a `<script />` tag       |
 
 ## Browsers support
 

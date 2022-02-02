@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import Chusho, { $chusho, components, directives } from 'chusho';
-import chushoConfig from '../chusho.config.js';
+import chushoConfig from './chusho.config.js';
 
 import './assets/tailwind.css';
 
@@ -26,7 +26,7 @@ Object.values(directives).forEach((directive) => {
 app.mount('#app');
 
 if (import.meta.hot) {
-  import.meta.hot.accept('../chusho.config.js', (newConfig) => {
+  import.meta.hot.accept('./chusho.config.js', (newConfig) => {
     $chusho.options = Object.assign({}, $chusho.options, newConfig.default);
   });
 }
