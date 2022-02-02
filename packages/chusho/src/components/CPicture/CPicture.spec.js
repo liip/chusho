@@ -72,7 +72,10 @@ describe('CPicture', () => {
     });
 
     expect(wrapper.html()).toBe(
-      '<picture><source srcset="image@2x.webp 2x, image.webp" type="image/webp"><source srcset="image@2x.jpg 2x, image.jpg" type="image/jpeg"><img src="/image.jpg" alt=""></picture>'
+      `<picture>
+  <source srcset="image@2x.webp 2x, image.webp" type="image/webp">
+  <source srcset="image@2x.jpg 2x, image.jpg" type="image/jpeg"><img src="/image.jpg" alt="">
+</picture>`
     );
   });
 });

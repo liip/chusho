@@ -4,7 +4,7 @@ A Vue app to develop and test the components and tools.
 
 ## Usage
 
-Ensure you have [bootstraped the monorepo](https://github.com/liip/chusho#project-setup) and [build a local version of the library](https://github.com/liip/chusho/tree/main/packages/chusho#build-for-production) first.
+Ensure you have [built a local version of the library](https://github.com/liip/chusho/tree/main/packages/chusho#build-for-production) first.
 
 Then start the development server:
 

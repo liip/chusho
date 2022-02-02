@@ -39,7 +39,7 @@ describe('CSelectOption', () => {
       },
     });
 
-    expect(wrapper.findComponent(CSelectOptions).html()).toBe(undefined);
+    expect(wrapper.findComponent(CSelectOptions).html()).toBe('');
   });
 
   it('renders with config class', () => {
