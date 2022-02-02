@@ -18,7 +18,8 @@ describe('CDialog', () => {
       },
     });
 
-    expect(wrapper.html()).toBe('<!--teleport start--><!--teleport end-->');
+    expect(wrapper.html()).toBe(`<!--teleport start-->
+<!--teleport end-->`);
     expect(document.querySelector('#chusho-dialogs-portal').innerHTML).toBe(
       '<div tabindex="-1"><div role="dialog"></div></div>'
     );

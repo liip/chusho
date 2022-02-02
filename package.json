@@ -1,8 +1,10 @@
 {
   "name": "root",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "postinstall": "lerna bootstrap",
     "test": "npm run validate && lerna run --parallel test",
     "build:chusho": "cd packages/chusho && npm run build",
     "build:docs": "cd packages/docs && npm run build",

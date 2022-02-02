@@ -2,11 +2,10 @@
 
 ## Project setup
 
-Clone the repository, then install the dependencies and bootstrap the monorepo:
+Clone the repository, then install the dependencies:
 
 ```
 npm install
-lerna bootstrap
 ```
 
 ## Making changes

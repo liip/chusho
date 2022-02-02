@@ -12,7 +12,7 @@ describe('CCollapseContent', () => {
       },
     });
 
-    expect(wrapper.findComponent(CCollapseContent).html()).toBe(undefined);
+    expect(wrapper.findComponent(CCollapseContent).html()).toBe('');
   });
 
   it('renders with the right attributes when open', () => {
