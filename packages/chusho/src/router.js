@@ -1,32 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import capitalize from 'lodash/capitalize';
+import startCase from 'lodash/startCase';
 
 import Playground from './components/Playground.vue';
 import Examples from './components/Examples.vue';
 
-import examplesRoutes from './components/examples/routes.json';
+const examplesComponents = import.meta.glob('./components/examples/**/*.vue');
+const examples = [];
 
-const examples = Object.keys(examplesRoutes).flatMap((categoryKey) => {
-  const category = examplesRoutes[categoryKey];
+for (const path in examplesComponents) {
+  const shortPath = path.replace('./components/examples/', '');
+  const [type, item, variant] = shortPath.split('/');
+  const name = startCase(variant.replace('.vue', ''));
 
-  return Object.keys(category.items).flatMap((groupKey) => {
-    const group = category.items[groupKey];
-
-    return group.variants.map(({ label, component }) => ({
-      path: `${categoryKey}/${groupKey}/${label}`
-        .toLowerCase()
-        .replaceAll(' ', '-'),
-      component: () =>
-        import(
-          `./components/examples/${categoryKey}/${groupKey}/${component}.vue`
-        ),
-      meta: {
-        category: { id: categoryKey, label: category.label },
-        group: { id: groupKey, label: group.label },
-        label,
-      },
-    }));
+  examples.push({
+    path: `${type}/${item}/${name}`.toLowerCase().replaceAll(' ', '-'),
+    component: examplesComponents[path],
+    meta: {
+      category: { id: type, label: capitalize(type) },
+      group: { id: item, label: capitalize(item) },
+      label: capitalize(name),
+    },
   });
-});
+}
 
 const router = createRouter({
   history: createWebHistory(),
