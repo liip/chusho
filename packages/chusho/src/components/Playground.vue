@@ -57,7 +57,7 @@
       </div>
 
       <div class="flex flex-col w-5/6 shadow-xl">
-        <div class="flex-1">
+        <div class="h-1/2 flex max-h-full">
           <iframe
             ref="iframe"
             :src="previewSrc"
@@ -65,6 +65,14 @@
             class="h-full w-full"
             @load="iframeLoaded"
           />
+
+          <div
+            v-if="state"
+            class="w-1/3 overflow-auto p-5 text-sm border-l border-gray-200"
+          >
+            <div class="mb-4 font-bold uppercase">State</div>
+            <pre>{{ state }}</pre>
+          </div>
         </div>
         <div
           class="code flex-1 bg-white border-t border-gray-200 overflow-y-auto"
@@ -140,6 +148,7 @@ export default defineComponent({
         this.$route.query.preview || '/examples/components/alert/default',
       previewNode: null,
       code: '',
+      state: null,
       observer: null,
       highlightWorker: null,
       categories: buildCategories(),
@@ -165,8 +174,23 @@ export default defineComponent({
         this.$refs.iframe.contentDocument.querySelector('#app');
       this.observer.observe(this.previewNode, {
         childList: true,
+        attributes: true,
         subtree: true,
       });
+
+      this.$refs.iframe.contentWindow.addEventListener('message', (message) => {
+        try {
+          const payload = JSON.parse(message.data);
+          if (payload.type === 'updateState') {
+            this.state = Object.keys(payload.state).length
+              ? payload.state
+              : null;
+          }
+        } catch (error) {
+          // Noop
+        }
+      });
+
       this.updateCode();
     },
 
@@ -186,7 +210,10 @@ export default defineComponent({
     },
 
     updateCode() {
-      this.highlightWorker.postMessage(this.previewNode.innerHTML);
+      const html = this.previewNode.querySelector('#preview')?.innerHTML;
+      if (html) {
+        this.highlightWorker.postMessage(html);
+      }
     },
   },
 });
