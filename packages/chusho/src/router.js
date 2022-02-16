@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import capitalize from 'lodash/capitalize';
 import startCase from 'lodash/startCase';
 
 import Playground from './components/Playground.vue';
@@ -17,9 +16,9 @@ for (const path in examplesComponents) {
     path: `${type}/${item}/${name}`.toLowerCase().replaceAll(' ', '-'),
     component: examplesComponents[path],
     meta: {
-      category: { id: type, label: capitalize(type) },
-      group: { id: item, label: capitalize(item) },
-      label: capitalize(name),
+      category: { id: type, label: startCase(type) },
+      group: { id: item, label: startCase(item) },
+      label: startCase(name),
     },
   });
 }
