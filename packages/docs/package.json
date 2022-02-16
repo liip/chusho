@@ -30,7 +30,7 @@
     "concurrently": "^7.0.0",
     "postcss": "^8.4.6",
     "sass": "^1.49.0",
-    "vue-docgen-api": "^4.44.2",
+    "vue-docgen-api": "^4.44.15",
     "vuepress": "^2.0.0-beta.35",
     "vuepress-vite": "^2.0.0-beta.34"
   },
