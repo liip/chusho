@@ -66,6 +66,7 @@ interface ComponentsOptions {
   tab?: ComponentCommonOptions;
   tabPanels?: ComponentCommonOptions;
   tabPanel?: ComponentCommonOptions;
+  textarea?: ComponentCommonOptions;
   textField?: ComponentCommonOptions;
 }
 

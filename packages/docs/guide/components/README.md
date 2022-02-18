@@ -8,4 +8,5 @@
 - [Picture](picture.html)
 - [Select](select.html)
 - [Tabs](tabs.html)
+- [Textarea](textarea.html)
 - [TextField](textfield.html)
