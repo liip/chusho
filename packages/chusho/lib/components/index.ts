@@ -6,4 +6,5 @@ export * from './CIcon';
 export * from './CPicture';
 export * from './CSelect';
 export * from './CTabs';
+export * from './CTextarea';
 export * from './CTextField';
