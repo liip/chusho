@@ -18,9 +18,9 @@
   },
   "homepage": "https://www.chusho.dev/",
   "scripts": {
-    "start": "concurrently 'npm run dev' 'npm run tailwind:watch'",
+    "start": "concurrently --kill-others 'npm run dev' 'npm run tailwind:watch'",
     "dev": "vuepress dev",
-    "tailwind": "tailwindcss -i node_modules/tailwindcss/tailwind.css -o ./.vuepress/public/dist/tailwind.css",
+    "tailwind": "tailwindcss -o ./.vuepress/public/dist/tailwind.css",
     "tailwind:watch": "npm run tailwind -- --watch",
     "build": "npm run tailwind && vuepress build"
   },
