@@ -64,6 +64,7 @@ module.exports = {
             '/guide/components/picture.md',
             '/guide/components/select.md',
             '/guide/components/tabs.md',
+            '/guide/components/textfield.md',
           ],
         },
         {
