@@ -54,9 +54,7 @@ interface ComponentsOptions {
   };
   picture?: ComponentCommonOptions;
   select?: ComponentCommonOptions;
-  selectBtn?: ComponentCommonOptions & {
-    inheritBtnClass: boolean;
-  };
+  selectBtn?: ComponentCommonOptions;
   selectOptions?: ComponentCommonOptions & {
     transition?: BaseTransitionProps;
   };
