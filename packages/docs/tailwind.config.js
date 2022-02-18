@@ -4,7 +4,6 @@ module.exports = {
     './.vuepress/components/**/*.vue',
     './guide/**/*.md',
   ],
-  important: true,
   theme: {
     extend: {},
   },

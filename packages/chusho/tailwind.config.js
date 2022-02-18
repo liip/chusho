@@ -6,10 +6,6 @@ module.exports = {
     extend: {
       colors: {
         gray: colors.slate,
-        black: {
-          default: '#000',
-          50: 'rgba(0,0,0,.5)',
-        },
         accent: {
           100: '#FEF2DD',
           200: '#FCDEAC',

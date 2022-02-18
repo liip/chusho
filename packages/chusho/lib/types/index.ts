@@ -34,20 +34,6 @@ type ComponentCommonOptions = {
 interface ComponentsOptions {
   alert?: ComponentCommonOptions;
   btn?: ComponentCommonOptions;
-  dialog?: ComponentCommonOptions & {
-    overlayClass?: VueClassBinding | ClassGenerator;
-    transition?: BaseTransitionProps;
-  };
-  icon?: ComponentCommonOptions & {
-    spriteUrl?: string;
-    width?: number;
-    height?: number;
-  };
-  tabs?: ComponentCommonOptions;
-  tabList?: ComponentCommonOptions;
-  tab?: ComponentCommonOptions;
-  tabPanels?: ComponentCommonOptions;
-  tabPanel?: ComponentCommonOptions;
   collapse?: ComponentCommonOptions & {
     transition?: BaseTransitionProps;
   };
@@ -56,6 +42,15 @@ interface ComponentsOptions {
   };
   collapseContent?: ComponentCommonOptions & {
     transition?: BaseTransitionProps;
+  };
+  dialog?: ComponentCommonOptions & {
+    overlayClass?: VueClassBinding | ClassGenerator;
+    transition?: BaseTransitionProps;
+  };
+  icon?: ComponentCommonOptions & {
+    spriteUrl?: string;
+    width?: number;
+    height?: number;
   };
   picture?: ComponentCommonOptions;
   select?: ComponentCommonOptions;
@@ -68,6 +63,11 @@ interface ComponentsOptions {
   selectOption?: ComponentCommonOptions;
   selectGroup?: ComponentCommonOptions;
   selectGroupLabel?: ComponentCommonOptions;
+  tabs?: ComponentCommonOptions;
+  tabList?: ComponentCommonOptions;
+  tab?: ComponentCommonOptions;
+  tabPanels?: ComponentCommonOptions;
+  tabPanel?: ComponentCommonOptions;
 }
 
 export interface ChushoOptions {

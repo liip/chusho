@@ -24,51 +24,6 @@ export default {
       },
     },
 
-    dialog: {
-      class: 'dialog p-6 bg-white rounded shadow-lg',
-      overlayClass:
-        'dialog-overlay fixed inset-0 p-4 flex flex-columns items-center justify-center bg-black-50',
-    },
-
-    icon: {
-      spriteUrl: '/icons.svg',
-      width: 48,
-      height: 48,
-      class: 'inline-block align-middle pointer-events-none fill-current',
-    },
-
-    picture: {
-      class: 'picture',
-    },
-
-    tabs: {
-      class: 'tabs',
-    },
-
-    tabList: {
-      class: 'flex mx-4',
-    },
-
-    tabPanels: {
-      class: 'py-3 px-4 bg-gray-100 rounded',
-    },
-
-    tabPanel: {
-      class: 'tabpanel',
-    },
-
-    tab: {
-      class({ active }) {
-        return [
-          'inline-block py-2 px-5 border-b-2 border-transparent',
-          {
-            'text-gray-700': !active,
-            'text-blue-700 bg-blue-50 border-blue-200 rounded-t': active,
-          },
-        ];
-      },
-    },
-
     collapseBtn: {
       inheritBtnClass: false,
       class({ active }) {
@@ -87,6 +42,23 @@ export default {
         name: 'fade',
       },
       class: 'p-6 bg-gray-100 rounded mt-2',
+    },
+
+    dialog: {
+      class: 'dialog p-6 bg-white rounded shadow-lg',
+      overlayClass:
+        'dialog-overlay fixed inset-0 p-4 flex flex-columns items-center justify-center bg-gray-900 bg-opacity-75',
+    },
+
+    icon: {
+      spriteUrl: '/icons.svg',
+      width: 48,
+      height: 48,
+      class: 'inline-block align-middle pointer-events-none fill-current',
+    },
+
+    picture: {
+      class: 'picture',
     },
 
     select: {
@@ -123,6 +95,34 @@ export default {
 
     selectGroupLabel: {
       class: 'relative px-4 leading-loose font-bold',
+    },
+
+    tabs: {
+      class: 'tabs',
+    },
+
+    tabList: {
+      class: 'flex mx-4',
+    },
+
+    tabPanels: {
+      class: 'py-3 px-4 bg-gray-100 rounded',
+    },
+
+    tabPanel: {
+      class: 'tabpanel',
+    },
+
+    tab: {
+      class({ active }) {
+        return [
+          'inline-block py-2 px-5 border-b-2 border-transparent',
+          {
+            'text-gray-700': !active,
+            'text-blue-700 bg-blue-50 border-blue-200 rounded-t': active,
+          },
+        ];
+      },
     },
   },
 };
