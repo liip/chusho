@@ -6,7 +6,7 @@ module.exports = (options, ctx) => {
   const componentsDocgen = {};
 
   glob(
-    '../../../../chusho/src/components/C*/C*.ts',
+    '../../../../chusho/lib/components/C*/C*.ts',
     { cwd: path.resolve(__dirname) },
     (err, components) => {
       components.forEach(async (component) => {
