@@ -124,5 +124,10 @@ export default {
         ];
       },
     },
+
+    textField: {
+      class:
+        'block w-full bg-white px-4 py-3 leading-4 border border-gray-400 rounded outline-none focus:border-yellow-600 focus:ring ring-yellow-400',
+    },
   },
 };

@@ -66,6 +66,7 @@ interface ComponentsOptions {
   tab?: ComponentCommonOptions;
   tabPanels?: ComponentCommonOptions;
   tabPanel?: ComponentCommonOptions;
+  textField?: ComponentCommonOptions;
 }
 
 export interface ChushoOptions {
