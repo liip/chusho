@@ -31,6 +31,16 @@ export default {
       },
     },
 
+    checkbox: {
+      class({ checked }) {
+        return [
+          'appearance-none inline-block w-3 h-3 rounded-sm border-2 border-white ring-2 ring-gray-500',
+          { 'bg-white': !checked },
+          { 'bg-accent-500': checked },
+        ];
+      },
+    },
+
     collapseBtn: {
       inheritBtnClass: false,
       class({ active }) {

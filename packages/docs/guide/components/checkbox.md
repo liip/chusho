@@ -1,9 +1,9 @@
-# TextField
+# Checkbox
 
-Augmented form field for text input.
+Augmented form field for boolean input.
 
 <Showcase>
-    <CTextField placeholder="Type here…" />
+    <ExampleCheckbox />
 </Showcase>
 
 ## Config
@@ -13,7 +13,7 @@ The options below are to be set in the [global configuration](/guide/config.html
 ```js
 {
   components: {
-    textField: { ... },
+    checkbox: { ... },
   },
 }
 ```
@@ -28,14 +28,16 @@ Classes applied to the input element, except when the prop `bare` is set to `tru
 #### Example
 
 ```js
-class({ type }) {
-    return ['field', `field--${type}`]
+class({ checked }) {
+    return ['checkbox', {
+        'checkbox--checked': checked,
+    }]
 }
 ```
 
 ## API
 
-<Docgen :components="['CTextField']" />
+<Docgen :components="['CCheckbox']" />
 
 ## Examples
 
@@ -43,26 +45,34 @@ class({ type }) {
 
 ```vue
 <template>
-  <CTextField v-model="value" />
+  <CCheckbox v-model="value" />
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            value: 'Default value',
-        },
-    },
-}
+  data() {
+    return {
+      value: true, // Checked by default
+    };
+  },
+};
 </script>
 ```
 
-### With type
+### Controlled with custom values
 
 ```vue
 <template>
-  <CTextField v-model="value" type="email" />
+  <CCheckbox v-model="value" trueValue="on" falseValue="off" />
 </template>
 
-<!-- ... -->
+<script>
+export default {
+  data() {
+    return {
+      value: 'off', // Unchecked by default
+    };
+  },
+};
+</script>
 ```
