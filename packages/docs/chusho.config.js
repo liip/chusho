@@ -45,6 +45,17 @@ export default {
       },
     },
 
+    checkbox: {
+      class({ variant, checked }) {
+        return [
+          'appearance-none inline-block w-3 h-3 rounded-sm border-2 border-white ring-2 ring-gray-500',
+          { 'mr-3': variant?.includes('inline') },
+          { 'bg-white': !checked },
+          { 'bg-accent-500': checked },
+        ];
+      },
+    },
+
     collapse: {
       class({ variant }) {
         return {

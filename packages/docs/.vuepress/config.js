@@ -58,6 +58,7 @@ module.exports = {
           children: [
             '/guide/components/alert.md',
             '/guide/components/button.md',
+            '/guide/components/checkbox.md',
             '/guide/components/collapse.md',
             '/guide/components/dialog.md',
             '/guide/components/icon.md',

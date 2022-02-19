@@ -34,6 +34,7 @@ type ComponentCommonOptions = {
 interface ComponentsOptions {
   alert?: ComponentCommonOptions;
   btn?: ComponentCommonOptions;
+  checkbox?: ComponentCommonOptions;
   collapse?: ComponentCommonOptions & {
     transition?: BaseTransitionProps;
   };

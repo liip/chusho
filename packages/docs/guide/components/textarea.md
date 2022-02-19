@@ -37,8 +37,20 @@ class: 'field field--textarea'
 
 ## Examples
 
-### Simplest
+### Controlled
 
-```vue:no-line-numbers
-<Ctextarea v-model="value" />
+```vue
+<template>
+  <CTextarea v-model="value" />
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            value: 'Default value',
+        },
+    },
+}
+</script>
 ```

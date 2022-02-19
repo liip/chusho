@@ -2,6 +2,17 @@ import { h, Transition, BaseTransitionProps, VNode } from 'vue';
 import { isPlainObject } from '../utils/objects';
 import { ClassGenerator, VueClassBinding } from '../types';
 
+export const ALL_TYPES = [
+  String,
+  Number,
+  Boolean,
+  Array,
+  Object,
+  Date,
+  Function,
+  Symbol,
+];
+
 export function generateConfigClass(
   configClass?: VueClassBinding | ClassGenerator,
   ctx?: Record<string, unknown>

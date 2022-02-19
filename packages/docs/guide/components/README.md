@@ -2,6 +2,7 @@
 
 - [Alert](alert.html)
 - [Button](button.html)
+- [Checkbox](checkbox.html)
 - [Collapse](collapse.html)
 - [Dialog](dialog.html)
 - [Icon](icon.html)
