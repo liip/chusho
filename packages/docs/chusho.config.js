@@ -2,7 +2,7 @@ import { mergeProps } from 'vue';
 
 const fields = {
   class:
-    'block w-full bg-white px-4 py-3 border border-gray-400 rounded outline-none focus:border-yellow-600 focus:ring ring-yellow-400',
+    'block w-full bg-white px-4 py-3 border border-gray-400 rounded outline-none focus:border-accent-600 focus:ring ring-accent-400',
 };
 
 export default {
@@ -13,7 +13,7 @@ export default {
           'block py-3 px-5 rounded border-l-4',
           {
             'bg-red-100 text-red-700 border-red-300': variant === 'error',
-            'bg-yellow-100 text-yellow-700 border-yellow-300':
+            'bg-accent-100 text-accent-700 border-accent-300':
               variant === 'warning',
             'bg-green-100 text-green-700 border-green-300':
               variant === 'success',
@@ -31,13 +31,13 @@ export default {
           'transition-all duration-200 ease-out',
           {
             'py-3 px-5 rounded': !variant || variant === 'secondary',
-            'bg-yellow-600 text-white': !variant,
-            'hover:bg-yellow-500 focus:outline-none focus:ring ring-yellow-400 focus:ring-offset-2':
+            'bg-accent-600 text-white': !variant,
+            'hover:bg-accent-500 focus:outline-none focus:ring ring-accent-400 focus:ring-offset-2':
               !variant && !disabled,
-            'bg-gray-100 text-yellow-600': variant === 'secondary',
-            'hover:text-yellow-500 focus:outline-none focus:ring ring-yellow-400 focus:ring-offset-2':
+            'bg-gray-100 text-accent-600': variant === 'secondary',
+            'hover:text-accent-500 focus:outline-none focus:ring ring-accent-400 focus:ring-offset-2':
               variant === 'secondary' && !disabled,
-            'bg-transparent text-yellow-600 underline hover:no-underline':
+            'bg-transparent text-accent-600 underline hover:no-underline':
               variant === 'link',
             'opacity-75 cursor-not-allowed': disabled,
           },
@@ -141,7 +141,7 @@ export default {
           'inline-block border-0 text-base cursor-pointer bg-transparent',
           'whitespace-nowrap pb-3 border-b-2 font-medium -mb-px transition-colors duration-200 ease-out',
           active
-            ? 'border-yellow-600 text-yellow-600'
+            ? 'border-accent-600 text-accent-600'
             : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
         ];
       },
