@@ -2,7 +2,7 @@ import { mergeProps } from 'vue';
 
 const fields = {
   class:
-    'block w-full bg-white px-4 py-3 border border-gray-400 rounded outline-none focus:border-yellow-600 focus:ring ring-yellow-400',
+    'block w-full bg-white px-4 py-3 border border-gray-400 rounded outline-none focus:border-accent-600 focus:ring ring-accent-400',
 };
 
 export default {
