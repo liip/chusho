@@ -1,5 +1,6 @@
 <template>
-  <CTabs class="mt-4">
+  <ComponentSpecs v-if="docs.length === 1" :doc="docs[0]" class="mt-4" />
+  <CTabs v-else class="mt-4">
     <CTabList>
       <CTab :target="doc.displayName" v-for="(doc, i) in docs">
         {{ doc.displayName }}
@@ -8,25 +9,7 @@
 
     <CTabPanels>
       <CTabPanel :id="doc.displayName" v-for="(doc, i) in docs">
-        <PropsTable
-          :sections="[
-            {
-              label: 'Props',
-              type: 'props',
-              rows: doc.props,
-            },
-            {
-              label: 'Events',
-              type: 'events',
-              rows: doc.events,
-            },
-            {
-              label: 'Slots',
-              type: 'slots',
-              rows: doc.slots,
-            },
-          ]"
-        />
+        <ComponentSpecs :doc="doc" />
       </CTabPanel>
     </CTabPanels>
   </CTabs>
