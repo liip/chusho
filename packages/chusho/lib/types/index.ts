@@ -53,6 +53,7 @@ interface ComponentsOptions {
     width?: number;
     height?: number;
   };
+  label?: ComponentCommonOptions;
   picture?: ComponentCommonOptions;
   select?: ComponentCommonOptions;
   selectBtn?: ComponentCommonOptions;
