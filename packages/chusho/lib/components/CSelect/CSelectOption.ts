@@ -11,7 +11,7 @@ import {
 } from 'vue';
 
 import { DollarChusho } from '../../types';
-import { generateConfigClass } from '../../utils/components';
+import { ALL_TYPES, generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
 import componentMixin from '../mixins/componentMixin';
 import { SelectSymbol } from './CSelect';
@@ -24,10 +24,17 @@ export default defineComponent({
   inheritAttrs: false,
 
   props: {
+    /**
+     * The value used when this option is selected.
+     * @type {any}
+     */
     value: {
-      type: [String, Number, Array, Object],
+      type: ALL_TYPES,
       required: true,
     },
+    /**
+     * Prevent selecting this option while still displaying it.
+     */
     disabled: {
       type: Boolean,
       default: false,

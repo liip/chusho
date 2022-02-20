@@ -10,7 +10,7 @@ import {
 } from 'vue';
 
 import { DollarChusho } from '../../types';
-import { generateConfigClass } from '../../utils/components';
+import { ALL_TYPES, generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
 import componentMixin from '../mixins/componentMixin';
 import useSelectable, {
@@ -50,9 +50,10 @@ export default defineComponent({
   props: {
     /**
      * Bind the Select value with the parent component.
+     * @type {any}
      */
     modelValue: {
-      type: [String, Number, Array, Object],
+      type: ALL_TYPES,
       default: null,
     },
     /**
