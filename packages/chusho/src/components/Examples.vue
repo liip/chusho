@@ -10,42 +10,23 @@
   </div>
 </template>
 
-<script>
-import { ref, defineComponent, watchEffect } from 'vue';
+<script setup>
+import { ref, watchEffect } from 'vue';
 
-export default defineComponent({
-  setup() {
-    const comp = ref(null);
+const comp = ref(null);
 
-    watchEffect(() => {
-      if (!comp.value) return;
+watchEffect(() => {
+  if (!comp.value) return;
 
-      const optionsState = comp.value.$data;
-      const compositionState = comp.value.$.setupState;
+  const optionsState = comp.value.$data;
+  const compositionState = comp.value.$.setupState;
 
-      window.postMessage(
-        JSON.stringify({
-          type: 'updateState',
-          state: Object.assign({}, optionsState, compositionState),
-        }),
-        window.location
-      );
-    });
-
-    return { comp };
-  },
-
-  mounted() {
-    window.addEventListener('message', (message) => {
-      try {
-        const payload = JSON.parse(message.data);
-        if (payload.type === 'changePreview' && payload.to) {
-          this.$router.replace(payload.to);
-        }
-      } catch (error) {
-        // Noop
-      }
-    });
-  },
+  window.postMessage(
+    JSON.stringify({
+      type: 'updateState',
+      state: Object.assign({}, optionsState, compositionState),
+    }),
+    window.location
+  );
 });
 </script>
