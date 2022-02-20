@@ -8,6 +8,7 @@
 - [Icon](icon.html)
 - [Label](label.html)
 - [Picture](picture.html)
+- [Radio](radio.html)
 - [Select](select.html)
 - [Tabs](tabs.html)
 - [Textarea](textarea.html)

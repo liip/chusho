@@ -106,11 +106,30 @@ export default {
     },
 
     label: {
-      class: 'cursor-pointer font-medium',
+      class({ variant }) {
+        return [
+          'cursor-pointer',
+          {
+            'block mb-1 font-bold': !variant,
+            'inline-flex items-center': variant?.includes('inline'),
+          },
+        ];
+      },
     },
 
     picture: {
       class: 'block h-auto rounded-2xl',
+    },
+
+    radio: {
+      class({ variant, checked }) {
+        return [
+          'appearance-none inline-block w-3 h-3 rounded-full border-2 border-white ring-2 ring-gray-500',
+          { 'mr-3': variant?.includes('inline') },
+          { 'bg-white': !checked },
+          { 'bg-accent-500': checked },
+        ];
+      },
     },
 
     select: {
