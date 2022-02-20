@@ -62,6 +62,7 @@ module.exports = {
             '/guide/components/collapse.md',
             '/guide/components/dialog.md',
             '/guide/components/icon.md',
+            '/guide/components/label.md',
             '/guide/components/picture.md',
             '/guide/components/select.md',
             '/guide/components/tabs.md',

@@ -105,6 +105,10 @@ export default {
       class: 'inline-block align-middle fill-current stroke-current',
     },
 
+    label: {
+      class: 'cursor-pointer font-medium',
+    },
+
     picture: {
       class: 'block h-auto rounded-2xl',
     },

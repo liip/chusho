@@ -32,9 +32,10 @@ export default {
     },
 
     checkbox: {
-      class({ checked }) {
+      class({ variant, checked }) {
         return [
           'appearance-none inline-block w-3 h-3 rounded-sm border-2 border-white ring-2 ring-gray-500',
+          { 'mr-3': variant?.includes('inline') },
           { 'bg-white': !checked },
           { 'bg-accent-500': checked },
         ];
@@ -72,6 +73,18 @@ export default {
       width: 48,
       height: 48,
       class: 'inline-block align-middle pointer-events-none fill-current',
+    },
+
+    label: {
+      class({ variant }) {
+        return [
+          'cursor-pointer',
+          {
+            'block mb-1 font-bold': !variant,
+            'inline-flex items-center': variant?.includes('inline'),
+          },
+        ];
+      },
     },
 
     picture: {
