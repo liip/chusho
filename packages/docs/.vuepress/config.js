@@ -64,6 +64,7 @@ module.exports = {
             '/guide/components/icon.md',
             '/guide/components/label.md',
             '/guide/components/picture.md',
+            '/guide/components/radio.md',
             '/guide/components/select.md',
             '/guide/components/tabs.md',
             '/guide/components/textarea.md',

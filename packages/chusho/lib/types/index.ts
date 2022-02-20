@@ -55,6 +55,7 @@ interface ComponentsOptions {
   };
   label?: ComponentCommonOptions;
   picture?: ComponentCommonOptions;
+  radio?: ComponentCommonOptions;
   select?: ComponentCommonOptions;
   selectBtn?: ComponentCommonOptions;
   selectOptions?: ComponentCommonOptions & {
