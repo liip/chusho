@@ -112,5 +112,11 @@ describe('CRadio', () => {
     expect(radios[0].element.checked).toBe(false);
     expect(radios[1].vm.modelValue).toBe(false);
     expect(radios[1].element.checked).toBe(true);
+
+    await radios[0].trigger('change');
+    expect(radios[0].vm.modelValue).toBe(true);
+    expect(radios[0].element.checked).toBe(true);
+    expect(radios[1].vm.modelValue).toBe(true);
+    expect(radios[1].element.checked).toBe(false);
   });
 });
