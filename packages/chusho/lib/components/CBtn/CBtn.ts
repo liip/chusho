@@ -72,12 +72,22 @@ export default defineComponent({
     let extraAttrs: Record<string, unknown> = {};
 
     if (this.to) {
-      tag = resolveComponent('router-link');
+      if ('$nuxt' in this) {
+        tag = resolveComponent('nuxt-link');
 
-      if (tag === 'router-link') {
-        warn(
-          `CBtn got a “to” prop but RouterLink component couldn’t be found. Is Vue Router installed? To make a CBtn behave like a traditional link, use the prop “href” instead.`
-        );
+        if (typeof tag === 'string') {
+          warn(
+            `CBtn got a “to” prop but NuxtLink component couldn’t be found. To make a CBtn behave like a traditional link, use the prop “href” instead.`
+          );
+        }
+      } else {
+        tag = resolveComponent('router-link');
+
+        if (typeof tag === 'string') {
+          warn(
+            `CBtn got a “to” prop but RouterLink component couldn’t be found. Is Vue Router installed? To make a CBtn behave like a traditional link, use the prop “href” instead.`
+          );
+        }
       }
 
       extraAttrs = {

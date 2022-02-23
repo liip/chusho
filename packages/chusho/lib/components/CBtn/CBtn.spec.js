@@ -76,10 +76,10 @@ describe('CBtn', () => {
     expect('RouterLink component couldn’t be found').toHaveBeenWarned();
   });
 
-  it.skip('should be a NuxtLink if prop "to" is given in a Nuxt app', () => {
+  it('should be a NuxtLink if prop "to" is given in a Nuxt app', () => {
     const wrapper = mount(CBtn, {
       global: {
-        provide: {
+        mocks: {
           $nuxt: {},
         },
         components: {
