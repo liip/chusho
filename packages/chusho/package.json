@@ -33,7 +33,7 @@
     "@babel/core": "^7.17.4",
     "@babel/preset-env": "^7.16.11",
     "@types/jest": "^27.4.0",
-    "@vitejs/plugin-vue": "^2.1.0",
+    "@vitejs/plugin-vue": "^2.2.2",
     "@vue/test-utils": "^2.0.0-rc.18",
     "autoprefixer": "^10.4.2",
     "babel-jest": "^27.5.1",
