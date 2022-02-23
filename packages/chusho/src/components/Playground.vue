@@ -62,13 +62,13 @@
             ref="iframe"
             :src="previewSrc"
             frameborder="0"
-            class="h-full w-full"
+            class="h-full w-full iframe"
             @load="iframeLoaded"
           />
 
           <div
             v-if="state"
-            class="w-1/3 overflow-auto p-5 text-sm border-l border-gray-200"
+            class="w-1/3 overflow-auto p-5 text-sm bg-white border-l border-gray-200"
           >
             <div class="mb-4 font-bold uppercase">State</div>
             <pre>{{ state }}</pre>
@@ -218,3 +218,10 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.iframe {
+  background-color: white;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cpath fill-rule='evenodd'/%3E%3Crect x='0' y='0' width='50%' height='50%' fill='%23F8FAFC' /%3E%3Crect x='50%' y='50%' width='50%' height='50%' fill='%23F8FAFC' /%3E%3C/svg%3E");
+}
+</style>
