@@ -96,10 +96,25 @@ describe('CCheckbox', () => {
     expect(checkbox.vm.modelValue).toBe('off');
     expect(checkbox.element.checked).toBe(false);
 
-    expect(checkbox.emitted('update:modelValue')).toEqual([['on'], ['off']]);
-
     await wrapper.setData({ value: 'on' });
     expect(checkbox.vm.modelValue).toBe('on');
     expect(checkbox.element.checked).toBe(true);
+
+    await checkbox.trigger('click');
+    await checkbox.trigger('change');
+    expect(checkbox.vm.modelValue).toBe('off');
+    expect(checkbox.element.checked).toBe(false);
+
+    await checkbox.trigger('click');
+    await checkbox.trigger('change');
+    expect(checkbox.vm.modelValue).toBe('on');
+    expect(checkbox.element.checked).toBe(true);
+
+    expect(checkbox.emitted('update:modelValue')).toEqual([
+      ['on'],
+      ['off'],
+      ['off'],
+      ['on'],
+    ]);
   });
 });
