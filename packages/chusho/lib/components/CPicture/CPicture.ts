@@ -1,15 +1,16 @@
 import {
-  defineComponent,
-  h,
-  inject,
-  mergeProps,
   PropType,
   SourceHTMLAttributes,
+  defineComponent,
+  h,
+  mergeProps,
 } from 'vue';
 
-import { DollarChusho } from '../../types';
-import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+
+import { generateConfigClass } from '../../utils/components';
 
 export default defineComponent({
   name: 'CPicture',
@@ -42,13 +43,17 @@ export default defineComponent({
     },
   },
 
+  setup() {
+    return {
+      config: useComponentConfig('picture'),
+    };
+  },
+
   render() {
-    const pictureConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.picture;
     const elementProps: Record<string, unknown> = mergeProps(this.$attrs, {
       src: this.$props.src,
       alt: this.$props.alt,
-      ...generateConfigClass(pictureConfig?.class, this.$props),
+      ...generateConfigClass(this.config?.class, this.$props),
     });
     const sources = this.$props.sources.map((source) => h('source', source));
 

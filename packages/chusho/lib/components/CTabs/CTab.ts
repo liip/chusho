@@ -1,9 +1,12 @@
-import { defineComponent, h, inject, mergeProps, PropType } from 'vue';
+import { PropType, defineComponent, h, inject, mergeProps } from 'vue';
 
-import { SelectedItemId } from '../../composables/useSelectable';
-import { DollarChusho } from '../../types';
-import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+import { SelectedItemId } from '../../composables/useSelectable';
+
+import { generateConfigClass } from '../../utils/components';
+
 import { TabsSymbol } from './CTabs';
 
 export default defineComponent({
@@ -27,6 +30,7 @@ export default defineComponent({
     const tabs = inject(TabsSymbol);
 
     return {
+      config: useComponentConfig('tab'),
       tabs,
     };
   },
@@ -34,8 +38,6 @@ export default defineComponent({
   render() {
     if (!this.tabs) return null;
 
-    const tabConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.tab;
     const isActive = this.target === this.tabs.selectedItemId.value;
     const elementProps = {
       type: 'button',
@@ -48,7 +50,7 @@ export default defineComponent({
         if (!['string', 'number'].includes(typeof this.target)) return;
         this.tabs?.setSelectedItem(this.target);
       },
-      ...generateConfigClass(tabConfig?.class, {
+      ...generateConfigClass(this.config?.class, {
         ...this.$props,
         active: isActive,
       }),

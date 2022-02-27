@@ -1,11 +1,10 @@
+import Chusho, { $chusho, components, directives, mergeDeep } from 'chusho';
 import { createApp } from 'vue';
-import Chusho, { $chusho, components, directives } from 'chusho';
-import chushoConfig from './chusho.config.js';
 
-import './assets/tailwind.css';
-
-import router from './router';
 import App from './App.vue';
+import './assets/tailwind.css';
+import chushoConfig from './chusho.config.js';
+import router from './router';
 
 const app = createApp(App);
 
@@ -27,6 +26,6 @@ app.mount('#app');
 
 if (import.meta.hot) {
   import.meta.hot.accept('./chusho.config.js', (newConfig) => {
-    $chusho.options = Object.assign({}, $chusho.options, newConfig.default);
+    mergeDeep($chusho.options, newConfig.default);
   });
 }

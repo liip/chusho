@@ -24,10 +24,13 @@ export interface UseSelectable<ItemDataT = null> {
   removeItem: (id: SelectedItemId) => void;
 }
 
+/**
+ * Generic logic for a single selected item in a list of items, optionally binded to a prop on the parent component.
+ */
 export default function useSelectable<ItemDataT = null>(
   initialValue: SelectedItemId | null = null,
   propName: string | null = null
-) {
+): UseSelectable<ItemDataT> {
   const vm = getCurrentInstance();
   const selectedItemId = ref<SelectedItemId | null>(initialValue);
   const items = ref([]) as Ref<SelectedItem<ItemDataT>[]>;

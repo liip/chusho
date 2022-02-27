@@ -1,5 +1,5 @@
 import { defineClientAppEnhance } from '@vuepress/client';
-import Chusho, { $chusho, components } from 'chusho';
+import Chusho, { $chusho, components, mergeDeep } from 'chusho';
 
 import './assets/extras.scss';
 
@@ -7,7 +7,7 @@ import chushoConfig from '../chusho.config.js';
 
 if (import.meta.hot) {
   import.meta.hot.accept('../chusho.config.js', (newConfig) => {
-    $chusho.options = Object.assign({}, $chusho.options, newConfig.default);
+    mergeDeep($chusho.options, newConfig.default);
   });
 }
 

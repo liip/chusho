@@ -9,16 +9,21 @@ import {
 } from 'vue';
 
 import { DollarChusho } from '../../types';
-import clickOutside from '../../directives/clickOutside/clickOutside';
+
+import componentMixin from '../mixins/componentMixin';
+import transitionMixin from '../mixins/transitionMixin';
+
+import useActiveElement from '../../composables/useActiveElement';
+import useComponentConfig from '../../composables/useComponentConfig';
+import { SelectedItem } from '../../composables/useSelectable';
+
 import {
   generateConfigClass,
   renderWithTransition,
 } from '../../utils/components';
-import { getNextFocusByKey, calculateActiveIndex } from '../../utils/keyboard';
-import componentMixin from '../mixins/componentMixin';
-import transitionMixin from '../mixins/transitionMixin';
-import { SelectedItem } from '../../composables/useSelectable';
-import useActiveElement from '../../composables/useActiveElement';
+import { calculateActiveIndex, getNextFocusByKey } from '../../utils/keyboard';
+
+import clickOutside from '../../directives/clickOutside/clickOutside';
 
 import { SelectOption, SelectOptionData, SelectSymbol } from './CSelect';
 
@@ -38,6 +43,7 @@ export default defineComponent({
     const clearQueryTimeout = ref<ReturnType<typeof setTimeout> | null>(null);
 
     return {
+      config: useComponentConfig('selectOptions'),
       chusho,
       select,
       active,
@@ -174,12 +180,10 @@ export default defineComponent({
   },
 
   render() {
-    const selectOptionsConfig = this.chusho?.options?.components?.selectOptions;
-
     return renderWithTransition(
       this.renderContent,
       this.transition,
-      selectOptionsConfig?.transition
+      this.config?.transition
     );
   },
 });

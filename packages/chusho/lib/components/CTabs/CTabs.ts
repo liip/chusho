@@ -1,21 +1,22 @@
 import {
-  provide,
   InjectionKey,
+  PropType,
   defineComponent,
   h,
-  PropType,
-  inject,
   mergeProps,
+  provide,
 } from 'vue';
-import uuid from '../../utils/uuid';
 
-import { DollarChusho } from '../../types';
-import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
 import useSelectable, {
-  UseSelectable,
   SelectedItemId,
+  UseSelectable,
 } from '../../composables/useSelectable';
+
+import { generateConfigClass } from '../../utils/components';
+import uuid from '../../utils/uuid';
 
 export const TabsSymbol: InjectionKey<UseTabs> = Symbol('CTabs');
 
@@ -56,23 +57,22 @@ export default defineComponent({
       props.modelValue ?? props.defaultTab ?? null,
       'modelValue'
     );
-    const api: UseTabs = {
+    const tabs: UseTabs = {
       uuid: uuid('chusho-tabs'),
       ...selected,
     };
 
-    provide(TabsSymbol, api);
+    provide(TabsSymbol, tabs);
 
     return {
-      tabs: api,
+      config: useComponentConfig('tabs'),
+      tabs,
     };
   },
 
   render() {
-    const tabsConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.tabs;
     const elementProps: Record<string, unknown> = {
-      ...generateConfigClass(tabsConfig?.class, this.$props),
+      ...generateConfigClass(this.config?.class, this.$props),
     };
 
     return h('div', mergeProps(this.$attrs, elementProps), this.$slots);

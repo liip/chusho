@@ -1,12 +1,17 @@
-import { inject, h, defineComponent, mergeProps } from 'vue';
+import { defineComponent, h, inject, mergeProps } from 'vue';
 
 import { DollarChusho } from '../../types';
+
+import componentMixin from '../mixins/componentMixin';
+import transitionMixin from '../mixins/transitionMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+
 import {
   generateConfigClass,
   renderWithTransition,
 } from '../../utils/components';
-import componentMixin from '../mixins/componentMixin';
-import transitionMixin from '../mixins/transitionMixin';
+
 import { CollapseSymbol } from './CCollapse';
 
 export default defineComponent({
@@ -21,6 +26,7 @@ export default defineComponent({
     const collapse = inject(CollapseSymbol);
 
     return {
+      config: useComponentConfig('collapseContent'),
       chusho,
       collapse,
     };
@@ -45,12 +51,10 @@ export default defineComponent({
   },
 
   render() {
-    const collapseConfig = this.chusho?.options?.components?.collapseContent;
-
     return renderWithTransition(
       this.renderContent,
       this.transition,
-      collapseConfig?.transition
+      this.config?.transition
     );
   },
 });

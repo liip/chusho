@@ -1,16 +1,11 @@
-import {
-  defineComponent,
-  h,
-  inject,
-  InjectionKey,
-  mergeProps,
-  provide,
-} from 'vue';
+import { InjectionKey, defineComponent, h, mergeProps, provide } from 'vue';
 
-import { DollarChusho } from '../../types';
+import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+
 import { generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
-import componentMixin from '../mixins/componentMixin';
 
 export const SelectGroupSymbol: InjectionKey<UseSelectGroup> =
   Symbol('CSelectGroup');
@@ -27,24 +22,23 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup() {
-    const api: UseSelectGroup = {
+    const selectGroup: UseSelectGroup = {
       labelId: uuid('chusho-select-group-label'),
     };
 
-    provide(SelectGroupSymbol, api);
+    provide(SelectGroupSymbol, selectGroup);
 
     return {
-      selectGroup: api,
+      config: useComponentConfig('selectGroup'),
+      selectGroup,
     };
   },
 
   render() {
-    const selectGroupConfig = inject<DollarChusho | null>('$chusho', null)
-      ?.options?.components?.selectGroup;
     const elementProps: Record<string, unknown> = {
       role: 'group',
       'aria-labelledby': this.selectGroup.labelId,
-      ...generateConfigClass(selectGroupConfig?.class, this.$props),
+      ...generateConfigClass(this.config?.class, this.$props),
     };
 
     return h('div', mergeProps(this.$attrs, elementProps), this.$slots);

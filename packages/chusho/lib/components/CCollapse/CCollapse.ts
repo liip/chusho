@@ -1,17 +1,12 @@
-import {
-  provide,
-  InjectionKey,
-  defineComponent,
-  h,
-  inject,
-  mergeProps,
-} from 'vue';
+import { InjectionKey, defineComponent, h, mergeProps, provide } from 'vue';
+
+import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
 import useTogglable from '../../composables/useTogglable';
 
-import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
-import componentMixin from '../mixins/componentMixin';
 
 export const CollapseSymbol: InjectionKey<UseCollapse> = Symbol('CCollapse');
 
@@ -40,15 +35,16 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup(props) {
-    const api: UseCollapse = {
+    const collapse: UseCollapse = {
       uuid: uuid('chusho-collapse'),
       toggle: useTogglable(props.modelValue),
     };
 
-    provide(CollapseSymbol, api);
+    provide(CollapseSymbol, collapse);
 
     return {
-      collapse: api,
+      config: useComponentConfig('collapse'),
+      collapse,
     };
   },
 
@@ -57,11 +53,9 @@ export default defineComponent({
    * @binding {boolean} active `true` when collapse is open
    */
   render() {
-    const collapseConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.collapse;
     const isActive = this.collapse?.toggle.isOpen.value ?? false;
     const elementProps: Record<string, unknown> = {
-      ...generateConfigClass(collapseConfig?.class, {
+      ...generateConfigClass(this.config?.class, {
         ...this.$props,
         active: isActive,
       }),

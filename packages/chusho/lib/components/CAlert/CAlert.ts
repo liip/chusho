@@ -1,8 +1,10 @@
-import { defineComponent, h, inject, mergeProps } from 'vue';
+import { defineComponent, h, mergeProps } from 'vue';
 
-import { DollarChusho } from '../../types';
-import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+
+import { generateConfigClass } from '../../utils/components';
 
 export default defineComponent({
   name: 'CAlert',
@@ -11,12 +13,16 @@ export default defineComponent({
 
   inheritAttrs: false,
 
+  setup() {
+    return {
+      config: useComponentConfig('alert'),
+    };
+  },
+
   render() {
-    const alertConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.alert;
     const elementProps: Record<string, unknown> = {
       role: 'alert',
-      ...generateConfigClass(alertConfig?.class, this.$props),
+      ...generateConfigClass(this.config?.class, this.$props),
     };
 
     return h('div', mergeProps(this.$attrs, elementProps), this.$slots);

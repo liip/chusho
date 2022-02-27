@@ -1,9 +1,12 @@
-import { defineComponent, h, inject, mergeProps, PropType } from 'vue';
+import { PropType, defineComponent, h, inject, mergeProps } from 'vue';
+
+import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
 import { SelectedItemId } from '../../composables/useSelectable';
 
-import { DollarChusho } from '../../types';
 import { generateConfigClass } from '../../utils/components';
-import componentMixin from '../mixins/componentMixin';
+
 import { TabsSymbol } from './CTabs';
 
 export default defineComponent({
@@ -34,6 +37,7 @@ export default defineComponent({
     }
 
     return {
+      config: useComponentConfig('tabPanel'),
       tabs,
     };
   },
@@ -45,8 +49,6 @@ export default defineComponent({
   render() {
     if (!this.tabs) return;
 
-    const tabPanelConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.tabPanel;
     const isActive = this.id === this.tabs.selectedItemId.value;
 
     if (!isActive) return null;
@@ -56,7 +58,7 @@ export default defineComponent({
       role: 'tabpanel',
       'aria-labelledby': `${this.tabs.uuid}-tab-${this.id}`,
       tabindex: '0',
-      ...generateConfigClass(tabPanelConfig?.class, {
+      ...generateConfigClass(this.config?.class, {
         ...this.$props,
         active: isActive,
       }),

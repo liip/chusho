@@ -1,7 +1,10 @@
-import { defineComponent, h, inject, mergeProps } from 'vue';
-import { DollarChusho } from '../../types';
-import { generateConfigClass } from '../../utils/components';
+import { defineComponent, h, mergeProps } from 'vue';
+
 import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+
+import { generateConfigClass } from '../../utils/components';
 
 export default defineComponent({
   name: 'CTextarea',
@@ -22,17 +25,21 @@ export default defineComponent({
 
   emits: ['update:modelValue'],
 
+  setup() {
+    return {
+      config: useComponentConfig('textarea'),
+    };
+  },
+
   render() {
-    const inputConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.textarea;
-    const attrs: Record<string, unknown> = {
-      ...generateConfigClass(inputConfig?.class, this.$props),
+    const elementProps: Record<string, unknown> = {
+      ...generateConfigClass(this.config?.class, this.$props),
       value: this.modelValue,
       onInput: (e: KeyboardEvent) => {
         this.$emit('update:modelValue', (e.target as HTMLInputElement).value);
       },
     };
 
-    return h('textarea', mergeProps(this.$attrs, attrs));
+    return h('textarea', mergeProps(this.$attrs, elementProps));
   },
 });

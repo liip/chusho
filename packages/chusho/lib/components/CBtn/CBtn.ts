@@ -1,17 +1,18 @@
 import {
+  PropType,
   defineComponent,
   h,
-  inject,
   mergeProps,
-  PropType,
   resolveComponent,
 } from 'vue';
 import { RouteLocationRaw } from 'vue-router';
 
-import { DollarChusho } from '../../types';
+import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+
 import { generateConfigClass } from '../../utils/components';
 import { warn } from '../../utils/debug';
-import componentMixin from '../mixins/componentMixin';
 
 export default defineComponent({
   name: 'CBtn',
@@ -64,9 +65,13 @@ export default defineComponent({
     },
   },
 
+  setup() {
+    return {
+      config: useComponentConfig('btn'),
+    };
+  },
+
   render() {
-    const btnConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.btn;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let tag: any = 'button';
     let extraAttrs: Record<string, unknown> = {};
@@ -105,7 +110,7 @@ export default defineComponent({
       // Concerns only on button tags, skip for anchors
       ...(this.disabled && tag === 'button' && { disabled: true }),
       ...(this.type && tag === 'button' && { type: this.type }),
-      ...generateConfigClass(btnConfig?.class, this.$props),
+      ...generateConfigClass(this.config?.class, this.$props),
     };
 
     return h(tag, mergeProps(this.$attrs, elementProps), this.$slots);

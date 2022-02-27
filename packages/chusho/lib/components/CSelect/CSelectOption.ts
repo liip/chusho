@@ -10,10 +10,13 @@ import {
   ref,
 } from 'vue';
 
-import { DollarChusho } from '../../types';
+import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+
 import { ALL_TYPES, generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
-import componentMixin from '../mixins/componentMixin';
+
 import { SelectSymbol } from './CSelect';
 
 export default defineComponent({
@@ -61,6 +64,7 @@ export default defineComponent({
     }
 
     return {
+      config: useComponentConfig('selectOption'),
       select,
       id,
       isActive: computed(() => props.value === select?.value.value),
@@ -73,9 +77,6 @@ export default defineComponent({
   },
 
   render() {
-    const selectOptionConfig = inject<DollarChusho | null>('$chusho', null)
-      ?.options?.components?.selectOption;
-
     const saveAndClose = () => {
       this.select?.setValue(this.value);
       this.select?.togglable.close();
@@ -98,7 +99,7 @@ export default defineComponent({
               }
             },
           }),
-      ...generateConfigClass(selectOptionConfig?.class, {
+      ...generateConfigClass(this.config?.class, {
         ...this.$props,
         active: this.isActive,
         focus: this.isFocused,

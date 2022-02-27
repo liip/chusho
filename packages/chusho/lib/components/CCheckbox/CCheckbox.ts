@@ -1,7 +1,10 @@
-import { defineComponent, h, inject, mergeProps } from 'vue';
-import { DollarChusho } from '../../types';
-import { ALL_TYPES, generateConfigClass } from '../../utils/components';
+import { defineComponent, h, mergeProps } from 'vue';
+
 import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+
+import { ALL_TYPES, generateConfigClass } from '../../utils/components';
 
 export default defineComponent({
   name: 'CCheckbox',
@@ -39,12 +42,16 @@ export default defineComponent({
 
   emits: ['update:modelValue'],
 
+  setup() {
+    return {
+      config: useComponentConfig('checkbox'),
+    };
+  },
+
   render() {
-    const checkboxConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.checkbox;
     const checked = this.modelValue === this.trueValue;
-    const attrs: Record<string, unknown> = {
-      ...generateConfigClass(checkboxConfig?.class, {
+    const elementProps: Record<string, unknown> = {
+      ...generateConfigClass(this.config?.class, {
         ...this.$props,
         checked,
       }),
@@ -59,6 +66,6 @@ export default defineComponent({
       },
     };
 
-    return h('input', mergeProps(this.$attrs, attrs), this.$slots);
+    return h('input', mergeProps(this.$attrs, elementProps), this.$slots);
   },
 });

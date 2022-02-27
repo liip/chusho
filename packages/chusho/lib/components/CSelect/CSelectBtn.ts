@@ -1,8 +1,10 @@
 import { defineComponent, h, inject, mergeProps } from 'vue';
 
-import { DollarChusho } from '../../types';
-import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+
+import { generateConfigClass } from '../../utils/components';
 
 import { CBtn } from '../CBtn';
 import { SelectSymbol } from './CSelect';
@@ -18,18 +20,17 @@ export default defineComponent({
     const select = inject(SelectSymbol);
 
     return {
+      config: useComponentConfig('selectBtn'),
       select,
     };
   },
 
   render() {
-    const selectBtnConfig = inject<DollarChusho | null>('$chusho', null)
-      ?.options?.components?.selectBtn;
     const open = this.select?.togglable.isOpen.value;
     const elementProps: Record<string, unknown> = {
       ...this.select?.togglable.attrs.btn.value,
       'aria-haspopup': 'listbox',
-      ...generateConfigClass(selectBtnConfig?.class, {
+      ...generateConfigClass(this.config?.class, {
         ...this.$props,
         active: open,
         disabled: this.select?.disabled.value,

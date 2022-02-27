@@ -1,7 +1,10 @@
-import { defineComponent, h, inject, mergeProps } from 'vue';
-import { DollarChusho } from '../../types';
-import { generateConfigClass } from '../../utils/components';
+import { defineComponent, h, mergeProps } from 'vue';
+
 import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+
+import { generateConfigClass } from '../../utils/components';
 
 export default defineComponent({
   name: 'CTextField',
@@ -29,11 +32,15 @@ export default defineComponent({
 
   emits: ['update:modelValue'],
 
+  setup() {
+    return {
+      config: useComponentConfig('textField'),
+    };
+  },
+
   render() {
-    const inputConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.textField;
-    const attrs: Record<string, unknown> = {
-      ...generateConfigClass(inputConfig?.class, this.$props),
+    const elementProps: Record<string, unknown> = {
+      ...generateConfigClass(this.config?.class, this.$props),
       type: this.type,
       value: this.modelValue,
       onInput: (e: KeyboardEvent) => {
@@ -41,6 +48,6 @@ export default defineComponent({
       },
     };
 
-    return h('input', mergeProps(this.$attrs, attrs));
+    return h('input', mergeProps(this.$attrs, elementProps));
   },
 });

@@ -1,7 +1,10 @@
-import { defineComponent, h, inject, mergeProps } from 'vue';
-import { DollarChusho } from '../../types';
-import { ALL_TYPES, generateConfigClass } from '../../utils/components';
+import { defineComponent, h, mergeProps } from 'vue';
+
 import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+
+import { ALL_TYPES, generateConfigClass } from '../../utils/components';
 
 export default defineComponent({
   name: 'CRadio',
@@ -31,12 +34,16 @@ export default defineComponent({
 
   emits: ['update:modelValue'],
 
+  setup() {
+    return {
+      config: useComponentConfig('radio'),
+    };
+  },
+
   render() {
-    const radioConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.radio;
     const checked = this.modelValue === this.value;
-    const attrs: Record<string, unknown> = {
-      ...generateConfigClass(radioConfig?.class, {
+    const elementProps: Record<string, unknown> = {
+      ...generateConfigClass(this.config?.class, {
         ...this.$props,
         checked,
       }),
@@ -46,6 +53,6 @@ export default defineComponent({
       onChange: () => this.$emit('update:modelValue', this.$props.value),
     };
 
-    return h('input', mergeProps(this.$attrs, attrs), this.$slots);
+    return h('input', mergeProps(this.$attrs, elementProps), this.$slots);
   },
 });

@@ -1,26 +1,27 @@
 import {
-  computed,
   ComputedRef,
+  InjectionKey,
+  computed,
   defineComponent,
   h,
-  inject,
-  InjectionKey,
   mergeProps,
   provide,
 } from 'vue';
 
-import { DollarChusho } from '../../types';
-import { ALL_TYPES, generateConfigClass } from '../../utils/components';
-import uuid from '../../utils/uuid';
 import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
 import useSelectable, {
   SelectedItem,
   UseSelectable,
 } from '../../composables/useSelectable';
 import useTogglable from '../../composables/useTogglable';
-import { isObject, isPrimitive } from '../../utils/objects';
 
-export const SelectSymbol: InjectionKey<UseSelect> = Symbol('CSelect');
+import { ALL_TYPES, generateConfigClass } from '../../utils/components';
+import { isObject, isPrimitive } from '../../utils/objects';
+import uuid from '../../utils/uuid';
+
+export const SelectSymbol: InjectionKey<Select> = Symbol('CSelect');
 
 type SelectValue = unknown;
 
@@ -31,7 +32,7 @@ export interface SelectOptionData {
 
 export type SelectOption = SelectedItem<SelectOptionData>;
 
-export interface UseSelect {
+export interface Select {
   uuid: string;
   value: ComputedRef<SelectValue>;
   setValue: (value: SelectValue) => void;
@@ -105,7 +106,7 @@ export default defineComponent({
   emits: ['update:modelValue', 'update:open'],
 
   setup(props, { emit }) {
-    const api: UseSelect = {
+    const select: Select = {
       uuid: uuid('chusho-select'),
       value: computed(() => props.modelValue),
       setValue: (value: unknown) => {
@@ -116,21 +117,18 @@ export default defineComponent({
       selectable: useSelectable<SelectOptionData>(),
     };
 
-    provide(SelectSymbol, api);
+    provide(SelectSymbol, select);
 
     return {
-      select: api,
+      config: useComponentConfig('select'),
+      select,
     };
   },
 
   methods: {
     handleKeydown(e: KeyboardEvent) {
-      switch (e.key) {
-        case 'Tab':
-        case 'Esc':
-        case 'Escape':
-          this.select.togglable.close();
-          break;
+      if (['Tab', 'Esc', 'Escape'].includes(e.key)) {
+        this.select.togglable.close();
       }
     },
   },
@@ -140,10 +138,8 @@ export default defineComponent({
    * @binding {boolean} open `true` when the select is open
    */
   render() {
-    const selectConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.select;
     const elementProps: Record<string, unknown> = {
-      ...generateConfigClass(selectConfig?.class, this.$props),
+      ...generateConfigClass(this.config?.class, this.$props),
       onKeydown: this.handleKeydown,
     };
     const inputProps: Record<string, unknown> = {

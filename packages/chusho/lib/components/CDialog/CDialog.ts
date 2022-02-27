@@ -1,29 +1,33 @@
 import {
-  h,
+  PropType,
+  Teleport,
   VNode,
   defineComponent,
-  Teleport,
-  nextTick,
-  PropType,
-  mergeProps,
+  h,
   inject,
+  mergeProps,
+  nextTick,
 } from 'vue';
 
-import { getFocusableElements } from '../../utils/keyboard';
+import { DollarChusho } from '../../types';
+
+import componentMixin from '../mixins/componentMixin';
+import transitionMixin from '../mixins/transitionMixin';
+
+import useActiveElement from '../../composables/useActiveElement';
+import useComponentConfig from '../../composables/useComponentConfig';
+
 import {
   generateConfigClass,
   renderWithTransition,
 } from '../../utils/components';
-import componentMixin from '../mixins/componentMixin';
-import transitionMixin from '../mixins/transitionMixin';
-import { DollarChusho } from '../../types';
+import { getFocusableElements } from '../../utils/keyboard';
 import {
-  createPortalIfNotExists,
   PORTAL_ID,
+  createPortalIfNotExists,
   preventAccessToPageContent,
   releaseAccessToPageContent,
 } from './utils';
-import useActiveElement from '../../composables/useActiveElement';
 
 export interface DialogData {
   active: boolean;
@@ -62,6 +66,7 @@ export default defineComponent({
     const chusho = inject<DollarChusho | null>('$chusho', null);
 
     return {
+      config: useComponentConfig('dialog'),
       chusho,
       activeElement: useActiveElement(),
     };
@@ -172,7 +177,6 @@ export default defineComponent({
     },
 
     renderChildren() {
-      const dialogConfig = this.chusho?.options?.components?.dialog;
       const children: VNode[] = [];
 
       if (this.modelValue) {
@@ -182,13 +186,13 @@ export default defineComponent({
             if (e.target !== e.currentTarget) return;
             this.$emit('update:modelValue', false);
           },
-          ...generateConfigClass(dialogConfig?.overlayClass, this.$props),
+          ...generateConfigClass(this.config?.overlayClass, this.$props),
         });
 
         const dialogProps = mergeProps(this.$attrs, {
           role: 'dialog',
           ref: 'dialogElement',
-          ...generateConfigClass(dialogConfig?.class, this.$props),
+          ...generateConfigClass(this.config?.class, this.$props),
         });
 
         children.push(
@@ -205,8 +209,6 @@ export default defineComponent({
   },
 
   render() {
-    const dialogConfig = this.chusho?.options?.components?.dialog;
-
     createPortalIfNotExists();
 
     return h(
@@ -218,7 +220,7 @@ export default defineComponent({
         renderWithTransition(
           this.renderChildren,
           this.transition,
-          dialogConfig?.transition
+          this.config?.transition
         ),
       ]
     );

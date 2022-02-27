@@ -1,11 +1,16 @@
-import { defineComponent, h, inject, nextTick, mergeProps } from 'vue';
+import { defineComponent, h, inject, mergeProps, nextTick } from 'vue';
 
 import { DollarChusho } from '../../types';
-import { getNextFocusByKey, calculateActiveIndex } from '../../utils/keyboard';
-import { generateConfigClass } from '../../utils/components';
+
 import componentMixin from '../mixins/componentMixin';
-import { TabsSymbol } from './CTabs';
+
+import useComponentConfig from '../../composables/useComponentConfig';
 import { SelectedItem } from '../../composables/useSelectable';
+
+import { generateConfigClass } from '../../utils/components';
+import { calculateActiveIndex, getNextFocusByKey } from '../../utils/keyboard';
+
+import { TabsSymbol } from './CTabs';
 
 export default defineComponent({
   name: 'CTabList',
@@ -19,6 +24,7 @@ export default defineComponent({
     const tabs = inject(TabsSymbol);
 
     return {
+      config: useComponentConfig('tabList'),
       chusho,
       tabs,
     };
@@ -65,12 +71,11 @@ export default defineComponent({
   },
 
   render() {
-    const tabListConfig = this.chusho?.options?.components?.tabList;
     const elementProps: Record<string, unknown> = {
       role: 'tablist',
       onKeydown: this.handleNavigation,
       ref: 'tabList',
-      ...generateConfigClass(tabListConfig?.class, this.$props),
+      ...generateConfigClass(this.config?.class, this.$props),
     };
 
     return h('div', mergeProps(this.$attrs, elementProps), this.$slots);

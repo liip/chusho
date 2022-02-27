@@ -1,8 +1,10 @@
 import { defineComponent, h, inject, mergeProps } from 'vue';
 
-import { DollarChusho } from '../../types';
-import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+
+import { generateConfigClass } from '../../utils/components';
 
 import { SelectGroupSymbol } from './CSelectGroup';
 
@@ -17,16 +19,15 @@ export default defineComponent({
     const selectGroup = inject(SelectGroupSymbol);
 
     return {
+      config: useComponentConfig('selectGroupLabel'),
       selectGroup,
     };
   },
 
   render() {
-    const selectGroupLabelConfig = inject<DollarChusho | null>('$chusho', null)
-      ?.options?.components?.selectGroupLabel;
     const elementProps: Record<string, unknown> = {
       id: this.selectGroup?.labelId,
-      ...generateConfigClass(selectGroupLabelConfig?.class, this.$props),
+      ...generateConfigClass(this.config?.class, this.$props),
     };
 
     return h('div', mergeProps(this.$attrs, elementProps), this.$slots);

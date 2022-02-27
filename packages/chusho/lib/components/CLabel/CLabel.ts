@@ -1,8 +1,10 @@
-import { defineComponent, h, inject, mergeProps } from 'vue';
+import { defineComponent, h, mergeProps } from 'vue';
 
-import { DollarChusho } from '../../types';
-import { generateConfigClass } from '../../utils/components';
 import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+
+import { generateConfigClass } from '../../utils/components';
 
 export default defineComponent({
   name: 'CLabel',
@@ -11,13 +13,17 @@ export default defineComponent({
 
   inheritAttrs: false,
 
+  setup() {
+    return {
+      config: useComponentConfig('label'),
+    };
+  },
+
   render() {
-    const labelConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.label;
-    const attrs: Record<string, unknown> = {
-      ...generateConfigClass(labelConfig?.class, this.$props),
+    const elementProps: Record<string, unknown> = {
+      ...generateConfigClass(this.config?.class, this.$props),
     };
 
-    return h('label', mergeProps(this.$attrs, attrs), this.$slots);
+    return h('label', mergeProps(this.$attrs, elementProps), this.$slots);
   },
 });

@@ -1,6 +1,6 @@
-import { BaseTransitionProps, PropType } from 'vue';
+import { BaseTransitionProps, PropType, defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   props: {
     /**
      * The object can contain any Vue built-in [transition component props](https://v3.vuejs.org/api/built-in-components.html#transition).
@@ -14,4 +14,4 @@ export default {
       default: null,
     },
   },
-};
+});

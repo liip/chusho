@@ -1,9 +1,11 @@
-import { defineComponent, h, inject, mergeProps } from 'vue';
+import { defineComponent, h, mergeProps } from 'vue';
 
-import { DollarChusho } from '../../types';
+import componentMixin from '../mixins/componentMixin';
+
+import useComponentConfig from '../../composables/useComponentConfig';
+
 import { generateConfigClass } from '../../utils/components';
 import uuid from '../../utils/uuid';
-import componentMixin from '../mixins/componentMixin';
 
 export default defineComponent({
   name: 'CIcon',
@@ -43,14 +45,18 @@ export default defineComponent({
     },
   },
 
+  setup() {
+    return {
+      config: useComponentConfig('icon'),
+    };
+  },
+
   render() {
-    const iconConfig = inject<DollarChusho | null>('$chusho', null)?.options
-      ?.components?.icon;
     const elementProps: Record<string, unknown> = mergeProps(this.$attrs, {
       focusable: 'false',
-      width: `${(iconConfig?.width || 24) * this.scale}`,
-      height: `${(iconConfig?.height || 24) * this.scale}`,
-      ...generateConfigClass(iconConfig?.class, this.$props),
+      width: `${(this.config?.width || 24) * this.scale}`,
+      height: `${(this.config?.height || 24) * this.scale}`,
+      ...generateConfigClass(this.config?.class, this.$props),
     });
     const id = uuid('chusho-icon');
 
@@ -71,7 +77,7 @@ export default defineComponent({
         ),
       h('use', {
         key: this.id,
-        'xlink:href': `${iconConfig?.spriteUrl || ''}#${this.id}`,
+        'xlink:href': `${this.config?.spriteUrl || ''}#${this.id}`,
       }),
     ]);
   },

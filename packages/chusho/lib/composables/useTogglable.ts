@@ -2,6 +2,10 @@ import { VNode, computed, getCurrentInstance, ref, watch } from 'vue';
 
 import uuid from '../utils/uuid';
 
+/**
+ * Generic logic for a button/target pair where the button
+ * toggles the target visibility
+ */
 export default function useTogglable(
   initialValue = false,
   propName = 'modelValue'
