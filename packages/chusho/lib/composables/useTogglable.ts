@@ -1,4 +1,4 @@
-import { computed, getCurrentInstance, ref, VNode, watch } from 'vue';
+import { VNode, computed, getCurrentInstance, ref, watch } from 'vue';
 
 import uuid from '../utils/uuid';
 

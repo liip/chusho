@@ -1,5 +1,6 @@
-import { warn } from '../../utils/debug';
 import { DirectiveBinding, ObjectDirective } from 'vue';
+
+import { warn } from '../../utils/debug';
 
 const handlers = new WeakMap();
 

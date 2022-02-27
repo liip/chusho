@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils';
 import { h } from 'vue';
 
-import CTabs from './CTabs';
 import CTabPanels from './CTabPanels';
+import CTabs from './CTabs';
 
 describe('CTabPanels', () => {
   it('renders with config class', () => {

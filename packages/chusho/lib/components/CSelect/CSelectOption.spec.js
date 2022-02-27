@@ -2,8 +2,8 @@ import { mount } from '@vue/test-utils';
 import { h, nextTick } from 'vue';
 
 import CSelect from './CSelect';
-import CSelectOptions from './CSelectOptions';
 import CSelectOption from './CSelectOption';
+import CSelectOptions from './CSelectOptions';
 
 describe('CSelectOption', () => {
   it('renders with the right attributes when selected', () => {

@@ -89,10 +89,10 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
 import 'highlight.js/styles/atom-one-light.css';
+import { defineComponent, ref } from 'vue';
 
-import router from '@/router';
+import router from '../router';
 
 function buildCategories() {
   const examples = router

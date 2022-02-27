@@ -1,8 +1,11 @@
 /* eslint-disable vue/one-component-per-file */
 import { createApp } from 'vue';
+
+import * as components from './components';
+
+import * as directives from './directives';
+
 import * as main from './chusho';
-import * as components2 from './components';
-import * as directives2 from './directives';
 
 describe('Chūshō', () => {
   it('provides the result of user options merged with default options to the app', () => {
@@ -37,18 +40,18 @@ describe('Chūshō', () => {
   });
 
   it('exports an object of components', () => {
-    expect(main.components).toEqual(components2);
+    expect(main.components).toEqual(components);
   });
 
   it('exports components individually', () => {
-    expect(main).toMatchObject(components2);
+    expect(main).toMatchObject(components);
   });
 
   it('exports an object of directives', () => {
-    expect(main.directives).toEqual(directives2);
+    expect(main.directives).toEqual(directives);
   });
 
   it('exports directives individually', () => {
-    expect(main).toMatchObject(directives2);
+    expect(main).toMatchObject(directives);
   });
 });

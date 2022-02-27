@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+
 import CIcon from './CIcon';
 
 describe('CIcon', () => {

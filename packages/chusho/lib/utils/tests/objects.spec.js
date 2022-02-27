@@ -1,4 +1,4 @@
-import { isPlainObject, isObject, mergeDeep } from '../objects';
+import { isObject, isPlainObject, mergeDeep } from '../objects';
 
 describe('objects', () => {
   describe('isPlainObject', () => {

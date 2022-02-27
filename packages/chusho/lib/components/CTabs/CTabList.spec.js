@@ -1,11 +1,11 @@
 import { mount } from '@vue/test-utils';
 import { h, nextTick } from 'vue';
 
-import CTabs from './CTabs';
-import CTabList from './CTabList';
 import CTab from './CTab';
-import CTabPanels from './CTabPanels';
+import CTabList from './CTabList';
 import CTabPanel from './CTabPanel';
+import CTabPanels from './CTabPanels';
+import CTabs from './CTabs';
 
 describe('CTabList', () => {
   it('renders with the right attributes', () => {

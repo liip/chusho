@@ -1,7 +1,8 @@
 import { App, Plugin, reactive } from 'vue';
 
+import { ChushoOptions, ChushoUserOptions, DollarChusho } from './types';
+
 import { mergeDeep } from './utils/objects';
-import { DollarChusho, ChushoOptions, ChushoUserOptions } from './types';
 
 const defaultOptions: ChushoOptions = {
   rtl: function () {

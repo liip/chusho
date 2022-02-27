@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { Form, Field, ErrorMessage } from 'vee-validate';
+import { ErrorMessage, Field, Form } from 'vee-validate';
 
 export default {
   components: {

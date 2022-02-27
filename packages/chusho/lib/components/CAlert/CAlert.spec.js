@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+
 import CAlert from './CAlert';
 
 describe('CAlert', () => {

@@ -1,4 +1,4 @@
-import { computed, Ref, ref } from 'vue';
+import { Ref, computed, ref } from 'vue';
 
 export default function useActiveElement() {
   const savedElement: Ref<HTMLElement | null> = ref(null);

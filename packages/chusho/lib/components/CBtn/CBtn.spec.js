@@ -1,4 +1,5 @@
-import { mount, RouterLinkStub } from '@vue/test-utils';
+import { RouterLinkStub, mount } from '@vue/test-utils';
+
 import CBtn from './CBtn';
 
 describe('CBtn', () => {

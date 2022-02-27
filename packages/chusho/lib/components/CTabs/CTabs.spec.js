@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils';
 import { h } from 'vue';
 
-import CTabs from './CTabs';
 import CTabList from './CTabList';
+import CTabs from './CTabs';
 
 describe('CTabs', () => {
   it('provides tabs API', () => {

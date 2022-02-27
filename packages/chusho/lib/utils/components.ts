@@ -1,6 +1,8 @@
-import { h, Transition, BaseTransitionProps, VNode } from 'vue';
-import { isPlainObject } from '../utils/objects';
+import { BaseTransitionProps, Transition, VNode, h } from 'vue';
+
 import { ClassGenerator, VueClassBinding } from '../types';
+
+import { isPlainObject } from '../utils/objects';
 
 export const ALL_TYPES = [
   String,

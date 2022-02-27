@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router';
 import startCase from 'lodash/startCase';
+import { createRouter, createWebHistory } from 'vue-router';
 
-import Playground from './components/Playground.vue';
 import Examples from './components/Examples.vue';
+import Playground from './components/Playground.vue';
 
 const examplesComponents = import.meta.glob('./components/examples/**/*.vue');
 const examples = [];

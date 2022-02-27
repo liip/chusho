@@ -1,4 +1,5 @@
 import { Transition } from 'vue';
+
 import { generateConfigClass, renderWithTransition } from '../components';
 
 describe('components', () => {

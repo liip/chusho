@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+
 import CLabel from './CLabel';
 
 describe('CLabel', () => {

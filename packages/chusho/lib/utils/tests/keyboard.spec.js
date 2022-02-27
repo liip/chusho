@@ -1,4 +1,4 @@
-import { Focus, getNextFocusByKey, calculateActiveIndex } from '../keyboard';
+import { Focus, calculateActiveIndex, getNextFocusByKey } from '../keyboard';
 
 describe('keyboard', () => {
   describe('getNextFocusByKey', () => {
