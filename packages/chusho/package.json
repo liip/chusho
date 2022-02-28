@@ -7,7 +7,7 @@
     "url": "https://www.liip.ch/"
   },
   "scripts": {
-    "start": "vite",
+    "start": "node server",
     "build": "npm run build:lib && npm run build:types",
     "build:lib": "vite build",
     "build:types": "tsc -p tsconfig.json --declaration --emitDeclarationOnly",
@@ -40,6 +40,7 @@
     "core-js": "^3.21.1",
     "cypress": "^9.5.0",
     "cypress-plugin-tab": "^1.0.5",
+    "express": "^4.17.3",
     "highlight.js": "^10.7.3",
     "jest": "^27.5.1",
     "lodash": "^4.17.21",

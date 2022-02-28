@@ -91,10 +91,10 @@
 <script>
 import 'highlight.js/styles/atom-one-light.css';
 import { defineComponent, ref } from 'vue';
-
-import router from '../router';
+import { useRouter } from 'vue-router';
 
 function buildCategories() {
+  const router = useRouter();
   const examples = router
     .getRoutes()
     .find((route) => route.name === 'examples');

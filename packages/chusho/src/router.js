@@ -1,5 +1,9 @@
 import startCase from 'lodash/startCase';
-import { createRouter, createWebHistory } from 'vue-router';
+import {
+  createRouter as _createRouter,
+  createMemoryHistory,
+  createWebHistory,
+} from 'vue-router';
 
 import Examples from './components/Examples.vue';
 import Playground from './components/Playground.vue';
@@ -23,21 +27,21 @@ for (const path in examplesComponents) {
   });
 }
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    {
-      path: '/',
-      name: 'playground',
-      component: Playground,
-    },
-    {
-      path: '/examples',
-      name: 'examples',
-      component: Examples,
-      children: examples,
-    },
-  ],
-});
-
-export default router;
+export function createRouter() {
+  return _createRouter({
+    history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
+    routes: [
+      {
+        path: '/',
+        name: 'playground',
+        component: Playground,
+      },
+      {
+        path: '/examples',
+        name: 'examples',
+        component: Examples,
+        children: examples,
+      },
+    ],
+  });
+}
