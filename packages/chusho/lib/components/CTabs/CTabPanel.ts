@@ -54,9 +54,9 @@ export default defineComponent({
     if (!isActive) return null;
 
     const elementProps = {
-      id: `${this.tabs.uuid}-tabpanel-${this.id}`,
+      id: `${this.tabs.uid}-tabpanel-${this.id}`,
       role: 'tabpanel',
-      'aria-labelledby': `${this.tabs.uuid}-tab-${this.id}`,
+      'aria-labelledby': `${this.tabs.uid}-tab-${this.id}`,
       tabindex: '0',
       ...generateConfigClass(this.config?.class, {
         ...this.$props,

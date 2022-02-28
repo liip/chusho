@@ -5,7 +5,7 @@ import componentMixin from '../mixins/componentMixin';
 import useComponentConfig from '../../composables/useComponentConfig';
 
 import { generateConfigClass } from '../../utils/components';
-import uuid from '../../utils/uuid';
+import uid from '../../utils/uid';
 
 export default defineComponent({
   name: 'CIcon',
@@ -58,7 +58,7 @@ export default defineComponent({
       height: `${(this.config?.height || 24) * this.scale}`,
       ...generateConfigClass(this.config?.class, this.$props),
     });
-    const id = uuid('chusho-icon');
+    const id = uid('chusho-icon');
 
     if (this.alt) {
       elementProps['aria-labelledby'] = id;

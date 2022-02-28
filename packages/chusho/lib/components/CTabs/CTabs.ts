@@ -16,12 +16,12 @@ import useSelectable, {
 } from '../../composables/useSelectable';
 
 import { generateConfigClass } from '../../utils/components';
-import uuid from '../../utils/uuid';
+import uid from '../../utils/uid';
 
 export const TabsSymbol: InjectionKey<UseTabs> = Symbol('CTabs');
 
 export interface UseTabs extends UseSelectable {
-  uuid: string;
+  uid: string;
 }
 
 export default defineComponent({
@@ -58,7 +58,7 @@ export default defineComponent({
       'modelValue'
     );
     const tabs: UseTabs = {
-      uuid: uuid('chusho-tabs'),
+      uid: uid('chusho-tabs'),
       ...selected,
     };
 

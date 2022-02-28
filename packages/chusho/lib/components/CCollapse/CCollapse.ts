@@ -6,12 +6,12 @@ import useComponentConfig from '../../composables/useComponentConfig';
 import useTogglable from '../../composables/useTogglable';
 
 import { generateConfigClass } from '../../utils/components';
-import uuid from '../../utils/uuid';
+import uid from '../../utils/uid';
 
 export const CollapseSymbol: InjectionKey<UseCollapse> = Symbol('CCollapse');
 
 export interface UseCollapse {
-  uuid: string;
+  uid: string;
   toggle: ReturnType<typeof useTogglable>;
 }
 
@@ -36,7 +36,7 @@ export default defineComponent({
 
   setup(props) {
     const collapse: UseCollapse = {
-      uuid: uuid('chusho-collapse'),
+      uid: uid('chusho-collapse'),
       toggle: useTogglable(props.modelValue),
     };
 

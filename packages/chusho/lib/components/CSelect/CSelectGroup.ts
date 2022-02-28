@@ -5,7 +5,7 @@ import componentMixin from '../mixins/componentMixin';
 import useComponentConfig from '../../composables/useComponentConfig';
 
 import { generateConfigClass } from '../../utils/components';
-import uuid from '../../utils/uuid';
+import uid from '../../utils/uid';
 
 export const SelectGroupSymbol: InjectionKey<UseSelectGroup> =
   Symbol('CSelectGroup');
@@ -23,7 +23,7 @@ export default defineComponent({
 
   setup() {
     const selectGroup: UseSelectGroup = {
-      labelId: uuid('chusho-select-group-label'),
+      labelId: uid('chusho-select-group-label'),
     };
 
     provide(SelectGroupSymbol, selectGroup);

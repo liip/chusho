@@ -1,6 +1,6 @@
 import { VNode, computed, getCurrentInstance, ref, watch } from 'vue';
 
-import uuid from '../utils/uuid';
+import uid from '../utils/uid';
 
 /**
  * Generic logic for a button/target pair where the button
@@ -10,7 +10,7 @@ export default function useTogglable(
   initialValue = false,
   propName = 'modelValue'
 ) {
-  const id = uuid('chusho-toggle');
+  const id = uid('chusho-toggle');
   const isOpen = ref(initialValue);
   const vm = getCurrentInstance();
 

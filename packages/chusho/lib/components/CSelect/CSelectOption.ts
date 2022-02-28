@@ -15,7 +15,7 @@ import componentMixin from '../mixins/componentMixin';
 import useComponentConfig from '../../composables/useComponentConfig';
 
 import { ALL_TYPES, generateConfigClass } from '../../utils/components';
-import uuid from '../../utils/uuid';
+import uid from '../../utils/uid';
 
 import { SelectSymbol } from './CSelect';
 
@@ -46,7 +46,7 @@ export default defineComponent({
 
   setup(props) {
     const select = inject(SelectSymbol);
-    const id = uuid('chusho-select-option');
+    const id = uid('chusho-select-option');
     const data = ref({ disabled: props.disabled, text: '' });
 
     select?.selectable.addItem(id, data);

@@ -19,7 +19,7 @@ import useTogglable from '../../composables/useTogglable';
 
 import { ALL_TYPES, generateConfigClass } from '../../utils/components';
 import { isObject, isPrimitive } from '../../utils/objects';
-import uuid from '../../utils/uuid';
+import uid from '../../utils/uid';
 
 export const SelectSymbol: InjectionKey<Select> = Symbol('CSelect');
 
@@ -33,7 +33,7 @@ export interface SelectOptionData {
 export type SelectOption = SelectedItem<SelectOptionData>;
 
 export interface Select {
-  uuid: string;
+  uid: string;
   value: ComputedRef<SelectValue>;
   setValue: (value: SelectValue) => void;
   disabled: ComputedRef<boolean>;
@@ -107,7 +107,7 @@ export default defineComponent({
 
   setup(props, { emit }) {
     const select: Select = {
-      uuid: uuid('chusho-select'),
+      uid: uid('chusho-select'),
       value: computed(() => props.modelValue),
       setValue: (value: unknown) => {
         emit('update:modelValue', value);
