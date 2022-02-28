@@ -22,6 +22,7 @@ import {
   renderWithTransition,
 } from '../../utils/components';
 import { getFocusableElements } from '../../utils/keyboard';
+import { isClient, isServer } from '../../utils/ssr';
 import {
   PORTAL_ID,
   createPortalIfNotExists,
@@ -109,7 +110,7 @@ export default defineComponent({
     },
 
     activate(): void {
-      if (this.active) return;
+      if (this.active || isServer) return;
 
       this.active = true;
       this.activeElement.save();
@@ -126,7 +127,7 @@ export default defineComponent({
     },
 
     deactivate(): void {
-      if (!this.active) return;
+      if (!this.active || isServer) return;
 
       releaseAccessToPageContent();
 
@@ -209,7 +210,9 @@ export default defineComponent({
   },
 
   render() {
-    createPortalIfNotExists();
+    if (isClient) {
+      createPortalIfNotExists();
+    }
 
     return h(
       Teleport,

@@ -29,7 +29,7 @@
         variant="inline"
         name="radio-group"
         type="radio"
-        :value="null"
+        value="other"
       />
       Other
     </CLabel>

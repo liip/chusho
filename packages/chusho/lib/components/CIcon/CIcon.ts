@@ -60,25 +60,28 @@ export default defineComponent({
     });
     const id = uid('chusho-icon');
 
+    const children = [
+      h('use', {
+        key: this.id,
+        'xlink:href': `${this.config?.spriteUrl || ''}#${this.id}`,
+      }),
+    ];
+
     if (this.alt) {
       elementProps['aria-labelledby'] = id;
-    } else {
-      elementProps['aria-hidden'] = true;
-    }
-
-    return h('svg', elementProps, [
-      this.alt &&
+      children.unshift(
         h(
           'title',
           {
             id,
           },
           [this.alt]
-        ),
-      h('use', {
-        key: this.id,
-        'xlink:href': `${this.config?.spriteUrl || ''}#${this.id}`,
-      }),
-    ]);
+        )
+      );
+    } else {
+      elementProps['aria-hidden'] = true;
+    }
+
+    return h('svg', elementProps, children);
   },
 });

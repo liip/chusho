@@ -3,6 +3,7 @@ import {
   Ref,
   computed,
   getCurrentInstance,
+  readonly,
   ref,
   watch,
 } from 'vue';
@@ -15,7 +16,7 @@ export interface SelectedItem<DataT = null> {
 }
 
 export interface UseSelectable<ItemDataT = null> {
-  selectedItemId: ComputedRef<SelectedItemId | null>;
+  selectedItemId: Readonly<Ref<SelectedItemId | null>>;
   selectedItemIndex: ComputedRef<number | null>;
   selectedItem: ComputedRef<SelectedItem<ItemDataT> | null>;
   items: ComputedRef<SelectedItem<ItemDataT>[]>;
@@ -78,7 +79,7 @@ export default function useSelectable<ItemDataT = null>(
   }
 
   return {
-    selectedItemId: computed(() => selectedItemId.value),
+    selectedItemId: readonly(selectedItemId),
     selectedItemIndex: computed(() =>
       items.value.findIndex((item) => item.id === selectedItemId.value)
     ),
