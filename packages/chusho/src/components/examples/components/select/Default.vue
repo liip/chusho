@@ -1,6 +1,6 @@
 <template>
   <CSelect v-model="value" v-model:open="open" name="toto">
-    <CSelectBtn class="flex items-center">
+    <CSelectBtn class="flex items-center" data-test="select-button">
       <span>{{ value.label }}</span>
       <CIcon
         id="caret"
@@ -9,7 +9,7 @@
         :class="{ 'transform rotate-180': open }"
       />
     </CSelectBtn>
-    <CSelectOptions>
+    <CSelectOptions data-test="select-options">
       <CSelectOption v-for="item in items" :key="item.value" :value="item">
         <CIcon
           v-if="item === value"

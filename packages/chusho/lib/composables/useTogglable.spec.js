@@ -1,18 +1,20 @@
 import { mount } from '@vue/test-utils';
 
+import { withSetup } from '../../jest/utils';
+
 import useTogglable from './useTogglable';
 
 describe('useTogglable', () => {
   it('initialize with default value', () => {
-    const toggle = useTogglable(true);
+    const toggle = withSetup(() => useTogglable(true));
 
     expect(toggle.isOpen.value).toBe(true);
   });
 
   it('has a unique ID', () => {
-    const toggle = useTogglable();
+    const toggle = withSetup(() => useTogglable());
 
-    expect(toggle.id).toBe('chusho-toggle-0');
+    expect(toggle.uid.id.value).toBe('chusho-toggle-0');
   });
 
   it('emits when there’s a component instance and the value change using default prop name', () => {
@@ -73,7 +75,7 @@ describe('useTogglable', () => {
   });
 
   it('can be toggled with the toggle method', () => {
-    const toggle = useTogglable();
+    const toggle = withSetup(() => useTogglable());
 
     toggle.toggle();
 
@@ -81,7 +83,7 @@ describe('useTogglable', () => {
   });
 
   it('can be opened with the open method', () => {
-    const toggle = useTogglable();
+    const toggle = withSetup(() => useTogglable());
 
     toggle.open();
 
@@ -89,7 +91,7 @@ describe('useTogglable', () => {
   });
 
   it('can be closed with the open method', () => {
-    const toggle = useTogglable(true);
+    const toggle = withSetup(() => useTogglable(true));
 
     toggle.close();
 
@@ -97,7 +99,7 @@ describe('useTogglable', () => {
   });
 
   it('renderIfOpen executes render and return it when open', () => {
-    const toggle = useTogglable(true);
+    const toggle = withSetup(() => useTogglable(true));
     const render = jest.fn(() => 'rendered');
     const fallback = jest.fn();
 
@@ -109,7 +111,7 @@ describe('useTogglable', () => {
   });
 
   it('renderIfOpen executes fallback and return null when closed', () => {
-    const toggle = useTogglable();
+    const toggle = withSetup(() => useTogglable());
     const render = jest.fn();
     const fallback = jest.fn();
 
@@ -121,31 +123,31 @@ describe('useTogglable', () => {
   });
 
   it('provides proper attributes for toggle button', () => {
-    const toggle = useTogglable();
+    const toggle = withSetup(() => useTogglable());
 
-    expect(toggle.attrs.btn.value['aria-controls']).toBe(toggle.id);
+    expect(toggle.attrs.btn.value['aria-controls']).toBe(toggle.uid.id.value);
   });
 
   it('provides proper attributes for toggle target', () => {
-    const toggle = useTogglable();
+    const toggle = withSetup(() => useTogglable());
 
-    expect(toggle.attrs.target.value.id).toBe(toggle.id);
+    expect(toggle.attrs.target.value.id).toBe(toggle.uid.id.value);
   });
 
   it('provides proper attributes for toggle button when closed', () => {
-    const toggle = useTogglable();
+    const toggle = withSetup(() => useTogglable());
 
     expect(toggle.attrs.btn.value['aria-expanded']).toBe('false');
   });
 
   it('provides proper attributes for toggle button when open', () => {
-    const toggle = useTogglable(true);
+    const toggle = withSetup(() => useTogglable(true));
 
     expect(toggle.attrs.btn.value['aria-expanded']).toBe('true');
   });
 
   it('listens for click on the button that toggles and stop propagation', () => {
-    const toggle = useTogglable();
+    const toggle = withSetup(() => useTogglable());
     const event = { stopPropagation: jest.fn() };
 
     toggle.attrs.btn.value.onClick(event);

@@ -15,6 +15,7 @@ import componentMixin from '../mixins/componentMixin';
 import useComponentConfig from '../../composables/useComponentConfig';
 
 import { ALL_TYPES, generateConfigClass } from '../../utils/components';
+import { isClient } from '../../utils/ssr';
 import uid from '../../utils/uid';
 
 import { SelectSymbol } from './CSelect';
@@ -106,7 +107,7 @@ export default defineComponent({
       }),
     };
 
-    if (this.isFocused) {
+    if (isClient && this.isFocused) {
       nextTick(() => {
         this.$el.focus();
       });

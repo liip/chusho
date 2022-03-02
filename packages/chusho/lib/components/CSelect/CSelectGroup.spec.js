@@ -26,7 +26,7 @@ describe('CSelectGroup', () => {
     });
 
     expect(wrapper.findComponent(CSelectGroup).html()).toBe(
-      '<div role="group" aria-labelledby="chusho-select-group-label-2">Slot</div>'
+      '<div role="group" aria-labelledby="chusho-select-group-label-1">Slot</div>'
     );
   });
 

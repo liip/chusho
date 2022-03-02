@@ -2,10 +2,10 @@ import { defineComponent, h, mergeProps } from 'vue';
 
 import componentMixin from '../mixins/componentMixin';
 
+import useCachedUid from '../../composables/useCachedUid';
 import useComponentConfig from '../../composables/useComponentConfig';
 
 import { generateConfigClass } from '../../utils/components';
-import uid from '../../utils/uid';
 
 export default defineComponent({
   name: 'CIcon',
@@ -48,6 +48,7 @@ export default defineComponent({
   setup() {
     return {
       config: useComponentConfig('icon'),
+      uid: useCachedUid('chusho-icon'),
     };
   },
 
@@ -57,8 +58,8 @@ export default defineComponent({
       width: `${(this.config?.width || 24) * this.scale}`,
       height: `${(this.config?.height || 24) * this.scale}`,
       ...generateConfigClass(this.config?.class, this.$props),
+      ...this.uid.cacheAttrs,
     });
-    const id = uid('chusho-icon');
 
     const children = [
       h('use', {
@@ -68,14 +69,14 @@ export default defineComponent({
     ];
 
     if (this.alt) {
-      elementProps['aria-labelledby'] = id;
+      elementProps['aria-labelledby'] = this.uid.id.value;
       children.unshift(
         h(
           'title',
           {
-            id,
+            id: this.uid.id.value,
           },
-          [this.alt]
+          this.alt
         )
       );
     } else {

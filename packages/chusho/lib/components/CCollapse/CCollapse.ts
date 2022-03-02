@@ -6,12 +6,10 @@ import useComponentConfig from '../../composables/useComponentConfig';
 import useTogglable from '../../composables/useTogglable';
 
 import { generateConfigClass } from '../../utils/components';
-import uid from '../../utils/uid';
 
-export const CollapseSymbol: InjectionKey<UseCollapse> = Symbol('CCollapse');
+export const CollapseSymbol: InjectionKey<Collapse> = Symbol('CCollapse');
 
-export interface UseCollapse {
-  uid: string;
+export interface Collapse {
   toggle: ReturnType<typeof useTogglable>;
 }
 
@@ -35,8 +33,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup(props) {
-    const collapse: UseCollapse = {
-      uid: uid('chusho-collapse'),
+    const collapse: Collapse = {
       toggle: useTogglable(props.modelValue),
     };
 
@@ -59,6 +56,7 @@ export default defineComponent({
         ...this.$props,
         active: isActive,
       }),
+      ...this.collapse?.toggle.uid.cacheAttrs,
     };
 
     return h(

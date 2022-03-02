@@ -3,7 +3,7 @@ module.exports = {
   preset: 'ts-jest/presets/js-with-babel',
   testMatch: ['<rootDir>lib/**/?(*.)+(spec).[jt]s?(x)'],
   moduleFileExtensions: ['ts', 'js', 'd.ts', 'json', 'jsx', 'tsx', 'node'],
-  setupFilesAfterEnv: ['<rootDir>config/jest/setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/jest/setup.js'],
   globals: {
     'ts-jest': {
       diagnostics: {

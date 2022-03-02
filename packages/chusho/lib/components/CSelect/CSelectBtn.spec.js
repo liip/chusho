@@ -13,7 +13,7 @@ describe('CSelectBtn', () => {
     });
 
     expect(wrapper.findComponent(CSelectBtn).html()).toBe(
-      '<button aria-expanded="false" aria-controls="chusho-toggle-1" aria-haspopup="listbox" type="button">Label</button>'
+      '<button aria-expanded="false" aria-controls="chusho-toggle-0" aria-haspopup="listbox" type="button">Label</button>'
     );
   });
 
@@ -28,7 +28,7 @@ describe('CSelectBtn', () => {
     });
 
     expect(wrapper.findComponent(CSelectBtn).html()).toBe(
-      '<button aria-expanded="true" aria-controls="chusho-toggle-1" aria-haspopup="listbox" type="button">Label</button>'
+      '<button aria-expanded="true" aria-controls="chusho-toggle-0" aria-haspopup="listbox" type="button">Label</button>'
     );
   });
 
