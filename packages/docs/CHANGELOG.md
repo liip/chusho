@@ -5,8 +5,26 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # 0.4.0 (2022-03-02)
 
-**Note:** Version bump only for package @chusho/docs
+### chore
 
+* **deps:** update Chūshō deps ([0eb0593](https://github.com/liip/chusho/commit/0eb059322987a7217ca510d0b57cd801ccc058db))
+
+
+### Features
+
+* **CCollapseBtn:** remove inheritBtnClass config option, closes [#155](https://github.com/liip/chusho/issues/155) ([bf84274](https://github.com/liip/chusho/commit/bf8427437883472505f919310b81c9cc0abd012d))
+* **components:** CCheckbox ([20c6bc3](https://github.com/liip/chusho/commit/20c6bc34c6d4ddb4461579b8d572016e58cdb3a8))
+* **components:** CLabel ([9568972](https://github.com/liip/chusho/commit/9568972042c5fb27e65457b872d1f716ddaf8425))
+* **components:** CRadio ([495f8c7](https://github.com/liip/chusho/commit/495f8c7f06f813e6ced0a4b9e070c5203e4afa91))
+* **components:** CTextarea ([1377a48](https://github.com/liip/chusho/commit/1377a4841c22608b04bbd947add6648a99bbbcda))
+* **components:** CTextField ([2c7e604](https://github.com/liip/chusho/commit/2c7e604df8e43e93a9bdaaa59f1d4d87c32532a4))
+* **components:** introduce select/listbox component ([dcda232](https://github.com/liip/chusho/commit/dcda232fa98575eb26b86f02337f28463b0962f8))
+
+
+### BREAKING CHANGES
+
+* **CCollapseBtn:** CCollapseBtn doesn’t inherit CBtn `class` config anymore.
+* **deps:** CommonJS and UMD builds are now targeting ES2015 (ES6), it was previously ES5.
 
 
 
