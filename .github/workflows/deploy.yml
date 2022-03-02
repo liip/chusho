@@ -9,13 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
-
       - name: Deploy documentation website
-        uses: netlify/actions/build@master
+        run: curl -s -X POST -d {} "https://api.netlify.com/build_hooks/${TOKEN}"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_BASE: '.'
-          NETLIFY_CMD: npm run build
-          NETLIFY_DIR: packages/docs/.vuepress/dist
+          TOKEN: ${{ secrets.NETLIFY_BUILD_HOOK }}
