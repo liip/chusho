@@ -38,9 +38,7 @@ interface ComponentsOptions {
   collapse?: ComponentCommonOptions & {
     transition?: BaseTransitionProps;
   };
-  collapseBtn?: ComponentCommonOptions & {
-    inheritBtnClass: boolean;
-  };
+  collapseBtn?: ComponentCommonOptions;
   collapseContent?: ComponentCommonOptions & {
     transition?: BaseTransitionProps;
   };

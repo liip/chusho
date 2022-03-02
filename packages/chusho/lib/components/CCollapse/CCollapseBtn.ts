@@ -33,7 +33,7 @@ export default defineComponent({
         ...this.$props,
         active: isActive,
       }),
-      bare: this.config?.inheritBtnClass === false,
+      bare: true,
       active: isActive,
     };
 

@@ -43,7 +43,6 @@ export default {
     },
 
     collapseBtn: {
-      inheritBtnClass: false,
       class({ active }) {
         return [
           'py-2 px-4 border-2 border-gray-400 rounded',
