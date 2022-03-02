@@ -26,7 +26,7 @@ describe('CCollapseContent', () => {
     });
 
     expect(wrapper.findComponent(CCollapseContent).html()).toBe(
-      '<div id="chusho-toggle-1"></div>'
+      '<div id="chusho-toggle-0"></div>'
     );
   });
 
@@ -75,7 +75,7 @@ describe('CCollapseContent', () => {
       },
     });
 
-    expect(wrapper.find('#chusho-toggle-1').classes()).toEqual([
+    expect(wrapper.find('#chusho-toggle-0').classes()).toEqual([
       'fade-enter-from',
       'fade-enter-active',
     ]);

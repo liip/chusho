@@ -31,6 +31,17 @@ describe('Tabs', () => {
         .trigger('keydown', { key: 'End' });
       cy.get('[data-test="tab-3"]').should('have.focus');
     });
+
+    it('links Tab with TabPanel', () => {
+      cy.get('[data-test="tab-2"]').trigger('click');
+      cy.get('[data-test="tab-2"]').then(($el) => {
+        cy.wrap($el).should(
+          'have.attr',
+          'aria-controls',
+          Cypress.$(`[data-test="tabpanel-2"]`).attr('id')
+        );
+      });
+    });
   });
 
   describe('controlled', () => {

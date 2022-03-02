@@ -41,10 +41,10 @@ export default defineComponent({
     const isActive = this.target === this.tabs.selectedItemId.value;
     const elementProps = {
       type: 'button',
-      id: `${this.tabs.uid}-tab-${this.target}`,
+      id: `${this.tabs.uid.id.value}-tab-${this.target}`,
       role: 'tab',
       'aria-selected': `${isActive}`,
-      'aria-controls': `${this.tabs.uid}-tabpanel-${this.target}`,
+      'aria-controls': `${this.tabs.uid.id.value}-tabpanel-${this.target}`,
       tabindex: isActive ? '0' : '-1',
       onClick: () => {
         if (!['string', 'number'].includes(typeof this.target)) return;

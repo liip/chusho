@@ -23,9 +23,9 @@ describe('CSelectOption', () => {
     await nextTick();
 
     expect(wrapper.findComponent(CSelectOptions).attributes()).toEqual({
-      id: 'chusho-toggle-1',
+      id: 'chusho-toggle-0',
       role: 'listbox',
-      'aria-activedescendant': 'chusho-select-option-2',
+      'aria-activedescendant': 'chusho-select-option-1',
     });
   });
 

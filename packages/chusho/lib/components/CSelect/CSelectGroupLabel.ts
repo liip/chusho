@@ -26,8 +26,8 @@ export default defineComponent({
 
   render() {
     const elementProps: Record<string, unknown> = {
-      id: this.selectGroup?.labelId,
       ...generateConfigClass(this.config?.class, this.$props),
+      id: this.selectGroup?.labelUid.id.value,
     };
 
     return h('div', mergeProps(this.$attrs, elementProps), this.$slots);

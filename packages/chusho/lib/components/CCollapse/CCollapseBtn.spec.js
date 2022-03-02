@@ -14,7 +14,7 @@ describe('CCollapseBtn', () => {
     });
 
     expect(wrapper.findComponent(CCollapseBtn).html()).toBe(
-      '<button aria-expanded="false" aria-controls="chusho-toggle-1" type="button"></button>'
+      '<button aria-expanded="false" aria-controls="chusho-toggle-0" type="button"></button>'
     );
   });
 

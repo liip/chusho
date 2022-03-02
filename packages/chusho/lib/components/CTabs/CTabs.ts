@@ -9,6 +9,7 @@ import {
 
 import componentMixin from '../mixins/componentMixin';
 
+import useCachedUid, { UseCachedUid } from '../../composables/useCachedUid';
 import useComponentConfig from '../../composables/useComponentConfig';
 import useSelectable, {
   SelectedItemId,
@@ -16,12 +17,11 @@ import useSelectable, {
 } from '../../composables/useSelectable';
 
 import { generateConfigClass } from '../../utils/components';
-import uid from '../../utils/uid';
 
-export const TabsSymbol: InjectionKey<UseTabs> = Symbol('CTabs');
+export const TabsSymbol: InjectionKey<Tabs> = Symbol('CTabs');
 
-export interface UseTabs extends UseSelectable {
-  uid: string;
+export interface Tabs extends UseSelectable {
+  uid: UseCachedUid;
 }
 
 export default defineComponent({
@@ -57,8 +57,8 @@ export default defineComponent({
       props.modelValue ?? props.defaultTab ?? null,
       'modelValue'
     );
-    const tabs: UseTabs = {
-      uid: uid('chusho-tabs'),
+    const tabs: Tabs = {
+      uid: useCachedUid('chusho-tabs'),
       ...selected,
     };
 
@@ -73,6 +73,7 @@ export default defineComponent({
   render() {
     const elementProps: Record<string, unknown> = {
       ...generateConfigClass(this.config?.class, this.$props),
+      ...this.tabs.uid.cacheAttrs,
     };
 
     return h('div', mergeProps(this.$attrs, elementProps), this.$slots);

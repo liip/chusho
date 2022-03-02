@@ -18,7 +18,7 @@
     "test:unit:dev": "npm run test:unit -- --watch",
     "test:e2e": "start-server-and-test start http-get://localhost:3000 test:e2e:headless",
     "test:e2e:dev": "cypress open",
-    "test:e2e:headless": "cypress run --headless"
+    "test:e2e:headless": "cypress run --headless --browser chrome"
   },
   "main": "dist/chusho.cjs.js",
   "module": "dist/esm/chusho.js",

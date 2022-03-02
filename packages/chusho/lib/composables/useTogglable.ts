@@ -1,6 +1,6 @@
 import { VNode, computed, getCurrentInstance, ref, watch } from 'vue';
 
-import uid from '../utils/uid';
+import useCachedUid from './useCachedUid';
 
 /**
  * Generic logic for a button/target pair where the button
@@ -10,7 +10,7 @@ export default function useTogglable(
   initialValue = false,
   propName = 'modelValue'
 ) {
-  const id = uid('chusho-toggle');
+  const uid = useCachedUid('chusho-toggle');
   const isOpen = ref(initialValue);
   const vm = getCurrentInstance();
 
@@ -43,7 +43,7 @@ export default function useTogglable(
   );
 
   return {
-    id,
+    uid: uid,
     isOpen: computed(() => isOpen.value),
     toggle,
     close: () => setIsOpen(false),
@@ -52,7 +52,7 @@ export default function useTogglable(
     attrs: {
       btn: computed(() => ({
         'aria-expanded': `${isOpen.value}`,
-        'aria-controls': id,
+        'aria-controls': uid.id.value,
         onClick: (e: MouseEvent) => {
           // Prevent triggering a potential click-outside listener
           e.stopPropagation();
@@ -60,7 +60,7 @@ export default function useTogglable(
         },
       })),
       target: computed(() => ({
-        id,
+        id: uid.id.value,
       })),
     },
   };

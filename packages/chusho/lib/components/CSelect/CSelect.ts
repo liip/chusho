@@ -19,7 +19,6 @@ import useTogglable from '../../composables/useTogglable';
 
 import { ALL_TYPES, generateConfigClass } from '../../utils/components';
 import { isObject, isPrimitive } from '../../utils/objects';
-import uid from '../../utils/uid';
 
 export const SelectSymbol: InjectionKey<Select> = Symbol('CSelect');
 
@@ -33,7 +32,6 @@ export interface SelectOptionData {
 export type SelectOption = SelectedItem<SelectOptionData>;
 
 export interface Select {
-  uid: string;
   value: ComputedRef<SelectValue>;
   setValue: (value: SelectValue) => void;
   disabled: ComputedRef<boolean>;
@@ -107,7 +105,6 @@ export default defineComponent({
 
   setup(props, { emit }) {
     const select: Select = {
-      uid: uid('chusho-select'),
       value: computed(() => props.modelValue),
       setValue: (value: unknown) => {
         emit('update:modelValue', value);
@@ -140,6 +137,7 @@ export default defineComponent({
   render() {
     const elementProps: Record<string, unknown> = {
       ...generateConfigClass(this.config?.class, this.$props),
+      ...this.select.togglable.uid.cacheAttrs,
       onKeydown: this.handleKeydown,
     };
     const inputProps: Record<string, unknown> = {

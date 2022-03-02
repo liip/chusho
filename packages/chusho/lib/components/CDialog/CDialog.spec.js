@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 
 import CDialog from './CDialog';
 
@@ -70,5 +71,69 @@ describe('CDialog', () => {
     const roots = document.querySelectorAll('#chusho-dialogs-portal');
     expect(roots.length).toBe(1);
     expect(roots[0]).toBe(dialogsRoot);
+  });
+
+  it('activates when shown and deactivates when hidden', async () => {
+    const wrapper = mount(CDialog, {
+      global: {
+        provide: {
+          $chusho: {
+            openDialogs: [],
+            options: { components: {} },
+          },
+        },
+      },
+      props: {
+        modelValue: true,
+      },
+    });
+
+    await nextTick();
+    expect(wrapper.vm.active).toBe(true);
+
+    await wrapper.setProps({ modelValue: false });
+    await nextTick();
+    expect(wrapper.vm.active).toBe(false);
+  });
+
+  it('prevents access to page content while open', async () => {
+    const contentRoot = document.createElement('div');
+    contentRoot.id = 'content-root';
+    document.body.appendChild(contentRoot);
+
+    // Simulate contentRoot being a visible element
+    Object.defineProperty(contentRoot.__proto__, 'offsetParent', {
+      get() {
+        return this.parentNode;
+      },
+    });
+
+    const dialogsRoot = document.createElement('div');
+    dialogsRoot.id = 'chusho-dialogs-portal';
+    document.body.appendChild(dialogsRoot);
+
+    wrapper = mount(CDialog, {
+      global: {
+        provide: {
+          $chusho: {
+            openDialogs: [],
+            options: { components: {} },
+          },
+        },
+      },
+      props: {
+        modelValue: true,
+      },
+    });
+
+    await nextTick();
+    expect(contentRoot.getAttribute('aria-hidden')).toBe('true');
+    expect(dialogsRoot.getAttribute('aria-hidden')).toBe(null);
+
+    await wrapper.setProps({ modelValue: false });
+    await nextTick();
+
+    expect(contentRoot.getAttribute('aria-hidden')).toBe(null);
+    expect(dialogsRoot.getAttribute('aria-hidden')).toBe(null);
   });
 });

@@ -133,7 +133,7 @@ describe('Dialog', () => {
     });
   });
 
-  describe('with dynamic contnet', () => {
+  describe('with dynamic content', () => {
     beforeEach(() => {
       cy.visitComponent('dialog/dynamic-content');
     });

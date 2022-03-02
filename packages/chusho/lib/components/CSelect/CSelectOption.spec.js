@@ -17,7 +17,7 @@ describe('CSelectOption', () => {
     });
 
     expect(wrapper.findComponent(CSelectOption).html()).toBe(
-      '<li id="chusho-select-option-2" role="option" tabindex="-1" aria-selected="true">Label</li>'
+      '<li id="chusho-select-option-1" role="option" tabindex="-1" aria-selected="true">Label</li>'
     );
   });
 
@@ -29,7 +29,7 @@ describe('CSelectOption', () => {
     });
 
     expect(wrapper.findComponent(CSelectOption).html()).toBe(
-      '<li id="chusho-select-option-2" role="option" tabindex="-1">Label</li>'
+      '<li id="chusho-select-option-1" role="option" tabindex="-1">Label</li>'
     );
   });
 
@@ -45,7 +45,7 @@ describe('CSelectOption', () => {
     });
 
     expect(wrapper.findComponent(CSelectOption).html()).toBe(
-      '<li id="chusho-select-option-2" role="option" tabindex="-1" aria-disabled="true">Label</li>'
+      '<li id="chusho-select-option-1" role="option" tabindex="-1" aria-disabled="true">Label</li>'
     );
   });
 
@@ -95,7 +95,7 @@ describe('CSelectOption', () => {
     expect(wrapper.vm.select.selectable.items.value).toEqual([
       {
         data: { disabled: false, text: 'label' },
-        id: 'chusho-select-option-2',
+        id: 'chusho-select-option-1',
       },
     ]);
   });
@@ -124,7 +124,7 @@ describe('CSelectOption', () => {
 
     expect(wrapper.vm.select.selectable.selectedItem.value).toEqual({
       data: { disabled: false, text: 'label' },
-      id: 'chusho-select-option-2',
+      id: 'chusho-select-option-1',
     });
   });
 

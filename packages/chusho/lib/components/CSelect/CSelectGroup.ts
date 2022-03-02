@@ -2,16 +2,16 @@ import { InjectionKey, defineComponent, h, mergeProps, provide } from 'vue';
 
 import componentMixin from '../mixins/componentMixin';
 
+import useCachedUid, { UseCachedUid } from '../../composables/useCachedUid';
 import useComponentConfig from '../../composables/useComponentConfig';
 
 import { generateConfigClass } from '../../utils/components';
-import uid from '../../utils/uid';
 
-export const SelectGroupSymbol: InjectionKey<UseSelectGroup> =
+export const SelectGroupSymbol: InjectionKey<SelectGroup> =
   Symbol('CSelectGroup');
 
-export interface UseSelectGroup {
-  labelId: string;
+export interface SelectGroup {
+  labelUid: UseCachedUid;
 }
 
 export default defineComponent({
@@ -22,8 +22,8 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup() {
-    const selectGroup: UseSelectGroup = {
-      labelId: uid('chusho-select-group-label'),
+    const selectGroup: SelectGroup = {
+      labelUid: useCachedUid('chusho-select-group-label'),
     };
 
     provide(SelectGroupSymbol, selectGroup);
@@ -36,9 +36,10 @@ export default defineComponent({
 
   render() {
     const elementProps: Record<string, unknown> = {
-      role: 'group',
-      'aria-labelledby': this.selectGroup.labelId,
       ...generateConfigClass(this.config?.class, this.$props),
+      ...this.selectGroup.labelUid.cacheAttrs,
+      role: 'group',
+      'aria-labelledby': this.selectGroup.labelUid.id.value,
     };
 
     return h('div', mergeProps(this.$attrs, elementProps), this.$slots);
