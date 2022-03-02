@@ -49,15 +49,6 @@ class({ active }) {
 }
 ```
 
-### CCollapseBtn
-
-#### inheritBtnClass
-
-Since the CCollapseBtn is a CBtn in the background, it will inherits its `class` config option. To disable this behavior, set this option to `false`.
-
-- **type:** `Boolean`
-- **default:** `true`
-
 ### CCollapseContent
 
 #### transition
