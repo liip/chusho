@@ -45,5 +45,3 @@ jobs:
         run: npx lerna publish from-git --yes --no-verify-access
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - uses: ./.github/workflows/deploy
