@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { nextTick, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -24,6 +24,11 @@ onMounted(() => {
     } catch (error) {
       // Noop
     }
+  });
+
+  nextTick(() => {
+    // Inform Cypress the app is now interactive
+    document.documentElement.setAttribute('data-test-state', 'interactive');
   });
 });
 </script>
