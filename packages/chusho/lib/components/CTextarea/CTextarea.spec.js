@@ -11,16 +11,42 @@ describe('CTextarea', () => {
             options: {
               components: {
                 textarea: {
-                  class: 'field',
+                  class({ required, disabled, readonly }) {
+                    return ['field', { required, disabled, readonly }];
+                  },
                 },
               },
             },
           },
         },
       },
+      props: {
+        required: true,
+        disabled: true,
+        readonly: true,
+      },
     });
 
-    expect(wrapper.classes()).toEqual(['field']);
+    expect(wrapper.classes()).toEqual([
+      'field',
+      'required',
+      'disabled',
+      'readonly',
+    ]);
+  });
+
+  it('apply flags as attributes to the input', () => {
+    const wrapper = mount(CTextarea, {
+      props: {
+        required: true,
+        disabled: true,
+        readonly: true,
+      },
+    });
+
+    expect(wrapper.html()).toEqual(
+      '<textarea required="" disabled="" readonly=""></textarea>'
+    );
   });
 
   it('forwards random attributes to the textarea', () => {

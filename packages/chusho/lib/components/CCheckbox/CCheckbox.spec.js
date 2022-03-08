@@ -11,8 +11,8 @@ describe('CCheckbox', () => {
             options: {
               components: {
                 checkbox: {
-                  class: ({ checked }) => {
-                    return { checked };
+                  class: ({ checked, disabled, required }) => {
+                    return { checked, disabled, required };
                   },
                 },
               },
@@ -22,16 +22,31 @@ describe('CCheckbox', () => {
       },
       props: {
         modelValue: true,
+        disabled: true,
+        required: true,
       },
     });
 
-    expect(wrapper.classes()).toEqual(['checked']);
+    expect(wrapper.classes()).toEqual(['checked', 'disabled', 'required']);
   });
 
   it('renders with correct attributes by default', () => {
     const wrapper = mount(CCheckbox);
 
     expect(wrapper.html()).toEqual('<input type="checkbox">');
+  });
+
+  it('apply flags as attributes to the input', () => {
+    const wrapper = mount(CCheckbox, {
+      props: {
+        required: true,
+        disabled: true,
+      },
+    });
+
+    expect(wrapper.html()).toEqual(
+      '<input type="checkbox" required="" disabled="">'
+    );
   });
 
   it('renders with extra attributes', () => {

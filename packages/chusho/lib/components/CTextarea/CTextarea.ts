@@ -1,6 +1,7 @@
 import { defineComponent, h, mergeProps } from 'vue';
 
 import componentMixin from '../mixins/componentMixin';
+import textFieldMixin from '../mixins/textFieldMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
 
@@ -9,7 +10,7 @@ import { generateConfigClass } from '../../utils/components';
 export default defineComponent({
   name: 'CTextarea',
 
-  mixins: [componentMixin],
+  mixins: [componentMixin, textFieldMixin],
 
   inheritAttrs: false,
 

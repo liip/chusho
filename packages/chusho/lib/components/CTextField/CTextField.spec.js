@@ -11,16 +11,28 @@ describe('CTextField', () => {
             options: {
               components: {
                 textField: {
-                  class: 'field',
+                  class({ required, disabled, readonly }) {
+                    return ['field', { required, disabled, readonly }];
+                  },
                 },
               },
             },
           },
         },
       },
+      props: {
+        required: true,
+        disabled: true,
+        readonly: true,
+      },
     });
 
-    expect(wrapper.classes()).toEqual(['field']);
+    expect(wrapper.classes()).toEqual([
+      'field',
+      'required',
+      'disabled',
+      'readonly',
+    ]);
   });
 
   it('renders with type “text” by default', () => {
@@ -37,6 +49,20 @@ describe('CTextField', () => {
     });
 
     expect(wrapper.attributes('type')).toEqual('email');
+  });
+
+  it('apply flags as attributes to the input', () => {
+    const wrapper = mount(CTextField, {
+      props: {
+        required: true,
+        disabled: true,
+        readonly: true,
+      },
+    });
+
+    expect(wrapper.html()).toEqual(
+      '<input type="text" required="" disabled="" readonly="">'
+    );
   });
 
   it('forwards random attributes to the input', () => {

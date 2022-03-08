@@ -1,6 +1,7 @@
 import { defineComponent, h, mergeProps } from 'vue';
 
 import componentMixin from '../mixins/componentMixin';
+import fieldMixin from '../mixins/fieldMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
 
@@ -9,7 +10,7 @@ import { ALL_TYPES, generateConfigClass } from '../../utils/components';
 export default defineComponent({
   name: 'CRadio',
 
-  mixins: [componentMixin],
+  mixins: [componentMixin, fieldMixin],
 
   inheritAttrs: false,
 

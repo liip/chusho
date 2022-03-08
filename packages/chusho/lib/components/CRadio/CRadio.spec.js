@@ -11,8 +11,8 @@ describe('CRadio', () => {
             options: {
               components: {
                 radio: {
-                  class: ({ checked }) => {
-                    return { checked };
+                  class: ({ checked, disabled, required }) => {
+                    return { checked, disabled, required };
                   },
                 },
               },
@@ -23,10 +23,12 @@ describe('CRadio', () => {
       props: {
         modelValue: 'foo',
         value: 'foo',
+        disabled: true,
+        required: true,
       },
     });
 
-    expect(wrapper.classes()).toEqual(['checked']);
+    expect(wrapper.classes()).toEqual(['checked', 'disabled', 'required']);
   });
 
   it('renders with correct attributes by default', () => {
@@ -37,6 +39,20 @@ describe('CRadio', () => {
     });
 
     expect(wrapper.html()).toEqual('<input type="radio" value="true">');
+  });
+
+  it('apply flags as attributes to the input', () => {
+    const wrapper = mount(CRadio, {
+      props: {
+        value: 'value',
+        required: true,
+        disabled: true,
+      },
+    });
+
+    expect(wrapper.html()).toEqual(
+      '<input type="radio" required="" disabled="" value="value">'
+    );
   });
 
   it('renders with extra attributes', () => {
