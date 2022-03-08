@@ -46,7 +46,7 @@
 
               <template v-else-if="section.type === 'slots'">
                 <td>{{ row.name }}</td>
-                <td colspan="4" class="p-0">
+                <td colspan="4" class="!p-0">
                   <div v-if="row.description" class="p-3">
                     {{ row.description }}
                   </div>
@@ -83,8 +83,8 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
 import MarkdownIt from 'markdown-it';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'PropsTable',
