@@ -44,7 +44,7 @@ class: 'img-responsive'
 
 ### Simplest
 
-```vue:no-line-numbers
+```vue
 <CPicture src="/path/to/image.jpg" />
 ```
 
@@ -70,6 +70,6 @@ class: 'img-responsive'
 
 Attributes are not applied to the `picture` element but to the `img` element.
 
-```vue:no-line-numbers
+```vue
 <CPicture src="/path/to/image.jpg" alt="Description" loading="lazy" />
 ```

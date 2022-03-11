@@ -11,7 +11,7 @@ Install Chūshō with your favorite package manager:
 <CodeGroup>
   <CodeGroupItem title="npm" active>
 
-```bash:no-line-numbers
+```bash
 npm install chusho
 ```
 
@@ -19,7 +19,7 @@ npm install chusho
 
   <CodeGroupItem title="yarn">
 
-```bash:no-line-numbers
+```bash
 yarn add chusho
 ```
 
@@ -27,7 +27,7 @@ yarn add chusho
 
   <CodeGroupItem title="pnpm">
 
-```bash:no-line-numbers
+```bash
 pnpm add chusho
 ```
 
@@ -39,8 +39,8 @@ pnpm add chusho
 In your main entry point, enable Chūshō with:
 
 ```js
-import { createApp } from 'vue';
 import Chusho from 'chusho';
+import { createApp } from 'vue';
 
 const app = createApp(App);
 

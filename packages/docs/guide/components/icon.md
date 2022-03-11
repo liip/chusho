@@ -75,13 +75,13 @@ class({ variant }) {
 
 ### Simplest
 
-```vue:no-line-numbers
+```vue
 <CIcon id="sparkles" />
 ```
 
 ### Custom Scale
 
-```vue:no-line-numbers
+```vue
 <CIcon id="cloud" :scale="2" />
 ```
 

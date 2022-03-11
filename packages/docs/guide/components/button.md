@@ -62,13 +62,13 @@ class({ variant, disabled }) {
 
 ### Simplest
 
-```vue:no-line-numbers
+```vue
 <CBtn>Click me</CBtn>
 ```
 
 ### With variant
 
-```vue:no-line-numbers
+```vue
 <CBtn variant="secondary">Click me</CBtn>
 ```
 
@@ -76,13 +76,13 @@ class({ variant, disabled }) {
 
 Transform the button tag into an `a` by providing the `href` prop.
 
-```vue:no-line-numbers
+```vue
 <CBtn href="#">Click me</CBtn>
 ```
 
 You can also make it a `router-link`, by providing the `to` prop. It works just like `router-link` prop of the same name.
 
-```vue:no-line-numbers
+```vue
 <CBtn to="/">Go home</CBtn>
 ```
 
@@ -94,7 +94,7 @@ When a button is rendered as a link (i.e. an `a` element), it will not apply the
 
 Change the type of the button so it can trigger the submit of a form.
 
-```vue:no-line-numbers
+```vue
 <CBtn type="submit">Click me</CBtn>
 ```
 
@@ -102,7 +102,7 @@ Change the type of the button so it can trigger the submit of a form.
 
 Just like a normal button, you can disable it.
 
-```vue:no-line-numbers
+```vue
 <CBtn disabled>Click me</CBtn>
 ```
 

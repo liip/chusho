@@ -7,6 +7,12 @@ module.exports = {
 
   head: [['link', { rel: 'stylesheet', href: '/dist/tailwind.css' }]],
 
+  markdown: {
+    code: {
+      lineNumbers: false,
+    },
+  },
+
   plugins: [
     [
       '@vuepress/plugin-docsearch',

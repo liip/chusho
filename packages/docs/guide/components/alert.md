@@ -57,12 +57,12 @@ class({ variant }) {
 
 ### Simplest
 
-```vue:no-line-numbers
+```vue
 <CAlert>An important message.</CAlert>
 ```
 
 ### With variant
 
-```vue:no-line-numbers
+```vue
 <CAlert variant="error">An important message.</CAlert>
 ```

@@ -41,7 +41,7 @@ class: 'label'
 
 ### Simplest
 
-```vue:no-line-numbers
+```vue
 <CLabel>Label</CLabel>
 ```
 

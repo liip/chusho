@@ -71,13 +71,13 @@ The `variant` prop exists on all components.
 
 Like any element, you can define a class locally:
 
-```vue:no-line-numbers
+```vue
 <CBtn class="btn--custom">Label</CBtn>
 ```
 
 If it turns out that you also have classes defined globally in the config for this component (`btn` in this example), they will be **merged together**:
 
-```html:no-line-numbers
+```html
 <button class="btn btn--custom">Label</button>
 ```
 
@@ -85,13 +85,13 @@ If it turns out that you also have classes defined globally in the config for th
 
 In case you need more control, you can **override the global classes** by passing the `bare` prop:
 
-```vue:no-line-numbers
+```vue
 <CBtn class="custom-button" bare>Label</CBtn>
 ```
 
 It will output only the locally defined classes:
 
-```html:no-line-numbers
+```html
 <button class="custom-button">Label</button>
 ```
 
