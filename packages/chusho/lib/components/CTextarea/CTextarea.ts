@@ -4,6 +4,7 @@ import componentMixin from '../mixins/componentMixin';
 import textFieldMixin from '../mixins/textFieldMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
+import useFormGroup from '../../composables/useFormGroup';
 
 import { generateConfigClass } from '../../utils/components';
 
@@ -26,21 +27,33 @@ export default defineComponent({
 
   emits: ['update:modelValue'],
 
-  setup() {
+  setup(props) {
+    const { formGroup, flags } = useFormGroup(props, [
+      'required',
+      'disabled',
+      'readonly',
+    ]);
+
     return {
       config: useComponentConfig('textarea'),
+      formGroup,
+      flags,
     };
   },
 
   render() {
     const elementProps: Record<string, unknown> = {
-      ...generateConfigClass(this.config?.class, this.$props),
+      ...generateConfigClass(this.config?.class, {
+        ...this.$props,
+        ...this.flags,
+      }),
       value: this.modelValue,
+      id: this.$attrs.id ?? this.formGroup?.ids.field,
       onInput: (e: KeyboardEvent) => {
         this.$emit('update:modelValue', (e.target as HTMLInputElement).value);
       },
     };
 
-    return h('textarea', mergeProps(this.$attrs, elementProps));
+    return h('textarea', mergeProps(this.$attrs, elementProps, this.flags));
   },
 });

@@ -21,6 +21,10 @@ export function isPrimitive(
   ].includes(typeof value);
 }
 
+export function isNil(value: unknown): value is null | undefined {
+  return value === undefined || value === null;
+}
+
 export function mergeDeep(
   /* eslint-disable @typescript-eslint/no-explicit-any */
   source: Record<any, any> = {},

@@ -4,6 +4,7 @@ import componentMixin from '../mixins/componentMixin';
 import fieldMixin from '../mixins/fieldMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
+import useFormGroup from '../../composables/useFormGroup';
 
 import { ALL_TYPES, generateConfigClass } from '../../utils/components';
 
@@ -43,9 +44,13 @@ export default defineComponent({
 
   emits: ['update:modelValue'],
 
-  setup() {
+  setup(props) {
+    const { formGroup, flags } = useFormGroup(props, ['required', 'disabled']);
+
     return {
       config: useComponentConfig('checkbox'),
+      formGroup,
+      flags,
     };
   },
 
@@ -54,10 +59,12 @@ export default defineComponent({
     const elementProps: Record<string, unknown> = {
       ...generateConfigClass(this.config?.class, {
         ...this.$props,
+        ...this.flags,
         checked,
       }),
       type: 'checkbox',
       checked,
+      id: this.$attrs.id ?? this.formGroup?.ids.field,
       onChange: (e: Event) => {
         const checked = (e.target as HTMLInputElement).checked;
         this.$emit(
@@ -67,6 +74,10 @@ export default defineComponent({
       },
     };
 
-    return h('input', mergeProps(this.$attrs, elementProps), this.$slots);
+    return h(
+      'input',
+      mergeProps(this.$attrs, elementProps, this.flags),
+      this.$slots
+    );
   },
 });

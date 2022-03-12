@@ -5,6 +5,7 @@
 - [Checkbox](checkbox.html)
 - [Collapse](collapse.html)
 - [Dialog](dialog.html)
+- [FormGroup](formgroup.html)
 - [Icon](icon.html)
 - [Label](label.html)
 - [Picture](picture.html)
