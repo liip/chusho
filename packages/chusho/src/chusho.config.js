@@ -1,9 +1,11 @@
 import { mergeProps } from 'vue';
 
-const fields = {
-  class:
+const fields = ({ disabled }) => ({
+  class: [
     'block w-full bg-white px-4 py-3 border border-gray-400 rounded outline-none focus:border-accent-600 focus:ring ring-accent-400',
-};
+    disabled ? 'bg-gray-200 cursor-not-allowed' : 'bg-white',
+  ],
+});
 
 export default {
   components: {
@@ -32,12 +34,12 @@ export default {
     },
 
     checkbox: {
-      class({ variant, checked }) {
+      class({ variant, checked, disabled }) {
         return [
-          'appearance-none inline-block w-3 h-3 rounded-sm border-2 border-white ring-2 ring-gray-500',
+          'appearance-none inline-block w-3 h-3 rounded-sm border-2 border-white ring-2',
           { 'mr-3': variant?.includes('inline') },
-          { 'bg-white': !checked },
-          { 'bg-accent-500': checked },
+          checked ? 'bg-accent-500' : 'bg-white',
+          disabled ? 'ring-gray-300' : 'ring-gray-500',
         ];
       },
     },
@@ -65,6 +67,11 @@ export default {
       class: 'dialog p-6 bg-white rounded shadow-lg',
       overlayClass:
         'dialog-overlay fixed inset-0 p-4 flex flex-columns items-center justify-center bg-gray-900 bg-opacity-75',
+    },
+
+    formGroup: {
+      as: 'div',
+      class: 'flex flex-col gap-1',
     },
 
     icon: {
@@ -165,12 +172,18 @@ export default {
       },
     },
 
-    textarea: mergeProps(fields, {
-      class: 'h-48 leading-6',
-    }),
+    textarea: {
+      class: (props) =>
+        mergeProps(fields(props), {
+          class: 'h-48 leading-6',
+        }).class,
+    },
 
-    textField: mergeProps(fields, {
-      class: 'leading-4',
-    }),
+    textField: {
+      class: (props) =>
+        mergeProps(fields(props), {
+          class: 'leading-4',
+        }).class,
+    },
   },
 };

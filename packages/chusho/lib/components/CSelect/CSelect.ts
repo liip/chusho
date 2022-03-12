@@ -1,16 +1,17 @@
 import {
-  ComputedRef,
   InjectionKey,
-  computed,
+  Ref,
   defineComponent,
   h,
   mergeProps,
   provide,
+  toRef,
 } from 'vue';
 
 import componentMixin from '../mixins/componentMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
+import useFormGroup from '../../composables/useFormGroup';
 import useSelectable, {
   SelectedItem,
   UseSelectable,
@@ -32,9 +33,9 @@ export interface SelectOptionData {
 export type SelectOption = SelectedItem<SelectOptionData>;
 
 export interface Select {
-  value: ComputedRef<SelectValue>;
+  value: Ref<SelectValue>;
   setValue: (value: SelectValue) => void;
-  disabled: ComputedRef<boolean>;
+  disabled: Ref<boolean | undefined>;
   togglable: ReturnType<typeof useTogglable>;
   selectable: UseSelectable<SelectOptionData>;
 }
@@ -97,19 +98,21 @@ export default defineComponent({
      */
     disabled: {
       type: Boolean,
-      default: false,
+      default: null,
     },
   },
 
   emits: ['update:modelValue', 'update:open'],
 
   setup(props, { emit }) {
+    const { flags } = useFormGroup(props, ['disabled']);
+
     const select: Select = {
-      value: computed(() => props.modelValue),
+      value: toRef(props, 'modelValue'),
       setValue: (value: unknown) => {
         emit('update:modelValue', value);
       },
-      disabled: computed(() => props.disabled),
+      disabled: toRef(flags, 'disabled'),
       togglable: useTogglable(props.open, 'open'),
       selectable: useSelectable<SelectOptionData>(),
     };
@@ -136,7 +139,10 @@ export default defineComponent({
    */
   render() {
     const elementProps: Record<string, unknown> = {
-      ...generateConfigClass(this.config?.class, this.$props),
+      ...generateConfigClass(this.config?.class, {
+        ...this.$props,
+        disabled: this.select.disabled.value,
+      }),
       ...this.select.togglable.uid.cacheAttrs,
       onKeydown: this.handleKeydown,
     };

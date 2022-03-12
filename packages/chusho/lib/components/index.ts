@@ -3,6 +3,7 @@ export * from './CBtn';
 export * from './CCheckbox';
 export * from './CCollapse';
 export * from './CDialog';
+export * from './CFormGroup';
 export * from './CIcon';
 export * from './CLabel';
 export * from './CPicture';

@@ -28,7 +28,10 @@
                   >
                 </td>
                 <td>
-                  <code v-if="row.type">{{ row.type.name }}</code>
+                  <code v-if="row.type">{{
+                    row.type.elements?.map((e) => e.name).join('|') ||
+                    row.type.name
+                  }}</code>
                 </td>
                 <td>
                   <code v-if="row.defaultValue">{{

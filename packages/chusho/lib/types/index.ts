@@ -46,6 +46,9 @@ interface ComponentsOptions {
     overlayClass?: VueClassBinding | ClassGenerator;
     transition?: BaseTransitionProps;
   };
+  formGroup?: ComponentCommonOptions & {
+    as?: string;
+  };
   icon?: ComponentCommonOptions & {
     spriteUrl?: string;
     width?: number;
