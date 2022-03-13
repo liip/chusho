@@ -41,13 +41,13 @@ class: 'label'
 
 ### Simplest
 
-```vue
+```vue-html
 <CLabel>Label</CLabel>
 ```
 
 ### Linked to a field
 
-```vue
+```vue-html
 <CLabel for="the-field">
   <CCheckbox id="the-field" /> Something labelling the checkbox
 </CLabel>

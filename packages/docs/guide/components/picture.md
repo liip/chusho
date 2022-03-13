@@ -44,13 +44,13 @@ class: 'img-responsive'
 
 ### Simplest
 
-```vue
+```vue-html
 <CPicture src="/path/to/image.jpg" />
 ```
 
 ### With sources
 
-```vue
+```vue-html
 <CPicture
   :src="src"
   :sources="[
@@ -70,6 +70,6 @@ class: 'img-responsive'
 
 Attributes are not applied to the `picture` element but to the `img` element.
 
-```vue
+```vue-html
 <CPicture src="/path/to/image.jpg" alt="Description" loading="lazy" />
 ```

@@ -75,13 +75,13 @@ class({ variant }) {
 
 ### Simplest
 
-```vue
+```vue-html
 <CIcon id="sparkles" />
 ```
 
 ### Custom Scale
 
-```vue
+```vue-html
 <CIcon id="cloud" :scale="2" />
 ```
 
@@ -89,7 +89,7 @@ class({ variant }) {
 
 When used to depict an interactive element without any label close-by, use the alternate text to describe the action.
 
-```vue
+```vue-html
 <CBtn variant="secondary">
   <CIcon id="thumb-up" alt="Like" />
 </CBtn>

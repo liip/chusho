@@ -57,12 +57,12 @@ class({ variant }) {
 
 ### Simplest
 
-```vue
+```vue-html
 <CAlert>An important message.</CAlert>
 ```
 
 ### With variant
 
-```vue
+```vue-html
 <CAlert variant="error">An important message.</CAlert>
 ```

@@ -86,7 +86,7 @@ class({ variant, active }) {
 
 ### Simplest
 
-```vue
+```vue-html
 <CTabs>
   <CTabList aria-label="Example of tabs">
     <CTab target="1">Tab 1</CTab>

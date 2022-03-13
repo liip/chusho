@@ -91,7 +91,7 @@ Once open, a dialog can be closed with the <kbd>ESC</kbd> key, by clicking on it
 
 Here’s an example using a button with just a “close” icon. As you can see we provide an alternate text for the icon so it stays accessible for everyone.
 
-```vue
+```vue-html
 <CBtn @click="dialogOpen = false">
     <CIcon id="close" alt="Close dialog" />
 </CBtn>

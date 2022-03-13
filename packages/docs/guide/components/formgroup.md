@@ -75,7 +75,7 @@ class({ required, disabled }) {
 
 By default, CFormGroup is renderless, which means it doesn’t create any HTML element. It only renders it’s children.
 
-```vue
+```vue-html
 <CFormGroup required>
   <CLabel>Label</CLabel>
   <CTextField />
@@ -97,7 +97,7 @@ Notice how the `required` prop set on the CFormGroup was added to the input auto
 
 You can force it to render the element of your choice using the `as` prop (or set a default value in the config, so it always render one; see [config](#config) above).
 
-```vue
+```vue-html
 <CFormGroup as="div" class="form-group" disabled>
   <CLabel>Label</CLabel>
   <CTextField />
@@ -117,7 +117,7 @@ The code above will output this:
 
 Flags are accessible in the default slot scope, allowing you to render other elements conditionaly based on them:
 
-```vue
+```vue-html
 <CFormGroup v-slot="{ required }" :required="someVariableOnYourComponent">
   <CLabel>
     Label <abbr v-if="required" title="Required" aria-label="Required">*</abbr>
@@ -130,7 +130,7 @@ Flags are accessible in the default slot scope, allowing you to render other ele
 
 Label and field are automatically linked together by default. Here we use the `ids` generator provided by the form group to generate an extra id to describe the field with an additional help text.
 
-```vue
+```vue-html
 <CFormGroup v-slot="{ ids }">
   <CLabel>Password</CLabel>
   <CTextField type="password" :aria-describedby="ids.help" />

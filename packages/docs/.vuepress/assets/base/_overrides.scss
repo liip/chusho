@@ -5,6 +5,7 @@
 html,
 body {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 *,
@@ -83,7 +84,12 @@ button {
 }
 
 div[class*='language-'] .highlight-lines .highlight-line {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba($gold-500, 0.15);
+  box-shadow: 4px 0 0 $gold-500 inset;
+}
+
+.token.tag {
+  color: #f8c555;
 }
 
 .custom-container.tip,

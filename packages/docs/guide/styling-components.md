@@ -71,7 +71,7 @@ The `variant` prop exists on all components.
 
 Like any element, you can define a class locally:
 
-```vue
+```vue-html
 <CBtn class="btn--custom">Label</CBtn>
 ```
 
@@ -85,7 +85,7 @@ If it turns out that you also have classes defined globally in the config for th
 
 In case you need more control, you can **override the global classes** by passing the `bare` prop:
 
-```vue
+```vue-html
 <CBtn class="custom-button" bare>Label</CBtn>
 ```
 

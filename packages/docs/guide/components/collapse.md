@@ -72,7 +72,7 @@ Apply a common transition to all Collapses. The object can contain any Vue built
 
 ### Simplest
 
-```vue
+```vue-html
 <CCollapse>
   <CCollapseBtn>Collapse</CCollapseBtn>
   <CCollapseContent>
@@ -111,7 +111,7 @@ export default {
 
 Here’s an example where the transition is directly passed as a prop to the `CCollapseContent`. You can also define it globally for all your collapses; see the [config](#config).
 
-```vue
+```vue-html
 <CCollapse>
   <CCollapseBtn>Collapse with transition</CCollapseBtn>
   <CCollapseContent :transition="{ name: 'fade' }" class="mt-4">
