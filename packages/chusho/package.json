@@ -38,7 +38,7 @@
     "autoprefixer": "^10.4.2",
     "babel-jest": "^27.5.1",
     "core-js": "^3.21.1",
-    "cypress": "^9.5.1",
+    "cypress": "^9.5.2",
     "cypress-plugin-tab": "^1.0.5",
     "express": "^4.17.3",
     "highlight.js": "^11.4.0",
