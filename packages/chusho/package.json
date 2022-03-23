@@ -35,7 +35,7 @@
     "@types/jest": "^27.4.1",
     "@vitejs/plugin-vue": "^2.2.4",
     "@vue/test-utils": "^2.0.0-rc.18",
-    "autoprefixer": "^10.4.2",
+    "autoprefixer": "^10.4.4",
     "babel-jest": "^27.5.1",
     "core-js": "^3.21.1",
     "cypress": "^9.5.2",
