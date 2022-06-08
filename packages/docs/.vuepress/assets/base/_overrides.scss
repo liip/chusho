@@ -77,19 +77,15 @@ button {
   padding-top: 6rem !important;
 }
 
-.theme-default-content code:not([class*='language-']) {
+.theme-default-content *:not(.shiki) > code {
   padding: 0.2rem 0.35rem;
 
   background-color: transparentize($gray-500, 0.85);
 }
 
 div[class*='language-'] .highlight-lines .highlight-line {
-  background-color: rgba($gold-500, 0.15);
+  background-color: transparentize($gray-500, 0.85);
   box-shadow: 4px 0 0 $gold-500 inset;
-}
-
-.token.tag {
-  color: #f8c555;
 }
 
 .custom-container.tip,

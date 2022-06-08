@@ -1,4 +1,12 @@
 const { path } = require('@vuepress/utils');
+const { viteBundler } = require('vuepress');
+const { defaultTheme } = require('@vuepress/theme-default');
+const { docsearchPlugin } = require('@vuepress/plugin-docsearch');
+const {
+  registerComponentsPlugin,
+} = require('@vuepress/plugin-register-components');
+const { shikiPlugin } = require('@vuepress/plugin-shiki');
+const docGenPlugin = require('./plugins/docgen');
 
 module.exports = {
   title: 'Chūshō',
@@ -14,26 +22,26 @@ module.exports = {
   },
 
   plugins: [
-    [
-      '@vuepress/plugin-docsearch',
-      {
-        appId: '0AUNCGL5SK',
-        apiKey: '90f8fd3ff1c0ff211678bfd5fbe884b7',
-        indexName: 'chusho',
-      },
-    ],
-    [
-      '@vuepress/register-components',
-      {
-        componentsDir: path.resolve(__dirname, './components'),
-        getComponentName: (filename) =>
-          path.trimExt(filename.replace(/\/|\\/g, '')),
-      },
-    ],
-    [require('./plugins/docgen'), true],
+    docsearchPlugin({
+      appId: '0AUNCGL5SK',
+      apiKey: '90f8fd3ff1c0ff211678bfd5fbe884b7',
+      indexName: 'chusho',
+    }),
+
+    registerComponentsPlugin({
+      componentsDir: path.resolve(__dirname, './components'),
+      getComponentName: (filename) =>
+        path.trimExt(filename.replace(/\/|\\/g, '')),
+    }),
+
+    shikiPlugin({
+      theme: 'one-dark-pro',
+    }),
+
+    docGenPlugin(),
   ],
 
-  themeConfig: {
+  theme: defaultTheme({
     lastUpdated: 'Last updated',
     repo: 'liip/chusho',
     docsDir: 'packages/docs',
@@ -89,14 +97,13 @@ module.exports = {
     themePlugins: {
       activeHeaderLinks: false,
     },
-  },
+  }),
 
-  bundler: '@vuepress/bundler-vite',
-  bundlerConfig: {
+  bundler: viteBundler({
     viteOptions: {
       optimizeDeps: {
         exclude: ['chusho'],
       },
     },
-  },
+  }),
 };

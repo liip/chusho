@@ -2,7 +2,7 @@ const path = require('path');
 const docGen = require('vue-docgen-api');
 const glob = require('glob');
 
-module.exports = (options, ctx) => {
+module.exports = () => {
   const componentsDocgen = {};
 
   glob(
