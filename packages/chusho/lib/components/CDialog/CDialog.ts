@@ -192,6 +192,7 @@ export default defineComponent({
 
         const dialogProps = mergeProps(this.$attrs, {
           role: 'dialog',
+          'aria-modal': 'true',
           ref: 'dialogElement',
           ...generateConfigClass(this.config?.class, this.$props),
         });

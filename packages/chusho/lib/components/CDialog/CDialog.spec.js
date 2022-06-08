@@ -22,7 +22,7 @@ describe('CDialog', () => {
     expect(wrapper.html()).toBe(`<!--teleport start-->
 <!--teleport end-->`);
     expect(document.querySelector('#chusho-dialogs-portal').innerHTML).toBe(
-      '<div tabindex="-1"><div role="dialog"></div></div>'
+      '<div tabindex="-1"><div role="dialog" aria-modal="true"></div></div>'
     );
   });
 
@@ -53,7 +53,7 @@ describe('CDialog', () => {
     });
 
     expect(document.querySelector('#chusho-dialogs-portal').innerHTML).toBe(
-      '<div class="overlay-custom overlay" tabindex="-1"><div class="dialog-custom dialog" role="dialog"></div></div>'
+      '<div class="overlay-custom overlay" tabindex="-1"><div class="dialog-custom dialog" role="dialog" aria-modal="true"></div></div>'
     );
   });
 
