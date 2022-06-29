@@ -1,16 +1,16 @@
 <template>
   <CFormGroup required>
     <CLabel>Label</CLabel>
-    <Select />
+    <SelectDefault />
   </CFormGroup>
 </template>
 
 <script>
-import Select from '../select/Default.vue';
+import SelectDefault from '../select/Default.vue';
 
 export default {
   components: {
-    Select,
+    SelectDefault,
   },
 };
 </script>
