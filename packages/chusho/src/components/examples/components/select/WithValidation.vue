@@ -1,5 +1,5 @@
 <template>
-  <Form @submit="() => {}">
+  <VeeForm @submit="() => {}">
     <Field v-slot="{ field }" name="color" :rules="isRequired">
       <CSelect v-model="color" v-bind="field" name="color" data-test="select">
         <CSelectBtn
@@ -31,15 +31,15 @@
       </CSelect>
     </Field>
     <ErrorMessage as="div" name="color" class="mt-2 text-red-700" />
-  </Form>
+  </VeeForm>
 </template>
 
 <script>
-import { ErrorMessage, Field, Form } from 'vee-validate';
+import { ErrorMessage, Field, Form as VeeForm } from 'vee-validate';
 
 export default {
   components: {
-    Form,
+    VeeForm,
     Field,
     ErrorMessage,
   },

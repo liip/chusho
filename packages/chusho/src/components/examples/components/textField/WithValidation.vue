@@ -1,18 +1,18 @@
 <template>
-  <Form @submit="() => {}">
+  <VeeForm @submit="() => {}">
     <Field v-slot="{ field }" name="field" :rules="isRequired">
       <CTextField v-model="value" v-bind="field" />
     </Field>
     <ErrorMessage as="div" name="field" class="mt-2 text-red-700" />
-  </Form>
+  </VeeForm>
 </template>
 
 <script>
-import { ErrorMessage, Field, Form } from 'vee-validate';
+import { ErrorMessage, Field, Form as VeeForm } from 'vee-validate';
 
 export default {
   components: {
-    Form,
+    VeeForm,
     Field,
     ErrorMessage,
   },
