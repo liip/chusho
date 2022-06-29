@@ -28,7 +28,7 @@
     "@vuepress/plugin-docsearch": "^2.0.0-beta.45",
     "@vuepress/plugin-register-components": "^2.0.0-beta.45",
     "@vuepress/plugin-shiki": "^2.0.0-beta.5",
-    "concurrently": "^7.2.1",
+    "concurrently": "^7.2.2",
     "postcss": "^8.4.12",
     "sass": "^1.52.2",
     "vue-docgen-api": "^4.44.23",
