@@ -30,7 +30,7 @@
     "dist/"
   ],
   "devDependencies": {
-    "@babel/core": "^7.17.8",
+    "@babel/core": "^7.18.6",
     "@babel/preset-env": "^7.16.11",
     "@types/jest": "^27.4.1",
     "@vitejs/plugin-vue": "^2.3.3",
