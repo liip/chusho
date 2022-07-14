@@ -15,6 +15,7 @@ import {
   watchPostEffect,
 } from 'vue';
 
+import { warn } from '../utils/debug';
 import uid from '../utils/uid';
 
 import {
@@ -128,9 +129,8 @@ export default function useInteractiveListItem(
       listRole === InteractiveListRoles.combobox
     ) {
       if (!value?.value) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `${vm?.type.name}: you are creating a "${listRole}" element but didn´t pass a "value" prop`
+        warn(
+          `${vm?.type.name}: you are creating a "${listRole}" element but didn’t pass a "value" prop`
         );
       }
       return InteractiveListItemRoles.option;
