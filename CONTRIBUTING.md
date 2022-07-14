@@ -70,16 +70,10 @@ npm run format
 
 Unit tests are located in the [chusho](https://github.com/liip/chusho/tree/main/packages/chusho/) package, the following commands should therefor be run in the `packages/chusho` directory.
 
-Run the unit test suites once:
+To run the unit test suites:
 
 ```bash
 npm run test:unit
-```
-
-Or start the runner in watch mode:
-
-```bash
-npm run test:unit:dev
 ```
 
 ### End-to-end tests

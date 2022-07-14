@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { h } from 'vue';
 
-import { withSetup } from '../../jest/utils';
+import { withSetup } from '../../test/utils';
 
 import useCachedUid from './useCachedUid';
 
@@ -22,7 +22,7 @@ describe('useCachedUid', () => {
     const uid = withSetup(() => useCachedUid('chusho'));
 
     expect(uid.cacheAttrs).toMatchInlineSnapshot(`
-      Object {
+      {
         "data-chusho-ssr-uid": undefined,
         "ref": RefImpl {
           "__v_isRef": true,

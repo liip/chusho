@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 
-import { withSetup } from '../../jest/utils';
+import { withSetup } from '../../test/utils';
 
 import useTogglable from './useTogglable';
 
@@ -100,8 +100,8 @@ describe('useTogglable', () => {
 
   it('renderIfOpen executes render and return it when open', () => {
     const toggle = withSetup(() => useTogglable(true));
-    const render = jest.fn(() => 'rendered');
-    const fallback = jest.fn();
+    const render = vi.fn(() => 'rendered');
+    const fallback = vi.fn();
 
     const actual = toggle.renderIfOpen(render, fallback);
 
@@ -112,8 +112,8 @@ describe('useTogglable', () => {
 
   it('renderIfOpen executes fallback and return null when closed', () => {
     const toggle = withSetup(() => useTogglable());
-    const render = jest.fn();
-    const fallback = jest.fn();
+    const render = vi.fn();
+    const fallback = vi.fn();
 
     const actual = toggle.renderIfOpen(render, fallback);
 
@@ -148,7 +148,7 @@ describe('useTogglable', () => {
 
   it('listens for click on the button that toggles and stop propagation', () => {
     const toggle = withSetup(() => useTogglable());
-    const event = { stopPropagation: jest.fn() };
+    const event = { stopPropagation: vi.fn() };
 
     toggle.attrs.btn.value.onClick(event);
 
