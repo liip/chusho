@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { mount, shallowMount } from '@vue/test-utils';
 import { computed, h, ref, toRef } from 'vue';
 
 import uid from '../utils/uid';
@@ -8,22 +8,22 @@ import useInteractiveListItem, {
   InteractiveListItemRoles,
 } from './useInteractiveListItem';
 
-jest.mock('../utils/uid');
+vi.mock('../utils/uid');
 uid.mockImplementation(() => 0);
 
 const itemProps = { id: 0, disabled: false, text: 'adipisicing' };
 const UseInteractiveListKey = Symbol('UseInteractiveListKey');
 
-const registerItem = jest.fn();
-const unregisterItem = jest.fn();
-const updateItem = jest.fn();
-const onSelect = jest.fn();
+const registerItem = vi.fn();
+const unregisterItem = vi.fn();
+const updateItem = vi.fn();
+const onSelect = vi.fn();
 
 /**
  * Dumb toggle implementation since we don't need to work with
  * actual multiple selection in our tests
  */
-const toggleItem = jest.fn((value) =>
+const toggleItem = vi.fn((value) =>
   selected.value === value ? (selected.value = null) : (selected.value = value)
 );
 
@@ -173,10 +173,7 @@ describe('role attribute', () => {
   });
 
   it('warn when list is of type `listbox` but no value is provided', () => {
-    const warn = jest.spyOn(global.console, 'warn');
-
-    wrapper = mount(TestItem, {
-      shallow: true,
+    wrapper = shallowMount(TestItem, {
       props: itemProps,
       global: {
         provide: {
@@ -188,11 +185,9 @@ describe('role attribute', () => {
       },
     });
 
-    expect(warn).toHaveBeenCalledWith(
-      'ListItemTest: you are creating a "listbox" element but didn´t pass a "value" prop'
-    );
-
-    warn.mockRestore();
+    expect(
+      '[Chūshō warn]: ListItemTest: you are creating a "listbox" element but didn’t pass a "value" prop'
+    ).toHaveBeenWarned();
   });
 
   it('is `option` when list is of type `combobox` and a value is provided', () => {
@@ -218,10 +213,7 @@ describe('role attribute', () => {
   });
 
   it('warn when list is of type `combobox` but no value is provided', () => {
-    const warn = jest.spyOn(global.console, 'warn');
-
-    wrapper = mount(TestItem, {
-      shallow: true,
+    wrapper = shallowMount(TestItem, {
       props: itemProps,
       global: {
         provide: {
@@ -233,11 +225,9 @@ describe('role attribute', () => {
       },
     });
 
-    expect(warn).toHaveBeenCalledWith(
-      'ListItemTest: you are creating a "combobox" element but didn´t pass a "value" prop'
-    );
-
-    warn.mockRestore();
+    expect(
+      '[Chūshō warn]: ListItemTest: you are creating a "combobox" element but didn’t pass a "value" prop'
+    ).toHaveBeenWarned();
   });
 
   it('is `menuitem` when list is of type `menu`', () => {

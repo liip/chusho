@@ -28,7 +28,7 @@ const TestComponent = {
 
   setup(props) {
     const activeIndex = ref(props.initialIndex);
-    callback = jest.fn((_, index) => (activeIndex.value = index));
+    callback = vi.fn((_, index) => (activeIndex.value = index));
 
     return {
       handleKeyboardNavigation: useKeyboardListNavigation(callback, {
@@ -118,19 +118,22 @@ describe('useKeyboardListNavigation', () => {
     });
 
     it('reset query if too much time has elapsed between two keystrokes', () => {
-      jest.useFakeTimers();
+      // See https://github.com/vitest-dev/vitest/issues/649#issuecomment-1159141487
+      vi.useFakeTimers({
+        toFake: ['setTimeout', 'clearTimeout'],
+      });
 
       wrapper = mount(TestComponent);
 
       wrapper.trigger('keydown', { key: 'i' });
       expect(callback).toHaveBeenCalledWith(expect.any(KeyboardEvent), 3);
 
-      jest.runAllTimers();
+      vi.runAllTimers();
 
       wrapper.trigger('keydown', { key: 'd' });
       expect(callback).toHaveBeenCalledWith(expect.any(KeyboardEvent), 6);
 
-      jest.useRealTimers();
+      vi.useRealTimers();
     });
 
     it('start searching from the current index', () => {

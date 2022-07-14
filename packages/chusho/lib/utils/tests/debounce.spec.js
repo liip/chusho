@@ -1,16 +1,16 @@
 import debounce from '../debounce';
 
 afterAll(() => {
-  jest.useRealTimers();
+  vi.useRealTimers();
 });
 
 describe('debounce', () => {
   const time = 500;
 
   it('call the function only once after the given duration', () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
-    const callback = jest.fn();
+    const callback = vi.fn();
 
     const debounced = debounce(callback, time);
 
@@ -19,37 +19,37 @@ describe('debounce', () => {
 
     expect(callback).not.toBeCalled();
 
-    jest.advanceTimersByTime(time);
+    vi.advanceTimersByTime(time);
 
     expect(callback).toHaveBeenCalledTimes(1);
   });
 
   it('recall the function only once after the time has elapsed', () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
-    const callback = jest.fn();
+    const callback = vi.fn();
 
     const debounced = debounce(callback, time);
 
     debounced();
     debounced();
 
-    jest.advanceTimersByTime(time);
+    vi.advanceTimersByTime(time);
 
     debounced();
     debounced();
 
     expect(callback).toHaveBeenCalledTimes(1);
 
-    jest.advanceTimersByTime(time);
+    vi.advanceTimersByTime(time);
 
     expect(callback).toHaveBeenCalledTimes(2);
   });
 
   it('call the function only once immediately if requested', () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
-    const callback = jest.fn();
+    const callback = vi.fn();
 
     const debounced = debounce(callback, time, true);
 
@@ -60,9 +60,9 @@ describe('debounce', () => {
   });
 
   it('recall the function only once after the time has elapsed after immediate invocation ', () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
-    const callback = jest.fn();
+    const callback = vi.fn();
 
     const debounced = debounce(callback, time, true);
 
@@ -71,7 +71,7 @@ describe('debounce', () => {
 
     expect(callback).toHaveBeenCalledTimes(1);
 
-    jest.advanceTimersByTime(time);
+    vi.advanceTimersByTime(time);
 
     debounced();
     debounced();
