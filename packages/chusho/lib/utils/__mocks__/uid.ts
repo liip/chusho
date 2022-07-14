@@ -1,6 +1,6 @@
 let currentuid = 0;
 
-export default jest.fn().mockImplementation((prefix = '') => {
+export default vi.fn().mockImplementation((prefix = '') => {
   const id = currentuid++;
   return prefix ? `${prefix}-${id}` : id.toString();
 });

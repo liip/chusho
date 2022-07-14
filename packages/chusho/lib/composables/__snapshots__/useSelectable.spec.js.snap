@@ -1,50 +1,50 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`useSelectable addItem adds item to the list of items 1`] = `
-Array [
-  Object {
+exports[`useSelectable > addItem adds item to the list of items 1`] = `
+[
+  {
     "id": "1",
   },
-  Object {
+  {
     "id": "2",
   },
-  Object {
+  {
     "id": "3",
   },
 ]
 `;
 
-exports[`useSelectable removeItem removes item from the list of items 1`] = `
-Array [
-  Object {
+exports[`useSelectable > removeItem removes item from the list of items 1`] = `
+[
+  {
     "id": "1",
   },
-  Object {
+  {
     "id": "2",
   },
-  Object {
+  {
     "id": "3",
   },
 ]
 `;
 
-exports[`useSelectable removeItem removes item from the list of items 2`] = `
-Array [
-  Object {
+exports[`useSelectable > removeItem removes item from the list of items 2`] = `
+[
+  {
     "id": "1",
   },
-  Object {
+  {
     "id": "3",
   },
 ]
 `;
 
-exports[`useSelectable removeItem removes item from the list of items 3`] = `
-Array [
-  Object {
+exports[`useSelectable > removeItem removes item from the list of items 3`] = `
+[
+  {
     "id": "1",
   },
 ]
 `;
 
-exports[`useSelectable removeItem removes item from the list of items 4`] = `Array []`;
+exports[`useSelectable > removeItem removes item from the list of items 4`] = `[]`;

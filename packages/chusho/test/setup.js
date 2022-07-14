@@ -33,7 +33,7 @@ const asserted = new Set();
 
 beforeEach(() => {
   asserted.clear();
-  warn = jest.spyOn(console, 'warn');
+  warn = vi.spyOn(console, 'warn');
   warn.mockImplementation(() => {
     // noop
   });
@@ -62,7 +62,7 @@ afterEach(() => {
   Keep the same UID sequence for each test
 \*----------------------------------------*/
 
-jest.mock('../lib/utils/uid');
+vi.mock('../lib/utils/uid');
 
 afterEach(() => {
   uid.mockClear();

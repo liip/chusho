@@ -30,9 +30,16 @@ module.exports = {
       },
     },
     {
-      files: ['**/*.spec.{j,t}s', '**/jest/**/*', '**/__mocks__/**'],
-      env: {
-        jest: true,
+      files: ['**/*.spec.{j,t}s', '**/test/**/*', '**/__mocks__/**'],
+      globals: {
+        vi: true,
+        describe: true,
+        it: true,
+        expect: true,
+        beforeEach: true,
+        afterEach: true,
+        beforeAll: true,
+        afterAll: true,
       },
     },
     {

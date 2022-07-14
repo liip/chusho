@@ -9,7 +9,7 @@ describe('clickOutside', () => {
 
   describe('', () => {
     beforeEach(() => {
-      handler = jest.fn();
+      handler = vi.fn();
       component = {
         template: `<button v-clickOutside="handler">Click</button>`,
         methods: {

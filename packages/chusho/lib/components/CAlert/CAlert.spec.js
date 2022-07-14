@@ -125,7 +125,7 @@ describe('CAlert', () => {
   });
 
   it('should forward event listeners to the native element', () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     const wrapper = mount(CAlert, {
       props: {
         onClick,
