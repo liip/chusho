@@ -1,28 +1,28 @@
-import { InjectionKey, computed, inject, reactive } from 'vue';
+import { computed, inject, reactive } from 'vue';
 
-import { UsePopupContext } from './usePopup';
+import { UsePopupContext, UsePopupSymbol } from './usePopup';
 
-type UsePopupBtn = [
-  {
+interface UsePopupBtn extends Pick<UsePopupContext, 'expanded'> {
+  attrs: {
     disabled: boolean | undefined;
     'aria-expanded': string;
     'aria-controls': string;
     'aria-haspopup': string | undefined;
-  },
-  { onClick: (e: MouseEvent) => void; onKeydown: (e: KeyboardEvent) => void },
-  Pick<UsePopupContext, 'expanded'>
-];
+  };
+  events: {
+    onClick: (e: MouseEvent) => void;
+    onKeydown: (e: KeyboardEvent) => void;
+  };
+}
 
-export default function usePopupBtn(
-  PopupBtnKey: InjectionKey<UsePopupContext>
-): UsePopupBtn {
-  const resolved = inject(PopupBtnKey);
+export default function usePopupBtn(): UsePopupBtn {
+  const popup = inject(UsePopupSymbol);
 
-  if (!resolved) {
-    throw new Error(`Could not resolve ${PopupBtnKey.description}`);
+  if (!popup) {
+    throw new Error(`Could not resolve ${UsePopupSymbol.description}`);
   }
 
-  const { collapse, expand, disabled, uid, expanded, type } = resolved;
+  const { collapse, expand, disabled, uid, expanded, type } = popup;
 
   function handleKeydown(e: KeyboardEvent) {
     switch (e.key) {
@@ -51,17 +51,17 @@ export default function usePopupBtn(
     expanded.value === true ? collapse() : expand();
   }
 
-  return [
-    reactive({
+  return {
+    attrs: reactive({
       'aria-controls': computed(() => uid.id.value),
       'aria-expanded': computed(() => `${expanded.value}`),
       'aria-haspopup': type,
       disabled: computed(() => disabled.value || undefined),
     }),
-    {
+    events: {
       onClick: handleClick,
       onKeydown: handleKeydown,
     },
-    { expanded },
-  ];
+    expanded,
+  };
 }

@@ -14,7 +14,7 @@ import {
   renderWithTransition,
 } from '../../utils/components';
 
-import { CMenuKey, MenuSymbol } from './CMenu';
+import { MenuSymbol } from './CMenu';
 
 export const CMenuListKey = Symbol('CMenuListKey');
 
@@ -35,8 +35,12 @@ export default defineComponent({
   setup(props) {
     const menu = inject(MenuSymbol);
 
-    const [togglableAttrs, togglableEvents, { triggerKey, renderPopup }] =
-      usePopupTarget(CMenuKey);
+    const {
+      attrs: togglableAttrs,
+      events: togglableEvents,
+      triggerKey,
+      renderPopup,
+    } = usePopupTarget();
 
     const [listAttrs, listEvents, { activateItemAt, clearActiveItem }] =
       useInteractiveList(CMenuListKey, {

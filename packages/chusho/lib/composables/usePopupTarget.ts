@@ -1,21 +1,19 @@
-import { InjectionKey, inject, reactive, watchEffect } from 'vue';
+import { inject, reactive, watchEffect } from 'vue';
 
 import useActiveElement from './useActiveElement';
-import { UsePopupContext } from './usePopup';
+import { UsePopupContext, UsePopupSymbol } from './usePopup';
 
-type UsePopupTarget = [
-  { id: string },
-  { onKeydown: (e: KeyboardEvent) => void },
-  Pick<UsePopupContext, 'expanded' | 'renderPopup' | 'triggerKey'>
-];
+interface UsePopupTarget
+  extends Pick<UsePopupContext, 'expanded' | 'renderPopup' | 'triggerKey'> {
+  attrs: { id: string };
+  events: { onKeydown: (e: KeyboardEvent) => void };
+}
 
-export default function usePopupTarget(
-  PopupTargetKey: InjectionKey<UsePopupContext>
-): UsePopupTarget {
-  const resolved = inject(PopupTargetKey);
+export default function usePopupTarget(): UsePopupTarget {
+  const resolved = inject(UsePopupSymbol);
 
   if (!resolved) {
-    throw new Error(`Could not resolve ${PopupTargetKey.description}`);
+    throw new Error(`Could not resolve ${UsePopupSymbol.description}`);
   }
 
   const activeElement = useActiveElement();
@@ -36,11 +34,13 @@ export default function usePopupTarget(
     }
   }
 
-  return [
-    reactive({ id: uid.id }),
-    {
+  return {
+    attrs: reactive({ id: uid.id }),
+    events: {
       onKeydown: handleKeydown,
     },
-    { expanded, renderPopup, triggerKey },
-  ];
+    expanded,
+    renderPopup,
+    triggerKey,
+  };
 }
