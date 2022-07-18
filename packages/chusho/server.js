@@ -3,6 +3,8 @@ const path = require('path');
 const express = require('express');
 const { createServer: createViteServer } = require('vite');
 
+const PORT = 3000;
+
 async function createServer() {
   const app = express();
   const vite = await createViteServer({
@@ -40,7 +42,10 @@ async function createServer() {
     }
   });
 
-  app.listen(3000);
+  app.listen(PORT);
+
+  // eslint-disable-next-line no-console
+  console.info(`Server started, go to http://localhost:${PORT}`);
 }
 
 createServer();
