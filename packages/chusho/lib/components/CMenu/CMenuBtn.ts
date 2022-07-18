@@ -3,12 +3,11 @@ import { defineComponent, h, mergeProps } from 'vue';
 import componentMixin from '../mixins/componentMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
-import useTogglableBtn from '../../composables/usePopupBtn';
+import usePopupBtn from '../../composables/usePopupBtn';
 
 import { generateConfigClass } from '../../utils/components';
 
 import { CBtn } from '../CBtn';
-import { CMenuKey } from './CMenu';
 
 export default defineComponent({
   name: 'CMenuBtn',
@@ -18,11 +17,11 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup() {
-    const [attrs, events, { expanded }] = useTogglableBtn(CMenuKey);
+    const { attrs: popupBtnAttrs, events, expanded } = usePopupBtn();
 
     return {
       config: useComponentConfig('menuBtn'),
-      attrs,
+      popupBtnAttrs,
       events,
       expanded,
     };
@@ -32,13 +31,15 @@ export default defineComponent({
 
   render() {
     const elementProps: Record<string, unknown> = {
-      ...this.attrs,
+      ...this.popupBtnAttrs,
       ...this.events,
 
       ...generateConfigClass(this.config?.class, {
         ...this.$props,
-        disabled: this.attrs.disabled,
+        disabled: this.popupBtnAttrs.disabled,
+        active: this.expanded,
       }),
+      active: this.expanded,
       bare: true,
     };
 

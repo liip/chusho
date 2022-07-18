@@ -18,14 +18,13 @@ import { generateConfigClass } from '../../utils/components';
 
 export const MenuSymbol: InjectionKey<Menu> = Symbol('CMenu');
 
-export const CMenuKey = Symbol('CMenuKey');
-
 export interface MenuItemData {
   disabled: boolean;
   text: string;
 }
 
 export type MenuItem = SelectedItem<MenuItemData>;
+
 export interface Menu {
   disabled: ComputedRef<boolean>;
   collapse: () => void;
@@ -43,7 +42,6 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-
     disabled: {
       type: Boolean,
       default: false,
@@ -53,8 +51,12 @@ export default defineComponent({
   emits: ['popup:update', 'menu-item:click'],
 
   setup(props) {
-    const [attrs, { collapse }] = usePopup(CMenuKey, {
-      initialValue: props.open,
+    const {
+      attrs: popupAttrs,
+      collapse,
+      expanded,
+    } = usePopup({
+      expanded: props.open,
       disabled: props.disabled,
       type: PopupType.menu,
     });
@@ -67,16 +69,18 @@ export default defineComponent({
     provide(MenuSymbol, menu);
 
     return {
-      attrs,
+      popupAttrs,
+      expanded,
       config: useComponentConfig('menu'),
       menu,
     };
   },
 
   render() {
+    const isActive = this.expanded ?? false;
     const elementProps: Record<string, unknown> = {
-      ...this.attrs,
-      ...generateConfigClass(this.config?.class, this.$props),
+      ...this.popupAttrs,
+      ...generateConfigClass(this.config?.class, { ...this.$props, isActive }),
     };
 
     return h('div', mergeProps(this.$attrs, elementProps), this.$slots);

@@ -11,10 +11,9 @@ import {
   withDirectives,
 } from 'vue';
 
-import useActiveElement from '../composables/useActiveElement';
-
 import clickOutsideDirective from '../directives/clickOutside/clickOutside';
 
+import useActiveElement from './useActiveElement';
 import useCachedUid, { UseCachedUid } from './useCachedUid';
 
 export type RenderPopup = (render: () => VNode) => VNode | VNode[] | null;
@@ -41,28 +40,27 @@ export enum PopupType {
 }
 
 export type UsePopupOptions = {
-  clickOutside?: boolean;
+  closeOnClickOutside?: boolean;
   disabled?: boolean;
-  initialValue?: boolean;
+  expanded?: boolean;
   type?: PopupType;
 };
 
-type UsePopup = [
-  UseCachedUid['cacheAttrs'],
-  Pick<UsePopupContext, 'expanded' | 'expand' | 'collapse'>
-];
+interface UsePopup
+  extends Pick<UsePopupContext, 'expanded' | 'expand' | 'collapse'> {
+  attrs: UseCachedUid['cacheAttrs'];
+}
 
-export default function usePopup(
-  UsePopupKey: InjectionKey<UsePopupContext>,
-  {
-    clickOutside = true,
-    disabled = false,
-    initialValue = false,
-    type = PopupType.menu,
-  }: UsePopupOptions = {}
-): UsePopup {
+export const UsePopupSymbol: InjectionKey<UsePopupContext> = Symbol('UsePopup');
+
+export default function usePopup({
+  closeOnClickOutside = true,
+  disabled = false,
+  expanded = false,
+  type = PopupType.menu,
+}: UsePopupOptions = {}): UsePopup {
   const activeElement = useActiveElement();
-  const expanded = ref(initialValue);
+  const isExpanded = ref(expanded);
   const isDisabled = ref(disabled);
   const triggerKey = ref<TriggerKey>('');
   const uid = useCachedUid('chusho-toggle');
@@ -70,22 +68,22 @@ export default function usePopup(
 
   function expand(key?: TriggerKey) {
     activeElement.save();
-    expanded.value = true;
+    isExpanded.value = true;
     triggerKey.value = key ?? '';
   }
 
   function collapse() {
     activeElement.restore();
-    expanded.value = false;
+    isExpanded.value = false;
     triggerKey.value = '';
   }
 
   const renderPopup: RenderPopup = (render) => {
-    if (!expanded.value) {
+    if (!isExpanded.value) {
       return null;
     }
 
-    if (clickOutside) {
+    if (closeOnClickOutside) {
       return withDirectives(render(), [
         [clickOutsideDirective, () => collapse()],
       ]);
@@ -95,14 +93,14 @@ export default function usePopup(
   };
 
   watchPostEffect(() => {
-    vm?.emit(`popup:update`, { expanded: expanded.value });
+    vm?.emit(`popup:update`, { expanded: isExpanded.value });
   });
 
   watch(
     () => vm?.props?.open,
     (val, oldVal) => {
       if (val !== oldVal && typeof val === 'boolean') {
-        expanded.value = val;
+        isExpanded.value = val;
       }
     }
   );
@@ -116,23 +114,21 @@ export default function usePopup(
     }
   );
 
-  provide(UsePopupKey, {
+  provide(UsePopupSymbol, {
     collapse,
     disabled: computed(() => isDisabled.value),
     expand,
-    expanded: computed(() => expanded.value),
+    expanded: computed(() => isExpanded.value),
     renderPopup,
     triggerKey: computed(() => triggerKey.value),
     type,
     uid,
   });
 
-  return [
-    uid.cacheAttrs,
-    {
-      collapse,
-      expand,
-      expanded: computed(() => expanded.value),
-    },
-  ];
+  return {
+    attrs: uid.cacheAttrs,
+    collapse,
+    expand,
+    expanded: computed(() => isExpanded.value),
+  };
 }
