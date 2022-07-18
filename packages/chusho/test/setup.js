@@ -52,9 +52,8 @@ afterEach(() => {
   if (nonAssertedWarnings.length) {
     nonAssertedWarnings.forEach((warning) => {
       // eslint-disable-next-line no-console
-      console.warn(warning);
+      console.error(warning);
     });
-    throw new Error(`test case threw unexpected warnings.`);
   }
 });
 
