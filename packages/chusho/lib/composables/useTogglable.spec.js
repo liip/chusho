@@ -6,15 +6,15 @@ import useTogglable from './useTogglable';
 
 describe('useTogglable', () => {
   it('initialize with default value', () => {
-    const toggle = withSetup(() => useTogglable(true));
+    const { composable } = withSetup(() => useTogglable(true));
 
-    expect(toggle.isOpen.value).toBe(true);
+    expect(composable.isOpen.value).toBe(true);
   });
 
   it('has a unique ID', () => {
-    const toggle = withSetup(() => useTogglable());
+    const { composable } = withSetup(() => useTogglable());
 
-    expect(toggle.uid.id.value).toBe('chusho-toggle-0');
+    expect(composable.uid.id.value).toBe('chusho-toggle-0');
   });
 
   it('emits when there’s a component instance and the value change using default prop name', () => {
@@ -75,35 +75,35 @@ describe('useTogglable', () => {
   });
 
   it('can be toggled with the toggle method', () => {
-    const toggle = withSetup(() => useTogglable());
+    const { composable } = withSetup(() => useTogglable());
 
-    toggle.toggle();
+    composable.toggle();
 
-    expect(toggle.isOpen.value).toBe(true);
+    expect(composable.isOpen.value).toBe(true);
   });
 
   it('can be opened with the open method', () => {
-    const toggle = withSetup(() => useTogglable());
+    const { composable } = withSetup(() => useTogglable());
 
-    toggle.open();
+    composable.open();
 
-    expect(toggle.isOpen.value).toBe(true);
+    expect(composable.isOpen.value).toBe(true);
   });
 
   it('can be closed with the open method', () => {
-    const toggle = withSetup(() => useTogglable(true));
+    const { composable } = withSetup(() => useTogglable(true));
 
-    toggle.close();
+    composable.close();
 
-    expect(toggle.isOpen.value).toBe(false);
+    expect(composable.isOpen.value).toBe(false);
   });
 
   it('renderIfOpen executes render and return it when open', () => {
-    const toggle = withSetup(() => useTogglable(true));
+    const { composable } = withSetup(() => useTogglable(true));
     const render = vi.fn(() => 'rendered');
     const fallback = vi.fn();
 
-    const actual = toggle.renderIfOpen(render, fallback);
+    const actual = composable.renderIfOpen(render, fallback);
 
     expect(render).toHaveBeenCalledTimes(1);
     expect(fallback).not.toHaveBeenCalled();
@@ -111,11 +111,11 @@ describe('useTogglable', () => {
   });
 
   it('renderIfOpen executes fallback and return null when closed', () => {
-    const toggle = withSetup(() => useTogglable());
+    const { composable } = withSetup(() => useTogglable());
     const render = vi.fn();
     const fallback = vi.fn();
 
-    const actual = toggle.renderIfOpen(render, fallback);
+    const actual = composable.renderIfOpen(render, fallback);
 
     expect(fallback).toHaveBeenCalledTimes(1);
     expect(render).not.toHaveBeenCalled();
@@ -123,36 +123,38 @@ describe('useTogglable', () => {
   });
 
   it('provides proper attributes for toggle button', () => {
-    const toggle = withSetup(() => useTogglable());
+    const { composable } = withSetup(() => useTogglable());
 
-    expect(toggle.attrs.btn.value['aria-controls']).toBe(toggle.uid.id.value);
+    expect(composable.attrs.btn.value['aria-controls']).toBe(
+      composable.uid.id.value
+    );
   });
 
   it('provides proper attributes for toggle target', () => {
-    const toggle = withSetup(() => useTogglable());
+    const { composable } = withSetup(() => useTogglable());
 
-    expect(toggle.attrs.target.value.id).toBe(toggle.uid.id.value);
+    expect(composable.attrs.target.value.id).toBe(composable.uid.id.value);
   });
 
   it('provides proper attributes for toggle button when closed', () => {
-    const toggle = withSetup(() => useTogglable());
+    const { composable } = withSetup(() => useTogglable());
 
-    expect(toggle.attrs.btn.value['aria-expanded']).toBe('false');
+    expect(composable.attrs.btn.value['aria-expanded']).toBe('false');
   });
 
   it('provides proper attributes for toggle button when open', () => {
-    const toggle = withSetup(() => useTogglable(true));
+    const { composable } = withSetup(() => useTogglable(true));
 
-    expect(toggle.attrs.btn.value['aria-expanded']).toBe('true');
+    expect(composable.attrs.btn.value['aria-expanded']).toBe('true');
   });
 
   it('listens for click on the button that toggles and stop propagation', () => {
-    const toggle = withSetup(() => useTogglable());
+    const { composable } = withSetup(() => useTogglable());
     const event = { stopPropagation: vi.fn() };
 
-    toggle.attrs.btn.value.onClick(event);
+    composable.attrs.btn.value.onClick(event);
 
     expect(event.stopPropagation).toHaveBeenCalledTimes(1);
-    expect(toggle.isOpen.value).toBe(true);
+    expect(composable.isOpen.value).toBe(true);
   });
 });
