@@ -7,21 +7,21 @@ import useCachedUid from './useCachedUid';
 
 describe('useCachedUid', () => {
   it('returns a unique ID without prefix', () => {
-    const uid = withSetup(() => useCachedUid());
+    const { composable } = withSetup(() => useCachedUid());
 
-    expect(uid.id.value).toBe('0');
+    expect(composable.id.value).toBe('0');
   });
 
   it('returns a unique ID with prefix', () => {
-    const uid = withSetup(() => useCachedUid('chusho'));
+    const { composable } = withSetup(() => useCachedUid('chusho'));
 
-    expect(uid.id.value).toBe('chusho-0');
+    expect(composable.id.value).toBe('chusho-0');
   });
 
   it('returns a ref and data-attribute for caching', () => {
-    const uid = withSetup(() => useCachedUid('chusho'));
+    const { composable } = withSetup(() => useCachedUid('chusho'));
 
-    expect(uid.cacheAttrs).toMatchInlineSnapshot(`
+    expect(composable.cacheAttrs).toMatchInlineSnapshot(`
       {
         "data-chusho-ssr-uid": undefined,
         "ref": RefImpl {
