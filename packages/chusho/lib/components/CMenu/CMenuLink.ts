@@ -24,12 +24,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-
     href: {
       type: String,
       default: null,
     },
-
     to: {
       type: [String, Object] as PropType<RouteLocationRaw>,
       default: null,

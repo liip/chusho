@@ -17,34 +17,30 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup() {
-    const { attrs: popupBtnAttrs, events, expanded } = usePopupBtn();
+    const popupBtn = usePopupBtn();
 
     return {
       config: useComponentConfig('menuBtn'),
-      popupBtnAttrs,
-      events,
-      expanded,
+      popupBtn,
     };
   },
 
-  methods: {},
-
   render() {
+    const active = this.popupBtn.popup.expanded.value ?? false;
     const elementProps: Record<string, unknown> = {
-      ...this.popupBtnAttrs,
-      ...this.events,
-
+      ...this.popupBtn.attrs,
+      ...this.popupBtn.events,
       ...generateConfigClass(this.config?.class, {
         ...this.$props,
-        disabled: this.popupBtnAttrs.disabled,
-        active: this.expanded,
+        disabled: this.popupBtn.attrs.disabled,
+        active,
       }),
-      active: this.expanded,
+      active,
       bare: true,
     };
 
     return h(CBtn, mergeProps(this.$attrs, this.$props, elementProps), () =>
-      this.$slots?.default?.({ active: this.expanded })
+      this.$slots?.default?.({ active })
     );
   },
 });

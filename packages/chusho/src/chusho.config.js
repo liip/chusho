@@ -109,8 +109,10 @@ export default {
             'cursor-pointer hover:bg-gray-100': !disabled,
             'text-gray-400 cursor-not-allowed': disabled,
             'pl-12': ['menuitemcheckbox', 'menuitemradio'].includes(role),
-            'before:content-[""] before:absolute before:left-4 before:top-4 before:rounded-[50%] before:border-2 before:border-gray-300 before:w-4 before:h-4 before:transition-colors after:content-[""] after:absolute after:left-5 after:top-5 after:rounded-[50%] after:w-2 after:h-2 after:bg-gray-600 after:scale-0 after:transition-transform':
+            'before:content-[""] before:absolute before:left-4 before:top-4 before:border-2 before:border-gray-300 before:w-4 before:h-4 before:transition-colors after:content-[""] after:absolute after:left-5 after:top-5 after:w-2 after:h-2 after:bg-gray-600 after:scale-0 after:transition-transform':
               ['menuitemcheckbox', 'menuitemradio'].includes(role),
+            'before:rounded-[50%] after:rounded-[50%]':
+              role === 'menuitemradio',
             'before:border-gray-600 after:scale-100':
               ['menuitemcheckbox', 'menuitemradio'].includes(role) && selected,
           },
