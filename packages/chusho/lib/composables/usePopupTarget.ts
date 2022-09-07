@@ -1,32 +1,25 @@
-import { inject, reactive, watchEffect } from 'vue';
+import { inject, reactive } from 'vue';
 
-import useActiveElement from './useActiveElement';
-import { UsePopupContext, UsePopupSymbol } from './usePopup';
+import { UsePopup, UsePopupSymbol } from './usePopup';
 
-interface UsePopupTarget
-  extends Pick<UsePopupContext, 'expanded' | 'renderPopup' | 'triggerKey'> {
-  attrs: { id: string };
-  events: { onKeydown: (e: KeyboardEvent) => void };
+interface UsePopupTarget {
+  attrs: {
+    id: string;
+  };
+  events: {
+    onKeydown: (e: KeyboardEvent) => void;
+  };
+  popup: UsePopup;
 }
 
 export default function usePopupTarget(): UsePopupTarget {
-  const resolved = inject(UsePopupSymbol);
+  const popup = inject(UsePopupSymbol);
 
-  if (!resolved) {
-    throw new Error(`Could not resolve ${UsePopupSymbol.description}`);
+  if (!popup) {
+    throw new Error('usePopupTarget must be used within usePopup');
   }
 
-  const activeElement = useActiveElement();
-
-  const { uid, expanded, renderPopup, triggerKey, collapse } = resolved;
-
-  watchEffect(() => {
-    if (expanded) {
-      activeElement.save();
-    } else {
-      activeElement.restore();
-    }
-  });
+  const { uid, collapse } = popup;
 
   function handleKeydown(e: KeyboardEvent) {
     if (['Tab', 'Escape'].includes(e.key)) {
@@ -39,8 +32,6 @@ export default function usePopupTarget(): UsePopupTarget {
     events: {
       onKeydown: handleKeydown,
     },
-    expanded,
-    renderPopup,
-    triggerKey,
+    popup,
   };
 }

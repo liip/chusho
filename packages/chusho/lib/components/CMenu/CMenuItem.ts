@@ -24,7 +24,6 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-
     value: {
       type: String,
       default: null,

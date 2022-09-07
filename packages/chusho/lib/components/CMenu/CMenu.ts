@@ -48,7 +48,7 @@ export default defineComponent({
     },
   },
 
-  emits: ['popup:update', 'menu-item:click'],
+  emits: ['update:open', 'menu-item:click'],
 
   setup(props) {
     const {
@@ -57,7 +57,9 @@ export default defineComponent({
       expanded,
     } = usePopup({
       expanded: props.open,
+      expandedPropName: 'open',
       disabled: props.disabled,
+      disabledPropName: 'disabled',
       type: PopupType.menu,
     });
 
@@ -69,9 +71,9 @@ export default defineComponent({
     provide(MenuSymbol, menu);
 
     return {
+      config: useComponentConfig('menu'),
       popupAttrs,
       expanded,
-      config: useComponentConfig('menu'),
       menu,
     };
   },

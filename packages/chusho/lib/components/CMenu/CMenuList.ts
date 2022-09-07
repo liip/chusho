@@ -38,8 +38,7 @@ export default defineComponent({
     const {
       attrs: togglableAttrs,
       events: togglableEvents,
-      triggerKey,
-      renderPopup,
+      popup,
     } = usePopupTarget();
 
     const [listAttrs, listEvents, { activateItemAt, clearActiveItem }] =
@@ -50,7 +49,7 @@ export default defineComponent({
       });
 
     watchEffect(() => {
-      switch (triggerKey.value) {
+      switch (popup.triggerKey.value) {
         case 'ArrowUp':
           activateItemAt(-1);
           break;
@@ -70,7 +69,7 @@ export default defineComponent({
       togglableEvents,
       listEvents,
       menu,
-      renderPopup,
+      renderPopup: popup.renderPopup,
     };
   },
 

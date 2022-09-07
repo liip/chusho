@@ -1,28 +1,29 @@
 import { computed, inject, reactive } from 'vue';
 
-import { UsePopupContext, UsePopupSymbol } from './usePopup';
+import { UsePopup, UsePopupSymbol } from './usePopup';
 
-interface UsePopupBtn extends Pick<UsePopupContext, 'expanded'> {
+export interface UsePopupBtn {
   attrs: {
-    disabled: boolean | undefined;
     'aria-expanded': string;
     'aria-controls': string;
-    'aria-haspopup': string | undefined;
+    'aria-haspopup': string;
+    disabled: boolean;
   };
   events: {
     onClick: (e: MouseEvent) => void;
     onKeydown: (e: KeyboardEvent) => void;
   };
+  popup: UsePopup;
 }
 
 export default function usePopupBtn(): UsePopupBtn {
   const popup = inject(UsePopupSymbol);
 
   if (!popup) {
-    throw new Error(`Could not resolve ${UsePopupSymbol.description}`);
+    throw new Error('usePopupBtn must be used within usePopup');
   }
 
-  const { collapse, expand, disabled, uid, expanded, type } = popup;
+  const { collapse, expand, toggle, disabled, uid, expanded, type } = popup;
 
   function handleKeydown(e: KeyboardEvent) {
     switch (e.key) {
@@ -30,14 +31,14 @@ export default function usePopupBtn(): UsePopupBtn {
       case 'Escape':
         collapse();
         break;
-      case ' ':
+      case ' ': // Space bar
       case 'Enter':
         e.preventDefault();
-        expand();
+        toggle();
         break;
       case 'ArrowDown':
       case 'ArrowUp':
-        e.preventDefault(); // prevent scroll
+        e.preventDefault(); // Prevent scroll
         expand(e.key);
         break;
       default:
@@ -48,20 +49,20 @@ export default function usePopupBtn(): UsePopupBtn {
   function handleClick(e: MouseEvent) {
     // Prevent triggering a potential click-outside listener
     e.stopPropagation();
-    expanded.value === true ? collapse() : expand();
+    toggle();
   }
 
   return {
     attrs: reactive({
-      'aria-controls': computed(() => uid.id.value),
-      'aria-expanded': computed(() => `${expanded.value}`),
+      'aria-controls': uid.id,
+      'aria-expanded': computed(() => expanded.value.toString()),
       'aria-haspopup': type,
-      disabled: computed(() => disabled.value || undefined),
+      disabled,
     }),
     events: {
       onClick: handleClick,
       onKeydown: handleKeydown,
     },
-    expanded,
+    popup,
   };
 }
