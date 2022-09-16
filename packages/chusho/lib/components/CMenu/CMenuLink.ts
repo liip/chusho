@@ -10,7 +10,6 @@ import { generateConfigClass } from '../../utils/components';
 
 import { CBtn } from '../CBtn';
 import { MenuSymbol } from './CMenu';
-import { CMenuListKey } from './CMenuList';
 
 export default defineComponent({
   name: 'CMenuLink',
@@ -37,19 +36,20 @@ export default defineComponent({
   setup(props) {
     const menu = inject(MenuSymbol);
 
-    const [itemRef, listAttrs, listEvents] = useInteractiveListItem(
-      CMenuListKey,
-      {
-        disabled: props.disabled,
-        onSelect: () => menu?.collapse(),
-      }
-    );
+    const {
+      itemRef,
+      attrs: listItemAttrs,
+      events: listItemEvents,
+    } = useInteractiveListItem({
+      disabled: props.disabled,
+      onSelect: () => menu?.collapse(),
+    });
 
     return {
       config: useComponentConfig('menuLink'),
       menu,
-      listAttrs,
-      listEvents,
+      listItemAttrs,
+      listItemEvents,
       itemRef,
     };
   },
@@ -61,10 +61,10 @@ export default defineComponent({
 
     const linkProps: Record<string, unknown> = {
       ref: 'itemRef',
-      ...this.listAttrs,
-      ...this.listEvents,
       href: this.href,
       to: this.to,
+      ...this.listItemAttrs,
+      ...this.listItemEvents,
       ...generateConfigClass(this.config?.class, this.$props),
       bare: true,
     };

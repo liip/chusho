@@ -15,14 +15,14 @@ import useKeyboardListNavigation from './useKeyboardListNavigation';
 
 type InteractiveItemId = string | number;
 
-type InteractiveItemData = {
+interface InteractiveItemData {
   text?: string;
   disabled?: boolean;
-};
+}
 
-type InteractiveItem = {
+interface InteractiveItem extends InteractiveItemData {
   id: InteractiveItemId;
-} & InteractiveItemData;
+}
 
 type Items = Map<InteractiveItemId, InteractiveItemData>;
 type SelectedItems = Set<InteractiveItemId>;
@@ -60,7 +60,17 @@ type UseInteractiveListOptions = {
   onKeyDown?: (e: KeyboardEvent) => void;
 };
 
-export type InteractiveListContext = {
+interface UseInteractiveList {
+  attrs: {
+    role: InteractiveListRoles;
+  };
+
+  events: {
+    onKeydown: (e: KeyboardEvent) => void;
+  };
+
+  items: ComputedRef<InteractiveItem[]>;
+
   activeItem: ActiveItem;
   multiple: boolean;
   role: InteractiveListRoles;
@@ -78,34 +88,10 @@ export type InteractiveListContext = {
 
   activateItemAt: ActivateItemAt;
   clearActiveItem: ClearActiveItem;
-};
+}
 
-type UseInteractiveList = [
-  {
-    role: InteractiveListRoles;
-  },
-  {
-    onKeydown: (e: KeyboardEvent) => void;
-  },
-  {
-    items: ComputedRef<InteractiveItem[]>;
-    selection: Selection;
-    activeItem: ActiveItem;
-
-    registerItem: RegisterItem;
-    unregisterItem: UnregisterItem;
-    updateItem: UpdateItem;
-
-    selectItem: SelectItem;
-    deselectItem: DeselectItem;
-    toggleItem: ToggleItem;
-    resetSelection: ResetSelection;
-    clearSelection: ClearSelection;
-
-    activateItemAt: ActivateItemAt;
-    clearActiveItem: ClearActiveItem;
-  }
-];
+export const UseInteractiveListSymbol: InjectionKey<UseInteractiveList> =
+  Symbol('UseInteractiveList');
 
 function registerItem(items: Ref<Items>): RegisterItem {
   return (id, data = {}) => {
@@ -186,16 +172,13 @@ function clearActiveItem(activeItem: ActiveItem): ClearActiveItem {
   return () => (activeItem.value = null);
 }
 
-export default function useInteractiveList(
-  UseInteractiveListKey: InjectionKey<InteractiveListContext>,
-  {
-    role,
-    initialValue = [],
-    multiple = false,
-    loop = false,
-    skipDisabled = false,
-  }: UseInteractiveListOptions
-): UseInteractiveList {
+export default function useInteractiveList({
+  role,
+  initialValue = [],
+  multiple = false,
+  loop = false,
+  skipDisabled = false,
+}: UseInteractiveListOptions): UseInteractiveList {
   const vm = getCurrentInstance();
 
   const items = ref<Items>(new Map());
@@ -234,7 +217,24 @@ export default function useInteractiveList(
     vm?.emit(`change`, newValue);
   });
 
-  const methods = {
+  const interactiveList: UseInteractiveList = {
+    attrs: {
+      role,
+    },
+
+    events: {
+      onKeydown: handleKeydown,
+    },
+
+    items: computed(() =>
+      [...items.value.entries()].map(([id, data]) => ({ id, ...data }))
+    ),
+
+    multiple,
+    role,
+    selection,
+    activeItem,
+
     registerItem: registerItem(items),
     updateItem: updateItem(items),
     unregisterItem: unregisterItem(items),
@@ -249,32 +249,7 @@ export default function useInteractiveList(
     clearActiveItem: clearActiveItem(activeItem),
   };
 
-  const provided = {
-    multiple,
-    role,
-    selection,
-    activeItem,
+  provide<UseInteractiveList>(UseInteractiveListSymbol, interactiveList);
 
-    ...methods,
-  };
-
-  provide(UseInteractiveListKey, provided);
-
-  return [
-    {
-      role,
-    },
-    {
-      onKeydown: handleKeydown,
-    },
-    {
-      selection,
-      activeItem,
-      items: computed(() =>
-        [...items.value.entries()].map(([id, data]) => ({ id, ...data }))
-      ),
-
-      ...methods,
-    },
-  ];
+  return interactiveList;
 }

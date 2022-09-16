@@ -3,8 +3,6 @@ import { h, reactive } from 'vue';
 
 import useInteractiveList, { InteractiveListRoles } from './useInteractiveList';
 
-const UseInteractiveListKey = Symbol('UseInteractiveListKey');
-
 const fixture = [
   { id: 0, data: { disabled: false, text: 'adipisicing' } },
   { id: 1, data: { disabled: false, text: 'lorem cupidatat' } },
@@ -32,7 +30,7 @@ const TestList = {
   },
 
   setup(props) {
-    const [attrs, events, context] = useInteractiveList(UseInteractiveListKey, {
+    const { attrs, events, ...context } = useInteractiveList({
       multiple: props.multiple,
       initialValue: props.initialValue,
       role: props.role,

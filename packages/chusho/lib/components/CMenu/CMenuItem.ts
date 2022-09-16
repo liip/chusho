@@ -10,7 +10,6 @@ import useInteractiveListItem, {
 import { generateConfigClass } from '../../utils/components';
 
 import { MenuSymbol } from './CMenu';
-import { CMenuListKey } from './CMenuList';
 
 export default defineComponent({
   name: 'CMenuItem',
@@ -33,16 +32,13 @@ export default defineComponent({
   setup(props) {
     const menu = inject(MenuSymbol);
 
-    const [itemRef, attrs, events, { selected }] = useInteractiveListItem(
-      CMenuListKey,
-      {
-        value: toRef(props, 'value'),
-        disabled: toRef(props, 'disabled'),
-        onSelect: ({ role }) => {
-          role === InteractiveListItemRoles.menuitem && menu?.collapse();
-        },
-      }
-    );
+    const { itemRef, attrs, events, selected } = useInteractiveListItem({
+      value: toRef(props, 'value'),
+      disabled: toRef(props, 'disabled'),
+      onSelect: ({ role }) => {
+        role === InteractiveListItemRoles.menuitem && menu?.collapse();
+      },
+    });
 
     return {
       config: useComponentConfig('menuItem'),
