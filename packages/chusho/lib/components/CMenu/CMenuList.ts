@@ -16,8 +16,6 @@ import {
 
 import { MenuSymbol } from './CMenu';
 
-export const CMenuListKey = Symbol('CMenuListKey');
-
 export default defineComponent({
   name: 'CMenuList',
 
@@ -41,12 +39,16 @@ export default defineComponent({
       popup,
     } = usePopupTarget();
 
-    const [listAttrs, listEvents, { activateItemAt, clearActiveItem }] =
-      useInteractiveList(CMenuListKey, {
-        role: InteractiveListRoles.menu,
-        loop: true,
-        multiple: props.multiple,
-      });
+    const {
+      attrs: listAttrs,
+      events: listEvents,
+      activateItemAt,
+      clearActiveItem,
+    } = useInteractiveList({
+      role: InteractiveListRoles.menu,
+      loop: true,
+      multiple: props.multiple,
+    });
 
     watchEffect(() => {
       switch (popup.trigger.value) {

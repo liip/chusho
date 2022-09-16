@@ -1,6 +1,5 @@
 import {
   ComponentPublicInstance,
-  InjectionKey,
   Ref,
   computed,
   getCurrentInstance,
@@ -19,8 +18,8 @@ import { warn } from '../utils/debug';
 import uid from '../utils/uid';
 
 import {
-  InteractiveListContext,
   InteractiveListRoles,
+  UseInteractiveListSymbol,
 } from './useInteractiveList';
 
 export enum InteractiveListItemRoles {
@@ -31,35 +30,38 @@ export enum InteractiveListItemRoles {
   listitem = 'listitem',
 }
 
-type UseInteractiveListItemOptions = {
+interface UseInteractiveListItemOptions {
   disabled: Ref<boolean> | boolean;
   value?: Ref<string>;
   onSelect?: ({ role }: { role: InteractiveListItemRoles }) => void;
-};
+}
 
-type UseInteractiveListItem = [
-  Ref<HTMLElement | ComponentPublicInstance | undefined>,
-  {
+interface UseInteractiveListItem {
+  itemRef: Ref<HTMLElement | ComponentPublicInstance | undefined>;
+  attrs: {
     value?: Ref<string>;
     role: InteractiveListItemRoles;
     tabindex: '0' | '-1';
     'aria-disabled'?: 'true';
-  },
-  {
+  };
+  events: {
     onClick: (e: MouseEvent) => void;
     onKeydown: (e: KeyboardEvent) => void;
-  },
-  { selected: Ref<boolean> }
-];
+  };
+  selected: Ref<boolean>;
+}
 
-export default function useInteractiveListItem(
-  InteractiveListItemKey: InjectionKey<InteractiveListContext>,
-  { value, disabled, onSelect }: UseInteractiveListItemOptions
-): UseInteractiveListItem {
-  const resolved = inject(InteractiveListItemKey);
+export default function useInteractiveListItem({
+  value,
+  disabled,
+  onSelect,
+}: UseInteractiveListItemOptions): UseInteractiveListItem {
+  const interactiveList = inject(UseInteractiveListSymbol);
 
-  if (!resolved) {
-    throw new Error(`Could not resolve ${InteractiveListItemKey.description}`);
+  if (!interactiveList) {
+    throw new Error(
+      `useInteractiveListItem must be used within useInteractiveList`
+    );
   }
 
   const id = uid('chusho-menu-item');
@@ -73,7 +75,7 @@ export default function useInteractiveListItem(
     toggleItem,
     selection,
     role: listRole,
-  } = resolved;
+  } = interactiveList;
 
   const isActive = ref(false);
   const itemRef = ref<HTMLElement | ComponentPublicInstance>();
@@ -210,21 +212,19 @@ export default function useInteractiveListItem(
     }
   }
 
-  return [
+  return {
     itemRef,
-    reactive({
+    attrs: reactive({
       id,
       role: itemRole,
       tabindex: computed(() => (isActive.value ? '0' : '-1')),
       'aria-disabled': computed(() => (isDisabled ? 'true' : undefined)),
       'aria-checked': checked,
     }),
-    {
+    events: {
       onClick: handleAction,
       onKeydown: handleKeydown,
     },
-    {
-      selected: computed(() => isSelectable.value && selected.value),
-    },
-  ];
+    selected: computed(() => isSelectable.value && selected.value),
+  };
 }
