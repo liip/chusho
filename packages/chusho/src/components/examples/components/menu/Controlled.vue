@@ -1,7 +1,7 @@
 <template>
   <CMenu v-model:open="open" :disabled="disabled">
     <CMenuBtn v-slot="{ active }">
-      <span>Default menu</span>
+      <span>Controlled menu</span>
       <CIcon
         id="caret"
         :scale="0.375"

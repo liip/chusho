@@ -1,5 +1,5 @@
 <template>
-  <CMenu :disabled="disabled">
+  <CMenu>
     <CMenuBtn v-slot="{ active }">
       <span>Disabled item</span>
       <CIcon
@@ -11,7 +11,7 @@
     </CMenuBtn>
     <CMenuList>
       <CMenuItem>Do laborum</CMenuItem>
-      <CMenuItem :disabled="itemDisabled">Voluptate aute</CMenuItem>
+      <CMenuItem disabled>Voluptate aute</CMenuItem>
       <CMenuItem>Consectetur et ex commodo </CMenuItem>
       <CMenuSeparator />
       <CMenuItem>Aliquip veniam</CMenuItem>
@@ -19,21 +19,3 @@
     </CMenuList>
   </CMenu>
 </template>
-
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
-
-export default defineComponent({
-  setup() {
-    const disabled = ref(false);
-    const itemDisabled = ref(false);
-
-    setTimeout(() => (itemDisabled.value = true), 2000);
-
-    return {
-      disabled,
-      itemDisabled,
-    };
-  },
-});
-</script>

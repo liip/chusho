@@ -1,14 +1,8 @@
 import { BaseTransitionProps } from 'vue';
 
-import { DialogData } from '../components/CDialog/CDialog';
+import { DeepPartial } from './utils';
 
-type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? DeepPartial<U>[]
-    : T[P] extends Readonly<infer U>[]
-    ? Readonly<DeepPartial<U>>[]
-    : DeepPartial<T[P]>;
-};
+import { DialogData } from '../components/CDialog/CDialog';
 
 export interface DollarChusho {
   options: ChushoOptions;

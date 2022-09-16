@@ -19,16 +19,16 @@ import useCachedUid, { UseCachedUid } from './useCachedUid';
 
 export type RenderPopup = (render: () => VNode) => VNode | VNode[] | null;
 
-export type TriggerKey = KeyboardEvent['key'] | null;
+export type Trigger = KeyboardEvent['key'] | 'Click' | null;
 
 export type UsePopup = {
   collapse: () => void;
-  expand: (key?: TriggerKey) => void;
-  toggle: () => void;
+  expand: (key?: Trigger) => void;
+  toggle: (key?: Trigger) => void;
   renderPopup: RenderPopup;
   disabled: Readonly<Ref<boolean>>;
   expanded: Readonly<Ref<boolean>>;
-  triggerKey: Readonly<Ref<TriggerKey>>;
+  trigger: Readonly<Ref<Trigger>>;
   type: PopupType;
   uid: UseCachedUid;
   attrs: UseCachedUid['cacheAttrs'];
@@ -64,7 +64,7 @@ export default function usePopup({
   const activeElement = useActiveElement();
   const isExpanded = ref(expanded);
   const isDisabled = ref(disabled);
-  const triggerKey = ref<TriggerKey>(null);
+  const trigger = ref<Trigger>(null);
   const uid = useCachedUid('chusho-popup');
   const vm = getCurrentInstance();
 
@@ -73,20 +73,20 @@ export default function usePopup({
     vm?.emit(`update:${expandedPropName}`, val);
   }
 
-  function expand(key: TriggerKey = null) {
+  function expand(key: Trigger = null) {
     activeElement.save();
-    triggerKey.value = key;
+    trigger.value = key;
     setIsExpanded(true);
   }
 
   function collapse() {
     activeElement.restore();
-    triggerKey.value = null;
+    trigger.value = null;
     setIsExpanded(false);
   }
 
-  function toggle() {
-    isExpanded.value ? collapse() : expand();
+  function toggle(key: Trigger = null) {
+    isExpanded.value ? collapse() : expand(key);
   }
 
   const renderPopup: RenderPopup = (render) => {
@@ -131,7 +131,7 @@ export default function usePopup({
     attrs: uid.cacheAttrs,
     disabled: readonly(isDisabled),
     expanded: readonly(isExpanded),
-    triggerKey: readonly(triggerKey),
+    trigger: readonly(trigger),
     collapse,
     expand,
     toggle,
