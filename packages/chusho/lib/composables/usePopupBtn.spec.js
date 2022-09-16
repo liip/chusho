@@ -68,42 +68,21 @@ describe('usePopupBtn', () => {
 
     wrapper.find('button').trigger('click');
     expect(popup.expanded.value).toBe(true);
+    expect(popup.trigger.value).toBe('Click');
 
     wrapper.find('button').trigger('click');
     expect(popup.expanded.value).toBe(false);
-  });
-
-  it.each(['Tab', 'Escape'])(
-    'collapses the popup when pressing %s',
-    async (key) => {
-      const wrapper = mount(component);
-
-      popup.expand();
-      expect(popup.expanded.value).toBe(true);
-
-      await wrapper.find('button').trigger('keydown', { key });
-      expect(popup.expanded.value).toBe(false);
-    }
-  );
-
-  it.each([' ', 'Enter'])('toggles the popup when pressing %s', async (key) => {
-    const wrapper = mount(component);
-
-    await wrapper.find('button').trigger('keydown', { key });
-    expect(popup.expanded.value).toBe(true);
-
-    await wrapper.find('button').trigger('keydown', { key });
-    expect(popup.expanded.value).toBe(false);
+    expect(popup.trigger.value).toBe(null);
   });
 
   it.each(['ArrowDown', 'ArrowUp'])(
-    'expand the popup when pressing %s and updates the triggerKey',
+    'expand the popup when pressing %s and updates the trigger',
     async (key) => {
       const wrapper = mount(component);
 
       await wrapper.find('button').trigger('keydown', { key });
       expect(popup.expanded.value).toBe(true);
-      expect(popup.triggerKey.value).toBe(key);
+      expect(popup.trigger.value).toBe(key);
     }
   );
 });

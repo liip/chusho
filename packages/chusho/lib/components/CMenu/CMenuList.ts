@@ -49,12 +49,13 @@ export default defineComponent({
       });
 
     watchEffect(() => {
-      switch (popup.triggerKey.value) {
+      switch (popup.trigger.value) {
+        case 'ArrowDown':
+        case 'Click':
+          activateItemAt(0);
+          break;
         case 'ArrowUp':
           activateItemAt(-1);
-          break;
-        case 'ArrowDown':
-          activateItemAt(0);
           break;
         default:
           clearActiveItem();

@@ -23,33 +23,19 @@ export default function usePopupBtn(): UsePopupBtn {
     throw new Error('usePopupBtn must be used within usePopup');
   }
 
-  const { collapse, expand, toggle, disabled, uid, expanded, type } = popup;
+  const { expand, toggle, disabled, uid, expanded, type } = popup;
 
   function handleKeydown(e: KeyboardEvent) {
-    switch (e.key) {
-      case 'Tab':
-      case 'Escape':
-        collapse();
-        break;
-      case ' ': // Space bar
-      case 'Enter':
-        e.preventDefault();
-        toggle();
-        break;
-      case 'ArrowDown':
-      case 'ArrowUp':
-        e.preventDefault(); // Prevent scroll
-        expand(e.key);
-        break;
-      default:
-        break;
+    if (['ArrowDown', 'ArrowUp'].includes(e.key)) {
+      e.preventDefault(); // Prevent scroll
+      expand(e.key);
     }
   }
 
   function handleClick(e: MouseEvent) {
     // Prevent triggering a potential click-outside listener
     e.stopPropagation();
-    toggle();
+    toggle('Click');
   }
 
   return {
