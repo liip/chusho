@@ -5,10 +5,10 @@ import componentMixin from '../mixins/componentMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
 import useInteractiveListItem from '../../composables/useInteractiveListItem';
-import useLink from '../../composables/useLink';
 
 import { generateConfigClass } from '../../utils/components';
 
+import { CBtn } from '../CBtn';
 import { MenuSymbol } from './CMenu';
 import { CMenuListKey } from './CMenuList';
 
@@ -45,13 +45,9 @@ export default defineComponent({
       }
     );
 
-    const [linkTag, linkAttrs] = useLink();
-
     return {
       config: useComponentConfig('menuLink'),
       menu,
-      linkTag,
-      linkAttrs,
       listAttrs,
       listEvents,
       itemRef,
@@ -65,24 +61,15 @@ export default defineComponent({
 
     const linkProps: Record<string, unknown> = {
       ref: 'itemRef',
-      ...this.linkAttrs,
       ...this.listAttrs,
       ...this.listEvents,
+      href: this.href,
+      to: this.to,
       ...generateConfigClass(this.config?.class, this.$props),
+      bare: true,
     };
 
-    let slot;
-
-    /**
-     * TODO resolve issue to properly type `this.linkTag` to
-     * better handle the `children` parameter of the `h` function
-     */
-    if (typeof this.linkTag === 'string') {
-      slot = this.$slots?.default?.();
-    } else {
-      slot = this.$slots?.default;
-    }
-
-    return h('li', elementProps, h(this.linkTag, linkProps, slot));
+    // FIXME: There’s currently no way to customize/add local attributes on the link element.
+    return h('li', elementProps, [h(CBtn, linkProps, this.$slots)]);
   },
 });
