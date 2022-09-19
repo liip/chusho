@@ -13,13 +13,15 @@ const fixture = [
   { id: 6, data: { disabled: false, text: 'deserunt' } },
 ];
 
+let callback;
+let wrapper;
+
 const TestComponent = {
   props: {
     initialIndex: {
       type: Number,
       default: 0,
     },
-
     loop: {
       type: Boolean,
       default: false,
@@ -42,13 +44,6 @@ const TestComponent = {
 
   template: '<div @keydown="handleKeyboardNavigation"></div>',
 };
-
-let callback;
-let wrapper;
-
-afterEach(() => {
-  wrapper.unmount();
-});
 
 describe('useKeyboardListNavigation', () => {
   describe('use navigation keys', () => {

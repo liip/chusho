@@ -1,5 +1,5 @@
 import { mount, shallowMount } from '@vue/test-utils';
-import { computed, h, ref, toRef } from 'vue';
+import { computed, h, nextTick, ref, toRef } from 'vue';
 
 import uid from '../utils/uid';
 
@@ -32,16 +32,14 @@ const toggleItem = vi.fn((value) =>
 const selected = ref(null);
 
 const defaultProvide = {
-  [UseInteractiveListSymbol]: {
-    role: InteractiveListRoles.list,
-    multiple: false,
-    selection: computed(() => selected.value),
-    activeItem: ref(null),
-    registerItem,
-    unregisterItem,
-    updateItem,
-    toggleItem,
-  },
+  role: InteractiveListRoles.list,
+  multiple: false,
+  selection: computed(() => selected.value),
+  activeItem: ref(null),
+  registerItem,
+  unregisterItem,
+  updateItem,
+  toggleItem,
 };
 
 const TestItem = {
@@ -71,7 +69,7 @@ const TestItem = {
 
     const { itemRef, attrs, events } = useInteractiveListItem({
       value,
-      disabled: props.disabled,
+      disabled: toRef(props, 'disabled'),
       onSelect,
     });
 
@@ -106,16 +104,14 @@ beforeEach(() => {
   updateItem.mockClear();
 });
 
-afterEach(() => {
-  wrapper.unmount();
-});
-
 describe('item lifecycle', () => {
   it('self register on mount and unregister on unmount', () => {
     wrapper = mount(TestItem, {
       props: itemProps,
       global: {
-        provide: defaultProvide,
+        provide: {
+          [UseInteractiveListSymbol]: defaultProvide,
+        },
       },
     });
 
@@ -136,7 +132,9 @@ describe('role attribute', () => {
     wrapper = mount(TestItem, {
       props: itemProps,
       global: {
-        provide: defaultProvide,
+        provide: {
+          [UseInteractiveListSymbol]: defaultProvide,
+        },
       },
     });
 
@@ -155,7 +153,7 @@ describe('role attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.listbox,
           },
         },
@@ -174,7 +172,7 @@ describe('role attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.listbox,
           },
         },
@@ -182,7 +180,7 @@ describe('role attribute', () => {
     });
 
     expect(
-      '[Chūshō warn]: ListItemTest: you are creating a "listbox" element but didn’t pass a "value" prop'
+      'ListItemTest: useInteractiveList of type “listbox” requires “useInteractiveListItem” to provide a “value” option, so that items can be selected.'
     ).toHaveBeenWarned();
   });
 
@@ -195,7 +193,7 @@ describe('role attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.combobox,
           },
         },
@@ -214,7 +212,7 @@ describe('role attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.combobox,
           },
         },
@@ -222,7 +220,7 @@ describe('role attribute', () => {
     });
 
     expect(
-      '[Chūshō warn]: ListItemTest: you are creating a "combobox" element but didn’t pass a "value" prop'
+      'ListItemTest: useInteractiveList of type “combobox” requires “useInteractiveListItem” to provide a “value” option, so that items can be selected.'
     ).toHaveBeenWarned();
   });
 
@@ -232,7 +230,7 @@ describe('role attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
           },
         },
@@ -254,7 +252,7 @@ describe('role attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
           },
         },
@@ -276,7 +274,7 @@ describe('role attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: true,
           },
@@ -296,7 +294,9 @@ describe('aria-disabled attribute', () => {
     wrapper = mount(TestItem, {
       props: itemProps,
       global: {
-        provide: defaultProvide,
+        provide: {
+          [UseInteractiveListSymbol]: defaultProvide,
+        },
       },
     });
 
@@ -310,10 +310,31 @@ describe('aria-disabled attribute', () => {
         disabled: true,
       },
       global: {
-        provide: defaultProvide,
+        provide: {
+          [UseInteractiveListSymbol]: defaultProvide,
+        },
       },
     });
 
+    expect(wrapper.vm).toHaveProperty('attrs.aria-disabled', 'true');
+  });
+
+  it('changes when disabled option changes', async () => {
+    wrapper = mount(TestItem, {
+      props: {
+        ...itemProps,
+        disabled: false,
+      },
+      global: {
+        provide: {
+          [UseInteractiveListSymbol]: defaultProvide,
+        },
+      },
+    });
+
+    expect(wrapper.vm).toHaveProperty('attrs.aria-disabled', undefined);
+    await wrapper.setProps({ disabled: true });
+    await nextTick();
     expect(wrapper.vm).toHaveProperty('attrs.aria-disabled', 'true');
   });
 });
@@ -325,7 +346,7 @@ describe('tabindex attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: true,
           },
@@ -342,7 +363,7 @@ describe('tabindex attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: true,
             activeItem: ref(itemProps.id),
@@ -367,7 +388,7 @@ describe('aria-checked attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: false,
             selection: ref(value),
@@ -388,7 +409,7 @@ describe('aria-checked attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: false,
           },
@@ -410,7 +431,7 @@ describe('aria-checked attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: true,
             selection: ref(value),
@@ -431,7 +452,7 @@ describe('aria-checked attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: true,
           },
@@ -453,7 +474,7 @@ describe('aria-checked attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.listbox,
             multiple: true,
             selection: ref(value),
@@ -474,7 +495,7 @@ describe('aria-checked attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.listbox,
             multiple: false,
             selection: ref(value),
@@ -495,7 +516,7 @@ describe('aria-checked attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.combobox,
             multiple: true,
             selection: ref(value),
@@ -516,7 +537,7 @@ describe('aria-checked attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.combobox,
             multiple: true,
             selection: ref(value),
@@ -539,7 +560,7 @@ describe('aria-checked attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.listbox,
             multiple: true,
           },
@@ -559,7 +580,7 @@ describe('aria-checked attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.listbox,
             multiple: false,
           },
@@ -579,7 +600,7 @@ describe('aria-checked attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.combobox,
             multiple: true,
           },
@@ -599,7 +620,7 @@ describe('aria-checked attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.combobox,
             multiple: true,
           },
@@ -618,7 +639,7 @@ describe('aria-checked attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
           },
         },
@@ -636,7 +657,7 @@ describe('aria-checked attribute', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.list,
           },
         },
@@ -656,7 +677,7 @@ describe('event emission and callback', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.list,
           },
         },
@@ -691,7 +712,7 @@ describe('event emission and callback', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.list,
           },
         },
@@ -714,7 +735,7 @@ describe('event emission and callback', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
           },
         },
@@ -744,7 +765,7 @@ describe('event emission and callback', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
           },
         },
@@ -769,7 +790,7 @@ describe('event emission and callback', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: false,
           },
@@ -810,7 +831,7 @@ describe('event emission and callback', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: false,
           },
@@ -836,7 +857,7 @@ describe('event emission and callback', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: true,
           },
@@ -888,7 +909,7 @@ describe('event emission and callback', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: true,
           },
@@ -914,7 +935,7 @@ describe('event emission and callback', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: false,
             selection: ref(value),
@@ -945,7 +966,7 @@ describe('item selection', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: false,
           },
@@ -987,7 +1008,7 @@ describe('item selection', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: false,
           },
@@ -1013,7 +1034,7 @@ describe('item selection', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.listbox,
             multiple: false,
           },
@@ -1054,7 +1075,7 @@ describe('item selection', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.combobox,
             multiple: false,
           },
@@ -1096,7 +1117,7 @@ describe('item selection', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.listbox,
             multiple: false,
           },
@@ -1123,7 +1144,7 @@ describe('item selection', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.combobox,
             multiple: false,
           },
@@ -1149,7 +1170,7 @@ describe('item selection', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: true,
           },
@@ -1206,7 +1227,7 @@ describe('item selection', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: true,
           },
@@ -1229,7 +1250,7 @@ describe('item selection', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.list,
           },
         },
@@ -1251,7 +1272,7 @@ describe('item selection', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
           },
         },
@@ -1276,7 +1297,7 @@ describe('item selection', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.menu,
             multiple: false,
             selection: ref(value),
@@ -1303,7 +1324,7 @@ describe('item selection', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.listbox,
             multiple: false,
             selection: ref(value),
@@ -1329,7 +1350,7 @@ describe('item selection', () => {
       global: {
         provide: {
           [UseInteractiveListSymbol]: {
-            ...defaultProvide[UseInteractiveListSymbol],
+            ...defaultProvide,
             role: InteractiveListRoles.combobox,
             multiple: false,
             selection: ref(value),

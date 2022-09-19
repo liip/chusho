@@ -14,6 +14,8 @@ import {
   watchPostEffect,
 } from 'vue';
 
+import { MaybeRef } from '../types/utils';
+
 import { warn } from '../utils/debug';
 import uid from '../utils/uid';
 
@@ -31,7 +33,7 @@ export enum InteractiveListItemRoles {
 }
 
 interface UseInteractiveListItemOptions {
-  disabled: Ref<boolean> | boolean;
+  disabled: MaybeRef<boolean>;
   value?: Ref<string>;
   onSelect?: ({ role }: { role: InteractiveListItemRoles }) => void;
 }
@@ -64,8 +66,6 @@ export default function useInteractiveListItem({
     );
   }
 
-  const id = uid('chusho-menu-item');
-
   const {
     multiple,
     registerItem,
@@ -77,13 +77,12 @@ export default function useInteractiveListItem({
     role: listRole,
   } = interactiveList;
 
+  const id = uid('chusho-interactive-list-item');
   const isActive = ref(false);
   const itemRef = ref<HTMLElement | ComponentPublicInstance>();
   const vm = getCurrentInstance();
 
-  let isDisabled = unref(disabled);
-
-  registerItem(id, { disabled: isDisabled });
+  registerItem(id, { disabled: unref(disabled) });
 
   onMounted(() => {
     if (vm?.proxy) {
@@ -94,8 +93,7 @@ export default function useInteractiveListItem({
   watch(
     () => unref(disabled),
     () => {
-      isDisabled = unref(disabled);
-      updateItem(id, { disabled: isDisabled });
+      updateItem(id, { disabled: unref(disabled) });
     }
   );
 
@@ -132,7 +130,7 @@ export default function useInteractiveListItem({
     ) {
       if (!value?.value) {
         warn(
-          `${vm?.type.name}: you are creating a "${listRole}" element but didn’t pass a "value" prop`
+          `${vm?.type.name}: useInteractiveList of type “${listRole}” requires “useInteractiveListItem” to provide a “value” option, so that items can be selected.`
         );
       }
       return InteractiveListItemRoles.option;
@@ -154,16 +152,15 @@ export default function useInteractiveListItem({
   });
 
   const selected = computed(() => {
-    if (!isSelectable.value) {
+    if (!isSelectable.value || !value?.value) {
       return false;
     }
 
-    return (
-      !!value?.value &&
-      (Array.isArray(selection.value)
-        ? selection.value.includes(value.value)
-        : selection.value === value.value)
-    );
+    if (Array.isArray(selection.value)) {
+      return selection.value.includes(value.value);
+    }
+
+    return selection.value === value.value;
   });
 
   const itemElement = computed(() => {
@@ -181,7 +178,7 @@ export default function useInteractiveListItem({
   );
 
   function handleAction(e: Event) {
-    if (isDisabled) {
+    if (unref(disabled)) {
       e.preventDefault();
       e.stopPropagation();
       return;
@@ -218,13 +215,13 @@ export default function useInteractiveListItem({
       id,
       role: itemRole,
       tabindex: computed(() => (isActive.value ? '0' : '-1')),
-      'aria-disabled': computed(() => (isDisabled ? 'true' : undefined)),
+      'aria-disabled': computed(() => (unref(disabled) ? 'true' : undefined)),
       'aria-checked': checked,
     }),
     events: {
       onClick: handleAction,
       onKeydown: handleKeydown,
     },
-    selected: computed(() => isSelectable.value && selected.value),
+    selected,
   };
 }
