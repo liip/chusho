@@ -10,6 +10,7 @@ import {
 } from 'vue';
 
 import { ensureArray, getAtIndex } from '../utils/arrays';
+import { warn } from '../utils/debug';
 
 import useKeyboardListNavigation from './useKeyboardListNavigation';
 
@@ -35,21 +36,6 @@ export enum InteractiveListRoles {
   list = 'list',
 }
 
-type Selection = ComputedRef<InteractiveItemId | InteractiveItemId[] | null>;
-
-type RegisterItem = (id: InteractiveItemId, data?: InteractiveItemData) => void;
-type UpdateItem = (id: InteractiveItemId, data: InteractiveItemData) => void;
-type UnregisterItem = (id: InteractiveItemId) => boolean;
-
-type SelectItem = (id: InteractiveItemId) => void;
-type DeselectItem = (id: InteractiveItemId) => boolean;
-type ToggleItem = (id: InteractiveItemId) => void;
-type ResetSelection = () => void;
-type ClearSelection = () => void;
-
-type ActivateItemAt = (index: number) => void;
-type ClearActiveItem = () => void;
-
 type UseInteractiveListOptions = {
   role: InteractiveListRoles;
   initialValue?: InteractiveItemId[];
@@ -64,113 +50,32 @@ interface UseInteractiveList {
   attrs: {
     role: InteractiveListRoles;
   };
-
   events: {
     onKeydown: (e: KeyboardEvent) => void;
   };
-
   items: ComputedRef<InteractiveItem[]>;
 
   activeItem: ActiveItem;
   multiple: boolean;
   role: InteractiveListRoles;
-  selection: Selection;
+  selection: ComputedRef<InteractiveItemId | InteractiveItemId[] | null>;
 
-  registerItem: RegisterItem;
-  updateItem: UpdateItem;
-  unregisterItem: UnregisterItem;
+  registerItem: (id: InteractiveItemId, data?: InteractiveItemData) => void;
+  updateItem: (id: InteractiveItemId, data: InteractiveItemData) => void;
+  unregisterItem: (id: InteractiveItemId) => boolean;
 
-  selectItem: SelectItem;
-  deselectItem: DeselectItem;
-  toggleItem: ToggleItem;
-  resetSelection: ResetSelection;
-  clearSelection: ClearSelection;
+  selectItem: (id: InteractiveItemId) => void;
+  deselectItem: (id: InteractiveItemId) => boolean;
+  toggleItem: (id: InteractiveItemId) => void;
+  resetSelection: () => void;
+  clearSelection: () => void;
 
-  activateItemAt: ActivateItemAt;
-  clearActiveItem: ClearActiveItem;
+  activateItemAt: (index: number) => void;
+  clearActiveItem: () => void;
 }
 
 export const UseInteractiveListSymbol: InjectionKey<UseInteractiveList> =
   Symbol('UseInteractiveList');
-
-function registerItem(items: Ref<Items>): RegisterItem {
-  return (id, data = {}) => {
-    if (items.value.has(id)) {
-      return;
-    }
-
-    items.value.set(id, data);
-  };
-}
-
-function updateItem(items: Ref<Items>): UpdateItem {
-  return (id, data) => {
-    const item = items.value.get(id);
-
-    if (typeof item === 'undefined') {
-      return;
-    }
-
-    items.value.set(id, { ...item, ...data });
-  };
-}
-
-function unregisterItem(items: Ref<Items>): UnregisterItem {
-  return (id) => items.value.delete(id);
-}
-
-function selectItem(
-  selectedItems: Ref<SelectedItems>,
-  multiple: boolean
-): SelectItem {
-  return (id) => {
-    if (!multiple) {
-      selectedItems.value.clear();
-    }
-
-    selectedItems.value.add(id);
-  };
-}
-
-function deselectItem(selectedItems: Ref<SelectedItems>): DeselectItem {
-  return (id) => selectedItems.value.delete(id);
-}
-
-function toggleItem(
-  selectedItems: Ref<SelectedItems>,
-  multiple: boolean
-): ToggleItem {
-  return (id) => {
-    if (!selectedItems.value.has(id)) {
-      selectItem(selectedItems, multiple)(id);
-    } else {
-      deselectItem(selectedItems)(id);
-    }
-  };
-}
-
-function resetSelection(
-  selectedItems: Ref<SelectedItems>,
-  initialValue: InteractiveItemId[]
-): ResetSelection {
-  return () => (selectedItems.value = new Set(initialValue));
-}
-
-function clearSelection(selectedItems: Ref<SelectedItems>): ClearSelection {
-  return () => selectedItems.value.clear();
-}
-
-function activateItemAt(
-  activeItem: ActiveItem,
-  items: Ref<Items>
-): ActivateItemAt {
-  return (index) =>
-    (activeItem.value = getAtIndex([...items.value.keys()], index) ?? null);
-}
-
-function clearActiveItem(activeItem: ActiveItem): ClearActiveItem {
-  return () => (activeItem.value = null);
-}
 
 export default function useInteractiveList({
   role,
@@ -182,23 +87,20 @@ export default function useInteractiveList({
   const vm = getCurrentInstance();
 
   const items = ref<Items>(new Map());
-  const initialValueArray: InteractiveItemId[] = ensureArray(initialValue);
-  const selectedItems = ref(new Set(initialValueArray));
+  const initialValueAsArray: InteractiveItemId[] = ensureArray(initialValue);
+  const selectedItems = ref<SelectedItems>(new Set(initialValueAsArray));
   const activeItem: ActiveItem = ref(null);
 
   const selection = computed(() => {
     const selected = [...selectedItems.value];
-
     return multiple ? selected : selected[0] ?? null;
   });
-
-  const activateItemAtFn = activateItemAt(activeItem, items);
 
   const handleKeydown = useKeyboardListNavigation(
     (e, index) => {
       if (index !== null) {
         e.preventDefault();
-        activateItemAtFn(index);
+        activateItemAt(index);
       }
     },
     {
@@ -213,19 +115,85 @@ export default function useInteractiveList({
     }
   );
 
+  // FIXME: This should be hanlded by the component, at least the event name, so it can be paired with a v-model
   watch(selection, (newValue) => {
-    vm?.emit(`change`, newValue);
+    vm?.emit('change', newValue);
   });
+
+  function registerItem(
+    id: InteractiveItemId,
+    data: InteractiveItemData = {}
+  ): void {
+    if (items.value.has(id)) {
+      warn(`useInteractiveList: item with id “${id}” is already registered.`);
+      return;
+    }
+
+    items.value.set(id, data);
+  }
+
+  function updateItem(id: InteractiveItemId, data: InteractiveItemData): void {
+    const item = items.value.get(id);
+
+    if (typeof item === 'undefined') {
+      warn(
+        `useInteractiveList: tried to update item “${id}” with ${JSON.stringify(
+          data
+        )} but no such item exists.`
+      );
+      return;
+    }
+
+    items.value.set(id, { ...item, ...data });
+  }
+
+  function unregisterItem(id: InteractiveItemId): boolean {
+    return items.value.delete(id);
+  }
+
+  function selectItem(id: InteractiveItemId): void {
+    if (!multiple) {
+      selectedItems.value.clear();
+    }
+
+    selectedItems.value.add(id);
+  }
+
+  function deselectItem(id: InteractiveItemId): boolean {
+    return selectedItems.value.delete(id);
+  }
+
+  function toggleItem(id: InteractiveItemId): void {
+    if (!selectedItems.value.has(id)) {
+      selectItem(id);
+    } else {
+      deselectItem(id);
+    }
+  }
+
+  function resetSelection(): void {
+    selectedItems.value = new Set(initialValueAsArray);
+  }
+
+  function clearSelection() {
+    selectedItems.value.clear();
+  }
+
+  function activateItemAt(index: number): void {
+    activeItem.value = getAtIndex([...items.value.keys()], index) ?? null;
+  }
+
+  function clearActiveItem(): void {
+    activeItem.value = null;
+  }
 
   const interactiveList: UseInteractiveList = {
     attrs: {
       role,
     },
-
     events: {
       onKeydown: handleKeydown,
     },
-
     items: computed(() =>
       [...items.value.entries()].map(([id, data]) => ({ id, ...data }))
     ),
@@ -235,18 +203,18 @@ export default function useInteractiveList({
     selection,
     activeItem,
 
-    registerItem: registerItem(items),
-    updateItem: updateItem(items),
-    unregisterItem: unregisterItem(items),
+    registerItem,
+    updateItem,
+    unregisterItem,
 
-    selectItem: selectItem(selectedItems, multiple),
-    deselectItem: deselectItem(selectedItems),
-    toggleItem: toggleItem(selectedItems, multiple),
-    resetSelection: resetSelection(selectedItems, initialValueArray),
-    clearSelection: clearSelection(selectedItems),
+    selectItem,
+    deselectItem,
+    toggleItem,
+    resetSelection,
+    clearSelection,
 
-    activateItemAt: activateItemAtFn,
-    clearActiveItem: clearActiveItem(activeItem),
+    activateItemAt,
+    clearActiveItem,
   };
 
   provide<UseInteractiveList>(UseInteractiveListSymbol, interactiveList);

@@ -21,20 +21,19 @@ interface UseKeyboardListNavigationOptions {
 }
 
 export default function useKeyboardListNavigation(
-  fn: (e: KeyboardEvent, index: number | null) => void,
+  handler: (e: KeyboardEvent, index: number | null) => void,
   {
     resolveItems,
     resolveActiveIndex,
     resolveDisabled,
     loop = false,
   }: UseKeyboardListNavigationOptions
-) {
+): (e: KeyboardEvent) => void {
   const query = ref<string>('');
   const searchIndex = ref<number>(0);
+  const prepareToResetQuery = debounce(() => (query.value = ''), 500);
 
-  const resetQuery = debounce(() => (query.value = ''), 500);
-
-  function findItemToFocus(character: string) {
+  function findItemIndexToFocus(character: string): number | null {
     const items = resolveItems();
     const selectedItemIndex = resolveActiveIndex();
 
@@ -44,7 +43,7 @@ export default function useKeyboardListNavigation(
 
     query.value += character;
 
-    resetQuery();
+    prepareToResetQuery();
 
     let nextMatch = findMatchInRange(
       items,
@@ -63,7 +62,7 @@ export default function useKeyboardListNavigation(
     items: NavigableItem[],
     startIndex: number,
     endIndex: number
-  ) {
+  ): number | null {
     for (let index = startIndex; index < endIndex; index++) {
       const item = items[index];
       const label = item.data?.text;
@@ -81,7 +80,7 @@ export default function useKeyboardListNavigation(
     let newIndex = null;
 
     if (focus === null) {
-      newIndex = findItemToFocus(e.key);
+      newIndex = findItemIndexToFocus(e.key);
     } else {
       newIndex = calculateActiveIndex<NavigableItem>(
         focus,
@@ -94,6 +93,6 @@ export default function useKeyboardListNavigation(
       );
     }
 
-    fn(e, newIndex);
+    handler(e, newIndex);
   };
 }

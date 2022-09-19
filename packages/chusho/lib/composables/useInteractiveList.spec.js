@@ -6,6 +6,8 @@ import useInteractiveList, { InteractiveListRoles } from './useInteractiveList';
 const fixture = [
   { id: 0, data: { disabled: false, text: 'adipisicing' } },
   { id: 1, data: { disabled: false, text: 'lorem cupidatat' } },
+  { id: 2, data: { disabled: true, text: 'disabled item' } },
+  { id: 3, data: { disabled: false, text: 'ipsum dolor' } },
 ];
 
 let wrapper;
@@ -17,15 +19,21 @@ const TestList = {
       type: Boolean,
       default: false,
     },
-
     initialValue: {
       type: [Array, Number],
       default: [],
     },
-
     role: {
       type: String,
       default: InteractiveListRoles.list,
+    },
+    loop: {
+      type: Boolean,
+      default: false,
+    },
+    skipDisabled: {
+      type: Boolean,
+      default: false,
     },
   },
 
@@ -34,19 +42,17 @@ const TestList = {
       multiple: props.multiple,
       initialValue: props.initialValue,
       role: props.role,
+      loop: props.loop,
+      skipDisabled: props.skipDisabled,
     });
 
     return { attrs, events, context: reactive(context) };
   },
 
   render() {
-    return h('div');
+    return h('div', { ...this.attrs, ...this.events });
   },
 };
-
-afterEach(() => {
-  wrapper.unmount();
-});
 
 describe('General properties', () => {
   it('return the provided role as spreadable attributes', () => {
@@ -112,6 +118,20 @@ describe('Item manipulation', () => {
       ]);
     });
 
+    it('doesn’t register the same item twice', () => {
+      wrapper.vm.context.registerItem(fixture[1].id, fixture[1].data);
+      wrapper.vm.context.registerItem(fixture[1].id, fixture[1].data);
+
+      expect(wrapper.vm.context.items).toHaveLength(2);
+      expect(wrapper.vm.context.items).toEqual([
+        { id: fixture[0].id, ...fixture[0].data },
+        { id: fixture[1].id, ...fixture[1].data },
+      ]);
+      expect(
+        'useInteractiveList: item with id “1” is already registered.'
+      ).toHaveBeenWarned();
+    });
+
     it('unregister existing item by ids', () => {
       let deleted = wrapper.vm.context.unregisterItem(fixture[1].id);
 
@@ -131,6 +151,18 @@ describe('Item manipulation', () => {
       expect(wrapper.vm.context.items).toEqual([
         { id: fixture[0].id, ...fixture[0].data, disabled: true },
       ]);
+    });
+
+    it('doesn’t update an inexisting item', () => {
+      wrapper.vm.context.updateItem(fixture[1].id, { disabled: true });
+
+      expect(wrapper.vm.context.items).toHaveLength(1);
+      expect(wrapper.vm.context.items).toEqual([
+        { id: fixture[0].id, ...fixture[0].data, disabled: false },
+      ]);
+      expect(
+        'useInteractiveList: tried to update item “1” with {"disabled":true} but no such item exists.'
+      ).toHaveBeenWarned();
     });
   });
 
@@ -356,29 +388,108 @@ describe('Item manipulation', () => {
   });
 
   describe('Item activation', () => {
-    beforeEach(() => {
-      wrapper = mount(TestList);
-      fixture.forEach(({ id, data }) =>
-        wrapper.vm.context.registerItem(id, data)
-      );
-    });
-
-    it('activate an item by it´s positive index number', () => {
-      wrapper.vm.context.activateItemAt(0);
-      expect(wrapper.vm.context.activeItem).toBe(0);
-    });
-
-    it('activate an item by it´s negative index number', () => {
-      wrapper.vm.context.activateItemAt(-1);
-      expect(wrapper.vm.context.activeItem).toBe(1);
-    });
-
     it('clear the active item', () => {
       wrapper.vm.context.activateItemAt(0);
       expect(wrapper.vm.context.activeItem).toBe(0);
       wrapper.vm.context.clearActiveItem();
 
       expect(wrapper.vm.context.activeItem).toBe(null);
+    });
+
+    it('skips disabled items when ordered to', async () => {
+      wrapper = mount(TestList, {
+        props: {
+          skipDisabled: true,
+        },
+      });
+      fixture.forEach(({ id, data }) =>
+        wrapper.vm.context.registerItem(id, data)
+      );
+
+      await wrapper.trigger('keydown', { key: 'ArrowDown' });
+      expect(wrapper.vm.context.activeItem).toBe(0);
+      await wrapper.trigger('keydown', { key: 'ArrowDown' });
+      expect(wrapper.vm.context.activeItem).toBe(1);
+      await wrapper.trigger('keydown', { key: 'ArrowDown' });
+      expect(wrapper.vm.context.activeItem).toBe(3);
+    });
+
+    describe('without loop', () => {
+      beforeEach(() => {
+        wrapper = mount(TestList, {
+          props: {
+            loop: false,
+          },
+        });
+        fixture.forEach(({ id, data }) =>
+          wrapper.vm.context.registerItem(id, data)
+        );
+      });
+
+      it('activate an item by it’s positive index number until end', async () => {
+        await wrapper.trigger('keydown', { key: 'ArrowDown' });
+        expect(wrapper.vm.context.activeItem).toBe(0);
+        await wrapper.trigger('keydown', { key: 'ArrowDown' });
+        expect(wrapper.vm.context.activeItem).toBe(1);
+        await wrapper.trigger('keydown', { key: 'ArrowDown' });
+        expect(wrapper.vm.context.activeItem).toBe(2);
+        await wrapper.trigger('keydown', { key: 'ArrowDown' });
+        expect(wrapper.vm.context.activeItem).toBe(3);
+        await wrapper.trigger('keydown', { key: 'ArrowDown' });
+        expect(wrapper.vm.context.activeItem).toBe(3);
+      });
+
+      it('activate an item by it’s negative index number until end', async () => {
+        await wrapper.trigger('keydown', { key: 'ArrowUp' });
+        expect(wrapper.vm.context.activeItem).toBe(3);
+        await wrapper.trigger('keydown', { key: 'ArrowUp' });
+        expect(wrapper.vm.context.activeItem).toBe(2);
+        await wrapper.trigger('keydown', { key: 'ArrowUp' });
+        expect(wrapper.vm.context.activeItem).toBe(1);
+        await wrapper.trigger('keydown', { key: 'ArrowUp' });
+        expect(wrapper.vm.context.activeItem).toBe(0);
+        await wrapper.trigger('keydown', { key: 'ArrowUp' });
+        expect(wrapper.vm.context.activeItem).toBe(0);
+      });
+    });
+
+    describe('with loop', () => {
+      beforeEach(() => {
+        wrapper = mount(TestList, {
+          props: {
+            loop: true,
+          },
+        });
+        fixture.forEach(({ id, data }) =>
+          wrapper.vm.context.registerItem(id, data)
+        );
+      });
+
+      it('activate an item by it’s positive index number and start over at the end', async () => {
+        await wrapper.trigger('keydown', { key: 'ArrowDown' });
+        expect(wrapper.vm.context.activeItem).toBe(0);
+        await wrapper.trigger('keydown', { key: 'ArrowDown' });
+        expect(wrapper.vm.context.activeItem).toBe(1);
+        await wrapper.trigger('keydown', { key: 'ArrowDown' });
+        expect(wrapper.vm.context.activeItem).toBe(2);
+        await wrapper.trigger('keydown', { key: 'ArrowDown' });
+        expect(wrapper.vm.context.activeItem).toBe(3);
+        await wrapper.trigger('keydown', { key: 'ArrowDown' });
+        expect(wrapper.vm.context.activeItem).toBe(0);
+      });
+
+      it('activate an item by it’s negative index number and start over at the end', async () => {
+        await wrapper.trigger('keydown', { key: 'ArrowUp' });
+        expect(wrapper.vm.context.activeItem).toBe(3);
+        await wrapper.trigger('keydown', { key: 'ArrowUp' });
+        expect(wrapper.vm.context.activeItem).toBe(2);
+        await wrapper.trigger('keydown', { key: 'ArrowUp' });
+        expect(wrapper.vm.context.activeItem).toBe(1);
+        await wrapper.trigger('keydown', { key: 'ArrowUp' });
+        expect(wrapper.vm.context.activeItem).toBe(0);
+        await wrapper.trigger('keydown', { key: 'ArrowUp' });
+        expect(wrapper.vm.context.activeItem).toBe(3);
+      });
     });
   });
 });
