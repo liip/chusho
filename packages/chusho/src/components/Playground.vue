@@ -90,6 +90,7 @@
 
 <script>
 import 'highlight.js/styles/atom-one-light.css';
+import debounce from 'lodash/debounce';
 import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -156,7 +157,7 @@ export default defineComponent({
   },
 
   mounted() {
-    this.observer = new MutationObserver(this.updateCode);
+    this.observer = new MutationObserver(debounce(this.updateCode, 250));
     this.highlightWorker = new Worker('/highlightWorker.js');
 
     this.highlightWorker.addEventListener('message', (e) => {
