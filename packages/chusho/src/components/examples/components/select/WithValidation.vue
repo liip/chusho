@@ -1,12 +1,14 @@
 <template>
   <VeeForm @submit="() => {}">
     <Field v-slot="{ field }" name="color" :rules="isRequired">
-      <CSelect v-model="color" v-bind="field" name="color" data-test="select">
-        <CSelectBtn
-          v-slot="{ open }"
-          class="flex items-center"
-          data-test="select-btn"
-        >
+      <CSelect
+        v-slot="{ open }"
+        v-model="color"
+        v-bind="field"
+        name="color"
+        data-test="select"
+      >
+        <CSelectBtn class="flex items-center" data-test="select-btn">
           <span v-if="field.value?.label">{{ field.value?.label }}</span>
           <span v-else class="text-gray-400">Select a value…</span>
           <CIcon

@@ -43,13 +43,13 @@ describe('Select', () => {
 
       cy.get('[data-test="select-btn"]').click();
       cy.get('[data-test="select-options"]').should('be.visible');
-      cy.get('[data-test="select"] li:focused').type('{enter}', {});
-      cy.contains('This field is required').should('be.visible');
+      cy.get('[data-test="select"] li:focused').type('{downArrow}{enter}', {});
+      cy.contains('This field is required').should('not.exist');
 
       cy.get('[data-test="select-btn"]').click();
       cy.get('[data-test="select-options"]').should('be.visible');
-      cy.get('[data-test="select"] li:focused').type('{downArrow}{enter}', {});
-      cy.contains('This field is required').should('not.exist');
+      cy.get('[data-test="select"] li:focused').type('{upArrow}{enter}', {});
+      cy.contains('This field is required').should('be.visible');
     });
   });
 });

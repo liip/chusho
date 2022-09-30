@@ -175,7 +175,12 @@ interface ComponentsOptions {
     >;
   };
   select?: {
-    class?: ComponentOptionClass<typeof CSelect>;
+    class?: ComponentOptionClass<
+      typeof CSelect,
+      {
+        open: boolean;
+      }
+    >;
   };
   selectBtn?: {
     class?: ComponentOptionClass<

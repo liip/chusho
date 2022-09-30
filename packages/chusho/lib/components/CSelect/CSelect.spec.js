@@ -37,18 +37,6 @@ describe('CSelect', () => {
     expect(wrapper.classes()).toEqual(['select']);
   });
 
-  it.each(['Tab', 'Esc', 'Escape'])('closes when pressing %s key', (key) => {
-    const wrapper = mount(CSelect, {
-      props: {
-        open: true,
-      },
-    });
-
-    expect(wrapper.vm.select.togglable.isOpen.value).toEqual(true);
-    wrapper.trigger('keydown', { key });
-    expect(wrapper.vm.select.togglable.isOpen.value).toEqual(false);
-  });
-
   it.each([
     ['Object', { value: 'Object Truth' }, 'Object Truth'],
     ['String', 'Truth', 'Truth'],

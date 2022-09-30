@@ -16,11 +16,9 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup() {
-    const selectGroup = inject(SelectGroupSymbol);
-
     return {
       config: useComponentConfig('selectGroupLabel'),
-      selectGroup,
+      selectGroup: inject(SelectGroupSymbol),
     };
   },
 

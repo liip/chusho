@@ -1,44 +1,16 @@
-import {
-  InjectionKey,
-  Ref,
-  defineComponent,
-  h,
-  mergeProps,
-  provide,
-  toRef,
-} from 'vue';
+import { defineComponent, h, mergeProps, nextTick, toRef, watch } from 'vue';
 
 import componentMixin from '../mixins/componentMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
 import useFormGroup from '../../composables/useFormGroup';
-import useSelectable, {
-  SelectedItem,
-  UseSelectable,
-} from '../../composables/useSelectable';
-import useTogglable from '../../composables/useTogglable';
+import useInteractiveList, {
+  InteractiveListRoles,
+} from '../../composables/useInteractiveList';
+import usePopup, { PopupType } from '../../composables/usePopup';
 
 import { ALL_TYPES, generateConfigClass } from '../../utils/components';
 import { isObject, isPrimitive } from '../../utils/objects';
-
-export const SelectSymbol: InjectionKey<Select> = Symbol('CSelect');
-
-type SelectValue = unknown;
-
-export interface SelectOptionData {
-  disabled: boolean;
-  text: string;
-}
-
-export type SelectOption = SelectedItem<SelectOptionData>;
-
-export interface Select {
-  value: Ref<SelectValue>;
-  setValue: (value: SelectValue) => void;
-  disabled: Ref<boolean | undefined>;
-  togglable: ReturnType<typeof useTogglable>;
-  selectable: UseSelectable<SelectOptionData>;
-}
 
 export default defineComponent({
   name: 'CSelect',
@@ -80,7 +52,7 @@ export default defineComponent({
     },
     /**
      * Method to resolve the currently selected item value.
-     * For example: `(item) => item.value`
+     * For example: `(option) => option.value`
      */
     itemValue: {
       type: Function,
@@ -104,33 +76,60 @@ export default defineComponent({
 
   emits: ['update:modelValue', 'update:open'],
 
-  setup(props, { emit }) {
-    const { flags } = useFormGroup(props, ['disabled']);
+  setup(props) {
+    const formGroup = useFormGroup(props, ['disabled']);
 
-    const select: Select = {
-      value: toRef(props, 'modelValue'),
-      setValue: (value: unknown) => {
-        emit('update:modelValue', value);
+    const popup = usePopup({
+      expanded: props.open,
+      expandedPropName: 'open',
+      disabled: props.disabled ?? toRef(formGroup.flags, 'disabled'),
+      disabledPropName: 'disabled',
+      type: PopupType.listbox,
+    });
+
+    const interactiveList = useInteractiveList({
+      role: InteractiveListRoles.listbox,
+      initialValue: props.modelValue,
+    });
+
+    watch(
+      () => popup.expanded.value,
+      () => {
+        nextTick(() => {
+          if (popup.expanded.value) {
+            // Focus the first selected item if there’s one
+            const val = interactiveList.selection.value;
+
+            if (val) {
+              const value = Array.isArray(val) ? val[0] : val;
+              const index = interactiveList.items.value.findIndex(
+                (item) => item.value === value
+              );
+
+              if (index > -1) {
+                interactiveList.activateItemAt(index);
+                return;
+              }
+            }
+
+            // Otherwise focus the first item
+            interactiveList.activateItemAt(0);
+          } else {
+            interactiveList.clearActiveItem();
+          }
+        });
       },
-      disabled: toRef(flags, 'disabled'),
-      togglable: useTogglable(props.open, 'open'),
-      selectable: useSelectable<SelectOptionData>(),
-    };
-
-    provide(SelectSymbol, select);
+      {
+        // Ensure we focus an item when the popup is open by default
+        immediate: true,
+      }
+    );
 
     return {
       config: useComponentConfig('select'),
-      select,
+      interactiveList,
+      popup,
     };
-  },
-
-  methods: {
-    handleKeydown(e: KeyboardEvent) {
-      if (['Tab', 'Esc', 'Escape'].includes(e.key)) {
-        this.select.togglable.close();
-      }
-    },
   },
 
   /**
@@ -141,24 +140,24 @@ export default defineComponent({
     const elementProps: Record<string, unknown> = {
       ...generateConfigClass(this.config?.class, {
         ...this.$props,
-        disabled: this.select.disabled.value,
+        disabled: this.popup.disabled.value,
+        open: this.popup.expanded.value,
       }),
-      ...this.select.togglable.uid.cacheAttrs,
-      onKeydown: this.handleKeydown,
+      ...this.popup.attrs,
     };
     const inputProps: Record<string, unknown> = {
       type: 'hidden',
-      name: this.$props.name,
-      value: this.$props.itemValue(this.$props.modelValue),
+      name: this.name,
+      value: this.itemValue(this.modelValue),
     };
 
     return h('div', mergeProps(this.$attrs, elementProps), {
       default: () => {
         const children =
           this.$slots?.default?.({
-            open: this.select.togglable.isOpen.value,
+            open: this.popup.expanded.value,
           }) ?? [];
-        children.unshift(h('input', mergeProps(this.$props.input, inputProps)));
+        children.unshift(h('input', mergeProps(this.input, inputProps)));
         return children;
       },
     });
