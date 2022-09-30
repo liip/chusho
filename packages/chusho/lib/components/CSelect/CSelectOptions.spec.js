@@ -23,9 +23,8 @@ describe('CSelectOption', () => {
     await nextTick();
 
     expect(wrapper.findComponent(CSelectOptions).attributes()).toEqual({
-      id: 'chusho-toggle-0',
+      id: 'chusho-popup-0',
       role: 'listbox',
-      'aria-activedescendant': 'chusho-select-option-1',
     });
   });
 
@@ -85,20 +84,18 @@ describe('CSelectOption', () => {
       },
     });
     const btn = wrapper.findComponent(CSelectBtn);
-    const options = wrapper.findComponent(CSelectOptions);
 
     btn.vm.$el.focus();
     expect(document.activeElement).toBe(btn.vm.$el);
 
     await btn.trigger('click');
     await nextTick();
-    expect(options.vm.activeElement.element.value).toBe(btn.vm.$el);
     expect(document.activeElement).toBe(
       wrapper.findComponent(CSelectOption).vm.$el
     );
     document.body.click(); // Close the select
     await nextTick();
-    expect(options.vm.activeElement.element.value).toBe(btn.vm.$el);
+    expect(document.activeElement).toBe(btn.vm.$el);
 
     wrapper.unmount();
   });

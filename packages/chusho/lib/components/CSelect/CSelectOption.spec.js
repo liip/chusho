@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { h, nextTick } from 'vue';
+import { h, nextTick, ref } from 'vue';
 
 import CSelect from './CSelect';
 import CSelectOption from './CSelectOption';
@@ -17,7 +17,7 @@ describe('CSelectOption', () => {
     });
 
     expect(wrapper.findComponent(CSelectOption).html()).toBe(
-      '<li id="chusho-select-option-1" role="option" tabindex="-1" aria-selected="true">Label</li>'
+      '<li id="chusho-interactive-list-item-1" role="option" tabindex="-1" aria-selected="true">Label</li>'
     );
   });
 
@@ -29,7 +29,7 @@ describe('CSelectOption', () => {
     });
 
     expect(wrapper.findComponent(CSelectOption).html()).toBe(
-      '<li id="chusho-select-option-1" role="option" tabindex="-1">Label</li>'
+      '<li id="chusho-interactive-list-item-1" role="option" tabindex="-1" aria-selected="false">Label</li>'
     );
   });
 
@@ -45,7 +45,7 @@ describe('CSelectOption', () => {
     });
 
     expect(wrapper.findComponent(CSelectOption).html()).toBe(
-      '<li id="chusho-select-option-1" role="option" tabindex="-1" aria-disabled="true">Label</li>'
+      '<li id="chusho-interactive-list-item-1" role="option" tabindex="-1" aria-disabled="true" aria-selected="false">Label</li>'
     );
   });
 
@@ -57,9 +57,9 @@ describe('CSelectOption', () => {
             options: {
               components: {
                 selectOption: {
-                  class: ({ active, focus }) => [
+                  class: ({ selected, disabled }) => [
                     'select-option',
-                    { active, focus },
+                    { selected, disabled },
                   ],
                 },
               },
@@ -80,52 +80,62 @@ describe('CSelectOption', () => {
 
     expect(wrapper.findComponent(CSelectOption).classes()).toEqual([
       'select-option',
-      'active',
-      'focus',
+      'selected',
+      'disabled',
     ]);
   });
 
-  it('registers itself as a select option with id, disabled status and uppercased text content', () => {
+  it('registers itself as a select option with id, disabled status and text content', () => {
     const wrapper = mount(CSelect, {
       slots: {
         default: h(CSelectOption, { value: 'a' }, { default: () => 'Label' }),
       },
     });
 
-    expect(wrapper.vm.select.selectable.items.value).toEqual([
+    expect(wrapper.vm.interactiveList.items.value).toEqual([
       {
-        data: { disabled: false, text: 'label' },
-        id: 'chusho-select-option-1',
+        id: 'chusho-interactive-list-item-1',
+        disabled: false,
+        text: 'label',
+        value: 'a',
       },
     ]);
   });
 
-  it('unregisters itself when unmounted', () => {
+  it('unregisters itself when unmounted', async () => {
+    const rendered = ref(true);
     const wrapper = mount(CSelect, {
       slots: {
-        default: h(CSelectOption, { value: 'a' }, { default: () => 'Label' }),
+        default: () =>
+          rendered.value
+            ? h(CSelectOption, { value: 'a' }, { default: () => 'Label' })
+            : null,
       },
     });
 
-    expect(wrapper.vm.select.selectable.items.value.length).toBe(1);
-    wrapper.unmount();
-    expect(wrapper.vm.select.selectable.items.value.length).toBe(0);
+    expect(wrapper.vm.interactiveList.items.value.length).toBe(1);
+    rendered.value = false;
+    await nextTick();
+
+    expect(wrapper.vm.interactiveList.items.value.length).toBe(0);
   });
 
-  it('sets itself as the focused option if it is the currently selected option', () => {
+  it('sets itself as the focused option if it is the currently selected option', async () => {
     const wrapper = mount(CSelect, {
       props: {
         modelValue: 'a',
+        open: true,
       },
       slots: {
         default: h(CSelectOption, { value: 'a' }, { default: () => 'Label' }),
       },
     });
 
-    expect(wrapper.vm.select.selectable.selectedItem.value).toEqual({
-      data: { disabled: false, text: 'label' },
-      id: 'chusho-select-option-1',
-    });
+    await nextTick();
+
+    expect(wrapper.vm.interactiveList.activeItem.value).toEqual(
+      'chusho-interactive-list-item-1'
+    );
   });
 
   it('update v-model and close on click when not disabled', async () => {
@@ -142,10 +152,10 @@ describe('CSelectOption', () => {
       },
     });
 
-    expect(wrapper.vm.select.togglable.isOpen.value).toBe(true);
+    expect(wrapper.vm.popup.expanded.value).toBe(true);
     await wrapper.findAllComponents(CSelectOption)[1].trigger('click');
     expect(wrapper.emitted('update:modelValue')).toEqual([['b']]);
-    expect(wrapper.vm.select.togglable.isOpen.value).toBe(false);
+    expect(wrapper.vm.popup.expanded.value).toBe(false);
   });
 
   it.each(['Enter', 'Spacebar', ' '])(
@@ -164,12 +174,12 @@ describe('CSelectOption', () => {
         },
       });
 
-      expect(wrapper.vm.select.togglable.isOpen.value).toBe(true);
+      expect(wrapper.vm.popup.expanded.value).toBe(true);
       await wrapper
         .findAllComponents(CSelectOption)[1]
         .trigger('keydown', { key });
       expect(wrapper.emitted('update:modelValue')).toEqual([['b']]);
-      expect(wrapper.vm.select.togglable.isOpen.value).toBe(false);
+      expect(wrapper.vm.popup.expanded.value).toBe(false);
     }
   );
 

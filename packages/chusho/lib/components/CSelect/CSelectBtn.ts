@@ -4,12 +4,12 @@ import componentMixin from '../mixins/componentMixin';
 
 import useCachedUid from '../../composables/useCachedUid';
 import useComponentConfig from '../../composables/useComponentConfig';
+import usePopupBtn from '../../composables/usePopupBtn';
 
 import { generateConfigClass } from '../../utils/components';
 
 import { CBtn } from '../CBtn';
 import { FormGroupSymbol } from '../CFormGroup/CFormGroup';
-import { SelectSymbol } from './CSelect';
 
 export default defineComponent({
   name: 'CSelectBtn',
@@ -22,23 +22,21 @@ export default defineComponent({
     return {
       config: useComponentConfig('selectBtn'),
       formGroup: inject(FormGroupSymbol, null),
-      select: inject(SelectSymbol),
       uid: useCachedUid('chusho-select-btn'),
+      popupBtn: usePopupBtn(),
     };
   },
 
   render() {
-    const open = this.select?.togglable.isOpen.value;
     const elementProps: Record<string, unknown> = {
+      ...this.popupBtn.attrs,
+      ...this.popupBtn.events,
+      ...this.uid.cacheAttrs,
       ...generateConfigClass(this.config?.class, {
         ...this.$props,
-        active: open,
-        disabled: this.select?.disabled.value,
+        disabled: this.popupBtn?.popup.disabled.value,
+        active: this.popupBtn?.popup.expanded.value,
       }),
-      ...this.select?.togglable.attrs.btn.value,
-      ...this.uid.cacheAttrs,
-      'aria-haspopup': 'listbox',
-      disabled: this.select?.disabled.value,
       bare: true,
     };
 
@@ -54,8 +52,10 @@ export default defineComponent({
       elementProps['aria-labelledby'] = labels;
     }
 
-    return h(CBtn, mergeProps(this.$attrs, this.$props, elementProps), () =>
-      this.$slots?.default?.({ open })
+    return h(
+      CBtn,
+      mergeProps(this.$attrs, this.$props, elementProps),
+      this.$slots
     );
   },
 });

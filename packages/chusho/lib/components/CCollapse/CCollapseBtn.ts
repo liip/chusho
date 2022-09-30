@@ -26,15 +26,15 @@ export default defineComponent({
   },
 
   render() {
-    const isActive = this.collapse?.toggle.isOpen.value ?? false;
+    const active = this.collapse?.toggle.isOpen.value ?? false;
     const elementProps: Record<string, unknown> = {
       ...this.collapse?.toggle.attrs.btn.value,
       ...generateConfigClass(this.config?.class, {
         ...this.$props,
-        active: isActive,
+        active,
       }),
       bare: true,
-      active: isActive,
+      active,
     };
 
     return h(
