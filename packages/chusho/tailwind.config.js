@@ -1,7 +1,7 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  content: ['./chusho.config.js', './index.html', './src/**/*.{js,ts,vue}'],
+  content: ['./src/chusho.config.ts', './index.html', './src/**/*.{js,ts,vue}'],
   theme: {
     extend: {
       colors: {

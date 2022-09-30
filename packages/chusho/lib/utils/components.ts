@@ -1,6 +1,10 @@
-import { BaseTransitionProps, Transition, VNode, h } from 'vue';
+import { Transition, TransitionProps, VNode, h } from 'vue';
 
-import { ClassGenerator, VueClassBinding } from '../types';
+import {
+  ClassGenerator,
+  ClassGeneratorCommonCtx,
+  VueClassBinding,
+} from '../types';
 
 import { isPlainObject } from '../utils/objects';
 
@@ -15,11 +19,11 @@ export const ALL_TYPES = [
   Symbol,
 ];
 
-export function generateConfigClass(
-  configClass?: VueClassBinding | ClassGenerator,
-  ctx?: Record<string, unknown>
+export function generateConfigClass<T extends ClassGeneratorCommonCtx>(
+  configClass: VueClassBinding | ClassGenerator<T> | null = null,
+  ctx: T = {} as T
 ): Record<string, unknown> {
-  if (configClass && !ctx?.bare) {
+  if (configClass && !ctx.bare) {
     return {
       class: typeof configClass === 'function' ? configClass(ctx) : configClass,
     };
@@ -29,10 +33,10 @@ export function generateConfigClass(
 
 export function renderWithTransition(
   render: () => VNode | VNode[] | null,
-  vmTransition?: BaseTransitionProps | false,
-  configTransition?: BaseTransitionProps
+  vmTransition?: TransitionProps | false,
+  configTransition?: TransitionProps
 ): VNode | VNode[] | null {
-  let props: BaseTransitionProps | null = null;
+  let props: TransitionProps | null = null;
 
   if (isPlainObject(vmTransition)) {
     props = vmTransition;
