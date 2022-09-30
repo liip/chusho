@@ -11,6 +11,10 @@ const defaultOptions: ChushoOptions = {
   components: {},
 };
 
+export function defineConfig(options: ChushoUserOptions): ChushoUserOptions {
+  return options;
+}
+
 export const $chusho: DollarChusho = reactive({
   options: defaultOptions,
   openDialogs: [],

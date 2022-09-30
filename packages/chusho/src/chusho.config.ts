@@ -1,21 +1,33 @@
 import { mergeProps } from 'vue';
 
-const getBtnClass = ({ variant, disabled }) => ({
-  'bg-white text-blue-500': !variant,
-  'bg-blue-500 text-white': variant?.includes('primary'),
-  'inline-block py-3 px-5 font-bold shadow rounded':
-    !variant || variant?.includes('primary'),
-  'cursor-not-allowed opacity-50': disabled,
-});
+import { VueClassBinding } from '../lib/types';
 
-const fields = ({ disabled }) => ({
-  class: [
+import { defineConfig } from '../lib/chusho';
+
+function getBtnClass({
+  variant,
+  disabled,
+}: {
+  variant?: string | unknown[];
+  disabled?: boolean;
+}): VueClassBinding {
+  return {
+    'bg-white text-blue-500': !variant,
+    'bg-blue-500 text-white': variant?.includes('primary'),
+    'inline-block py-3 px-5 font-bold shadow rounded':
+      !variant || variant?.includes('primary'),
+    'cursor-not-allowed opacity-50': disabled,
+  };
+}
+
+function getFieldClass({ disabled }: { disabled?: boolean }): VueClassBinding {
+  return [
     'block w-full bg-white px-4 py-3 border border-gray-400 rounded outline-none focus:border-accent-600 focus:ring ring-accent-400',
     disabled ? 'bg-gray-200 cursor-not-allowed' : 'bg-white',
-  ],
-});
+  ];
+}
 
-export default {
+export default defineConfig({
   components: {
     alert: {
       class({ variant }) {
@@ -178,14 +190,14 @@ export default {
     },
 
     selectOption: {
-      class({ active, disabled }) {
+      class({ selected, disabled }) {
         return [
           'relative pl-8 pr-4 leading-loose outline-none',
           {
             'hover:text-blue-700 focus:text-blue-700 hover:bg-blue-100 focus:bg-blue-100 cursor-pointer':
               !disabled,
             'text-gray-400': disabled,
-            'text-blue-800': active,
+            'text-blue-800': selected,
           },
         ];
       },
@@ -225,16 +237,22 @@ export default {
 
     textarea: {
       class: (props) =>
-        mergeProps(fields(props), {
-          class: 'h-48 leading-6',
-        }).class,
+        mergeProps(
+          { class: getFieldClass(props) },
+          {
+            class: 'h-48 leading-6',
+          }
+        ),
     },
 
     textField: {
       class: (props) =>
-        mergeProps(fields(props), {
-          class: 'leading-4',
-        }).class,
+        mergeProps(
+          { class: getFieldClass(props) },
+          {
+            class: 'leading-4',
+          }
+        ),
     },
   },
-};
+});

@@ -19,6 +19,89 @@ app.use(Chusho, {
 });
 ```
 
+## TypeScript
+
+If you’re using TypeScript, the library expose a `defineConfig` function to help you get types hints:
+
+```ts{8,14}
+import Chusho, { defineConfig } from 'chusho';
+import { createApp } from 'vue';
+
+const app = createApp(App);
+
+app.use(
+  Chusho,
+  defineConfig({
+    components: {
+      alert: {
+        // …
+      },
+    },
+  })
+);
+```
+
+## Dedicated config file
+
+You can also put your configuration in a dedicated file, for example `chusho.config.ts`:
+
+```ts
+import { defineConfig } from 'chusho';
+
+export default defineConfig({
+  components: {
+    alert: {
+      // …
+    },
+  },
+});
+```
+
+Now import and provide this config where you install Chūshō, usually `main.{js,ts}`:
+
+```ts{4,8}
+import Chusho from 'chusho';
+import { createApp } from 'vue';
+
+import chushoConfig from './chusho.config.ts';
+
+const app = createApp(App);
+
+app.use(Chusho, chushoConfig);
+```
+
+### Hot module replacement
+
+#### Using Vite
+
+To enable HMR of the config in a Vite environment, add the following code to the file where you imported `chusho.config.ts`:
+
+```ts
+import Chusho, { $chusho, mergeDeep } from 'chusho';
+
+if (import.meta.hot) {
+  // The path below should be the same as the `import chushoConfig` above
+  import.meta.hot.accept('./chusho.config.ts', (newConfig) => {
+    mergeDeep($chusho.options, newConfig.default);
+  });
+}
+```
+
+#### Using webpack
+
+To enable HMR of the config in a webpack environment, add the following code to the file where you imported `chusho.config.ts`:
+
+```ts
+import Chusho, { $chusho, mergeDeep } from 'chusho';
+
+if (import.meta.webpackHot) {
+  // The path below should be the same as the `import chushoConfig` above
+  import.meta.webpackHot.accept('./chusho.config.ts', (newConfig) => {
+    mergeDeep($chusho.options, newConfig.default);
+  });
+}
+```
+
 ## Available options
 
 ### components
