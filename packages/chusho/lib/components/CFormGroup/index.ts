@@ -1,3 +1,5 @@
-import CFormGroup from './CFormGroup';
+import CFormGroup, { FormGroup, FormGroupSymbol } from './CFormGroup';
 
-export { CFormGroup };
+export { CFormGroup, FormGroupSymbol };
+
+export type { FormGroup };

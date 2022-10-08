@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { h, inject } from 'vue';
 
+import { FormGroupSymbol as ReexportedFormGroupSymbol } from '.';
 import { CCheckbox } from '../CCheckbox';
 import { CLabel } from '../CLabel';
 import { CRadio } from '../CRadio';
@@ -10,6 +11,10 @@ import { CTextarea } from '../CTextarea';
 import CFormGroup, { FormGroupSymbol } from './CFormGroup';
 
 describe('CFormGroup', () => {
+  it('reexport its injection key', () => {
+    expect(ReexportedFormGroupSymbol).toEqual(FormGroupSymbol);
+  });
+
   it('is renderless by default', () => {
     const wrapper = mount(CFormGroup, {
       slots: {
