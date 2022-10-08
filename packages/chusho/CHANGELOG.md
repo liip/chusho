@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/liip/chusho/compare/v0.5.0...v0.5.1) (2022-10-08)
+
+
+### Bug Fixes
+
+* **Dialog:** add aria-modal attribute for wider compatibility ([9e02396](https://github.com/liip/chusho/commit/9e02396a12dc46ca37d79338161a9c8157609b09))
+* **FormGroup:** reexport injection key ([928d0de](https://github.com/liip/chusho/commit/928d0deb22be9b354ca5316d308c9b7a23f96b3d))
+
+
+
+
+
 # [0.5.0](https://github.com/liip/chusho/compare/v0.4.0...v0.5.0) (2022-03-13)
 
 
