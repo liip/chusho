@@ -108,7 +108,7 @@ export default function useInteractiveList({
 
   const selection = computed(() => {
     const selected = [...selectedValues.value];
-    return multiple ? selected : selected[0] ?? null;
+    return multiple ? selected : selected[0];
   });
 
   const handleKeydown = useKeyboardListNavigation(

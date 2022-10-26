@@ -135,7 +135,7 @@ export default defineConfig({
 
     menuLink: {
       class: ({ disabled }) => [
-        'block px-6 py-3',
+        'block w-full px-6 py-3',
         {
           'cursor-pointer hover:bg-gray-100 focus-visible:bg-gray-100':
             !disabled,
