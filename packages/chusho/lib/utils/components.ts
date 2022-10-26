@@ -1,4 +1,4 @@
-import { Transition, TransitionProps, VNode, h } from 'vue';
+import { PropType, Transition, TransitionProps, VNode, h } from 'vue';
 
 import {
   ClassGenerator,
@@ -15,9 +15,17 @@ export const ALL_TYPES = [
   Array,
   Object,
   Date,
-  Function,
   Symbol,
-];
+] as PropType<
+  | string
+  | number
+  | boolean
+  | unknown[]
+  | Record<string, unknown>
+  | Date
+  | symbol
+  | null
+>;
 
 export function generateConfigClass<T extends ClassGeneratorCommonCtx>(
   configClass: VueClassBinding | ClassGenerator<T> | null = null,

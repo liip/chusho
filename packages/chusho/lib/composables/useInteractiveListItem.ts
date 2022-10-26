@@ -41,9 +41,9 @@ interface UseInteractiveListItemOptions {
 }
 
 export interface UseInteractiveListItem {
+  id: string;
   itemRef: Ref<HTMLElement | ComponentPublicInstance | undefined>;
   attrs: {
-    id: string;
     role: InteractiveListItemRoles;
     tabindex: '0' | '-1';
     'aria-disabled'?: 'true';
@@ -89,7 +89,7 @@ export default function useInteractiveListItem({
     disabled: unref(disabled),
   };
 
-  if (value) {
+  if (value?.value !== undefined) {
     itemData.value = value;
   }
 
@@ -128,7 +128,7 @@ export default function useInteractiveListItem({
 
   const itemRole = computed(() => {
     if (listRole === InteractiveListRoles.menu) {
-      if (typeof value?.value !== 'undefined') {
+      if (value?.value !== undefined) {
         return multiple
           ? InteractiveListItemRoles.menuitemcheckbox
           : InteractiveListItemRoles.menuitemradio;
@@ -139,7 +139,7 @@ export default function useInteractiveListItem({
       listRole === InteractiveListRoles.listbox ||
       listRole === InteractiveListRoles.combobox
     ) {
-      if (typeof value?.value === 'undefined') {
+      if (value?.value === undefined) {
         warn(
           `${vm?.type.name}: useInteractiveList of type “${listRole}” requires “useInteractiveListItem” to provide a “value” option, so that items can be selected.`
         );
@@ -163,7 +163,7 @@ export default function useInteractiveListItem({
   });
 
   const selected = computed(() => {
-    if (!isSelectable.value || typeof value?.value === 'undefined') {
+    if (!isSelectable.value || value?.value === undefined) {
       return false;
     }
 
@@ -199,7 +199,7 @@ export default function useInteractiveListItem({
       vm?.emit('select');
     } else if (
       (!selected.value || isTogglable.value) &&
-      typeof value?.value !== 'undefined'
+      value?.value !== undefined
     ) {
       /**
        * trigger if
@@ -224,9 +224,9 @@ export default function useInteractiveListItem({
   }
 
   const interactiveListItem: UseInteractiveListItem = {
+    id,
     itemRef,
     attrs: reactive({
-      id,
       role: itemRole,
       tabindex: computed(() => (isActive.value ? '0' : '-1')),
       'aria-disabled': computed(() => (unref(disabled) ? 'true' : undefined)),
