@@ -3,7 +3,7 @@
 Accessible tabs component.
 
 <Showcase>
-   <CTabs>
+   <CTabs default-tab="1">
       <CTabList>
         <CTab target="1">First</CTab>
         <CTab target="2">Second</CTab>
@@ -87,7 +87,7 @@ class({ variant, active }) {
 ### Simplest
 
 ```vue-html
-<CTabs>
+<CTabs default-tab="1">
   <CTabList aria-label="Example of tabs">
     <CTab target="1">Tab 1</CTab>
     <CTab target="2">Tab 2</CTab>

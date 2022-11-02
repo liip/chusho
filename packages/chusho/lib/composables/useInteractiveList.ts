@@ -11,7 +11,6 @@ import {
 
 import { ensureArray, getAtIndex } from '../utils/arrays';
 import { warn } from '../utils/debug';
-import { isNil } from '../utils/objects';
 
 import useKeyboardListNavigation from './useKeyboardListNavigation';
 
@@ -36,16 +35,19 @@ export enum InteractiveListRoles {
   combobox = 'combobox',
   listbox = 'listbox',
   list = 'list',
+  tablist = 'tablist',
 }
 
 type UseInteractiveListOptions = {
   role: InteractiveListRoles;
   initialValue?: unknown;
+  initialActiveItem?: InteractiveItemId;
   valuePropName?: string;
   propName?: string | null;
   multiple?: boolean;
   loop?: boolean;
   skipDisabled?: boolean;
+  autoSelect?: boolean;
   onKeyDown?: (e: KeyboardEvent) => void;
 };
 
@@ -59,9 +61,9 @@ export interface UseInteractiveList {
   items: ComputedRef<InteractiveItem[]>;
 
   multiple: boolean;
+  autoSelect: boolean;
   role: InteractiveListRoles;
   selection: ComputedRef<unknown>;
-  selectedItems: ComputedRef<InteractiveItem[]>;
   activeItem: ActiveItem;
 
   registerItem: (id: InteractiveItemId, data?: InteractiveItemData) => void;
@@ -74,6 +76,7 @@ export interface UseInteractiveList {
   resetSelection: () => void;
   clearSelection: () => void;
 
+  activateItem: (id: InteractiveItemId) => void;
   activateItemAt: (index: number) => void;
   clearActiveItem: () => void;
 }
@@ -82,12 +85,14 @@ export const UseInteractiveListSymbol: InjectionKey<UseInteractiveList> =
   Symbol('UseInteractiveList');
 
 export default function useInteractiveList({
-  role,
-  initialValue,
-  valuePropName = 'modelValue',
-  multiple = false,
-  loop = false,
-  skipDisabled = false,
+  role, // The role of the list
+  initialValue, // Initially selected items
+  initialActiveItem, // Initially active item (so it can be focused, but isn’t autofocused)
+  valuePropName = 'modelValue', // The prop to update hwen selection changes
+  multiple = false, // Whether multiple items can be selected
+  loop = false, // Whether to loop around when navigating with the keyboard
+  skipDisabled = false, // Whether to skip disabled items when navigating with the keyboard
+  autoSelect = false, // Keep the selection in sync with the active item
 }: UseInteractiveListOptions): UseInteractiveList {
   const vm = getCurrentInstance();
 
@@ -99,12 +104,7 @@ export default function useInteractiveList({
   const initialValueAsArray: unknown[] =
     initialValue !== undefined ? ensureArray(initialValue) : [];
   const selectedValues = ref<SelectedValues>(new Set(initialValueAsArray));
-  const selectedItems = computed(() =>
-    itemsAsArray.value.filter(
-      (item) => item.value && selectedValues.value.has(item.value)
-    )
-  );
-  const activeItem: ActiveItem = ref(null);
+  const activeItem: ActiveItem = ref(initialActiveItem || null);
 
   const selection = computed(() => {
     const selected = [...selectedValues.value];
@@ -162,6 +162,12 @@ export default function useInteractiveList({
   }
 
   function unregisterItem(id: InteractiveItemId): boolean {
+    // If the currently selected item gets removed from the list in autoSelect
+    // mode, we reset the selection to the first item in the list.
+    if (autoSelect && selectedValues.value.has(id)) {
+      activateItemAt(0);
+    }
+
     return items.value.delete(id);
   }
 
@@ -193,8 +199,16 @@ export default function useInteractiveList({
     selectedValues.value.clear();
   }
 
+  function activateItem(id: InteractiveItemId): void {
+    activeItem.value = id;
+  }
+
   function activateItemAt(index: number): void {
     activeItem.value = getAtIndex([...items.value.keys()], index) ?? null;
+
+    if (autoSelect) {
+      selectItem(activeItem.value);
+    }
   }
 
   function clearActiveItem(): void {
@@ -211,9 +225,9 @@ export default function useInteractiveList({
     items: itemsAsArray,
 
     multiple,
+    autoSelect,
     role,
     selection,
-    selectedItems,
     activeItem,
 
     registerItem,
@@ -226,6 +240,7 @@ export default function useInteractiveList({
     resetSelection,
     clearSelection,
 
+    activateItem,
     activateItemAt,
     clearActiveItem,
   };

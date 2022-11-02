@@ -12,7 +12,7 @@
     "build:lib": "vite build",
     "build:types": "tsc -p tsconfig.json --declaration --emitDeclarationOnly",
     "prepublishOnly": "npm run build",
-    "test": "npm run test:unit -- --coverage && npm run test:e2e",
+    "test": "npm run test:unit -- --run --coverage && npm run test:e2e && npm run test:e2e:headless -- --component",
     "test:unit": "vitest --config ./vitest.config.js",
     "test:e2e": "start-server-and-test start http-get://localhost:3000 test:e2e:headless",
     "test:e2e:dev": "cypress open",

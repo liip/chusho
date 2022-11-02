@@ -3,7 +3,10 @@ import { PropType, defineComponent, h, inject, mergeProps } from 'vue';
 import componentMixin from '../mixins/componentMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
-import { SelectedItemId } from '../../composables/useSelectable';
+import {
+  InteractiveItemId,
+  UseInteractiveListSymbol,
+} from '../../composables/useInteractiveList';
 
 import { generateConfigClass } from '../../utils/components';
 
@@ -19,37 +22,34 @@ export default defineComponent({
   props: {
     /**
      * A unique ID to target the panel with CTab.
+     *
+     * @type {string|number}
      */
     id: {
-      type: [String, Number] as PropType<SelectedItemId>,
+      type: [String, Number] as PropType<InteractiveItemId>,
       required: true,
     },
   },
 
-  setup(props) {
+  setup() {
     const tabs = inject(TabsSymbol);
+    const interactiveList = inject(UseInteractiveListSymbol);
 
-    tabs?.addItem(props.id);
-
-    // Set the first tab as active if none has been defined
-    if (tabs?.items.value.length === 1 && !tabs?.selectedItemId.value) {
-      tabs.setSelectedItem(props.id);
+    if (!interactiveList) {
+      throw new Error('CTabList must be used inside CTabs');
     }
 
     return {
       config: useComponentConfig('tabPanel'),
       tabs,
+      interactiveList,
     };
-  },
-
-  beforeUnmount() {
-    this.tabs?.removeItem(this.id);
   },
 
   render() {
     if (!this.tabs) return;
 
-    const isActive = this.id === this.tabs.selectedItemId.value;
+    const isActive = this.id === this.interactiveList.selection.value;
 
     if (!isActive) return null;
 

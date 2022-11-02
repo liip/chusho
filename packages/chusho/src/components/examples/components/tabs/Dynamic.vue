@@ -1,5 +1,5 @@
 <template>
-  <CTabs data-test="tabs">
+  <CTabs :default-tab="1" data-test="tabs">
     <CTabList aria-label="Dynymic tabs" data-test="tablist">
       <CTab
         v-for="(tab, i) in tabs"

@@ -1,5 +1,5 @@
 <template>
-  <CTabs data-test="tabs">
+  <CTabs default-tab="1" data-test="tabs">
     <CTabList aria-label="Example of tabs" data-test="tablist">
       <CTab target="1" data-test="tab-1">Tab 1</CTab>
       <CTab target="2" data-test="tab-2">Tab 2</CTab>

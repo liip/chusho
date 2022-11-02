@@ -5,7 +5,7 @@ describe('Select', () => {
     });
 
     it('links SelectBtn with SelectOptions', () => {
-      cy.get('[data-test="select-button"]').trigger('click');
+      cy.get('[data-test="select-button"]').click();
       cy.get('[data-test="select-button"]').then(($el) => {
         cy.wrap($el).should(
           'have.attr',
