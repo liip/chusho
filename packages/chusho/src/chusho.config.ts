@@ -1,4 +1,4 @@
-import { mergeProps } from 'vue';
+import { normalizeClass } from 'vue';
 
 import { VueClassBinding } from '../lib/types';
 
@@ -237,22 +237,11 @@ export default defineConfig({
 
     textarea: {
       class: (props) =>
-        mergeProps(
-          { class: getFieldClass(props) },
-          {
-            class: 'h-48 leading-6',
-          }
-        ),
+        normalizeClass([getFieldClass(props), 'h-48 leading-6']),
     },
 
     textField: {
-      class: (props) =>
-        mergeProps(
-          { class: getFieldClass(props) },
-          {
-            class: 'leading-4',
-          }
-        ),
+      class: (props) => normalizeClass([getFieldClass(props), 'leading-4']),
     },
   },
 });

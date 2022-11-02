@@ -1,9 +1,10 @@
-import { PropType, defineComponent, h, inject, mergeProps } from 'vue';
+import { PropType, defineComponent, h, inject, mergeProps, toRef } from 'vue';
 
 import componentMixin from '../mixins/componentMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
-import { SelectedItemId } from '../../composables/useSelectable';
+import { InteractiveItemId } from '../../composables/useInteractiveList';
+import useInteractiveListItem from '../../composables/useInteractiveListItem';
 
 import { generateConfigClass } from '../../utils/components';
 
@@ -19,37 +20,40 @@ export default defineComponent({
   props: {
     /**
      * The id of the Tab this button should control.
+     *
+     * @type {string|number}
      */
     target: {
-      type: [String, Number] as PropType<SelectedItemId>,
+      type: [String, Number] as PropType<InteractiveItemId>,
       required: true,
     },
   },
 
-  setup() {
+  setup(props) {
     const tabs = inject(TabsSymbol);
+    const interactiveListItem = useInteractiveListItem({
+      id: props.target,
+      value: toRef(props, 'target'),
+    });
 
     return {
       config: useComponentConfig('tab'),
       tabs,
+      interactiveListItem,
     };
   },
 
   render() {
     if (!this.tabs) return null;
 
-    const isActive = this.target === this.tabs.selectedItemId.value;
+    const isActive = this.interactiveListItem.selected.value;
     const elementProps = {
+      ref: this.interactiveListItem.itemRef,
+      ...this.interactiveListItem.attrs,
+      ...this.interactiveListItem.events,
       type: 'button',
       id: `${this.tabs.uid.id.value}-tab-${this.target}`,
-      role: 'tab',
-      'aria-selected': `${isActive}`,
       'aria-controls': `${this.tabs.uid.id.value}-tabpanel-${this.target}`,
-      tabindex: isActive ? '0' : '-1',
-      onClick: () => {
-        if (!['string', 'number'].includes(typeof this.target)) return;
-        this.tabs?.setSelectedItem(this.target);
-      },
       ...generateConfigClass(this.config?.class, {
         ...this.$props,
         active: isActive,

@@ -170,7 +170,7 @@ describe('Item manipulation', () => {
     it('set and replace selected item by id', () => {
       wrapper = mount(TestList);
 
-      expect(wrapper.vm.context.selection).toBe(null);
+      expect(wrapper.vm.context.selection).toBe(undefined);
 
       wrapper.vm.context.selectItem(fixture[0].id);
 
@@ -242,7 +242,7 @@ describe('Item manipulation', () => {
 
       wrapper.vm.context.toggleItem(fixture[0].id);
 
-      expect(wrapper.vm.context.selection).toBe(null);
+      expect(wrapper.vm.context.selection).toBe(undefined);
 
       wrapper.vm.context.toggleItem(fixture[0].id);
 
@@ -315,7 +315,7 @@ describe('Item manipulation', () => {
 
       wrapper.vm.context.clearSelection();
 
-      expect(wrapper.vm.context.selection).toBe(null);
+      expect(wrapper.vm.context.selection).toBe(undefined);
     });
 
     it('clear selected items on multiple selection', () => {
@@ -339,7 +339,7 @@ describe('Item manipulation', () => {
     it('emit event on single selection change', async () => {
       wrapper = mount(TestList);
 
-      expect(wrapper.vm.context.selection).toBe(null);
+      expect(wrapper.vm.context.selection).toBe(undefined);
 
       await wrapper.vm.context.selectItem(fixture[0].id);
 
@@ -356,7 +356,7 @@ describe('Item manipulation', () => {
       await wrapper.vm.context.deselectItem(fixture[1].id);
 
       expect(changeEvent).toHaveLength(3);
-      expect(changeEvent[2]).toEqual([null]);
+      expect(changeEvent[2]).toEqual([undefined]);
     });
 
     it('emit event on multiple selection change', async () => {

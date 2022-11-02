@@ -11,8 +11,6 @@ import {
   toRaw,
   unref,
   watch,
-  watchEffect,
-  watchPostEffect,
 } from 'vue';
 
 import { MaybeRef } from '../types/utils';
@@ -22,6 +20,7 @@ import uid from '../utils/uid';
 
 import {
   InteractiveItemData,
+  InteractiveItemId,
   InteractiveListRoles,
   UseInteractiveListSymbol,
 } from './useInteractiveList';
@@ -32,16 +31,18 @@ export enum InteractiveListItemRoles {
   menuitemradio = 'menuitemradio',
   option = 'option',
   listitem = 'listitem',
+  tab = 'tab',
 }
 
 interface UseInteractiveListItemOptions {
-  disabled: MaybeRef<boolean>;
+  id?: InteractiveItemId;
+  disabled?: MaybeRef<boolean>;
   value?: Ref<unknown>;
   onSelect?: ({ role }: { role: InteractiveListItemRoles }) => void;
 }
 
 export interface UseInteractiveListItem {
-  id: string;
+  id: InteractiveItemId;
   itemRef: Ref<HTMLElement | ComponentPublicInstance | undefined>;
   attrs: {
     role: InteractiveListItemRoles;
@@ -53,12 +54,14 @@ export interface UseInteractiveListItem {
     onClick: (e: MouseEvent) => void;
     onKeydown: (e: KeyboardEvent) => void;
   };
+  active: Ref<boolean>;
   selected: Ref<boolean>;
 }
 
 export default function useInteractiveListItem({
+  id = uid('chusho-interactive-list-item'),
   value,
-  disabled,
+  disabled = ref(false),
   onSelect,
 }: UseInteractiveListItemOptions): UseInteractiveListItem {
   const interactiveList = inject(UseInteractiveListSymbol);
@@ -71,17 +74,18 @@ export default function useInteractiveListItem({
 
   const {
     multiple,
+    autoSelect,
     registerItem,
     unregisterItem,
     updateItem,
+    activateItem,
     activeItem,
     toggleItem,
     selection,
     role: listRole,
   } = interactiveList;
 
-  const id = uid('chusho-interactive-list-item');
-  const isActive = ref(false);
+  const isActive = computed(() => activeItem.value === id);
   const itemRef = ref<HTMLElement | ComponentPublicInstance>();
   const vm = getCurrentInstance();
 
@@ -108,26 +112,24 @@ export default function useInteractiveListItem({
     }
   );
 
-  watchEffect(() => {
-    if (activeItem.value === id) {
-      isActive.value = true;
-    } else {
-      isActive.value = false;
-    }
-  });
-
-  watchPostEffect(() => {
-    if (isActive.value && itemElement.value) {
-      itemElement.value.focus();
-    }
-  });
+  watch(
+    isActive,
+    () => {
+      if (isActive.value) {
+        itemElement.value?.focus();
+      }
+    },
+    { flush: 'post' }
+  );
 
   onBeforeUnmount(() => {
     unregisterItem(id);
   });
 
   const itemRole = computed(() => {
-    if (listRole === InteractiveListRoles.menu) {
+    if (listRole === InteractiveListRoles.tablist) {
+      return InteractiveListItemRoles.tab;
+    } else if (listRole === InteractiveListRoles.menu) {
       if (value?.value !== undefined) {
         return multiple
           ? InteractiveListItemRoles.menuitemcheckbox
@@ -155,6 +157,7 @@ export default function useInteractiveListItem({
       InteractiveListItemRoles.menuitemcheckbox,
       InteractiveListItemRoles.menuitemradio,
       InteractiveListItemRoles.option,
+      InteractiveListItemRoles.tab,
     ].includes(itemRole.value);
   });
 
@@ -173,6 +176,20 @@ export default function useInteractiveListItem({
 
     return toRaw(selection.value) === value.value;
   });
+
+  if (autoSelect) {
+    watch(
+      selected,
+      () => {
+        if (selected.value) {
+          activateItem(id);
+        }
+      },
+      {
+        immediate: true,
+      }
+    );
+  }
 
   const itemElement = computed(() => {
     if (itemRef?.value instanceof HTMLElement) {
@@ -227,10 +244,13 @@ export default function useInteractiveListItem({
     id,
     itemRef,
     attrs: reactive({
+      id,
       role: itemRole,
       tabindex: computed(() => (isActive.value ? '0' : '-1')),
       'aria-disabled': computed(() => (unref(disabled) ? 'true' : undefined)),
-      [itemRole.value === InteractiveListItemRoles.option
+      [[InteractiveListItemRoles.option, InteractiveListItemRoles.tab].includes(
+        itemRole.value
+      )
         ? 'aria-selected'
         : 'aria-checked']: checked,
     }),
@@ -238,6 +258,7 @@ export default function useInteractiveListItem({
       onClick: handleAction,
       onKeydown: handleKeydown,
     },
+    active: isActive,
     selected,
   };
 
