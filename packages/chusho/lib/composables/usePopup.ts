@@ -84,8 +84,10 @@ export default function usePopup({
     setIsExpanded(true);
   }
 
-  function collapse() {
-    activeElement.restore();
+  function collapse({ restoreFocus = true } = {}) {
+    if (restoreFocus) {
+      activeElement.restore();
+    }
     trigger.value = null;
     setIsExpanded(false);
   }

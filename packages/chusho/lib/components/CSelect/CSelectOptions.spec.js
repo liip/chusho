@@ -90,12 +90,42 @@ describe('CSelectOption', () => {
 
     await btn.trigger('click');
     await nextTick();
+    const option = wrapper.findComponent(CSelectOption);
+    expect(document.activeElement).toBe(option.vm.$el);
+    await option.trigger('keydown', { key: 'Escape' });
+    await nextTick();
+    expect(document.activeElement).toBe(btn.vm.$el);
+
+    wrapper.unmount();
+  });
+
+  it('does not restore focused element when closing through click outside', async () => {
+    const wrapper = mount(CSelect, {
+      attachTo: document.body,
+      props: {
+        modelValue: 'a',
+        open: false,
+      },
+      slots: {
+        default: [
+          h(CSelectBtn),
+          h(CSelectOptions, null, () => [h(CSelectOption, { value: 'a' })]),
+        ],
+      },
+    });
+    const btn = wrapper.findComponent(CSelectBtn);
+
+    btn.vm.$el.focus();
+    expect(document.activeElement).toBe(btn.vm.$el);
+
+    await btn.trigger('click');
+    await nextTick();
     expect(document.activeElement).toBe(
       wrapper.findComponent(CSelectOption).vm.$el
     );
     document.body.click(); // Close the select
     await nextTick();
-    expect(document.activeElement).toBe(btn.vm.$el);
+    expect(document.activeElement).toBe(document.body);
 
     wrapper.unmount();
   });
