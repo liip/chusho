@@ -20,6 +20,9 @@ export default defineComponent({
   props: {
     /**
      * The value used when this item is selected.
+     *
+     * This will set the item role to `menuitemradio`, or `menuitemcheckbox` when CMenu is `multiple`. Otherwise, the role will be `menuitem`.
+     *
      * @type {any}
      */
     value: {
@@ -34,6 +37,16 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+  },
+
+  emits: {
+    /**
+     * When the item is clicked or selected with Enter/Space; only if it’s not disabled.
+     * @param {object} payload
+     * @param {boolean} `payload.selected` Whether the item is selected or not, only when the `value` prop is set.
+     * @param {any} `payload.value` The value of the item, only when the `value` prop is set.
+     */
+    select: null,
   },
 
   setup(props) {

@@ -42,8 +42,40 @@
               </template>
 
               <template v-else-if="section.type === 'events'">
-                <td colspan="4">
+                <td>
                   {{ row.name }}
+                </td>
+                <td colspan="4" class="!p-0">
+                  <div v-if="row.description" class="p-3">
+                    {{ row.description }}
+                  </div>
+
+                  <table v-if="row.properties && row.properties.length">
+                    <thead>
+                      <tr>
+                        <th width="1">Argument</th>
+                        <th width="1">Type</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="property in row.properties"
+                        :key="property.name"
+                      >
+                        <td>
+                          {{ property.name }}
+                        </td>
+                        <td>
+                          <code>{{ property.type.names.join('|') }}</code>
+                        </td>
+                        <td
+                          class="free-text"
+                          v-html="md(property.description)"
+                        ></td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </td>
               </template>
 
@@ -57,8 +89,8 @@
                   <table v-if="row.bindings && row.bindings.length">
                     <thead>
                       <tr>
-                        <th>Binding name</th>
-                        <th>Type</th>
+                        <th width="1">Binding&nbsp;name</th>
+                        <th width="1">Type</th>
                         <th>Description</th>
                       </tr>
                     </thead>

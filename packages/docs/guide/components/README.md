@@ -8,6 +8,7 @@
 - [FormGroup](formgroup.html)
 - [Icon](icon.html)
 - [Label](label.html)
+- [Menu](menu.html)
 - [Picture](picture.html)
 - [Radio](radio.html)
 - [Select](select.html)

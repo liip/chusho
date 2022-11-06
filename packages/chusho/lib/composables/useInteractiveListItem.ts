@@ -225,7 +225,7 @@ export default function useInteractiveListItem({
        *   has a value defined
        */
       toggleItem(value.value);
-      vm?.emit('select', { checked: checked.value, value: value?.value });
+      vm?.emit('select', { selected: checked.value, value: value?.value });
     }
 
     onSelect?.({ role: itemRole.value });

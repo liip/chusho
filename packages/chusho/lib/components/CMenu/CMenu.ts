@@ -34,7 +34,7 @@ export default defineComponent({
       default: false,
     },
     /**
-     * Prevent opening the Menu.
+     * Prevent opening the menu.
      */
     disabled: {
       type: Boolean,
@@ -49,7 +49,18 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue', 'update:open'],
+  emits: {
+    /**
+     * When the selected value(s) change.
+     * @arg {any} value The selected item value, or an array of selected items values when `multiple` is true.
+     */
+    'update:modelValue': null,
+    /**
+     * When the popup opens or closes.
+     * @arg {boolean} open Whether the popup is open or not.
+     */
+    'update:open': null,
+  },
 
   setup(props) {
     const popup = usePopup({
@@ -90,7 +101,7 @@ export default defineComponent({
 
   /**
    * @slot
-   * @binding {boolean} open `true` when the select is open
+   * @binding {boolean} open Whether the popup is open or not.
    */
   render() {
     const open = this.popup.expanded.value;
