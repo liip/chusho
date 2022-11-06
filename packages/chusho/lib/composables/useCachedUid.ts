@@ -6,7 +6,7 @@ import uid from '../utils/uid';
 
 const UID_CACHE_ATTR = 'data-chusho-ssr-uid';
 
-type CacheElement = HTMLElement | ComponentPublicInstance | null;
+type CacheElement = HTMLElement | SVGElement | ComponentPublicInstance | null;
 
 export interface UseCachedUid {
   id: Readonly<Ref<string>>;

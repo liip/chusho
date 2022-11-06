@@ -4,6 +4,7 @@ import componentMixin from '../mixins/componentMixin';
 
 import useCachedUid from '../../composables/useCachedUid';
 import useComponentConfig from '../../composables/useComponentConfig';
+import { UsePopupSymbol } from '../../composables/usePopup';
 import usePopupBtn from '../../composables/usePopupBtn';
 
 import { generateConfigClass } from '../../utils/components';
@@ -19,11 +20,14 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup() {
+    const popup = inject(UsePopupSymbol);
+
     return {
       config: useComponentConfig('selectBtn'),
       formGroup: inject(FormGroupSymbol, null),
       uid: useCachedUid('chusho-select-btn'),
       popupBtn: usePopupBtn(),
+      popup,
     };
   },
 
@@ -53,9 +57,9 @@ export default defineComponent({
     }
 
     return h(
-      CBtn,
-      mergeProps(this.$attrs, this.$props, elementProps),
-      this.$slots
+      h(CBtn, mergeProps(this.$attrs, this.$props, elementProps), this.$slots),
+      // There’s already a ref from cachedUid
+      { ref: this.popup?.btnRef }
     );
   },
 });

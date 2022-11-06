@@ -32,6 +32,7 @@ export type UsePopup = {
   type: PopupType;
   uid: UseCachedUid;
   attrs: UseCachedUid['cacheAttrs'];
+  btnRef: Ref<HTMLElement | null>;
 };
 
 export enum PopupType {
@@ -66,6 +67,7 @@ export default function usePopup({
   const isDisabled = ref(disabled);
   const trigger = ref<Trigger>(null);
   const uid = useCachedUid('chusho-popup');
+  const btnRef = ref<HTMLElement | null>(null);
   const vm = getCurrentInstance();
 
   function setIsExpanded(val: boolean) {
@@ -99,7 +101,15 @@ export default function usePopup({
 
     if (closeOnClickOutside) {
       return withDirectives(render(), [
-        [clickOutsideDirective, () => collapse()],
+        [
+          clickOutsideDirective,
+          {
+            handler: () => collapse({ restoreFocus: false }),
+            options: {
+              ignore: [btnRef],
+            },
+          },
+        ],
       ]);
     }
 
@@ -139,6 +149,7 @@ export default function usePopup({
     expand,
     toggle,
     renderPopup,
+    btnRef,
   };
 
   provide<UsePopup>(UsePopupSymbol, popup);

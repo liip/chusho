@@ -1,8 +1,9 @@
-import { computed, inject, reactive } from 'vue';
+import { Ref, computed, inject, reactive } from 'vue';
 
 import { UsePopup, UsePopupSymbol } from './usePopup';
 
 export interface UsePopupBtn {
+  ref: Ref<HTMLElement | null>;
   attrs: {
     'aria-expanded': string;
     'aria-controls': string;
@@ -32,13 +33,12 @@ export default function usePopupBtn(): UsePopupBtn {
     }
   }
 
-  function handleClick(e: MouseEvent) {
-    // Prevent triggering a potential click-outside listener
-    e.stopPropagation();
+  function handleClick() {
     toggle('Click');
   }
 
   return {
+    ref: popup.btnRef,
     attrs: reactive({
       'aria-controls': uid.id,
       'aria-expanded': computed(() => expanded.value.toString()),
