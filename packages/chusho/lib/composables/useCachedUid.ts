@@ -1,5 +1,6 @@
 import { ComponentPublicInstance, Ref, onMounted, readonly, ref } from 'vue';
 
+import { getElement } from '../utils/components';
 import { isServer } from '../utils/ssr';
 import uid from '../utils/uid';
 
@@ -25,12 +26,10 @@ export default function useCachedUid(prefix?: string): UseCachedUid {
 
   onMounted(() => {
     if (cacheElement.value) {
-      // It can happen that the element holding the cache reference a Vue component
+      // It can happen that the element holding the cache reference is a Vue component
       // in this case we’ll use it’s root element instead ($el)
-      const element =
-        (cacheElement.value as ComponentPublicInstance).$el ??
-        cacheElement.value;
-      const serverId = element.getAttribute(UID_CACHE_ATTR);
+      const element = getElement(cacheElement);
+      const serverId = element?.getAttribute(UID_CACHE_ATTR);
 
       if (serverId) {
         id.value = serverId;

@@ -1,10 +1,19 @@
-import { PropType, Transition, TransitionProps, VNode, h } from 'vue';
+import {
+  ComponentPublicInstance,
+  PropType,
+  Transition,
+  TransitionProps,
+  VNode,
+  h,
+  unref,
+} from 'vue';
 
 import {
   ClassGenerator,
   ClassGeneratorCommonCtx,
   VueClassBinding,
 } from '../types';
+import { MaybeRef } from '../types/utils';
 
 import { isPlainObject } from '../utils/objects';
 
@@ -53,4 +62,13 @@ export function renderWithTransition(
   }
 
   return props ? h(Transition, props, render) : render();
+}
+
+export function getElement<
+  T extends HTMLElement | SVGElement | ComponentPublicInstance | null
+>(
+  el: MaybeRef<T>
+): T extends ComponentPublicInstance ? Exclude<T, ComponentPublicInstance> : T {
+  const plain = unref(el);
+  return (plain as ComponentPublicInstance)?.$el || plain;
 }
