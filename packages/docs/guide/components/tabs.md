@@ -71,7 +71,7 @@ Classes applied to the component root element, except when the prop `bare` is se
 Using the `CTab` component:
 
 ```js
-class({ variant, active }) {
+class({ active }) {
     return ['tab', {
         'tab--active': active,
     }]

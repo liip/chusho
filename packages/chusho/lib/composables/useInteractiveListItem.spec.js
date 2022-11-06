@@ -806,21 +806,21 @@ describe('event emission and callback', () => {
 
     const changeEvents = wrapper.emitted('select');
 
-    expect(changeEvents[0]).toHaveProperty('0.checked', 'true');
+    expect(changeEvents[0]).toHaveProperty('0.selected', 'true');
     expect(changeEvents[0]).toHaveProperty('0.value', value);
 
     toggleItem(null);
 
     await wrapper.trigger('keydown', { key: 'Enter' });
 
-    expect(changeEvents[1]).toHaveProperty('0.checked', 'true');
+    expect(changeEvents[1]).toHaveProperty('0.selected', 'true');
     expect(changeEvents[1]).toHaveProperty('0.value', value);
 
     toggleItem(null);
 
     await wrapper.trigger('keydown', { key: ' ' });
 
-    expect(changeEvents[2]).toHaveProperty('0.checked', 'true');
+    expect(changeEvents[2]).toHaveProperty('0.selected', 'true');
     expect(changeEvents[2]).toHaveProperty('0.value', value);
 
     wrapper.unmount();
@@ -873,32 +873,32 @@ describe('event emission and callback', () => {
 
     const changeEvents = wrapper.emitted('select');
 
-    expect(changeEvents[0]).toHaveProperty('0.checked', 'true');
+    expect(changeEvents[0]).toHaveProperty('0.selected', 'true');
     expect(changeEvents[0]).toHaveProperty('0.value', value);
 
     await wrapper.trigger('click');
 
-    expect(changeEvents[1]).toHaveProperty('0.checked', 'false');
+    expect(changeEvents[1]).toHaveProperty('0.selected', 'false');
     expect(changeEvents[1]).toHaveProperty('0.value', value);
 
     await wrapper.trigger('keydown', { key: 'Enter' });
 
-    expect(changeEvents[2]).toHaveProperty('0.checked', 'true');
+    expect(changeEvents[2]).toHaveProperty('0.selected', 'true');
     expect(changeEvents[2]).toHaveProperty('0.value', value);
 
     await wrapper.trigger('keydown', { key: 'Enter' });
 
-    expect(changeEvents[3]).toHaveProperty('0.checked', 'false');
+    expect(changeEvents[3]).toHaveProperty('0.selected', 'false');
     expect(changeEvents[3]).toHaveProperty('0.value', value);
 
     await wrapper.trigger('keydown', { key: ' ' });
 
-    expect(changeEvents[4]).toHaveProperty('0.checked', 'true');
+    expect(changeEvents[4]).toHaveProperty('0.selected', 'true');
     expect(changeEvents[4]).toHaveProperty('0.value', value);
 
     await wrapper.trigger('keydown', { key: ' ' });
 
-    expect(changeEvents[5]).toHaveProperty('0.checked', 'false');
+    expect(changeEvents[5]).toHaveProperty('0.selected', 'false');
     expect(changeEvents[5]).toHaveProperty('0.value', value);
 
     wrapper.unmount();

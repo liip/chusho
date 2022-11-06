@@ -15,7 +15,9 @@ export default defineClientConfig({
     app.use(Chusho, chushoConfig);
 
     Object.values(components).forEach((component) => {
-      app.component(component.name, component);
+      if (component.name) {
+        app.component(component.name, component);
+      }
     });
   },
 });

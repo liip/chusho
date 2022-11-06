@@ -1,9 +1,29 @@
-import { mergeProps } from 'vue';
+import { normalizeClass } from 'vue';
 
-const fields = {
-  class:
-    'block w-full bg-white px-4 py-3 border border-gray-400 rounded outline-none focus:border-accent-600 focus:ring ring-accent-400',
-};
+function getBtnClass({ variant, disabled }) {
+  return [
+    'inline-flex',
+    'items-center',
+    'hover:no-underline',
+    'transition-all duration-200 ease-out',
+    {
+      'py-3 px-5 font-medium rounded': !variant || variant === 'secondary',
+      'bg-accent-600 text-white': !variant,
+      'hover:bg-accent-500 focus:outline-none focus:ring ring-accent-400 focus:ring-offset-2':
+        !variant && !disabled,
+      'bg-gray-100 text-accent-600': variant === 'secondary',
+      'hover:text-accent-500 focus:outline-none focus:ring ring-accent-400 focus:ring-offset-2':
+        variant === 'secondary' && !disabled,
+      'bg-transparent text-accent-600 underline hover:no-underline':
+        variant === 'link',
+      'opacity-75 cursor-not-allowed': disabled,
+    },
+  ];
+}
+
+function getFieldsClass() {
+  return 'block w-full bg-white px-4 py-3 border border-gray-400 rounded outline-none focus:border-accent-600 focus:ring ring-accent-400';
+}
 
 export default {
   components: {
@@ -24,25 +44,7 @@ export default {
     },
 
     btn: {
-      class({ variant, disabled }) {
-        return [
-          'inline-block',
-          'hover:no-underline',
-          'transition-all duration-200 ease-out',
-          {
-            'py-3 px-5 rounded': !variant || variant === 'secondary',
-            'bg-accent-600 text-white': !variant,
-            'hover:bg-accent-500 focus:outline-none focus:ring ring-accent-400 focus:ring-offset-2':
-              !variant && !disabled,
-            'bg-gray-100 text-accent-600': variant === 'secondary',
-            'hover:text-accent-500 focus:outline-none focus:ring ring-accent-400 focus:ring-offset-2':
-              variant === 'secondary' && !disabled,
-            'bg-transparent text-accent-600 underline hover:no-underline':
-              variant === 'link',
-            'opacity-75 cursor-not-allowed': disabled,
-          },
-        ];
-      },
+      class: getBtnClass,
     },
 
     checkbox: {
@@ -117,6 +119,57 @@ export default {
       },
     },
 
+    menu: {
+      class: 'inline-block relative',
+    },
+
+    menuBtn: {
+      class: getBtnClass,
+    },
+
+    menuItem: {
+      class: ({ disabled, role, selected }) => {
+        return [
+          'relative px-6 py-3 list-none',
+          {
+            'cursor-pointer hover:bg-gray-100 focus-visible:bg-gray-100':
+              !disabled,
+            'text-gray-400 cursor-not-allowed': disabled,
+            'pl-12': ['menuitemcheckbox', 'menuitemradio'].includes(role),
+            'before:content-[""] before:absolute before:left-4 before:top-4 before:border-2 before:border-gray-300 before:w-4 before:h-4 before:transition-colors after:content-[""] after:absolute after:left-5 after:top-5 after:w-2 after:h-2 after:bg-gray-600 after:scale-0 after:transition-transform':
+              ['menuitemcheckbox', 'menuitemradio'].includes(role),
+            'before:rounded-[50%] after:rounded-[50%]':
+              role === 'menuitemradio',
+            'before:border-gray-600 after:scale-100':
+              ['menuitemcheckbox', 'menuitemradio'].includes(role) && selected,
+          },
+        ];
+      },
+    },
+
+    menuLink: {
+      class: ({ disabled }) => [
+        'block w-full px-6 py-3',
+        {
+          'cursor-pointer hover:bg-gray-100 focus-visible:bg-gray-100':
+            !disabled,
+          'text-gray-400 cursor-not-allowed': disabled,
+        },
+      ],
+    },
+
+    menuList: {
+      transition: {
+        name: 'appear',
+      },
+      class:
+        'absolute top-full left-0 z-10 mt-1 py-2 px-0 w-max max-w-sm bg-white border border-gray-100 rounded shadow-md',
+    },
+
+    menuSeparator: {
+      class: 'my-2 h-px bg-gray-200 list-none',
+    },
+
     picture: {
       class: 'block h-auto rounded-2xl',
     },
@@ -181,12 +234,12 @@ export default {
       },
     },
 
-    textarea: mergeProps(fields, {
-      class: 'h-32 leading-6',
-    }),
+    textarea: {
+      class: () => normalizeClass([getFieldsClass(), 'h-32 leading-6']),
+    },
 
-    textField: mergeProps(fields, {
-      class: 'leading-4',
-    }),
+    textField: {
+      class: () => normalizeClass([getFieldsClass(), 'leading-4']),
+    },
   },
 };

@@ -20,7 +20,7 @@ export default defineComponent({
 
   props: {
     /**
-     * Prevent selecting this item while still displaying it.
+     * Prevent clicking the link while still displaying it.
      */
     disabled: {
       type: Boolean,
@@ -40,6 +40,13 @@ export default defineComponent({
       type: [String, Object] as PropType<RouteLocationRaw>,
       default: null,
     },
+  },
+
+  emits: {
+    /**
+     * When the item is clicked or selected with Enter/Space; only if it’s not disabled.
+     */
+    select: null,
   },
 
   setup(props) {
