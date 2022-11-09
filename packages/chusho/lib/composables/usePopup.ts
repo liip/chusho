@@ -22,7 +22,7 @@ export type RenderPopup = (render: () => VNode) => VNode | VNode[] | null;
 export type Trigger = KeyboardEvent['key'] | 'Click' | null;
 
 export type UsePopup = {
-  collapse: () => void;
+  collapse: (options?: { restoreFocus: boolean }) => void;
   expand: (key?: Trigger) => void;
   toggle: (key?: Trigger) => void;
   renderPopup: RenderPopup;

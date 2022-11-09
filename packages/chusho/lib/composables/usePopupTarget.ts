@@ -22,7 +22,9 @@ export default function usePopupTarget(): UsePopupTarget {
   const { uid, collapse } = popup;
 
   function handleKeydown(e: KeyboardEvent) {
-    if (['Tab', 'Escape'].includes(e.key)) {
+    if (e.key === 'Tab') {
+      collapse({ restoreFocus: false });
+    } else if (e.key === 'Escape') {
       collapse();
     }
   }
