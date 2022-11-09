@@ -1,14 +1,15 @@
-const { path } = require('@vuepress/utils');
-const { viteBundler } = require('vuepress');
-const { defaultTheme } = require('@vuepress/theme-default');
-const { docsearchPlugin } = require('@vuepress/plugin-docsearch');
-const {
-  registerComponentsPlugin,
-} = require('@vuepress/plugin-register-components');
-const { shikiPlugin } = require('@vuepress/plugin-shiki');
-const docGenPlugin = require('./plugins/docgen');
+import { docsearchPlugin } from '@vuepress/plugin-docsearch';
+import { registerComponentsPlugin } from '@vuepress/plugin-register-components';
+import { shikiPlugin } from '@vuepress/plugin-shiki';
+import { defaultTheme } from '@vuepress/theme-default';
+import { viteBundler } from 'vuepress';
+import { defineUserConfig } from 'vuepress';
 
-module.exports = {
+import { path } from '@vuepress/utils';
+
+import docGenPlugin from './plugins/docgen';
+
+export default defineUserConfig({
   title: 'Chūshō',
   description:
     'A library of bare & accessible components and tools for Vue.js 3',
@@ -42,10 +43,10 @@ module.exports = {
   ],
 
   theme: defaultTheme({
-    lastUpdated: 'Last updated',
+    lastUpdated: true,
     repo: 'liip/chusho',
     docsDir: 'packages/docs',
-    editLinks: true,
+    editLink: true,
     editLinkText: 'Edit on GitHub',
     contributors: false,
     navbar: [
@@ -57,7 +58,6 @@ module.exports = {
         {
           text: 'Getting Started',
           link: '/guide/',
-          isGroup: true,
           children: [
             '/guide/config.md',
             '/guide/styling-components.md',
@@ -68,7 +68,6 @@ module.exports = {
         {
           text: 'Components',
           link: '/guide/components/',
-          isGroup: true,
           children: [
             '/guide/components/alert.md',
             '/guide/components/button.md',
@@ -78,6 +77,7 @@ module.exports = {
             '/guide/components/formgroup.md',
             '/guide/components/icon.md',
             '/guide/components/label.md',
+            '/guide/components/menu.md',
             '/guide/components/picture.md',
             '/guide/components/radio.md',
             '/guide/components/select.md',
@@ -89,7 +89,6 @@ module.exports = {
         {
           text: 'Directives',
           link: '/guide/directives/',
-          isGroup: true,
           children: ['/guide/directives/click-outside.md'],
         },
       ],
@@ -106,4 +105,4 @@ module.exports = {
       },
     },
   }),
-};
+});

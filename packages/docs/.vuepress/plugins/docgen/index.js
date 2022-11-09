@@ -1,8 +1,8 @@
-const path = require('path');
-const docGen = require('vue-docgen-api');
-const glob = require('glob');
+import glob from 'glob';
+import path from 'path';
+import docGen from 'vue-docgen-api';
 
-module.exports = () => {
+export default () => {
   const componentsDocgen = {};
 
   glob(
