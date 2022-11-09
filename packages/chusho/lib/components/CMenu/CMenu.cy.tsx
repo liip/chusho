@@ -12,7 +12,7 @@ import {
 } from '.';
 
 describe('CMenu', () => {
-  it('should apply local and global classes', () => {
+  it('applies local and global classes', () => {
     const value = '0';
 
     cy.mount(
@@ -137,7 +137,7 @@ describe('CMenu', () => {
     );
   });
 
-  it('should apply the right attributes', () => {
+  it('applies the right attributes', () => {
     cy.mount(
       <CMenu>
         <CMenuBtn data-test="btn">Menu</CMenuBtn>

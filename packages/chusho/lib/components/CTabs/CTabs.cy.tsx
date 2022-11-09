@@ -5,7 +5,7 @@ import { ChushoUserOptions } from '../../types';
 import { CTab, CTabList, CTabPanel, CTabPanels, CTabs } from '.';
 
 describe('CTabs', () => {
-  it('should apply local and global classes', () => {
+  it('applies local and global classes', () => {
     const value = '1';
 
     cy.mount(
@@ -99,7 +99,7 @@ describe('CTabs', () => {
     );
   });
 
-  it('should apply the right attributes', () => {
+  it('applies the right attributes', () => {
     cy.mount(
       <CTabs default-tab="1" data-test="tabs">
         <CTabList data-test="tablist">
