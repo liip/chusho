@@ -1,4 +1,4 @@
-import { BaseTransitionProps, PropType, defineComponent } from 'vue';
+import { PropType, TransitionProps, defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
@@ -10,7 +10,7 @@ export default defineComponent({
      * If you defined a default transition in the config and want to disable it, use `false`.
      */
     transition: {
-      type: [Object, Boolean] as PropType<BaseTransitionProps | false>,
+      type: [Object, Boolean] as PropType<TransitionProps | false>,
       default: null,
     },
   },
