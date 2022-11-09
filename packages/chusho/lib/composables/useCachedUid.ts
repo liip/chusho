@@ -35,6 +35,11 @@ export default function useCachedUid(prefix?: string): UseCachedUid {
       if (serverId) {
         id.value = serverId;
       }
+
+      /**
+       * Remove the data attribute when we render on the client
+       */
+      element?.removeAttribute(UID_CACHE_ATTR);
     }
   });
 

@@ -54,6 +54,14 @@ interface ComponentsOptions {
     width?: number;
     height?: number;
   };
+  menu?: ComponentCommonOptions;
+  menuBtn?: ComponentCommonOptions;
+  menuItem?: ComponentCommonOptions;
+  menuLink?: ComponentCommonOptions;
+  menuList?: ComponentCommonOptions & {
+    transition?: BaseTransitionProps;
+  };
+  menuSeparator?: ComponentCommonOptions;
   label?: ComponentCommonOptions;
   picture?: ComponentCommonOptions;
   radio?: ComponentCommonOptions;

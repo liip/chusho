@@ -6,6 +6,7 @@ export * from './CDialog';
 export * from './CFormGroup';
 export * from './CIcon';
 export * from './CLabel';
+export * from './CMenu';
 export * from './CPicture';
 export * from './CRadio';
 export * from './CSelect';
