@@ -1,5 +1,13 @@
 import { mergeProps } from 'vue';
 
+const getBtnClass = ({ variant, disabled }) => ({
+  'bg-white text-blue-500': !variant,
+  'bg-blue-500 text-white': variant?.includes('primary'),
+  'inline-block py-3 px-5 font-bold shadow rounded':
+    !variant || variant?.includes('primary'),
+  'cursor-not-allowed opacity-50': disabled,
+});
+
 const fields = ({ disabled }) => ({
   class: [
     'block w-full bg-white px-4 py-3 border border-gray-400 rounded outline-none focus:border-accent-600 focus:ring ring-accent-400',
@@ -22,15 +30,7 @@ export default {
     },
 
     btn: {
-      class({ variant, disabled }) {
-        return {
-          'bg-white text-blue-500': !variant,
-          'bg-blue-500 text-white': variant?.includes('primary'),
-          'inline-block py-3 px-5 font-bold shadow rounded':
-            !variant || variant?.includes('primary'),
-          'cursor-not-allowed opacity-50': disabled,
-        };
-      },
+      class: getBtnClass,
     },
 
     checkbox: {
@@ -91,6 +91,53 @@ export default {
           },
         ];
       },
+    },
+
+    menu: {
+      class: 'inline-block relative',
+    },
+
+    menuBtn: {
+      class: getBtnClass,
+    },
+
+    menuItem: {
+      class: ({ disabled, role, selected }) => {
+        return [
+          'relative px-6 py-3',
+          {
+            'cursor-pointer hover:bg-gray-100': !disabled,
+            'text-gray-400 cursor-not-allowed': disabled,
+            'pl-12': ['menuitemcheckbox', 'menuitemradio'].includes(role),
+            'before:content-[""] before:absolute before:left-4 before:top-4 before:rounded-[50%] before:border-2 before:border-gray-300 before:w-4 before:h-4 before:transition-colors after:content-[""] after:absolute after:left-5 after:top-5 after:rounded-[50%] after:w-2 after:h-2 after:bg-gray-600 after:scale-0 after:transition-transform':
+              ['menuitemcheckbox', 'menuitemradio'].includes(role),
+            'before:border-gray-600 after:scale-100':
+              ['menuitemcheckbox', 'menuitemradio'].includes(role) && selected,
+          },
+        ];
+      },
+    },
+
+    menuLink: {
+      class: ({ disabled }) => [
+        'block px-6 py-3',
+        {
+          'cursor-pointer hover:bg-gray-100 focus:bg-gray-100': !disabled,
+          'text-gray-400 cursor-not-allowed': disabled,
+        },
+      ],
+    },
+
+    menuList: {
+      transition: {
+        name: 'appear',
+      },
+      class:
+        'absolute top-full left-0 mt-1 py-2 w-max max-w-sm bg-white border border-gray-100 rounded shadow-md',
+    },
+
+    menuSeparator: {
+      class: 'my-2 h-px bg-gray-200',
     },
 
     picture: {

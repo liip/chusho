@@ -14,3 +14,14 @@
 .fade-leave-to {
   opacity: 0;
 }
+
+.appear-enter-active,
+.appear-leave-active {
+  transition: opacity 0.15s ease-in, transform 0.15s ease-in;
+}
+.appear-enter-from,
+.appear-leave-to {
+  opacity: 0;
+
+  transform: scale(0.98) translateY(-0.25rem);
+}
