@@ -1,21 +1,16 @@
 <template>
-  <CMenu>
-    <CMenuBtn v-slot="{ active }">
+  <CMenu v-slot="{ open }" v-model="value">
+    <CMenuBtn>
       <span>Selectable items</span>
       <CIcon
         id="caret"
         :scale="0.375"
         class="text-gray-600 ml-3 transition-transform"
-        :class="{ 'transform rotate-180': active }"
+        :class="{ 'transform rotate-180': open }"
       />
     </CMenuBtn>
-    <CMenuList :multiple="false">
-      <CMenuItem
-        v-for="item in items"
-        :key="item.value"
-        :value="item.value"
-        @select="handleSelect"
-      >
+    <CMenuList>
+      <CMenuItem v-for="item in items" :key="item.value" :value="item.value">
         {{ item.label }}
       </CMenuItem>
     </CMenuList>
@@ -23,12 +18,12 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+
 export default {
   setup() {
     return {
-      handleSelect: (id) => {
-        console.log('select', id);
-      },
+      value: ref('ipsum'),
       items: [
         {
           label: 'Do laborum',

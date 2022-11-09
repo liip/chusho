@@ -1,20 +1,16 @@
-import { defineComponent, h, inject, mergeProps, watchEffect } from 'vue';
+import { defineComponent, h, inject, mergeProps } from 'vue';
 
 import componentMixin from '../mixins/componentMixin';
 import transitionMixin from '../mixins/transitionMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
-import useInteractiveList, {
-  InteractiveListRoles,
-} from '../../composables/useInteractiveList';
+import { UseInteractiveListSymbol } from '../../composables/useInteractiveList';
 import usePopupTarget from '../../composables/usePopupTarget';
 
 import {
   generateConfigClass,
   renderWithTransition,
 } from '../../utils/components';
-
-import { MenuSymbol } from './CMenu';
 
 export default defineComponent({
   name: 'CMenuList',
@@ -23,72 +19,34 @@ export default defineComponent({
 
   inheritAttrs: false,
 
-  props: {
-    multiple: {
-      type: Boolean,
-      default: false,
-    },
-  },
+  setup() {
+    const popupTarget = usePopupTarget();
+    const popup = popupTarget.popup;
+    const interactiveList = inject(UseInteractiveListSymbol);
 
-  setup(props) {
-    const menu = inject(MenuSymbol);
-
-    const {
-      attrs: togglableAttrs,
-      events: togglableEvents,
-      popup,
-    } = usePopupTarget();
-
-    const {
-      attrs: listAttrs,
-      events: listEvents,
-      activateItemAt,
-      clearActiveItem,
-    } = useInteractiveList({
-      role: InteractiveListRoles.menu,
-      loop: true,
-      multiple: props.multiple,
-    });
-
-    watchEffect(() => {
-      switch (popup.trigger.value) {
-        case 'ArrowDown':
-        case 'Click':
-          activateItemAt(0);
-          break;
-        case 'ArrowUp':
-          activateItemAt(-1);
-          break;
-        default:
-          clearActiveItem();
-          break;
-      }
-    });
+    if (!interactiveList) {
+      throw new Error('CMenuList must be used inside a CMenu');
+    }
 
     return {
       config: useComponentConfig('menuList'),
-      togglableAttrs,
-      listAttrs,
-      togglableEvents,
-      listEvents,
-      menu,
-      renderPopup: popup.renderPopup,
+      popupTarget,
+      popup,
+      interactiveList,
     };
   },
 
   methods: {
     renderDropdown() {
-      if (!this.menu) return null;
-
-      const dropDownProps: Record<string, unknown> = {
-        ...this.listAttrs,
-        ...this.togglableAttrs,
-        ...mergeProps(this.togglableEvents, this.listEvents),
+      const elementProps: Record<string, unknown> = {
         ...generateConfigClass(this.config?.class, this.$props),
+        ...this.interactiveList.attrs,
+        ...this.popupTarget.attrs,
+        ...mergeProps(this.popupTarget.events, this.interactiveList.events),
       };
 
-      return this.renderPopup(() =>
-        h('ul', mergeProps(this.$attrs, dropDownProps), this.$slots)
+      return this.popup.renderPopup(() =>
+        h('ul', mergeProps(this.$attrs, elementProps), this.$slots)
       );
     },
   },
