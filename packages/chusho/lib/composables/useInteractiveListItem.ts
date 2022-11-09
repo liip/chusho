@@ -8,6 +8,7 @@ import {
   onMounted,
   reactive,
   ref,
+  toRaw,
   unref,
   watch,
   watchEffect,
@@ -20,6 +21,7 @@ import { warn } from '../utils/debug';
 import uid from '../utils/uid';
 
 import {
+  InteractiveItemData,
   InteractiveListRoles,
   UseInteractiveListSymbol,
 } from './useInteractiveList';
@@ -34,17 +36,18 @@ export enum InteractiveListItemRoles {
 
 interface UseInteractiveListItemOptions {
   disabled: MaybeRef<boolean>;
-  value?: Ref<string>;
+  value?: Ref<unknown>;
   onSelect?: ({ role }: { role: InteractiveListItemRoles }) => void;
 }
 
-interface UseInteractiveListItem {
+export interface UseInteractiveListItem {
   itemRef: Ref<HTMLElement | ComponentPublicInstance | undefined>;
   attrs: {
-    value?: Ref<string>;
+    id: string;
     role: InteractiveListItemRoles;
     tabindex: '0' | '-1';
     'aria-disabled'?: 'true';
+    'aria-checked'?: 'true' | 'false';
   };
   events: {
     onClick: (e: MouseEvent) => void;
@@ -82,7 +85,15 @@ export default function useInteractiveListItem({
   const itemRef = ref<HTMLElement | ComponentPublicInstance>();
   const vm = getCurrentInstance();
 
-  registerItem(id, { disabled: unref(disabled) });
+  const itemData: InteractiveItemData = {
+    disabled: unref(disabled),
+  };
+
+  if (value) {
+    itemData.value = value;
+  }
+
+  registerItem(id, itemData);
 
   onMounted(() => {
     if (vm?.proxy) {
@@ -117,7 +128,7 @@ export default function useInteractiveListItem({
 
   const itemRole = computed(() => {
     if (listRole === InteractiveListRoles.menu) {
-      if (value?.value) {
+      if (typeof value?.value !== 'undefined') {
         return multiple
           ? InteractiveListItemRoles.menuitemcheckbox
           : InteractiveListItemRoles.menuitemradio;
@@ -128,7 +139,7 @@ export default function useInteractiveListItem({
       listRole === InteractiveListRoles.listbox ||
       listRole === InteractiveListRoles.combobox
     ) {
-      if (!value?.value) {
+      if (typeof value?.value === 'undefined') {
         warn(
           `${vm?.type.name}: useInteractiveList of type “${listRole}” requires “useInteractiveListItem” to provide a “value” option, so that items can be selected.`
         );
@@ -152,15 +163,15 @@ export default function useInteractiveListItem({
   });
 
   const selected = computed(() => {
-    if (!isSelectable.value || !value?.value) {
+    if (!isSelectable.value || typeof value?.value === 'undefined') {
       return false;
     }
 
     if (Array.isArray(selection.value)) {
-      return selection.value.includes(value.value);
+      return selection.value.map((item) => toRaw(item)).includes(value.value);
     }
 
-    return selection.value === value.value;
+    return toRaw(selection.value) === value.value;
   });
 
   const itemElement = computed(() => {
@@ -186,7 +197,10 @@ export default function useInteractiveListItem({
 
     if (!isSelectable.value) {
       vm?.emit('select');
-    } else if ((!selected.value || isTogglable.value) && value?.value) {
+    } else if (
+      (!selected.value || isTogglable.value) &&
+      typeof value?.value !== 'undefined'
+    ) {
       /**
        * trigger if
        *   (not selected or (selected and togglable))
@@ -201,7 +215,7 @@ export default function useInteractiveListItem({
   }
 
   function handleKeydown(e: KeyboardEvent) {
-    if (['Enter', ' '].includes(e.key)) {
+    if (['Enter', 'Spacebar', ' '].includes(e.key)) {
       e.preventDefault();
       e.stopPropagation();
 
@@ -209,14 +223,16 @@ export default function useInteractiveListItem({
     }
   }
 
-  return {
+  const interactiveListItem: UseInteractiveListItem = {
     itemRef,
     attrs: reactive({
       id,
       role: itemRole,
       tabindex: computed(() => (isActive.value ? '0' : '-1')),
       'aria-disabled': computed(() => (unref(disabled) ? 'true' : undefined)),
-      'aria-checked': checked,
+      [itemRole.value === InteractiveListItemRoles.option
+        ? 'aria-selected'
+        : 'aria-checked']: checked,
     }),
     events: {
       onClick: handleAction,
@@ -224,4 +240,6 @@ export default function useInteractiveListItem({
     },
     selected,
   };
+
+  return interactiveListItem;
 }

@@ -70,7 +70,10 @@ export default function usePopup({
 
   function setIsExpanded(val: boolean) {
     isExpanded.value = val;
-    vm?.emit(`update:${expandedPropName}`, val);
+
+    if (expandedPropName) {
+      vm?.emit(`update:${expandedPropName}`, val);
+    }
   }
 
   function expand(key: Trigger = null) {

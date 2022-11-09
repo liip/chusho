@@ -56,7 +56,7 @@ const TestItem = {
     },
     value: {
       type: String,
-      default: null,
+      default: undefined,
     },
     text: {
       type: String,
@@ -65,10 +65,8 @@ const TestItem = {
   },
 
   setup(props) {
-    const value = toRef(props, 'value');
-
     const { itemRef, attrs, events } = useInteractiveListItem({
-      value,
+      value: toRef(props, 'value'),
       disabled: toRef(props, 'disabled'),
       onSelect,
     });
@@ -107,7 +105,10 @@ beforeEach(() => {
 describe('item lifecycle', () => {
   it('self register on mount and unregister on unmount', () => {
     wrapper = mount(TestItem, {
-      props: itemProps,
+      props: {
+        ...itemProps,
+        value: 'something',
+      },
       global: {
         provide: {
           [UseInteractiveListSymbol]: defaultProvide,
@@ -116,7 +117,10 @@ describe('item lifecycle', () => {
     });
 
     expect(registerItem).toBeCalledTimes(1);
-    expect(registerItem).toHaveBeenCalledWith(0, { disabled: false });
+    expect(registerItem).toHaveBeenCalledWith(0, {
+      disabled: false,
+      value: expect.objectContaining({ value: 'something' }),
+    });
 
     expect(updateItem).toBeCalledTimes(1);
     expect(updateItem).toHaveBeenCalledWith(0, { text: 'adipisicing' });
@@ -376,7 +380,7 @@ describe('tabindex attribute', () => {
   });
 });
 
-describe('aria-checked attribute', () => {
+describe('aria-checked/aria-selected attributes', () => {
   it('is `true` for item of type `menuitemradio` if selected', () => {
     const value = 'lorem';
 
@@ -483,7 +487,7 @@ describe('aria-checked attribute', () => {
       },
     });
 
-    expect(wrapper.vm).toHaveProperty('attrs.aria-checked', 'true');
+    expect(wrapper.vm).toHaveProperty('attrs.aria-selected', 'true');
 
     wrapper.unmount();
 
@@ -504,7 +508,7 @@ describe('aria-checked attribute', () => {
       },
     });
 
-    expect(wrapper.vm).toHaveProperty('attrs.aria-checked', 'true');
+    expect(wrapper.vm).toHaveProperty('attrs.aria-selected', 'true');
 
     wrapper.unmount();
 
@@ -525,7 +529,7 @@ describe('aria-checked attribute', () => {
       },
     });
 
-    expect(wrapper.vm).toHaveProperty('attrs.aria-checked', 'true');
+    expect(wrapper.vm).toHaveProperty('attrs.aria-selected', 'true');
 
     wrapper.unmount();
 
@@ -546,7 +550,7 @@ describe('aria-checked attribute', () => {
       },
     });
 
-    expect(wrapper.vm).toHaveProperty('attrs.aria-checked', 'true');
+    expect(wrapper.vm).toHaveProperty('attrs.aria-selected', 'true');
   });
 
   it('is `false` for item of type `option` if not selected', () => {
@@ -568,7 +572,7 @@ describe('aria-checked attribute', () => {
       },
     });
 
-    expect(wrapper.vm).toHaveProperty('attrs.aria-checked', 'false');
+    expect(wrapper.vm).toHaveProperty('attrs.aria-selected', 'false');
 
     wrapper.unmount();
 
@@ -588,7 +592,7 @@ describe('aria-checked attribute', () => {
       },
     });
 
-    expect(wrapper.vm).toHaveProperty('attrs.aria-checked', 'false');
+    expect(wrapper.vm).toHaveProperty('attrs.aria-selected', 'false');
 
     wrapper.unmount();
 
@@ -608,7 +612,7 @@ describe('aria-checked attribute', () => {
       },
     });
 
-    expect(wrapper.vm).toHaveProperty('attrs.aria-checked', 'false');
+    expect(wrapper.vm).toHaveProperty('attrs.aria-selected', 'false');
 
     wrapper.unmount();
 
@@ -628,7 +632,7 @@ describe('aria-checked attribute', () => {
       },
     });
 
-    expect(wrapper.vm).toHaveProperty('attrs.aria-checked', 'false');
+    expect(wrapper.vm).toHaveProperty('attrs.aria-selected', 'false');
   });
 
   it('is `undefined` for items not selectable', () => {

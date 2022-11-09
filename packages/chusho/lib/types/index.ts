@@ -140,7 +140,7 @@ interface ComponentsOptions {
       typeof CMenuBtn,
       {
         disabled: boolean;
-        open: boolean;
+        active: boolean;
       }
     >;
   };

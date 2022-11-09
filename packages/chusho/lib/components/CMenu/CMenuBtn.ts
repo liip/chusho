@@ -17,16 +17,14 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup() {
-    const popupBtn = usePopupBtn();
-
     return {
       config: useComponentConfig('menuBtn'),
-      popupBtn,
+      popupBtn: usePopupBtn(),
     };
   },
 
   render() {
-    const active = this.popupBtn.popup.expanded.value ?? false;
+    const active = this.popupBtn.popup.expanded.value;
     const elementProps: Record<string, unknown> = {
       ...this.popupBtn.attrs,
       ...this.popupBtn.events,
@@ -35,12 +33,14 @@ export default defineComponent({
         disabled: this.popupBtn.attrs.disabled,
         active,
       }),
-      active,
       bare: true,
+      active,
     };
 
-    return h(CBtn, mergeProps(this.$attrs, this.$props, elementProps), () =>
-      this.$slots?.default?.({ active })
+    return h(
+      CBtn,
+      mergeProps(this.$attrs, this.$props, elementProps),
+      this.$slots
     );
   },
 });

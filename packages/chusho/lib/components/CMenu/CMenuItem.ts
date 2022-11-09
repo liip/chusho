@@ -1,4 +1,4 @@
-import { defineComponent, h, inject, toRef } from 'vue';
+import { defineComponent, h, inject, mergeProps, toRef } from 'vue';
 
 import componentMixin from '../mixins/componentMixin';
 
@@ -6,10 +6,9 @@ import useComponentConfig from '../../composables/useComponentConfig';
 import useInteractiveListItem, {
   InteractiveListItemRoles,
 } from '../../composables/useInteractiveListItem';
+import { UsePopupSymbol } from '../../composables/usePopup';
 
-import { generateConfigClass } from '../../utils/components';
-
-import { MenuSymbol } from './CMenu';
+import { ALL_TYPES, generateConfigClass } from '../../utils/components';
 
 export default defineComponent({
   name: 'CMenuItem',
@@ -19,53 +18,60 @@ export default defineComponent({
   inheritAttrs: false,
 
   props: {
+    /**
+     * The value used when this item is selected.
+     * @type {any}
+     */
+    value: {
+      type: ALL_TYPES,
+      // `null` is considered an acceptable value
+      default: undefined,
+    },
+    /**
+     * Prevent selecting this item while still displaying it.
+     */
     disabled: {
       type: Boolean,
       default: false,
     },
-    value: {
-      type: String,
-      default: null,
-    },
   },
 
   setup(props) {
-    const menu = inject(MenuSymbol);
-
-    const { itemRef, attrs, events, selected } = useInteractiveListItem({
+    const popup = inject(UsePopupSymbol);
+    const interactiveListItem = useInteractiveListItem({
       value: toRef(props, 'value'),
       disabled: toRef(props, 'disabled'),
       onSelect: ({ role }) => {
-        role === InteractiveListItemRoles.menuitem && menu?.collapse();
+        role === InteractiveListItemRoles.menuitem && popup?.collapse();
       },
     });
 
     return {
       config: useComponentConfig('menuItem'),
-      menu,
-      attrs,
-      events,
-      itemRef,
-      selected,
+      interactiveListItem,
     };
   },
 
+  /**
+   * @slot
+   * @binding {boolean} selected `true` when the item is selected
+   */
   render() {
     const elementProps: Record<string, unknown> = {
-      ref: 'itemRef',
-      ...this.attrs,
-      ...this.events,
+      ref: this.interactiveListItem.itemRef,
+      ...this.interactiveListItem.attrs,
+      ...this.interactiveListItem.events,
       ...generateConfigClass(this.config?.class, {
         ...this.$props,
-        role: this.attrs.role,
-        selected: this.selected,
+        role: this.interactiveListItem.attrs.role,
+        selected: this.interactiveListItem.selected.value,
       }),
     };
 
     return h(
       'li',
-      elementProps,
-      this.$slots?.default?.({ selected: this.selected })
+      mergeProps(this.$attrs, elementProps),
+      this.$slots?.default?.({ selected: this.interactiveListItem.selected })
     );
   },
 });

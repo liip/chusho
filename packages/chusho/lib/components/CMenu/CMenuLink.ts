@@ -1,15 +1,15 @@
-import { PropType, defineComponent, h, inject } from 'vue';
+import { PropType, defineComponent, h, inject, mergeProps } from 'vue';
 import { RouteLocationRaw } from 'vue-router';
 
 import componentMixin from '../mixins/componentMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
 import useInteractiveListItem from '../../composables/useInteractiveListItem';
+import { UsePopupSymbol } from '../../composables/usePopup';
 
 import { generateConfigClass } from '../../utils/components';
 
 import { CBtn } from '../CBtn';
-import { MenuSymbol } from './CMenu';
 
 export default defineComponent({
   name: 'CMenuLink',
@@ -19,14 +19,23 @@ export default defineComponent({
   inheritAttrs: false,
 
   props: {
+    /**
+     * Prevent selecting this item while still displaying it.
+     */
     disabled: {
       type: Boolean,
       default: false,
     },
+    /**
+     * The link to open when this item is selected.
+     */
     href: {
       type: String,
       default: null,
     },
+    /**
+     * The route to open when this item is selected.
+     */
     to: {
       type: [String, Object] as PropType<RouteLocationRaw>,
       default: null,
@@ -34,23 +43,16 @@ export default defineComponent({
   },
 
   setup(props) {
-    const menu = inject(MenuSymbol);
+    const popup = inject(UsePopupSymbol);
 
-    const {
-      itemRef,
-      attrs: listItemAttrs,
-      events: listItemEvents,
-    } = useInteractiveListItem({
+    const interactiveListItem = useInteractiveListItem({
       disabled: props.disabled,
-      onSelect: () => menu?.collapse(),
+      onSelect: () => popup?.collapse(),
     });
 
     return {
       config: useComponentConfig('menuLink'),
-      menu,
-      listItemAttrs,
-      listItemEvents,
-      itemRef,
+      interactiveListItem,
     };
   },
 
@@ -60,16 +62,17 @@ export default defineComponent({
     };
 
     const linkProps: Record<string, unknown> = {
-      ref: 'itemRef',
+      ref: this.interactiveListItem.itemRef,
       href: this.href,
       to: this.to,
-      ...this.listItemAttrs,
-      ...this.listItemEvents,
+      ...this.interactiveListItem.attrs,
+      ...this.interactiveListItem.events,
       ...generateConfigClass(this.config?.class, this.$props),
       bare: true,
     };
 
-    // FIXME: There’s currently no way to customize/add local attributes on the link element.
-    return h('li', elementProps, [h(CBtn, linkProps, this.$slots)]);
+    return h('li', elementProps, [
+      h(CBtn, mergeProps(this.$attrs, linkProps), this.$slots),
+    ]);
   },
 });

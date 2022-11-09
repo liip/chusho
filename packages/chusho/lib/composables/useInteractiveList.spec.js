@@ -343,7 +343,7 @@ describe('Item manipulation', () => {
 
       await wrapper.vm.context.selectItem(fixture[0].id);
 
-      const changeEvent = wrapper.emitted('change');
+      const changeEvent = wrapper.emitted('update:modelValue');
 
       expect(changeEvent).toHaveLength(1);
       expect(changeEvent[0]).toEqual([fixture[0].id]);
@@ -370,7 +370,7 @@ describe('Item manipulation', () => {
 
       await wrapper.vm.context.selectItem(fixture[0].id);
 
-      const changeEvent = wrapper.emitted('change');
+      const changeEvent = wrapper.emitted('update:modelValue');
 
       expect(changeEvent).toHaveLength(1);
       expect(changeEvent[0]).toEqual([[fixture[0].id]]);

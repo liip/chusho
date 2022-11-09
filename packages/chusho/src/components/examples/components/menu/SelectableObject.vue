@@ -1,7 +1,7 @@
 <template>
-  <CMenu v-slot="{ open }" v-model="value" multiple>
+  <CMenu v-slot="{ open }" v-model="value">
     <CMenuBtn>
-      <span>Selectable items</span>
+      <span>Selectable object items</span>
       <CIcon
         id="caret"
         :scale="0.375"
@@ -10,12 +10,7 @@
       />
     </CMenuBtn>
     <CMenuList>
-      <CMenuItem
-        v-for="item in items"
-        :key="item.value"
-        :value="item.value"
-        :disabled="item.disabled"
-      >
+      <CMenuItem v-for="item in items" :key="item.value" :value="item.value">
         {{ item.label }}
       </CMenuItem>
     </CMenuList>
@@ -28,28 +23,42 @@ import { ref } from 'vue';
 export default {
   setup() {
     return {
-      value: ref([]),
+      value: ref(3),
       items: [
         {
           label: 'Do laborum',
-          value: 'lorem',
+          value: {
+            id: 1,
+            value: 'lorem',
+          },
         },
         {
           label: 'Voluptate aute',
-          value: 'ipsum',
-          disabled: true,
+          value: {
+            id: 2,
+            value: 'ipsum',
+          },
         },
         {
           label: 'Consectetur et ex commodo',
-          value: 'dolor',
+          value: {
+            id: 3,
+            value: 'dolor',
+          },
         },
         {
           label: 'Aliquip veniam',
-          value: 'sit',
+          value: {
+            id: 4,
+            value: 'sit',
+          },
         },
         {
           label: 'Laboris do',
-          value: 'amet',
+          value: {
+            id: 5,
+            value: 'amet',
+          },
         },
       ],
     };

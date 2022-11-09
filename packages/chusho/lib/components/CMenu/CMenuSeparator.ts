@@ -11,6 +11,8 @@ export default defineComponent({
 
   mixins: [componentMixin],
 
+  inheritAttrs: false,
+
   setup() {
     return {
       config: useComponentConfig('menuSeparator'),

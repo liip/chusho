@@ -32,24 +32,39 @@ export default {
       items: [
         {
           label: 'Do laborum',
-          value: 'lorem',
+          value: {
+            id: 1,
+            value: 'lorem',
+          },
         },
         {
           label: 'Voluptate aute',
-          value: 'ipsum',
+          value: {
+            id: 2,
+            value: 'ipsum',
+          },
           disabled: true,
         },
         {
           label: 'Consectetur et ex commodo',
-          value: 'dolor',
+          value: {
+            id: 3,
+            value: 'dolor',
+          },
         },
         {
           label: 'Aliquip veniam',
-          value: 'sit',
+          value: {
+            id: 4,
+            value: 'sit',
+          },
         },
         {
           label: 'Laboris do',
-          value: 'amet',
+          value: {
+            id: 5,
+            value: 'amet',
+          },
         },
       ],
     };

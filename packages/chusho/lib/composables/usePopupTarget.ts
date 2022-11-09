@@ -2,7 +2,7 @@ import { inject, reactive } from 'vue';
 
 import { UsePopup, UsePopupSymbol } from './usePopup';
 
-interface UsePopupTarget {
+export interface UsePopupTarget {
   attrs: {
     id: string;
   };

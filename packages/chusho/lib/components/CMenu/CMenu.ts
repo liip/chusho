@@ -1,34 +1,14 @@
-import {
-  ComputedRef,
-  InjectionKey,
-  computed,
-  defineComponent,
-  h,
-  mergeProps,
-  provide,
-} from 'vue';
+import { defineComponent, h, mergeProps, watchEffect } from 'vue';
 
 import componentMixin from '../mixins/componentMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
+import useInteractiveList, {
+  InteractiveListRoles,
+} from '../../composables/useInteractiveList';
 import usePopup, { PopupType } from '../../composables/usePopup';
-import { SelectedItem } from '../../composables/useSelectable';
 
-import { generateConfigClass } from '../../utils/components';
-
-export const MenuSymbol: InjectionKey<Menu> = Symbol('CMenu');
-
-export interface MenuItemData {
-  disabled: boolean;
-  text: string;
-}
-
-export type MenuItem = SelectedItem<MenuItemData>;
-
-export interface Menu {
-  disabled: ComputedRef<boolean>;
-  collapse: () => void;
-}
+import { ALL_TYPES, generateConfigClass } from '../../utils/components';
 
 export default defineComponent({
   name: 'CMenu',
@@ -38,24 +18,41 @@ export default defineComponent({
   inheritAttrs: false,
 
   props: {
+    /**
+     * Bind the Menu value with the parent component.
+     * @type {any}
+     */
+    modelValue: {
+      type: ALL_TYPES,
+      default: undefined,
+    },
+    /**
+     * Bind the MenuList opening state with the parent component.
+     */
     open: {
       type: Boolean,
       default: false,
     },
+    /**
+     * Prevent opening the Menu.
+     */
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Allow to select multiple items within the menu.
+     */
+    multiple: {
       type: Boolean,
       default: false,
     },
   },
 
-  emits: ['update:open', 'menu-item:click'],
+  emits: ['update:modelValue', 'update:open'],
 
   setup(props) {
-    const {
-      attrs: popupAttrs,
-      collapse,
-      expanded,
-    } = usePopup({
+    const popup = usePopup({
       expanded: props.open,
       expandedPropName: 'open',
       disabled: props.disabled,
@@ -63,28 +60,49 @@ export default defineComponent({
       type: PopupType.menu,
     });
 
-    const menu: Menu = {
-      disabled: computed(() => props.disabled),
-      collapse,
-    };
+    const interactiveList = useInteractiveList({
+      role: InteractiveListRoles.menu,
+      loop: true,
+      initialValue: props.modelValue,
+      multiple: props.multiple,
+    });
 
-    provide(MenuSymbol, menu);
+    watchEffect(() => {
+      switch (popup.trigger.value) {
+        case 'ArrowDown':
+        case 'Click':
+          interactiveList.activateItemAt(0);
+          break;
+        case 'ArrowUp':
+          interactiveList.activateItemAt(-1);
+          break;
+        default:
+          interactiveList.clearActiveItem();
+          break;
+      }
+    });
 
     return {
       config: useComponentConfig('menu'),
-      popupAttrs,
-      expanded,
-      menu,
+      popup,
     };
   },
 
+  /**
+   * @slot
+   * @binding {boolean} open `true` when the select is open
+   */
   render() {
-    const isActive = this.expanded ?? false;
+    const open = this.popup.expanded.value;
     const elementProps: Record<string, unknown> = {
-      ...this.popupAttrs,
-      ...generateConfigClass(this.config?.class, { ...this.$props, isActive }),
+      ...this.popup.attrs,
+      ...generateConfigClass(this.config?.class, { ...this.$props, open }),
     };
 
-    return h('div', mergeProps(this.$attrs, elementProps), this.$slots);
+    return h(
+      'div',
+      mergeProps(this.$attrs, elementProps),
+      this.$slots?.default?.({ open })
+    );
   },
 });
