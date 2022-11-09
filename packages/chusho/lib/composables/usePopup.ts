@@ -29,7 +29,7 @@ export type UsePopup = {
   disabled: Readonly<Ref<boolean>>;
   expanded: Readonly<Ref<boolean>>;
   trigger: Readonly<Ref<Trigger>>;
-  type: PopupType;
+  type?: PopupType;
   uid: UseCachedUid;
   attrs: UseCachedUid['cacheAttrs'];
   btnRef: Ref<HTMLElement | null>;
@@ -60,7 +60,7 @@ export default function usePopup({
   disabledPropName = null,
   expanded = false,
   expandedPropName = null,
-  type = PopupType.menu,
+  type = undefined,
 }: UsePopupOptions = {}): UsePopup {
   const activeElement = useActiveElement();
   const isExpanded = ref(expanded);

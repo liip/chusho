@@ -1,17 +1,11 @@
-import { InjectionKey, defineComponent, h, mergeProps, provide } from 'vue';
+import { defineComponent, h, mergeProps } from 'vue';
 
 import componentMixin from '../mixins/componentMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
-import useTogglable from '../../composables/useTogglable';
+import usePopup from '../../composables/usePopup';
 
 import { generateConfigClass } from '../../utils/components';
-
-export const CollapseSymbol: InjectionKey<Collapse> = Symbol('CCollapse');
-
-export interface Collapse {
-  toggle: ReturnType<typeof useTogglable>;
-}
 
 export default defineComponent({
   name: 'CCollapse',
@@ -33,15 +27,15 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup(props) {
-    const collapse: Collapse = {
-      toggle: useTogglable(props.modelValue),
-    };
-
-    provide(CollapseSymbol, collapse);
+    const popup = usePopup({
+      closeOnClickOutside: false,
+      expanded: props.modelValue,
+      expandedPropName: 'modelValue',
+    });
 
     return {
       config: useComponentConfig('collapse'),
-      collapse,
+      popup,
     };
   },
 
@@ -50,13 +44,13 @@ export default defineComponent({
    * @binding {boolean} active `true` when collapse is open
    */
   render() {
-    const isActive = this.collapse?.toggle.isOpen.value ?? false;
+    const isActive = this.popup?.expanded.value ?? false;
     const elementProps: Record<string, unknown> = {
       ...generateConfigClass(this.config?.class, {
         ...this.$props,
         active: isActive,
       }),
-      ...this.collapse?.toggle.uid.cacheAttrs,
+      ...this.popup.attrs,
     };
 
     return h(
