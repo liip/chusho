@@ -1,8 +1,6 @@
 import { mount } from '@vue/test-utils';
-import { h } from 'vue';
 
 import CCollapse from './CCollapse';
-import CCollapseBtn from './CCollapseBtn';
 
 describe('CCollapse', () => {
   it('renders without active class when closed', () => {
@@ -70,16 +68,5 @@ describe('CCollapse', () => {
     });
 
     expect(wrapper.html()).toBe('<div>{"active":false}</div>');
-  });
-
-  it('provides collapse API', () => {
-    const wrapper = mount(CCollapse, {
-      slots: {
-        default: h(CCollapseBtn),
-      },
-    });
-    expect(wrapper.findComponent(CCollapseBtn).vm.collapse).toEqual(
-      wrapper.vm.collapse
-    );
   });
 });

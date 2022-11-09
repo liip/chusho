@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { h, nextTick, ref } from 'vue';
 
-import usePopup from './usePopup';
+import usePopup, { PopupType } from './usePopup';
 import usePopupBtn from './usePopupBtn';
 
 let popup = null;
@@ -11,6 +11,7 @@ const component = {
   setup() {
     popup = usePopup({
       disabled,
+      type: PopupType.menu,
     });
 
     return () =>

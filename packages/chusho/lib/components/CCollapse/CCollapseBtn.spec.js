@@ -14,7 +14,7 @@ describe('CCollapseBtn', () => {
     });
 
     expect(wrapper.findComponent(CCollapseBtn).html()).toBe(
-      '<button aria-expanded="false" aria-controls="chusho-toggle-0" type="button"></button>'
+      '<button aria-controls="chusho-popup-0" aria-expanded="false" type="button"></button>'
     );
   });
 
@@ -78,9 +78,9 @@ describe('CCollapseBtn', () => {
       },
     });
 
-    expect(wrapper.vm.collapse.toggle.isOpen.value).toBe(false);
+    expect(wrapper.vm.popup.expanded.value).toBe(false);
     wrapper.findComponent(CCollapseBtn).trigger('click');
-    expect(wrapper.vm.collapse.toggle.isOpen.value).toBe(true);
+    expect(wrapper.vm.popup.expanded.value).toBe(true);
   });
 
   it('forwards active state to the underlying CBtn', () => {

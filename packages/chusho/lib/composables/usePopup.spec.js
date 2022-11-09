@@ -12,10 +12,10 @@ describe('usePopup', () => {
     expect(composable.uid.id.value).toBe('chusho-popup-0');
   });
 
-  it('is of type menu by default', () => {
+  it('is of type undefined by default', () => {
     const { composable } = withSetup(() => usePopup());
 
-    expect(composable.type).toBe('menu');
+    expect(composable.type).toBe(undefined);
   });
 
   it('accepts a custom type', () => {

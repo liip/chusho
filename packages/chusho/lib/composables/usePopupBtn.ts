@@ -7,7 +7,7 @@ export interface UsePopupBtn {
   attrs: {
     'aria-expanded': string;
     'aria-controls': string;
-    'aria-haspopup': string;
+    'aria-haspopup'?: string;
     disabled: boolean;
   };
   events: {

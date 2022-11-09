@@ -6,13 +6,12 @@ import componentMixin from '../mixins/componentMixin';
 import transitionMixin from '../mixins/transitionMixin';
 
 import useComponentConfig from '../../composables/useComponentConfig';
+import usePopupTarget from '../../composables/usePopupTarget';
 
 import {
   generateConfigClass,
   renderWithTransition,
 } from '../../utils/components';
-
-import { CollapseSymbol } from './CCollapse';
 
 export default defineComponent({
   name: 'CCollapseContent',
@@ -23,28 +22,28 @@ export default defineComponent({
 
   setup() {
     const chusho = inject<DollarChusho | null>('$chusho', null);
-    const collapse = inject(CollapseSymbol);
+    const popupTarget = usePopupTarget();
+    const popup = popupTarget.popup;
 
     return {
       config: useComponentConfig('collapseContent'),
       chusho,
-      collapse,
+      popupTarget,
+      popup,
     };
   },
 
   methods: {
     renderContent() {
-      if (!this.collapse) return null;
-
       const elementProps: Record<string, unknown> = {
-        ...this.collapse.toggle.attrs.target.value,
+        ...this.popupTarget.attrs,
         ...generateConfigClass(
           this.chusho?.options?.components?.collapseContent?.class,
           this.$props
         ),
       };
 
-      return this.collapse.toggle.renderIfOpen(() =>
+      return this.popup.renderPopup(() =>
         h('div', mergeProps(this.$attrs, elementProps), this.$slots)
       );
     },
