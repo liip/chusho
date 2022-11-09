@@ -1,8 +1,8 @@
 self.importScripts(
   'https://unpkg.com/prettier@2.2.1/standalone.js',
   'https://unpkg.com/prettier@2.2.1/parser-html.js',
-  'https://unpkg.com/@highlightjs/cdn-assets@11.4.0/highlight.min.js',
-  'https://unpkg.com/@highlightjs/cdn-assets@11.4.0/languages/xml.min.js'
+  'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js',
+  'https://unpkg.com/@highlightjs/cdn-assets@11.6.0/languages/xml.min.js'
 );
 
 self.addEventListener('message', (e) => {
