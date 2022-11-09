@@ -20,6 +20,6 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  "include": ["lib/**/*", "src/**/*", "types/**/*"],
+  "include": ["lib/**/*", "src/**/*", "cypress/**/*", "types/**/*"],
   "exclude": ["node_modules"]
 }
