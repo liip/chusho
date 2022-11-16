@@ -1,5 +1,7 @@
 import { VueWrapper } from '@vue/test-utils';
+import 'cypress-real-events/support';
 import { mount } from 'cypress/vue';
+import { reactive } from 'vue';
 
 import '../../src/assets/tailwind.css';
 import chushoConfig from '../../src/chusho.config.js';
@@ -26,11 +28,12 @@ Cypress.Commands.add('mount', (component, options = {}) => {
   options.extensions.components = options.extensions.components || {};
 
   options.extensions.provide = options.extensions.provide || {};
-  options.extensions.provide.$chusho = {
+  options.extensions.provide.$chusho = reactive({
     options: chushoConfig,
-  };
+    openDialogs: [],
+  });
 
-  return mount(component, options).then((wrapper: VueWrapper) => {
+  return mount(component, options).then(({ wrapper }) => {
     return cy.wrap(wrapper).as('vue');
   });
 });

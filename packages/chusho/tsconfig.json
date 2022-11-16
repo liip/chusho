@@ -15,7 +15,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": ["vitest/globals", "node"],
+    "types": ["vitest/globals", "node", "cypress-real-events"],
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "isolatedModules": true,
     "skipLibCheck": true
