@@ -43,7 +43,7 @@ module.exports = {
       },
     },
     {
-      files: ['**/cypress/**/*'],
+      files: ['**/cypress/**/*', '**/*.cy.tsx'],
       plugins: ['cypress'],
       env: {
         mocha: true,
@@ -51,6 +51,7 @@ module.exports = {
       },
       rules: {
         strict: 'off',
+        'vue/one-component-per-file': 'off',
       },
     },
   ],
