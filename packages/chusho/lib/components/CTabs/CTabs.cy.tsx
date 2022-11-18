@@ -97,6 +97,12 @@ describe('CTabs', () => {
       'class',
       'tabpanel config-tabpanel active'
     );
+
+    cy.getWrapper().then((wrapper) => {
+      wrapper.setProps({ bare: true });
+
+      cy.get('[data-test="tabs"]').should('not.have.class', 'config-tabs');
+    });
   });
 
   it('applies the right attributes', () => {
