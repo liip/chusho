@@ -41,7 +41,7 @@ export default function useKeyboardListNavigation(
       searchIndex.value = selectedItemIndex;
     }
 
-    query.value += character;
+    query.value += character.toLowerCase();
 
     prepareToResetQuery();
 
