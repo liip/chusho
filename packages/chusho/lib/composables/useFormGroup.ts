@@ -1,13 +1,16 @@
-import { Ref, inject, reactive, toRef } from 'vue';
+import { computed, inject, reactive } from 'vue';
 
 import { isNil } from '../utils/objects';
 
-import { FormGroupSymbol } from '../components/CFormGroup/CFormGroup';
+import {
+  FormGroupFlag,
+  FormGroupSymbol,
+} from '../components/CFormGroup/CFormGroup';
 
 interface flags {
-  required?: Ref<boolean>;
-  disabled?: Ref<boolean>;
-  readonly?: Ref<boolean>;
+  required?: FormGroupFlag;
+  disabled?: FormGroupFlag;
+  readonly?: FormGroupFlag;
 }
 
 type flag = keyof flags;
@@ -16,16 +19,21 @@ type flag = keyof flags;
  * Allow a child of CFormGroup to access its context
  */
 export default function useFormGroup(
-  props: Record<string, unknown>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  props: Record<string, any>,
   flagsToSet: Array<flag>
 ) {
   const formGroup = inject(FormGroupSymbol, null);
   const flags: flags = {};
 
   flagsToSet.forEach((flagToSet) => {
-    flags[flagToSet] = !isNil(props[flagToSet])
-      ? (toRef(props, flagToSet) as flags[flag])
-      : formGroup?.[flagToSet];
+    flags[flagToSet] = computed(() => {
+      if (isNil(props[flagToSet])) {
+        return formGroup?.[flagToSet];
+      } else {
+        return props[flagToSet];
+      }
+    });
   });
 
   return {

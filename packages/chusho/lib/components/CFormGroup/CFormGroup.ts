@@ -18,10 +18,12 @@ import { generateConfigClass } from '../../utils/components';
 
 export const FormGroupSymbol: InjectionKey<FormGroup> = Symbol('CFormGroup');
 
+export type FormGroupFlag = ComputedRef<boolean | undefined>;
+
 export interface FormGroup {
-  required: ComputedRef<boolean>;
-  disabled: ComputedRef<boolean>;
-  readonly: ComputedRef<boolean>;
+  required: FormGroupFlag;
+  disabled: FormGroupFlag;
+  readonly: FormGroupFlag;
   uid: UseCachedUid;
   ids: Record<string, string>;
 }
@@ -47,26 +49,26 @@ export default defineComponent({
      */
     required: {
       type: Boolean,
-      default: null,
+      default: undefined,
     },
     /**
      * Flag the group as disabled. Automatically sets the attribute of the same name on any child CTextField, CTextarea, CRadio, CCheckbox & CSelect.
      */
     disabled: {
       type: Boolean,
-      default: null,
+      default: undefined,
     },
     /**
      * Flag the group as readonly. Automatically sets the attribute of the same name on any child CTextField & CTextarea.
      */
     readonly: {
       type: Boolean,
-      default: null,
+      default: undefined,
     },
   },
 
   setup(props) {
-    const parentFormGroup = inject(FormGroupSymbol, null);
+    const parentFormGroup = inject(FormGroupSymbol, undefined);
     const uid = useCachedUid();
     const ids: FormGroup['ids'] = new Proxy(
       {},
