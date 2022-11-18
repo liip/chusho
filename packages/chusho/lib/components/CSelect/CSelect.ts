@@ -82,7 +82,7 @@ export default defineComponent({
     const popup = usePopup({
       expanded: props.open,
       expandedPropName: 'open',
-      disabled: props.disabled ?? toRef(formGroup.flags, 'disabled'),
+      disabled: props.disabled ?? formGroup.flags.disabled,
       disabledPropName: 'disabled',
       type: PopupType.listbox,
     });
