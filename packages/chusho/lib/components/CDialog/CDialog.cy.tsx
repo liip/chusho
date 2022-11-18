@@ -85,10 +85,19 @@ describe('CDialog', () => {
 
     cy.contains('Open dialog').click();
 
-    cy.get('[data-test="dialog"]').should('have.class', 'dialog config-dialog');
     cy.get('[data-test="dialog"]')
+      .should('have.class', 'dialog config-dialog')
       .parent()
       .should('have.class', 'dialog-overlay config-dialog-overlay');
+
+    cy.getWrapper().then((wrapper) => {
+      wrapper.setProps({ bare: true });
+
+      cy.get('[data-test="dialog"]')
+        .should('not.have.class', 'config-dialog')
+        .parent()
+        .should('not.have.class', 'config-dialog-overlay');
+    });
   });
 
   it('applies the right attributes', () => {
