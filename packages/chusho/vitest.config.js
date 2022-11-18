@@ -9,7 +9,7 @@ export default defineConfig({
     coverage: {
       reporter: ['html', 'lcov', 'text'],
       include: ['lib/**/*.ts'],
-      exclude: ['**/__mocks__/**'],
+      exclude: ['**/__mocks__/**', 'lib/components/**'],
     },
   },
 });
