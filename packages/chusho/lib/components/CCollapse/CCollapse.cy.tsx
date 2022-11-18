@@ -60,6 +60,15 @@ describe('CCollapse', () => {
       'have.class',
       'content config-content'
     );
+
+    cy.getWrapper().then((wrapper) => {
+      wrapper.setProps({ bare: true });
+
+      cy.get('[data-test="collapse"]').should(
+        'not.have.class',
+        'config-collapse'
+      );
+    });
   });
 
   it('applies the right attributes', () => {
