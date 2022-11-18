@@ -47,7 +47,7 @@ export default defineComponent({
       };
 
       return this.popupTarget.popup.renderPopup(() =>
-        h('ul', mergeProps(this.$attrs, elementProps), this.$slots)
+        h('div', mergeProps(this.$attrs, elementProps), this.$slots)
       );
     },
   },

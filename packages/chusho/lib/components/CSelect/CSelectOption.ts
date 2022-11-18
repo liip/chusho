@@ -63,7 +63,7 @@ export default defineComponent({
     };
 
     return h(
-      'li',
+      'div',
       mergeProps(this.$attrs, elementProps),
       this.$slots.default?.() ?? ' '
     );
