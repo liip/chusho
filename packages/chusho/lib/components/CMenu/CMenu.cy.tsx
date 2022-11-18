@@ -135,6 +135,15 @@ describe('CMenu', () => {
       'class',
       'separator config-separator'
     );
+
+    cy.getWrapper().then((wrapper) => {
+      wrapper.setProps({ bare: true });
+
+      cy.get('[data-test="menu"]').should(
+        'not.have.class',
+        'config-menu open disabled'
+      );
+    });
   });
 
   it('applies the right attributes', () => {
@@ -236,10 +245,10 @@ describe('CMenu', () => {
         <CMenu data-test="menu">
           <CMenuBtn data-test="btn">Menu</CMenuBtn>
           <CMenuList data-test="list">
-            <CMenuItem data-test="list-item">Item</CMenuItem>
-            <CMenuItem data-test="list-item-2">Item 2</CMenuItem>
+            <CMenuItem data-test="list-item">Banana</CMenuItem>
+            <CMenuItem data-test="list-item-2">Apple</CMenuItem>
             <CMenuSeparator />
-            <CMenuLink data-test="list-link">Link</CMenuLink>
+            <CMenuLink data-test="list-link">Approximately</CMenuLink>
           </CMenuList>
         </CMenu>
       );
@@ -294,6 +303,30 @@ describe('CMenu', () => {
       cy.get('[data-test="list-item"]')
         .should('be.focused')
         .trigger('keydown', { key: 'Tab' });
+      cy.get('[data-test="list"]').should('not.exist');
+    });
+
+    it('moves focus to the best match when typing and loop back', () => {
+      cy.get('[data-test="btn"]').click();
+
+      cy.get('[data-test="list-item"]').type('app');
+      cy.get('[data-test="list-item-2"]').should('be.focused');
+
+      cy.wait(500);
+
+      cy.get('[data-test="list-item-2"]').type('Appr');
+      cy.get('[data-test="list-link"]').should('be.focused');
+
+      cy.wait(500);
+
+      cy.get('[data-test="list-link"]').type('Ba');
+      cy.get('[data-test="list-item"]').should('be.focused');
+    });
+
+    it('closes when clicking outside', () => {
+      cy.get('[data-test="btn"]').click();
+      cy.get('[data-test="list"]').should('be.visible');
+      cy.get('body').click();
       cy.get('[data-test="list"]').should('not.exist');
     });
   });
