@@ -1,3 +1,4 @@
+import '@cypress/code-coverage/support';
 import { VueWrapper } from '@vue/test-utils';
 import 'cypress-real-events/support';
 import { mount } from 'cypress/vue';
