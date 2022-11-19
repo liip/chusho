@@ -7,9 +7,10 @@ export default defineConfig({
     globals: true,
     setupFiles: [resolve(__dirname, 'test/setup.js')],
     coverage: {
-      reporter: ['html', 'lcov', 'text'],
+      reporter: ['lcov'],
       include: ['lib/**/*.ts'],
       exclude: ['**/__mocks__/**', 'lib/components/**'],
+      reportsDirectory: 'coverage/vitest',
     },
   },
 });

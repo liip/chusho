@@ -2,6 +2,7 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import path from 'path';
 import { defineConfig } from 'vite';
+import istanbul from 'vite-plugin-istanbul';
 
 const libraryName = 'Chusho';
 const builds = [
@@ -74,6 +75,16 @@ export default defineConfig(({ mode }) => {
 
     // Do not copy playground public files (like favicon.ico) to the library dist folder
     config.publicDir = false;
+  } else {
+    if (process.env.CYPRESS) {
+      config.build.sourcemap = true;
+      config.plugins.push(
+        istanbul({
+          include: ['lib/**/*'],
+          extension: ['.ts'],
+        })
+      );
+    }
   }
 
   return config;
