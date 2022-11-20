@@ -26,7 +26,7 @@ export default defineComponent({
   },
 
   render() {
-    const active = this.popupBtn?.popup.expanded.value ?? false;
+    const active = this.popupBtn.popup.expanded.value;
     const elementProps: Record<string, unknown> = {
       ref: this.popupBtn.ref,
       ...this.popupBtn.attrs,

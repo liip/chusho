@@ -33,6 +33,20 @@ describe('Chūshō', () => {
     });
   });
 
+  it('defineConfig returns the config', () => {
+    const c = {
+      components: {
+        btn: {
+          class: 'foo',
+        },
+      },
+    };
+
+    const config = main.defineConfig(c);
+
+    expect(config).toEqual(c);
+  });
+
   it('set direction based on document dir attribute', () => {
     expect(main.$chusho.options.rtl()).toEqual(false);
     document.dir = 'rtl';
@@ -53,5 +67,9 @@ describe('Chūshō', () => {
 
   it('exports directives individually', () => {
     expect(main).toMatchObject(directives);
+  });
+
+  it('exports some utils', () => {
+    expect(main.mergeDeep).toEqual(expect.any(Function));
   });
 });

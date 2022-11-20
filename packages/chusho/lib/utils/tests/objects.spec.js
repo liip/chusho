@@ -1,4 +1,10 @@
-import { isObject, isPlainObject, mergeDeep } from '../objects';
+import {
+  isNil,
+  isObject,
+  isPlainObject,
+  isPrimitive,
+  mergeDeep,
+} from '../objects';
 
 describe('objects', () => {
   describe('isPlainObject', () => {
@@ -32,6 +38,44 @@ describe('objects', () => {
       expect(isObject(null)).toBe(false);
       expect(isObject(undefined)).toBe(false);
       expect(isObject(NaN)).toBe(false);
+    });
+  });
+
+  describe('isPrimitive', () => {
+    it('return true if the value is a primitive', () => {
+      expect(isPrimitive(undefined)).toBe(true);
+      expect(isPrimitive(true)).toBe(true);
+      expect(isPrimitive(false)).toBe(true);
+      expect(isPrimitive(12)).toBe(true);
+      expect(isPrimitive('foo')).toBe(true);
+      expect(isPrimitive(NaN)).toBe(true);
+      expect(isPrimitive(BigInt(9007199254740991))).toBe(true);
+      expect(isPrimitive(Symbol('foo'))).toBe(true);
+    });
+
+    it('return false otherwise', () => {
+      expect(isPrimitive(null)).toBe(false);
+      expect(isPrimitive({})).toBe(false);
+      expect(isPrimitive([])).toBe(false);
+      expect(isPrimitive(new Date())).toBe(false);
+    });
+  });
+
+  describe('isNil', () => {
+    it('return true if the value is null or undefined', () => {
+      expect(isNil(null)).toBe(true);
+      expect(isNil(undefined)).toBe(true);
+    });
+
+    it('return false otherwise', () => {
+      expect(isNil(true)).toBe(false);
+      expect(isNil(false)).toBe(false);
+      expect(isNil(new Date())).toBe(false);
+      expect(isNil([])).toBe(false);
+      expect(isNil('string')).toBe(false);
+      expect(isNil(12)).toBe(false);
+      expect(isNil(NaN)).toBe(false);
+      expect(isNil({})).toBe(false);
     });
   });
 
