@@ -51,7 +51,7 @@ export default {
       class({ variant, checked }) {
         return [
           'appearance-none inline-block w-3 h-3 rounded-sm border-2 border-white ring-2 ring-gray-500',
-          { 'mr-3': variant?.includes('inline') },
+          { 'mr-3': variant.inline },
           { 'bg-white': !checked },
           { 'bg-accent-500': checked },
         ];
@@ -89,14 +89,14 @@ export default {
       overlayClass({ variant }) {
         return [
           'p-8 flex flex-columns items-center justify-center bg-gray-700 bg-opacity-75',
-          { 'fixed inset-0 z-20': !variant?.includes('relative') },
+          { 'fixed inset-0 z-20': !variant?.relative },
         ];
       },
       class({ variant }) {
         return [
           'dialog max-w-md bg-white rounded-lg shadow-lg overflow-hidden',
           {
-            'p-5': variant?.includes('spaced'),
+            'p-5': variant?.spaced,
           },
         ];
       },
@@ -113,7 +113,7 @@ export default {
           'cursor-pointer',
           {
             'block mb-1 font-bold': !variant,
-            'inline-flex items-center': variant?.includes('inline'),
+            'inline-flex items-center': variant?.inline,
           },
         ];
       },
@@ -178,7 +178,7 @@ export default {
       class({ variant, checked }) {
         return [
           'appearance-none inline-block w-3 h-3 rounded-full border-2 border-white ring-2 ring-gray-500',
-          { 'mr-3': variant?.includes('inline') },
+          { 'mr-3': variant?.inline },
           { 'bg-white': !checked },
           { 'bg-accent-500': checked },
         ];

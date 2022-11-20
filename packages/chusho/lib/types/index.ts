@@ -7,6 +7,8 @@ import {
 
 import { InteractiveListItemRoles } from '../composables/useInteractiveListItem';
 
+import { ToNormalizedVariant } from '../utils/components';
+
 import CAlert from '../components/CAlert/CAlert';
 import CBtn from '../components/CBtn/CBtn';
 import CCheckbox from '../components/CCheckbox/CCheckbox';
@@ -44,24 +46,12 @@ export interface DollarChusho {
   openDialogs: DialogData[];
 }
 
-export interface ContainerItemClass {
-  containerClass: string;
-  itemClass: string;
-}
-
 export type VueClassBinding =
   | string
   | Record<string, unknown>
   | Array<Record<string, unknown> | string>;
 
-export interface ClassGeneratorCommonCtx {
-  variant?: unknown;
-  bare?: boolean;
-}
-
-export type ClassGenerator<T extends ClassGeneratorCommonCtx> = (
-  ctx: T
-) => VueClassBinding;
+export type ClassGenerator<T> = (ctx: T) => VueClassBinding;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ComponentProps<C extends Component> = C extends new (...args: any) => any
@@ -74,7 +64,7 @@ type ComponentProps<C extends Component> = C extends new (...args: any) => any
 // eslint-disable-next-line @typescript-eslint/ban-types
 type ComponentOptionClass<C extends Component, P = {}> =
   | VueClassBinding
-  | ClassGenerator<ComponentProps<C> & P>;
+  | ClassGenerator<ToNormalizedVariant<ComponentProps<C>> & P>;
 
 interface ComponentsOptions {
   alert?: {

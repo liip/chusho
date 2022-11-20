@@ -47,8 +47,8 @@ Classes applied to the component root element, except when the prop `bare` is se
 class({ variant, disabled }) {
     return ['btn', {
         'btn--default': !variant,
-        'btn--primary': variant?.includes('primary'),
-        'btn--block': variant?.includes('block'),
+        'btn--primary': variant?.primary,
+        'btn--block': variant?.block,
         'btn--disabled': disabled
     }]
 }

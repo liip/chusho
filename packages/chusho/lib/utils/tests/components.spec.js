@@ -12,6 +12,38 @@ describe('components', () => {
       ).toEqual({ class: { foo: true, bar: false } });
     });
 
+    it('should normalize the variant prop', () => {
+      expect(
+        generateConfigClass(
+          ({ variant }) => ({
+            foo: variant?.foo,
+            bar: variant?.bar,
+            baz: variant?.baz,
+          }),
+          { variant: ['foo', { baz: true }] }
+        )
+      ).toEqual({ class: { foo: true, bar: false, baz: true } });
+    });
+
+    it('should split the variant string by space, trim it, and provide it as an object', () => {
+      expect(
+        generateConfigClass(
+          ({ variant }) => ({
+            foo: variant?.foo,
+            bar: variant?.bar,
+            baz: variant?.baz,
+          }),
+          { variant: ' foo  bar ' }
+        )
+      ).toEqual({ class: { foo: true, bar: true, baz: false } });
+    });
+
+    it('should not transform undefined variant into an object', () => {
+      expect(
+        generateConfigClass(({ variant }) => variant, { variant: undefined })
+      ).toEqual({ class: undefined });
+    });
+
     it('should return the value when it’s not a function', () => {
       expect(
         generateConfigClass('foo bar', {

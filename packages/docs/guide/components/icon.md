@@ -61,8 +61,8 @@ Classes applied to the component root element, except when the prop `bare` is se
 ```js
 class({ variant }) {
     return ['icon', {
-        'icon--solid': variant?.includes('solid'),
-        'icon--outline': variant?.includes('outline'),
+        'icon--solid': variant?.solid,
+        'icon--outline': variant?.outline,
     }]
 }
 ```

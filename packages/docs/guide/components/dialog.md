@@ -28,8 +28,8 @@ Classes applied to the component dialog element, except when the prop `bare` is 
 ```js
 class({ variant }) {
     return ['dialog', {
-        'dialog--large': variant?.includes('large'),
-        'dialog--fullscreen': variant?.includes('fullscreen'),
+        'dialog--large': variant?.large,
+        'dialog--fullscreen': variant?.fullscreen,
     }]
 }
 ```

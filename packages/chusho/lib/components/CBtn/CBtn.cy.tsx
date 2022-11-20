@@ -16,7 +16,10 @@ describe('CBtn', () => {
                 components: {
                   btn: {
                     class({ variant }) {
-                      return ['config-btn', `config-btn-${variant}`];
+                      return [
+                        'config-btn',
+                        { 'config-btn-primary': variant?.primary },
+                      ];
                     },
                   },
                 },
