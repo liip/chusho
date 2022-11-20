@@ -2,7 +2,7 @@
   <CCheckbox v-model="value" />
 </template>
 
-<script>
+<script lang="ts">
 export default {
   data() {
     return {

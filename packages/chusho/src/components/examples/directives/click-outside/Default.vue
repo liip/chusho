@@ -2,7 +2,7 @@
   <CBtn v-clickOutside="clickOutside" @click="click"> Click inside </CBtn>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   methods: {
     click() {

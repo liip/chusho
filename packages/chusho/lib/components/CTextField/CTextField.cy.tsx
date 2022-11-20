@@ -66,9 +66,7 @@ describe('CTextField', () => {
   });
 
   it('applies local flags as attributes to the input', () => {
-    cy.mount(
-      <CTextField value="a" disabled required readonly data-test="textfield" />
-    );
+    cy.mount(<CTextField disabled required readonly data-test="textfield" />);
 
     cy.get('[data-test="textfield"]')
       .should('have.attr', 'disabled', 'disabled')

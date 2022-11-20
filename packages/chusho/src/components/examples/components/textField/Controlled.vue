@@ -2,7 +2,7 @@
   <CTextField v-model="text" />
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue';
 
 const text = ref(null);

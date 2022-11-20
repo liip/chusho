@@ -53,9 +53,7 @@ describe('CTextarea', () => {
   });
 
   it('applies local flags as attributes to the input', () => {
-    cy.mount(
-      <CTextarea value="a" disabled required readonly data-test="textarea" />
-    );
+    cy.mount(<CTextarea disabled required readonly data-test="textarea" />);
 
     cy.get('[data-test="textarea"]')
       .should('have.attr', 'disabled', 'disabled')

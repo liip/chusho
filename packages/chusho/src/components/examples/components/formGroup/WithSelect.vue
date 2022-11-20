@@ -5,7 +5,7 @@
   </CFormGroup>
 </template>
 
-<script>
+<script lang="ts">
 import SelectDefault from '../select/Default.vue';
 
 export default {

@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, nextTick, toRef, watch } from 'vue';
+import { defineComponent, h, mergeProps, nextTick, watch } from 'vue';
 
 import componentMixin from '../mixins/componentMixin';
 

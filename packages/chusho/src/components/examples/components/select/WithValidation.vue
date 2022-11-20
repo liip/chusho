@@ -9,7 +9,7 @@
         data-test="select"
       >
         <CSelectBtn class="flex items-center" data-test="select-btn">
-          <span v-if="field.value?.label">{{ field.value?.label }}</span>
+          <span v-if="color?.label">{{ color?.label }}</span>
           <span v-else class="text-gray-400">Select a value…</span>
           <CIcon
             id="caret"
@@ -22,7 +22,7 @@
           <CSelectOption value=""></CSelectOption>
           <CSelectOption v-for="item in items" :key="item.value" :value="item">
             <CIcon
-              v-if="item === field.value"
+              v-if="item === color"
               id="check"
               :scale="0.375"
               class="absolute left-2 top-2 -mt-px"
@@ -36,40 +36,27 @@
   </VeeForm>
 </template>
 
-<script>
+<script lang="ts" setup>
 import { ErrorMessage, Field, Form as VeeForm } from 'vee-validate';
+import { ref } from 'vue';
 
-export default {
-  components: {
-    VeeForm,
-    Field,
-    ErrorMessage,
+const items = [
+  {
+    label: 'AliceBlue',
+    value: '#F0F8FF',
   },
+  {
+    label: 'AntiqueWhite',
+    value: '#FAEBD7',
+  },
+  {
+    label: 'Aqua',
+    value: '#00FFFF',
+  },
+];
+const color = ref<typeof items[number] | null>(null);
 
-  data() {
-    return {
-      color: '',
-      items: [
-        {
-          label: 'AliceBlue',
-          value: '#F0F8FF',
-        },
-        {
-          label: 'AntiqueWhite',
-          value: '#FAEBD7',
-        },
-        {
-          label: 'Aqua',
-          value: '#00FFFF',
-        },
-      ],
-    };
-  },
-
-  methods: {
-    isRequired(value) {
-      return value ? true : 'This field is required';
-    },
-  },
-};
+function isRequired(value: string) {
+  return value ? true : 'This field is required';
+}
 </script>

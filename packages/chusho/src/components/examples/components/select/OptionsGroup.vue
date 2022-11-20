@@ -1,7 +1,7 @@
 <template>
   <CSelect v-model="value" v-model:open="open">
     <CSelectBtn class="flex items-center">
-      <span v-if="value.label">{{ value.label }}</span>
+      <span v-if="value?.label">{{ value.label }}</span>
       <span v-else class="text-gray-400">Select a value…</span>
       <CIcon
         id="caret"
@@ -32,51 +32,46 @@
   </CSelect>
 </template>
 
-<script>
-export default {
-  data() {
-    const groups = [
-      {
-        label: 'Cold',
-        options: [
-          {
-            label: 'AliceBlue',
-            value: '#F0F8FF',
-          },
-          {
-            label: 'Aqua',
-            value: '#00FFFF',
-          },
-          {
-            label: 'Azure',
-            value: '#F0FFFF',
-          },
-        ],
-      },
-      {
-        label: 'Warm',
-        options: [
-          {
-            label: 'Fuchsia',
-            value: '#FF00FF',
-          },
-          {
-            label: 'Indigo',
-            value: '#4B0082',
-          },
-          {
-            label: 'LightCoral',
-            value: '#F08080',
-          },
-        ],
-      },
-    ];
+<script lang="ts" setup>
+import { ref } from 'vue';
 
-    return {
-      value: '',
-      groups,
-      open: false,
-    };
+const groups = [
+  {
+    label: 'Cold',
+    options: [
+      {
+        label: 'AliceBlue',
+        value: '#F0F8FF',
+      },
+      {
+        label: 'Aqua',
+        value: '#00FFFF',
+      },
+      {
+        label: 'Azure',
+        value: '#F0FFFF',
+      },
+    ],
   },
-};
+  {
+    label: 'Warm',
+    options: [
+      {
+        label: 'Fuchsia',
+        value: '#FF00FF',
+      },
+      {
+        label: 'Indigo',
+        value: '#4B0082',
+      },
+      {
+        label: 'LightCoral',
+        value: '#F08080',
+      },
+    ],
+  },
+];
+
+const value = ref<typeof groups[number]['options'][number] | null>(null);
+const open = ref(false);
 </script>

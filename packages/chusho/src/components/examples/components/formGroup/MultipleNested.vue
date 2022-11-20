@@ -12,12 +12,12 @@
   </CFormGroup>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { reactive } from 'vue';
 
 const fruits = ['Banana', 'Apple', 'Kiwi'];
 
-const state = reactive({
+const state = reactive<Record<string, boolean>>({
   Banana: true,
   Apple: false,
   Kiwi: false,
