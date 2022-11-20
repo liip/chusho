@@ -47,10 +47,13 @@ export default defineComponent({
     if (this.formGroup) {
       // Combine the form group label and the select btn (self) content as label for the select
       const id = this.$attrs.id ?? this.uid.id.value;
-      const labels =
-        [this.$attrs['aria-labelledby'], this.formGroup?.ids.label, id]
-          .filter((s) => !!s)
-          .join(' ') || undefined;
+      const labels = [
+        this.$attrs['aria-labelledby'],
+        this.formGroup?.ids.label,
+        id,
+      ]
+        .filter((s) => !!s)
+        .join(' ');
 
       elementProps.id = id;
       elementProps['aria-labelledby'] = labels;

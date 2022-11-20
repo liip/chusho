@@ -275,7 +275,9 @@ describe('CMenu', () => {
     });
 
     it('can be navigated with a keyboard', () => {
-      cy.get('[data-test="btn"]').click();
+      cy.get('[data-test="btn"]')
+        .focus()
+        .trigger('keydown', { key: 'ArrowDown' });
       cy.get('[data-test="list-item"]')
         .should('be.focused')
         .trigger('keydown', { key: 'ArrowDown' });
@@ -299,8 +301,9 @@ describe('CMenu', () => {
         .should('be.focused')
         .trigger('keydown', { key: 'Escape' });
       cy.get('[data-test="list"]').should('not.exist');
-      cy.get('[data-test="btn"]').should('be.focused').click();
-      cy.get('[data-test="list-item"]')
+      cy.get('[data-test="btn"]').should('be.focused');
+      cy.get('[data-test="btn"]').trigger('keydown', { key: 'ArrowUp' });
+      cy.get('[data-test="list-link"]')
         .should('be.focused')
         .trigger('keydown', { key: 'Tab' });
       cy.get('[data-test="list"]').should('not.exist');
@@ -321,6 +324,16 @@ describe('CMenu', () => {
 
       cy.get('[data-test="list-link"]').type('Ba');
       cy.get('[data-test="list-item"]').should('be.focused');
+    });
+
+    it('closes when clicking on an item', () => {
+      cy.get('[data-test="btn"]').click();
+      cy.get('[data-test="list-item"]').click();
+      cy.get('[data-test="list"]').should('not.exist');
+
+      cy.get('[data-test="btn"]').click();
+      cy.get('[data-test="list-link"]').click();
+      cy.get('[data-test="list"]').should('not.exist');
     });
 
     it('closes when clicking outside', () => {
