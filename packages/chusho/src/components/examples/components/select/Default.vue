@@ -10,7 +10,12 @@
       />
     </CSelectBtn>
     <CSelectOptions data-test="select-options">
-      <CSelectOption v-for="item in items" :key="item.value" :value="item">
+      <CSelectOption
+        v-for="item in items"
+        :key="item.value"
+        :value="item"
+        :disabled="item.disabled"
+      >
         <CIcon
           v-if="item === value"
           id="check"
@@ -38,6 +43,7 @@ export default {
       {
         label: 'Aqua',
         value: '#00FFFF',
+        disabled: true,
       },
       {
         label: 'Aquamarine',
@@ -50,6 +56,7 @@ export default {
       {
         label: 'Beige',
         value: '#F5F5DC',
+        disabled: true,
       },
       {
         label: 'Bisque',
