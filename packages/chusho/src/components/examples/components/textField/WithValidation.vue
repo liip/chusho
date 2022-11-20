@@ -7,7 +7,7 @@
   </VeeForm>
 </template>
 
-<script>
+<script lang="ts">
 import { ErrorMessage, Field, Form as VeeForm } from 'vee-validate';
 
 export default {
@@ -24,7 +24,7 @@ export default {
   },
 
   methods: {
-    isRequired(val) {
+    isRequired(val: string) {
       return val ? true : 'This field is required';
     },
   },

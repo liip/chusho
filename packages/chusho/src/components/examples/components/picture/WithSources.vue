@@ -9,7 +9,7 @@
   />
 </template>
 
-<script>
+<script lang="ts">
 import jpg from '@/assets/images/building.jpg';
 import webp from '@/assets/images/building.webp';
 import jpg2x from '@/assets/images/building@2x.jpg';

@@ -10,23 +10,33 @@
   </div>
 </template>
 
-<script setup>
-import { ref, watchEffect } from 'vue';
+<script lang="ts" setup>
+import {
+  ComponentInternalInstance,
+  ComponentPublicInstance,
+  ref,
+  watchEffect,
+} from 'vue';
 
-const comp = ref(null);
+const comp = ref<ComponentPublicInstance | null>(null);
 
 watchEffect(() => {
   if (!comp.value) return;
 
   const optionsState = comp.value.$data;
-  const compositionState = comp.value.$.setupState;
+  const compositionState = (
+    comp.value.$ as ComponentInternalInstance & {
+      // This is supposed to be Vue internals, but it's the only way to access setup state as far as I know.
+      setupState: Record<string, unknown>;
+    }
+  ).setupState;
 
   window.postMessage(
     JSON.stringify({
       type: 'updateState',
       state: Object.assign({}, optionsState, compositionState),
     }),
-    window.location
+    window.location.toString()
   );
 });
 </script>

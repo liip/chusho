@@ -50,16 +50,15 @@ describe('CCheckbox', () => {
   });
 
   it('applies the right attributes', () => {
-    cy.mount(<CCheckbox value="a" data-test="checkbox" id="test" />);
+    cy.mount(<CCheckbox data-test="checkbox" id="custom" />);
 
     cy.get('[data-test="checkbox"]')
       .should('have.attr', 'type', 'checkbox')
-      .and('have.attr', 'value', 'a')
-      .and('have.attr', 'id', 'test');
+      .and('have.attr', 'id', 'custom');
   });
 
   it('applies local flags as attributes to the input', () => {
-    cy.mount(<CCheckbox value="a" disabled required data-test="checkbox" />);
+    cy.mount(<CCheckbox disabled required data-test="checkbox" />);
 
     cy.get('[data-test="checkbox"]')
       .should('have.attr', 'disabled', 'disabled')

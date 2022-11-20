@@ -1,4 +1,4 @@
-import { defineComponent, ref } from 'vue';
+import { PropType, TransitionProps, defineComponent, ref } from 'vue';
 
 import { ChushoUserOptions } from '../../types';
 
@@ -8,8 +8,12 @@ import { CBtn } from '../CBtn';
 const TestDialog = defineComponent({
   props: {
     transition: {
-      type: Object,
+      type: [Object, Boolean] as PropType<TransitionProps | false>,
       default: null,
+    },
+    overlay: {
+      type: Object as PropType<Record<string, unknown>>,
+      default: () => ({}),
     },
   },
 
@@ -25,8 +29,11 @@ const TestDialog = defineComponent({
           modelValue={open.value}
           onUpdate:modelValue={(value) => (open.value = value)}
           data-test="dialog"
-          overlay={{ 'data-test': 'dialog-overlay' }}
           {...props}
+          overlay={Object.assign(
+            { 'data-test': 'dialog-overlay' },
+            props.overlay
+          )}
           {...attrs}
         >
           <header class="flex pb-3 mb-6 border-b">

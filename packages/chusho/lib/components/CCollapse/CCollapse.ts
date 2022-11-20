@@ -44,7 +44,7 @@ export default defineComponent({
    * @binding {boolean} active `true` when collapse is open
    */
   render() {
-    const isActive = this.popup?.expanded.value ?? false;
+    const isActive = this.popup?.expanded.value;
     const elementProps: Record<string, unknown> = {
       ...generateConfigClass(this.config?.class, {
         ...this.$props,
@@ -56,7 +56,7 @@ export default defineComponent({
     return h(
       'div',
       mergeProps(this.$attrs, elementProps),
-      this.$slots?.default?.({ active: isActive }) ?? []
+      this.$slots?.default?.({ active: isActive })
     );
   },
 });

@@ -88,11 +88,35 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import 'highlight.js/styles/atom-one-light.css';
 import debounce from 'lodash/debounce';
 import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
+
+interface Categories {
+  [key: string]: {
+    id: string;
+    label: string;
+    groups: {
+      [key: string]: {
+        id: string;
+        label: string;
+        open: boolean;
+        variants: {
+          label: string;
+          to: string;
+        }[];
+      };
+    };
+  };
+}
+
+interface Meta {
+  category: { id: string; label: string };
+  group: { id: string; label: string };
+  label: string;
+}
 
 function buildCategories() {
   const router = useRouter();
@@ -100,29 +124,34 @@ function buildCategories() {
     .getRoutes()
     .find((route) => route.name === 'examples');
 
-  const categories = {};
+  const categories: Categories = {};
 
-  examples.children.forEach((example) => {
-    let category = categories[example.meta.category.id];
+  examples?.children.forEach((example) => {
+    const meta = example.meta as Meta | undefined;
+
+    if (!meta) return;
+
+    let category = categories[meta.category.id];
 
     if (!category) {
-      category = categories[example.meta.category.id] = {
-        ...example.meta.category,
+      category = categories[meta.category.id] = {
+        ...meta.category,
         groups: {},
       };
     }
 
-    let group = category.groups[example.meta.group.id];
+    let group = category.groups[meta.group.id];
 
     if (!group) {
-      group = category.groups[example.meta.group.id] = {
-        ...example.meta.group,
+      group = category.groups[meta.group.id] = {
+        ...meta.group,
+        open: false,
         variants: [],
       };
     }
 
     const variant = {
-      label: example.meta.label,
+      label: meta.label,
       to: `/examples/${example.path}`,
     };
 
@@ -136,17 +165,28 @@ function buildCategories() {
   return categories;
 }
 
+interface Data {
+  previewSrc: string;
+  previewNode: HTMLElement | null;
+  code: string;
+  state: Record<string, unknown> | null;
+  observer: MutationObserver | null;
+  highlightWorker: Worker | null;
+  categories: Categories;
+}
+
 export default defineComponent({
   setup() {
     return {
-      iframe: ref(null),
+      iframe: ref<HTMLIFrameElement | null>(null),
     };
   },
 
-  data() {
+  data(): Data {
     return {
       previewSrc:
-        this.$route.query.preview || '/examples/components/alert/default',
+        this.$route.query.preview?.toString() ||
+        '/examples/components/alert/default',
       previewNode: null,
       code: '',
       state: null,
@@ -171,15 +211,21 @@ export default defineComponent({
 
   methods: {
     iframeLoaded() {
-      this.previewNode =
-        this.$refs.iframe.contentDocument.querySelector('#app');
-      this.observer.observe(this.previewNode, {
-        childList: true,
-        attributes: true,
-        subtree: true,
-      });
+      const iframe = this.$refs.iframe as HTMLIFrameElement;
 
-      this.$refs.iframe.contentWindow.addEventListener('message', (message) => {
+      if (!iframe?.contentDocument || !iframe?.contentWindow) return;
+
+      this.previewNode = iframe.contentDocument.querySelector('#app');
+
+      if (this.observer && this.previewNode) {
+        this.observer.observe(this.previewNode, {
+          childList: true,
+          attributes: true,
+          subtree: true,
+        });
+      }
+
+      iframe.contentWindow.addEventListener('message', (message) => {
         try {
           const payload = JSON.parse(message.data);
           if (payload.type === 'updateState') {
@@ -195,7 +241,7 @@ export default defineComponent({
       this.updateCode();
     },
 
-    updatePreview(to) {
+    updatePreview(to: string) {
       this.$router.replace({
         query: {
           preview: to,
@@ -205,15 +251,15 @@ export default defineComponent({
       if (this.iframe?.contentWindow) {
         this.iframe.contentWindow.postMessage(
           JSON.stringify({ type: 'changePreview', to: to }),
-          window.location
+          window.location.toString()
         );
       }
     },
 
     updateCode() {
-      const html = this.previewNode.querySelector('#preview')?.innerHTML;
+      const html = this.previewNode?.querySelector('#preview')?.innerHTML;
       if (html) {
-        this.highlightWorker.postMessage(html);
+        this.highlightWorker?.postMessage(html);
       }
     },
   },
