@@ -8,14 +8,14 @@ function getBtnClass({
   variant,
   disabled,
 }: {
-  variant?: string | unknown[];
+  variant?: Record<string, boolean>;
   disabled?: boolean;
 }): VueClassBinding {
   return {
     'bg-white text-blue-500': !variant,
-    'bg-blue-500 text-white': variant?.includes('primary'),
+    'bg-blue-500 text-white': variant?.primary,
     'inline-block py-3 px-5 font-bold shadow rounded':
-      !variant || variant?.includes('primary'),
+      !variant || variant.primary,
     'cursor-not-allowed opacity-50': disabled,
   };
 }
@@ -34,8 +34,8 @@ export default defineConfig({
         return [
           'py-3 px-6 rounded',
           {
-            'bg-red-200 text-red-900': variant?.includes('error'),
-            'inline-block': variant?.includes('inline'),
+            'bg-red-200 text-red-900': variant?.error,
+            'inline-block': variant?.inline,
           },
         ];
       },
@@ -49,7 +49,7 @@ export default defineConfig({
       class({ variant, checked, disabled }) {
         return [
           'appearance-none inline-block w-3 h-3 rounded-sm border-2 border-white ring-2',
-          { 'mr-3': variant?.includes('inline') },
+          { 'mr-3': variant?.inline },
           checked ? 'bg-accent-500' : 'bg-white',
           disabled ? 'ring-gray-300' : 'ring-gray-500',
         ];
@@ -99,7 +99,7 @@ export default defineConfig({
           'cursor-pointer',
           {
             'block mb-1 font-bold': !variant,
-            'inline-flex items-center': variant?.includes('inline'),
+            'inline-flex items-center': variant?.inline,
           },
         ];
       },
@@ -164,7 +164,7 @@ export default defineConfig({
       class({ variant, checked }) {
         return [
           'appearance-none inline-block w-3 h-3 rounded-full border-2 border-white ring-2 ring-gray-500',
-          { 'mr-3': variant?.includes('inline') },
+          { 'mr-3': variant?.inline },
           { 'bg-white': !checked },
           { 'bg-accent-500': checked },
         ];

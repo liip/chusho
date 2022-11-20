@@ -1,4 +1,6 @@
-import { defineComponent } from 'vue';
+import { PropType, defineComponent } from 'vue';
+
+import { RawVariant } from '../../utils/components';
 
 export default defineComponent({
   inheritAttrs: false,
@@ -8,8 +10,8 @@ export default defineComponent({
      * Useful when used in the component config `class` option, to style it conditionally. See [styling components](/guide/styling-components/).
      */
     variant: {
-      type: [String, Array],
-      default: null,
+      type: [String, Array, Object] as PropType<RawVariant>,
+      default: undefined,
     },
 
     /**

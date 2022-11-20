@@ -16,7 +16,10 @@ describe('CAlert', () => {
                 components: {
                   alert: {
                     class({ variant }) {
-                      return ['config-alert', `config-alert-${variant}`];
+                      return [
+                        'config-alert',
+                        { 'config-alert-error': variant?.error },
+                      ];
                     },
                   },
                 },

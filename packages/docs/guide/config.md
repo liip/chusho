@@ -117,12 +117,22 @@ This object accept the following properties, one for each component:
 {
     alert: {},
     btn: {},
+    checkbox: {},
     collapse: {},
     collapseBtn: {},
     collapseContent: {},
     dialog: {},
+    formGroup: {},
     icon: {},
+    label: {},
+    menu: {},
+    menuBtn: {},
+    menuItem: {},
+    menuLink: {},
+    menuList: {},
+    menuSeparator: {},
     picture: {},
+    radio: {},
     select: {},
     selectBtn: {},
     selectGroup: {},
@@ -134,6 +144,8 @@ This object accept the following properties, one for each component:
     tab: {},
     tabPanels: {},
     tabPanel: {},
+    textField: {},
+    textarea: {},
 }
 ```
 

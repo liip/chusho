@@ -5,14 +5,11 @@ import {
   TransitionProps,
   VNode,
   h,
+  normalizeClass,
   unref,
 } from 'vue';
 
-import {
-  ClassGenerator,
-  ClassGeneratorCommonCtx,
-  VueClassBinding,
-} from '../types';
+import { ClassGenerator, VueClassBinding } from '../types';
 import { MaybeRef } from '../types/utils';
 
 import { isPlainObject } from '../utils/objects';
@@ -36,16 +33,60 @@ export const ALL_TYPES = [
   | null
 >;
 
+export type RawVariant =
+  | string
+  | Record<string, unknown>
+  | Array<Record<string, unknown> | string>;
+
+export type ToNormalizedVariant<T> = Omit<T, 'variant'> & {
+  variant?: Record<string, boolean>;
+};
+
+export interface ClassGeneratorCommonCtx {
+  variant?: RawVariant;
+  bare?: boolean;
+}
+
 export function generateConfigClass<T extends ClassGeneratorCommonCtx>(
-  configClass: VueClassBinding | ClassGenerator<T> | null = null,
+  configClass:
+    | VueClassBinding
+    | ClassGenerator<ToNormalizedVariant<T>>
+    | null = null,
   ctx: T = {} as T
 ): Record<string, unknown> {
+  const obj: { class?: VueClassBinding } = {};
+
   if (configClass && !ctx.bare) {
-    return {
-      class: typeof configClass === 'function' ? configClass(ctx) : configClass,
-    };
+    if (typeof configClass === 'function') {
+      const configClassCtx: ToNormalizedVariant<T> = Object.assign({}, ctx, {
+        variant: undefined,
+      });
+
+      /**
+       * Normalize the variant prop into an object of booleans.
+       */
+      if (ctx.variant) {
+        const normalizedVariants = normalizeClass(ctx.variant)
+          .split(' ')
+          .reduce((acc, v) => {
+            acc[v] = true;
+            return acc;
+          }, {} as Record<string, boolean>);
+
+        configClassCtx.variant = new Proxy(normalizedVariants, {
+          get: (target, prop: string): boolean => {
+            return target[prop] || false;
+          },
+        });
+      }
+
+      obj.class = configClass(configClassCtx);
+    } else {
+      obj.class = configClass;
+    }
   }
-  return {};
+
+  return obj;
 }
 
 export function renderWithTransition(

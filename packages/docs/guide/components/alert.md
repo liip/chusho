@@ -43,8 +43,8 @@ Classes applied to the component root element, except when the prop `bare` is se
 ```js
 class({ variant }) {
     return ['alert', {
-        'alert--error': variant?.includes('error'),
-        'alert--warning': variant?.includes('warning'),
+        'alert--error': variant?.error,
+        'alert--warning': variant?.warning,
     }]
 }
 ```
