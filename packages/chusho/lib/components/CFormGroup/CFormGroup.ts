@@ -33,8 +33,6 @@ export default defineComponent({
 
   mixins: [componentMixin],
 
-  inheritAttrs: false,
-
   props: {
     /**
      * Specify an HTML element to render. If you defined a default value in the config, you can set it to `false` to render only its children (renderless).

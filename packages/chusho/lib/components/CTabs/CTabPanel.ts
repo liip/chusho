@@ -17,8 +17,6 @@ export default defineComponent({
 
   mixins: [componentMixin],
 
-  inheritAttrs: false,
-
   props: {
     /**
      * A unique ID to target the panel with CTab.

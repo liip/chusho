@@ -12,8 +12,6 @@ export default defineComponent({
 
   mixins: [componentMixin],
 
-  inheritAttrs: false,
-
   props: {
     /**
      * The id of the symbol (icon) to display from the sprite.

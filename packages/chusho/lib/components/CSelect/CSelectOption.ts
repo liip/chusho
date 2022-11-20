@@ -13,8 +13,6 @@ export default defineComponent({
 
   mixins: [componentMixin],
 
-  inheritAttrs: false,
-
   props: {
     /**
      * The value used when this option is selected.

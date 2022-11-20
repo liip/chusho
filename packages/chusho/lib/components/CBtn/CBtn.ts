@@ -19,8 +19,6 @@ export default defineComponent({
 
   mixins: [componentMixin],
 
-  inheritAttrs: false,
-
   props: {
     /**
      * Make the button a link to the given URL.

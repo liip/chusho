@@ -16,8 +16,6 @@ export default defineComponent({
 
   mixins: [componentMixin],
 
-  inheritAttrs: false,
-
   setup() {
     const chusho = inject<DollarChusho | null>('$chusho', null);
     const tabs = inject(TabsSymbol);

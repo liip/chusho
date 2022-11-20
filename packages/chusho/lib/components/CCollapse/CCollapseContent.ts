@@ -18,8 +18,6 @@ export default defineComponent({
 
   mixins: [componentMixin, transitionMixin],
 
-  inheritAttrs: false,
-
   setup() {
     const chusho = inject<DollarChusho | null>('$chusho', null);
     const popupTarget = usePopupTarget();

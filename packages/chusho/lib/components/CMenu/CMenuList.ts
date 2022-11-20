@@ -17,8 +17,6 @@ export default defineComponent({
 
   mixins: [componentMixin, transitionMixin],
 
-  inheritAttrs: false,
-
   setup() {
     const popupTarget = usePopupTarget();
     const popup = popupTarget.popup;

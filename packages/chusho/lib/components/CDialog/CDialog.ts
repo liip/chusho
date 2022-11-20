@@ -40,8 +40,6 @@ export default defineComponent({
 
   mixins: [componentMixin, transitionMixin],
 
-  inheritAttrs: false,
-
   props: {
     /**
      * Define if the dialog should be visible or not

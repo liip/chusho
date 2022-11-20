@@ -12,8 +12,6 @@ export default defineComponent({
 
   mixins: [componentMixin],
 
-  inheritAttrs: false,
-
   props: {
     /**
      * Optionally bind the Collapse state with the parent component.

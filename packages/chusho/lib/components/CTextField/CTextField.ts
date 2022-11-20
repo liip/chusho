@@ -13,8 +13,6 @@ export default defineComponent({
 
   mixins: [componentMixin, textFieldMixin],
 
-  inheritAttrs: false,
-
   props: {
     /**
      * Usual HTML input element type attribute for textual input (text, email, tel, url, …)

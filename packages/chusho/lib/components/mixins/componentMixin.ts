@@ -1,6 +1,8 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
+  inheritAttrs: false,
+
   props: {
     /**
      * Useful when used in the component config `class` option, to style it conditionally. See [styling components](/guide/styling-components/).

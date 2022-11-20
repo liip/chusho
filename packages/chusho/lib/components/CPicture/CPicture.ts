@@ -17,8 +17,6 @@ export default defineComponent({
 
   mixins: [componentMixin],
 
-  inheritAttrs: false,
-
   props: {
     /**
      * Default/fallback image URL used in the `src` attribute.

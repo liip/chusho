@@ -17,8 +17,6 @@ export default defineComponent({
 
   mixins: [componentMixin],
 
-  inheritAttrs: false,
-
   setup() {
     const popup = inject(UsePopupSymbol);
 

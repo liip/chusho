@@ -30,8 +30,6 @@ export default defineComponent({
 
   mixins: [componentMixin],
 
-  inheritAttrs: false,
-
   props: {
     /**
      * Optionally bind the Tabs state with the parent component.

@@ -13,8 +13,6 @@ export default defineComponent({
 
   mixins: [componentMixin, fieldMixin],
 
-  inheritAttrs: false,
-
   props: {
     /**
      * Bind the Radio state with the parent component.

@@ -13,8 +13,6 @@ export default defineComponent({
 
   mixins: [componentMixin, textFieldMixin],
 
-  inheritAttrs: false,
-
   props: {
     /**
      * Textarea value

@@ -19,8 +19,6 @@ export default defineComponent({
 
   mixins: [componentMixin],
 
-  inheritAttrs: false,
-
   setup() {
     const selectGroup: SelectGroup = {
       labelUid: useCachedUid('chusho-select-group-label'),

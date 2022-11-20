@@ -16,8 +16,6 @@ export default defineComponent({
 
   mixins: [componentMixin],
 
-  inheritAttrs: false,
-
   props: {
     /**
      * Prevent clicking the link while still displaying it.

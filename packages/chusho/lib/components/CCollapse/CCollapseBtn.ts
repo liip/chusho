@@ -14,8 +14,6 @@ export default defineComponent({
 
   mixins: [componentMixin],
 
-  inheritAttrs: false,
-
   setup() {
     const popupBtn = usePopupBtn();
 
