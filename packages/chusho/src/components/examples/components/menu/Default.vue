@@ -12,7 +12,7 @@
     <CMenuList>
       <CMenuItem>Do laborum</CMenuItem>
       <CMenuItem>Voluptate aute</CMenuItem>
-      <CMenuItem>Consectetur et ex commodo </CMenuItem>
+      <CMenuItem disabled>Consectetur et ex commodo </CMenuItem>
       <CMenuSeparator />
       <CMenuItem>Aliquip veniam</CMenuItem>
       <CMenuItem>Laboris do</CMenuItem>
