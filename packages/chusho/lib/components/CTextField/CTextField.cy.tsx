@@ -160,7 +160,7 @@ describe('CTextField', () => {
             return (
               <VeeForm>
                 <Field name="field" rules={this.isRequired}>
-                  {({ field }: { field: unknown }) => (
+                  {({ field }: { field: Record<string, unknown> }) => (
                     <CTextField v-model={this.val} {...field} />
                   )}
                 </Field>
