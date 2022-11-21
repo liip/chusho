@@ -31,7 +31,7 @@
     "@types/lodash": "^4.14.189",
     "@vitejs/plugin-vue": "^3.2.0",
     "@vitejs/plugin-vue-jsx": "^2.1.1",
-    "@vitest/coverage-c8": "^0.25.1",
+    "@vitest/coverage-c8": "^0.25.2",
     "@vue/test-utils": "^2.2.3",
     "autoprefixer": "^10.4.4",
     "c8": "^7.12.0",
