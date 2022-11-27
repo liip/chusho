@@ -10,20 +10,20 @@
     "build:chusho": "cd packages/chusho && npm run build",
     "build:docs": "cd packages/docs && npm run build",
     "build": "npm run build:chusho && npm run build:docs",
-    "validate": "eslint . --ignore-path .gitignore --ext .js,.ts,.vue",
+    "validate": "eslint . --ignore-path .gitignore --ext .js,.ts,.tsx,.vue",
     "format": "npm run validate -- --fix"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
-    "@typescript-eslint/eslint-plugin": "^5.30.5",
-    "@typescript-eslint/parser": "^5.30.0",
-    "eslint": "^8.22.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-vue": "^9.2.0",
-    "lerna": "^5.4.3",
+    "eslint-plugin-vue": "^9.8.0",
+    "lerna": "^6.0.3",
     "prettier": "^2.8.0",
-    "typescript": "^4.6.3"
+    "typescript": "^4.9.3"
   }
 }
