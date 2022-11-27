@@ -24,7 +24,7 @@ export default {
   },
 
   methods: {
-    isRequired(val: string) {
+    isRequired(val: unknown) {
       return val ? true : 'This field is required';
     },
   },

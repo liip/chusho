@@ -56,7 +56,7 @@ const items = [
 ];
 const color = ref<typeof items[number] | null>(null);
 
-function isRequired(value: string) {
+function isRequired(value: unknown) {
   return value ? true : 'This field is required';
 }
 </script>

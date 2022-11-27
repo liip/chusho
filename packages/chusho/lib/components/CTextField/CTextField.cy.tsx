@@ -146,7 +146,7 @@ describe('CTextField', () => {
       cy.mount(
         defineComponent({
           setup() {
-            function isRequired(val: string) {
+            function isRequired(val: unknown) {
               return val ? true : 'This field is required';
             }
 
