@@ -1,3 +1,5 @@
+import { defineComponent } from 'vue';
+
 import { ChushoUserOptions } from '../../types';
 
 import {
@@ -201,7 +203,115 @@ describe('CSelect', () => {
       .should('have.attr', 'name', 'my-select');
   });
 
-  it('gets the inner value if the value is an object', () => {
+  it('stays in sync with the v-model using primitive value', () => {
+    const TestSelect = defineComponent({
+      data() {
+        return {
+          val: '1',
+        };
+      },
+
+      render() {
+        return (
+          <CSelect v-model={this.val} data-test="select">
+            <CSelectBtn data-test="btn">Menu</CSelectBtn>
+            <CSelectOptions data-test="options">
+              <CSelectOption data-test="option-1" value="1">
+                One
+              </CSelectOption>
+              <CSelectOption data-test="option-2" value="2">
+                Two
+              </CSelectOption>
+              <CSelectOption data-test="option-3" value="3">
+                Three
+              </CSelectOption>
+            </CSelectOptions>
+          </CSelect>
+        );
+      },
+    });
+
+    cy.mount(<TestSelect />);
+
+    cy.get('[data-test="btn"]').click();
+    cy.get('[data-test="option-1"]')
+      .should('have.attr', 'aria-selected', 'true')
+      .click(); // Ensure selecting the same option behaves correctly
+    cy.get('[data-test="btn"]').click();
+    cy.get('[data-test="option-2"]').click();
+
+    cy.getWrapper().then((wrapper) => {
+      expect((wrapper.vm as InstanceType<typeof TestSelect>).val).to.eql('2');
+
+      wrapper.setData({ val: '3' });
+
+      cy.get('[data-test="select"]').click();
+      cy.get('[data-test="option-3"]').should(
+        'have.attr',
+        'aria-selected',
+        'true'
+      );
+    });
+  });
+
+  it('stays in sync with the v-model using object value', () => {
+    const items = [
+      { id: 1, name: 'One' },
+      { id: 2, name: 'Two' },
+      { id: 3, name: 'Three' },
+    ];
+    const TestSelect = defineComponent({
+      data() {
+        return {
+          items,
+          val: items[0],
+        };
+      },
+
+      render() {
+        return (
+          <CSelect v-model={this.val} data-test="select">
+            <CSelectBtn data-test="btn">Menu</CSelectBtn>
+            <CSelectOptions data-test="options">
+              {this.items.map((item) => (
+                <CSelectOption data-test={`option-${item.id}`} value={item}>
+                  {item.name}
+                </CSelectOption>
+              ))}
+            </CSelectOptions>
+          </CSelect>
+        );
+      },
+    });
+
+    cy.mount(<TestSelect />);
+
+    cy.get('[data-test="btn"]').click();
+    cy.get('[data-test="option-1"]')
+      .should('have.attr', 'aria-selected', 'true')
+      .click(); // Ensure selecting the same option behaves correctly
+    cy.get('[data-test="btn"]').click();
+    cy.get('[data-test="option-2"]').click();
+
+    cy.getWrapper().then((wrapper) => {
+      expect((wrapper.vm as InstanceType<typeof TestSelect>).val).to.eql({
+        id: 2,
+        name: 'Two',
+      });
+
+      // Cannot use wrapper.setData as it loose the reference to the object
+      (wrapper.vm as InstanceType<typeof TestSelect>).$data.val = items[2];
+
+      cy.get('[data-test="select"]').click();
+      cy.get('[data-test="option-3"]').should(
+        'have.attr',
+        'aria-selected',
+        'true'
+      );
+    });
+  });
+
+  it('gets the inner value for the hidden input if the value is an object', () => {
     const value = { value: 'something' };
 
     cy.mount(<CSelect v-model={value}></CSelect>);
@@ -209,7 +319,7 @@ describe('CSelect', () => {
     cy.get('input').should('have.value', 'something');
   });
 
-  it('use the custom `itemValue` function for the input value', () => {
+  it('use the custom `itemValue` function for the hidden input', () => {
     const value = { customKey: 'something else' };
 
     cy.mount(

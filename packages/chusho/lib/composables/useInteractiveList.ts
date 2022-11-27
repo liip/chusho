@@ -6,6 +6,7 @@ import {
   getCurrentInstance,
   provide,
   ref,
+  toRaw,
   watch,
 } from 'vue';
 
@@ -133,6 +134,15 @@ export default function useInteractiveList({
   watch(selection, (newValue) => {
     vm?.emit(`update:${valuePropName}`, newValue);
   });
+
+  if (valuePropName) {
+    watch(
+      () => vm?.props?.[valuePropName],
+      (val) => {
+        selectedValues.value = new Set(ensureArray(val));
+      }
+    );
+  }
 
   function registerItem(
     id: InteractiveItemId,

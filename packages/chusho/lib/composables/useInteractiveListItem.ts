@@ -171,10 +171,12 @@ export default function useInteractiveListItem({
     }
 
     if (Array.isArray(selection.value)) {
-      return selection.value.map((item) => toRaw(item)).includes(value.value);
+      return selection.value
+        .map((item) => toRaw(item))
+        .includes(toRaw(value.value));
     }
 
-    return toRaw(selection.value) === value.value;
+    return toRaw(selection.value) === toRaw(value.value);
   });
 
   if (autoSelect) {
