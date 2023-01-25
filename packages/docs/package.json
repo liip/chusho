@@ -1,6 +1,6 @@
 {
   "name": "@chusho/docs",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "private": true,
   "license": "MIT",
   "description": "Chūshō documentation",
@@ -37,7 +37,7 @@
     "vuepress-vite": "^2.0.0-beta.53"
   },
   "dependencies": {
-    "chusho": "^0.5.1",
+    "chusho": "^0.6.0",
     "markdown-it": "^13.0.1",
     "tailwindcss": "^3.2.4"
   }
