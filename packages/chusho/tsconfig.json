@@ -3,6 +3,6 @@
   "compilerOptions": {
     "types": ["vitest/globals", "node", "cypress-real-events", "lodash"]
   },
-  "include": ["lib/**/*", "src/**/*", "cypress/**/*", "types/**/*"],
+  "include": ["./lib/**/*", "./src/**/*", "./cypress/**/*", "./types/**/*"],
   "exclude": ["node_modules"]
 }

@@ -1,14 +1,23 @@
 import {
   AllowedComponentProps,
   Component,
+  ComponentPublicInstance,
   TransitionProps,
   VNodeProps,
 } from 'vue';
 
+import { UseFormGroup } from '../composables/useFormGroup';
 import { InteractiveListItemRoles } from '../composables/useInteractiveListItem';
 
 import { ToNormalizedVariant } from '../utils/components';
 
+import {
+  CCombobox,
+  CComboboxBtn,
+  CComboboxInput,
+  CComboboxOption,
+  CComboboxOptions,
+} from '../components';
 import CAlert from '../components/CAlert/CAlert';
 import CBtn from '../components/CBtn/CBtn';
 import CCheckbox from '../components/CCheckbox/CCheckbox';
@@ -51,6 +60,11 @@ export type VueClassBinding =
   | Record<string, unknown>
   | Array<Record<string, unknown> | string>;
 
+export type ElementOrComponent =
+  | HTMLElement
+  | SVGElement
+  | ComponentPublicInstance;
+
 export type ClassGenerator<T> = (ctx: T) => VueClassBinding;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,8 +91,6 @@ interface ComponentsOptions {
     class?: ComponentOptionClass<
       typeof CCheckbox,
       {
-        required: boolean;
-        disabled: boolean;
         checked: boolean;
       }
     >;
@@ -101,6 +113,34 @@ interface ComponentsOptions {
   };
   collapseContent?: {
     class?: ComponentOptionClass<typeof CCollapseContent>;
+    transition?: TransitionProps;
+  };
+  combobox?: {
+    class?: ComponentOptionClass<typeof CCombobox>;
+  };
+  comboboxBtn?: {
+    class?: ComponentOptionClass<
+      typeof CComboboxBtn,
+      {
+        disabled: boolean;
+        active: boolean;
+      }
+    >;
+  };
+  comboboxInput?: {
+    class?: ComponentOptionClass<typeof CComboboxInput, UseFormGroup['flags']>;
+  };
+  comboboxOption?: {
+    class?: ComponentOptionClass<
+      typeof CComboboxOption,
+      {
+        active: boolean;
+        selected: boolean;
+      }
+    >;
+  };
+  comboboxOptions?: {
+    class?: ComponentOptionClass<typeof CComboboxOptions>;
     transition?: TransitionProps;
   };
   dialog?: {
@@ -175,8 +215,8 @@ interface ComponentsOptions {
     class?: ComponentOptionClass<
       typeof CSelectBtn,
       {
-        active: boolean;
         disabled: boolean;
+        active: boolean;
       }
     >;
   };
@@ -224,24 +264,10 @@ interface ComponentsOptions {
     class?: ComponentOptionClass<typeof CTabs>;
   };
   textField?: {
-    class?: ComponentOptionClass<
-      typeof CTextField,
-      {
-        required: boolean;
-        disabled: boolean;
-        readonly: boolean;
-      }
-    >;
+    class?: ComponentOptionClass<typeof CTextField>;
   };
   textarea?: {
-    class?: ComponentOptionClass<
-      typeof CTextarea,
-      {
-        required: boolean;
-        disabled: boolean;
-        readonly: boolean;
-      }
-    >;
+    class?: ComponentOptionClass<typeof CTextarea>;
   };
 }
 

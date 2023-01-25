@@ -4,13 +4,18 @@ import {
   Ref,
   computed,
   getCurrentInstance,
+  nextTick,
   provide,
   ref,
   watch,
 } from 'vue';
 
+import { ElementOrComponent } from '../types';
+
 import { ensureArray, getAtIndex } from '../utils/arrays';
+import { getElement } from '../utils/components';
 import { warn } from '../utils/debug';
+import { sortByDomNode } from '../utils/keyboard';
 
 import useKeyboardListNavigation from './useKeyboardListNavigation';
 
@@ -20,6 +25,7 @@ export interface InteractiveItemData {
   text?: string;
   disabled?: boolean;
   value?: Ref<unknown>;
+  elRef: Ref<ElementOrComponent | null>;
 }
 
 interface InteractiveItem extends InteractiveItemData {
@@ -38,7 +44,13 @@ export enum InteractiveListRoles {
   tablist = 'tablist',
 }
 
+export enum InteractiveListModes {
+  focus = 'focus',
+  activedescendant = 'activedescendant',
+}
+
 type UseInteractiveListOptions = {
+  mode?: InteractiveListModes;
   role: InteractiveListRoles;
   initialValue?: unknown;
   initialActiveItem?: InteractiveItemId;
@@ -46,6 +58,7 @@ type UseInteractiveListOptions = {
   propName?: string | null;
   multiple?: boolean;
   loop?: boolean;
+  search?: boolean;
   skipDisabled?: boolean;
   autoSelect?: boolean;
   onKeyDown?: (e: KeyboardEvent) => void;
@@ -62,14 +75,19 @@ export interface UseInteractiveList {
 
   multiple: boolean;
   autoSelect: boolean;
+  mode: InteractiveListModes;
   role: InteractiveListRoles;
   selection: ComputedRef<unknown>;
   activeItem: ActiveItem;
 
-  registerItem: (id: InteractiveItemId, data?: InteractiveItemData) => void;
-  updateItem: (id: InteractiveItemId, data: InteractiveItemData) => void;
+  registerItem: (id: InteractiveItemId, data: InteractiveItemData) => void;
+  updateItem: (
+    id: InteractiveItemId,
+    data: Partial<InteractiveItemData>
+  ) => void;
   unregisterItem: (id: InteractiveItemId) => boolean;
 
+  selectActiveItem: () => void;
   selectItem: (value: unknown) => void;
   deselectItem: (value: unknown) => boolean;
   toggleItem: (value: unknown) => void;
@@ -85,12 +103,14 @@ export const UseInteractiveListSymbol: InjectionKey<UseInteractiveList> =
   Symbol('UseInteractiveList');
 
 export default function useInteractiveList({
+  mode = InteractiveListModes.focus, // The mode of interaction
   role, // The role of the list
   initialValue, // Initially selected items
   initialActiveItem, // Initially active item (so it can be focused, but isn’t autofocused)
   valuePropName = 'modelValue', // The prop to update hwen selection changes
   multiple = false, // Whether multiple items can be selected
   loop = false, // Whether to loop around when navigating with the keyboard
+  search = true, // Whether to move focus to the next corresponding item when typing
   skipDisabled = false, // Whether to skip disabled items when navigating with the keyboard
   autoSelect = false, // Keep the selection in sync with the active item
 }: UseInteractiveListOptions): UseInteractiveList {
@@ -99,6 +119,11 @@ export default function useInteractiveList({
   const items = ref<Items>(new Map());
   const itemsAsArray = computed(() => {
     return [...items.value.entries()].map(([id, data]) => ({ id, ...data }));
+  });
+  const itemsSorted = computed(() => {
+    return sortByDomNode([...items.value.entries()], (item) =>
+      getElement(item[1].elRef)
+    ).map(([id, data]) => ({ id, data }));
   });
 
   const initialValueAsArray: unknown[] =
@@ -112,21 +137,20 @@ export default function useInteractiveList({
   });
 
   const handleKeydown = useKeyboardListNavigation(
-    (e, index) => {
-      if (index !== null) {
+    (e, index, id) => {
+      if (id !== null) {
         e.preventDefault();
-        activateItemAt(index);
+        activateItem(id);
       }
     },
     {
-      resolveItems: () =>
-        [...items.value.entries()].map(([id, data]) => ({ id, data })) ?? [],
-      resolveActiveIndex: () =>
-        [...items.value.keys()].findIndex((id) => id === activeItem.value) ??
-        -1,
+      resolveItems: () => itemsSorted.value,
+      resolveActiveIndex: (items) =>
+        items.findIndex((item) => item.id === activeItem.value) ?? -1,
       resolveDisabled: (item) =>
         skipDisabled ? !!item?.data?.disabled : false,
       loop,
+      search,
     }
   );
 
@@ -145,7 +169,7 @@ export default function useInteractiveList({
 
   function registerItem(
     id: InteractiveItemId,
-    data: InteractiveItemData = {}
+    data: InteractiveItemData
   ): void {
     if (items.value.has(id)) {
       warn(`useInteractiveList: item with id “${id}” is already registered.`);
@@ -155,7 +179,10 @@ export default function useInteractiveList({
     items.value.set(id, data);
   }
 
-  function updateItem(id: InteractiveItemId, data: InteractiveItemData): void {
+  function updateItem(
+    id: InteractiveItemId,
+    data: Partial<InteractiveItemData>
+  ): void {
     const item = items.value.get(id);
 
     if (typeof item === 'undefined') {
@@ -171,18 +198,31 @@ export default function useInteractiveList({
   }
 
   function unregisterItem(id: InteractiveItemId): boolean {
-    // If the currently selected item gets removed from the list in autoSelect
-    // mode, we reset the selection to the first item in the list.
-    if (autoSelect && selectedValues.value.has(id)) {
-      activateItemAt(0);
+    // If the currently active item gets removed from the list,
+    // we need to pick another one so it stays navigatable with keyboard
+    if (activeItem.value === id) {
+      // It could happen that, at the same time, other items are added
+      // so we wait for the next rendering to be sure the list is up to date
+      nextTick(() => {
+        activateItemAt(0);
+      });
     }
 
     return items.value.delete(id);
   }
 
+  function selectActiveItem(): void {
+    if (activeItem.value) {
+      const itemToSelect = items.value.get(activeItem.value);
+      if (itemToSelect?.value) {
+        selectItem(itemToSelect?.value);
+      }
+    }
+  }
+
   function selectItem(value: unknown): void {
     if (!multiple) {
-      selectedValues.value.clear();
+      clearSelection();
     }
 
     selectedValues.value.add(value);
@@ -213,10 +253,22 @@ export default function useInteractiveList({
   }
 
   function activateItemAt(index: number): void {
-    activeItem.value = getAtIndex([...items.value.keys()], index) ?? null;
+    const item = getAtIndex(itemsSorted.value, index);
 
-    if (autoSelect) {
-      selectItem(activeItem.value);
+    if (item) {
+      /**
+       * If the item exists but is disabled, try to activate the next one
+       */
+      if (item?.data.disabled) {
+        activateItemAt(index + 1);
+        return;
+      }
+
+      activeItem.value = item.id ?? null;
+
+      if (autoSelect) {
+        selectItem(activeItem.value);
+      }
     }
   }
 
@@ -235,6 +287,7 @@ export default function useInteractiveList({
 
     multiple,
     autoSelect,
+    mode,
     role,
     selection,
     activeItem,
@@ -243,6 +296,7 @@ export default function useInteractiveList({
     updateItem,
     unregisterItem,
 
+    selectActiveItem,
     selectItem,
     deselectItem,
     toggleItem,

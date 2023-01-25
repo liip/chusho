@@ -9,7 +9,7 @@ import {
   unref,
 } from 'vue';
 
-import { ClassGenerator, VueClassBinding } from '../types';
+import { ClassGenerator, ElementOrComponent, VueClassBinding } from '../types';
 import { MaybeRef } from '../types/utils';
 
 import { isPlainObject } from '../utils/objects';
@@ -105,9 +105,7 @@ export function renderWithTransition(
   return props ? h(Transition, props, render) : render();
 }
 
-export function getElement<
-  T extends HTMLElement | SVGElement | ComponentPublicInstance | null
->(
+export function getElement<T extends ElementOrComponent | null>(
   el: MaybeRef<T>
 ): T extends ComponentPublicInstance ? Exclude<T, ComponentPublicInstance> : T {
   const plain = unref(el);

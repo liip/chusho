@@ -10,7 +10,7 @@
       />
     </CSelectBtn>
     <CSelectOptions>
-      <CSelectOption v-for="item in items" :key="item.value" :value="item">
+      <CSelectOption v-for="item in items" :key="item.label" :value="item">
         <CIcon
           v-if="item === value"
           id="check"

@@ -1,5 +1,4 @@
 import {
-  ComponentPublicInstance,
   Ref,
   computed,
   getCurrentInstance,
@@ -13,14 +12,17 @@ import {
   watch,
 } from 'vue';
 
+import { ElementOrComponent } from '../types';
 import { MaybeRef } from '../types/utils';
 
+import { getElement } from '../utils/components';
 import { warn } from '../utils/debug';
 import uid from '../utils/uid';
 
 import {
   InteractiveItemData,
   InteractiveItemId,
+  InteractiveListModes,
   InteractiveListRoles,
   UseInteractiveListSymbol,
 } from './useInteractiveList';
@@ -43,16 +45,16 @@ interface UseInteractiveListItemOptions {
 
 export interface UseInteractiveListItem {
   id: InteractiveItemId;
-  itemRef: Ref<HTMLElement | ComponentPublicInstance | undefined>;
+  itemRef: Ref<ElementOrComponent | null>;
   attrs: {
     role: InteractiveListItemRoles;
-    tabindex: '0' | '-1';
+    tabindex?: '0' | '-1';
     'aria-disabled'?: 'true';
     'aria-checked'?: 'true' | 'false';
   };
   events: {
     onClick: (e: MouseEvent) => void;
-    onKeydown: (e: KeyboardEvent) => void;
+    onKeydown?: (e: KeyboardEvent) => void;
   };
   active: Ref<boolean>;
   selected: Ref<boolean>;
@@ -86,11 +88,12 @@ export default function useInteractiveListItem({
   } = interactiveList;
 
   const isActive = computed(() => activeItem.value === id);
-  const itemRef = ref<HTMLElement | ComponentPublicInstance>();
+  const itemRef = ref<ElementOrComponent | null>(null);
   const vm = getCurrentInstance();
 
   const itemData: InteractiveItemData = {
     disabled: unref(disabled),
+    elRef: itemRef,
   };
 
   if (value?.value !== undefined) {
@@ -116,7 +119,11 @@ export default function useInteractiveListItem({
     isActive,
     () => {
       if (isActive.value) {
-        itemElement.value?.focus();
+        if (interactiveList.mode === InteractiveListModes.focus) {
+          itemElement.value?.focus();
+        } else {
+          itemElement.value?.scrollIntoView({ block: 'nearest' });
+        }
       }
     },
     { flush: 'post' }
@@ -193,15 +200,7 @@ export default function useInteractiveListItem({
     );
   }
 
-  const itemElement = computed(() => {
-    if (itemRef?.value instanceof HTMLElement) {
-      return itemRef?.value;
-    } else if (itemRef?.value?.$el) {
-      return itemRef?.value?.$el;
-    }
-
-    return null;
-  });
+  const itemElement = computed(() => getElement(itemRef));
 
   const checked = computed(() =>
     isSelectable.value ? (selected.value ? 'true' : 'false') : undefined
@@ -248,7 +247,10 @@ export default function useInteractiveListItem({
     attrs: reactive({
       id,
       role: itemRole,
-      tabindex: computed(() => (isActive.value ? '0' : '-1')),
+      tabindex:
+        interactiveList.mode === InteractiveListModes.focus
+          ? computed(() => (isActive.value ? '0' : '-1'))
+          : undefined,
       'aria-disabled': computed(() => (unref(disabled) ? 'true' : undefined)),
       [[InteractiveListItemRoles.option, InteractiveListItemRoles.tab].includes(
         itemRole.value
@@ -258,7 +260,10 @@ export default function useInteractiveListItem({
     }),
     events: {
       onClick: handleAction,
-      onKeydown: handleKeydown,
+      onKeydown:
+        interactiveList.mode === InteractiveListModes.focus
+          ? handleKeydown
+          : undefined,
     },
     active: isActive,
     selected,

@@ -136,7 +136,7 @@ export default defineComponent({
       if (!this.active || isServer) return;
 
       const index = this.chusho?.openDialogs.indexOf(this);
-      if (index) {
+      if (index && index > -1) {
         this.chusho?.openDialogs.splice(index, 1);
       }
 

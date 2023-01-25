@@ -75,6 +75,38 @@ export default defineConfig({
       class: 'p-6 bg-gray-100 rounded mt-2',
     },
 
+    combobox: {
+      class: 'relative',
+    },
+
+    comboboxInput: {
+      class: (props) => getFieldClass(props),
+    },
+
+    comboboxBtn: {
+      class: 'flex items-center h-[50px] px-4 absolute right-0 top-0',
+    },
+
+    comboboxOptions: {
+      class:
+        'absolute top-full left-0 min-w-full max-h-56 overflow-y-auto mt-1 bg-gray-50 border border-gray-300 rounded shadow-md',
+    },
+
+    comboboxOption: {
+      class({ active, selected, disabled }) {
+        return [
+          'relative pl-8 pr-4 leading-loose outline-none',
+          {
+            'text-gray-400': disabled,
+            'cursor-pointer': !disabled,
+            'hover:text-blue-700 hover:bg-blue-100': !disabled && !active,
+            'text-blue-800 bg-blue-100': selected && !active,
+            'text-white bg-blue-600': active,
+          },
+        ];
+      },
+    },
+
     dialog: {
       class: 'dialog p-6 bg-white rounded shadow-lg',
       overlayClass:

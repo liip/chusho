@@ -1,6 +1,6 @@
 # Select
 
-Implements the [combobox design pattern](https://w3c.github.io/aria-practices/#combobox), allowing the user to select an option from a collection of predefined values.
+Implements the select-only variant of the [combobox design pattern](https://w3c.github.io/aria-practices/#combobox), allowing the user to select an option from a collection of predefined values.
 
 <Showcase>
     <ExampleSelect />

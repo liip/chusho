@@ -392,10 +392,10 @@ describe('CTabs', () => {
       cy.contains('Tab 4').click();
       cy.get('[data-test="tabpanels"]').should('contain', 'Panel 4');
       cy.focused()
-        .trigger('keydown', { key: 'Right' })
-        .trigger('keydown', { key: 'Right' })
-        .trigger('keydown', { key: 'Right' })
-        .trigger('keydown', { key: 'Right' });
+        .trigger('keydown', { key: 'ArrowRight' })
+        .trigger('keydown', { key: 'ArrowRight' })
+        .trigger('keydown', { key: 'ArrowRight' })
+        .trigger('keydown', { key: 'ArrowRight' });
       cy.focused().should('have.attr', 'data-test', 'tab-4');
     });
 
@@ -407,7 +407,7 @@ describe('CTabs', () => {
       });
 
       cy.get('[data-test="tablist"] [role="tab"]').should('have.length', 2);
-      cy.contains('Tab 1').click().trigger('keydown', { key: 'Right' });
+      cy.contains('Tab 1').click().trigger('keydown', { key: 'ArrowRight' });
       cy.focused().should('have.attr', 'data-test', 'tab-2');
     });
 

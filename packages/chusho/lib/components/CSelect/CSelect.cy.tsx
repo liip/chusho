@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue';
+import { defineComponent, reactive } from 'vue';
 
 import { ChushoUserOptions } from '../../types';
 
@@ -255,11 +255,11 @@ describe('CSelect', () => {
   });
 
   it('stays in sync with the v-model using object value', () => {
-    const items = [
+    const items = reactive([
       { id: 1, name: 'One' },
       { id: 2, name: 'Two' },
       { id: 3, name: 'Three' },
-    ];
+    ]);
     const TestSelect = defineComponent({
       data() {
         return {
@@ -294,10 +294,9 @@ describe('CSelect', () => {
     cy.get('[data-test="option-2"]').click();
 
     cy.getWrapper().then((wrapper) => {
-      expect((wrapper.vm as InstanceType<typeof TestSelect>).val).to.eql({
-        id: 2,
-        name: 'Two',
-      });
+      expect((wrapper.vm as InstanceType<typeof TestSelect>).val).to.equal(
+        items[1]
+      );
 
       // Cannot use wrapper.setData as it loose the reference to the object
       (wrapper.vm as InstanceType<typeof TestSelect>).$data.val = items[2];
@@ -319,13 +318,13 @@ describe('CSelect', () => {
     cy.get('input').should('have.value', 'something');
   });
 
-  it('use the custom `itemValue` function for the hidden input', () => {
+  it('use the custom `displayValue` function for the hidden input', () => {
     const value = { customKey: 'something else' };
 
     cy.mount(
       <CSelect
         v-model={value}
-        itemValue={(item: { customKey: string }) => item.customKey}
+        displayValue={(item: { customKey: string }) => item.customKey}
       ></CSelect>
     );
 

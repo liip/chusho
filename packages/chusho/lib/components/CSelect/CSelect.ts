@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, nextTick, watch } from 'vue';
+import { PropType, defineComponent, h, mergeProps, nextTick, watch } from 'vue';
 
 import componentMixin from '../mixins/componentMixin';
 
@@ -49,18 +49,18 @@ export default defineComponent({
       default: null,
     },
     /**
-     * Method to resolve the currently selected item value.
-     * For example: `(option) => option.value`
+     * String representation of the value for the underlying hidden input, essentially when the value is an object.
+     * For example: `(option) => option.id`
      */
     itemValue: {
-      type: Function,
+      type: Function as PropType<(item: unknown) => string>,
       default: (item: unknown) => {
         if (isPrimitive(item)) {
           return item;
         } else if (isObject(item) && item.value) {
           return item.value;
         }
-        return null;
+        return '';
       },
     },
     /**
@@ -157,7 +157,7 @@ export default defineComponent({
     const inputProps: Record<string, unknown> = {
       type: 'hidden',
       name: this.name,
-      value: this.itemValue(this.modelValue),
+      value: this.displayValue(this.modelValue),
     };
 
     return h('div', mergeProps(this.$attrs, elementProps), {

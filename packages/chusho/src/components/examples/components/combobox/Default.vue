@@ -1,35 +1,43 @@
 <template>
-  <CSelect v-model="value" v-model:open="open" name="toto">
-    <CSelectBtn class="flex items-center" data-test="select-button">
-      <span>{{ value.label }}</span>
-      <CIcon
-        id="caret"
-        :scale="0.375"
-        class="text-gray-600 ml-3"
-        :class="{ 'transform rotate-180': open }"
-      />
-    </CSelectBtn>
-    <CSelectOptions data-test="select-options">
-      <CSelectOption
-        v-for="item in items"
+  <CCombobox v-slot="{ open }" v-model="value">
+    <div>
+      <CComboboxInput v-model="query" />
+      <CComboboxBtn>
+        <CIcon
+          id="caret"
+          :scale="0.375"
+          class="text-gray-600"
+          :class="{ 'transform rotate-180': open }"
+        />
+      </CComboboxBtn>
+    </div>
+    <CComboboxOptions>
+      <div v-if="!filteredItems.length" class="relative py-2 px-4">
+        No result found
+      </div>
+      <CComboboxOption
+        v-for="item in filteredItems"
         :key="item.label"
+        v-slot="{ selected }"
         :value="item"
         :disabled="item.disabled"
       >
         <CIcon
-          v-if="item === value"
+          v-if="selected"
           id="check"
           :scale="0.375"
           class="absolute left-2 top-2 -mt-px"
         />
         {{ item.label }}
-      </CSelectOption>
-    </CSelectOptions>
-  </CSelect>
+      </CComboboxOption>
+    </CComboboxOptions>
+  </CCombobox>
 </template>
 
 <script lang="ts">
-export default {
+import { computed, defineComponent, ref } from 'vue';
+
+export default defineComponent({
   data() {
     const items = [
       {
@@ -56,7 +64,6 @@ export default {
       {
         label: 'Beige',
         value: '#F5F5DC',
-        disabled: true,
       },
       {
         label: 'Bisque',
@@ -624,11 +631,20 @@ export default {
       },
     ];
 
+    const query = ref('');
+    const filteredItems = computed(() => {
+      return query.value === ''
+        ? items
+        : items.filter((item) => {
+            return item.label.toLowerCase().includes(query.value.toLowerCase());
+          });
+    });
+
     return {
-      value: items[0],
-      items,
-      open: false,
+      value: null,
+      query,
+      filteredItems,
     };
   },
-};
+});
 </script>

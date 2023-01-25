@@ -8,15 +8,11 @@ export enum Focus {
 export function getNextFocusByKey(key: string, rtl = false): Focus | null {
   switch (key) {
     case 'ArrowRight':
-    case 'Right':
     case 'ArrowDown':
-    case 'Down':
       return rtl ? Focus.Previous : Focus.Next;
 
     case 'ArrowLeft':
-    case 'Left':
     case 'ArrowUp':
-    case 'Up':
       return rtl ? Focus.Next : Focus.Previous;
 
     case 'Home':
@@ -38,7 +34,7 @@ export function calculateActiveIndex<TItem>(
   action: Focus,
   resolvers: {
     resolveItems(): TItem[];
-    resolveActiveIndex(): number | null;
+    resolveActiveIndex(items: TItem[]): number | null;
     resolveDisabled(item: TItem): boolean;
   },
   loop = false
@@ -46,7 +42,7 @@ export function calculateActiveIndex<TItem>(
   const items = resolvers.resolveItems();
   if (items.length <= 0) return null;
 
-  const currentActiveIndex = resolvers.resolveActiveIndex();
+  const currentActiveIndex = resolvers.resolveActiveIndex(items);
   const activeIndex = currentActiveIndex ?? -1;
 
   const nextActiveIndex = (() => {
@@ -121,4 +117,23 @@ export function getFocusableElements(el: Element): Array<HTMLElement> {
     ].join(',')
   );
   return Array.from(focusableEls);
+}
+
+export function sortByDomNode<T>(
+  nodes: T[],
+  resolveKey: (item: T) => HTMLElement | SVGElement | null = (i) =>
+    i as unknown as HTMLElement | SVGElement | null
+): T[] {
+  return nodes.slice().sort((aItem, zItem) => {
+    const a = resolveKey(aItem);
+    const z = resolveKey(zItem);
+
+    if (!a || !z) return 0;
+
+    const position = a.compareDocumentPosition(z);
+
+    if (position & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
+    if (position & Node.DOCUMENT_POSITION_PRECEDING) return 1;
+    return 0;
+  });
 }

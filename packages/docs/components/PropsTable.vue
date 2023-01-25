@@ -35,9 +35,14 @@
                   }}</code>
                 </td>
                 <td>
-                  <code v-if="row.defaultValue">{{
-                    row.defaultValue.value
-                  }}</code>
+                  <code
+                    v-if="row.defaultValue"
+                    :class="{
+                      'block max-w-[250px] whitespace-pre overflow-x-auto':
+                        row.defaultValue.func,
+                    }"
+                    >{{ row.defaultValue.value }}</code
+                  >
                 </td>
                 <td class="free-text" v-html="md(row.description)"></td>
               </template>

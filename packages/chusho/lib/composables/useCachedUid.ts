@@ -1,4 +1,6 @@
-import { ComponentPublicInstance, Ref, onMounted, readonly, ref } from 'vue';
+import { Ref, onMounted, readonly, ref } from 'vue';
+
+import { ElementOrComponent } from '../types';
 
 import { getElement } from '../utils/components';
 import { isServer } from '../utils/ssr';
@@ -6,7 +8,7 @@ import uid from '../utils/uid';
 
 const UID_CACHE_ATTR = 'data-chusho-ssr-uid';
 
-type CacheElement = HTMLElement | SVGElement | ComponentPublicInstance | null;
+type CacheElement = ElementOrComponent | null;
 
 export interface UseCachedUid {
   id: Readonly<Ref<string>>;

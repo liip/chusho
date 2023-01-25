@@ -61,6 +61,7 @@ export default {
             { text: 'Button', link: '/guide/components/button.md' },
             { text: 'Checkbox', link: '/guide/components/checkbox.md' },
             { text: 'Collapse', link: '/guide/components/collapse.md' },
+            { text: 'Combobox', link: '/guide/components/combobox.md' },
             { text: 'Dialog', link: '/guide/components/dialog.md' },
             { text: 'FormGroup', link: '/guide/components/formgroup.md' },
             { text: 'Icon', link: '/guide/components/icon.md' },

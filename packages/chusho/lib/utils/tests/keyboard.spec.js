@@ -14,14 +14,14 @@ describe('keyboard', () => {
       ['left-to-right', Focus.Next, Focus.Previous, false],
       ['right-to-left', Focus.Previous, Focus.Next, true],
     ])('%s', (direction, next, previous, rtl) => {
-      it.each(['ArrowRight', 'Right', 'ArrowDown', 'Down'])(
+      it.each(['ArrowRight', 'ArrowDown'])(
         `returns ${next} using %s key`,
         (key) => {
           expect(getNextFocusByKey(key, rtl)).toBe(next);
         }
       );
 
-      it.each(['ArrowLeft', 'Left', 'ArrowUp', 'Up'])(
+      it.each(['ArrowLeft', 'ArrowUp'])(
         `returns ${previous} using %s key`,
         (key) => {
           expect(getNextFocusByKey(key, rtl)).toBe(previous);

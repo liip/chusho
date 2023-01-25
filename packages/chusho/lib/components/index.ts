@@ -2,6 +2,7 @@ export * from './CAlert';
 export * from './CBtn';
 export * from './CCheckbox';
 export * from './CCollapse';
+export * from './CCombobox';
 export * from './CDialog';
 export * from './CFormGroup';
 export * from './CIcon';

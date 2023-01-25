@@ -79,6 +79,10 @@ export default function usePopup({
   }
 
   function expand(key: Trigger = null) {
+    if (isDisabled.value) {
+      return;
+    }
+
     activeElement.save();
     trigger.value = key;
     setIsExpanded(true);

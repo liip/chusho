@@ -1,8 +1,9 @@
-import { computed, inject, reactive } from 'vue';
+import { UnwrapNestedRefs, computed, inject, reactive } from 'vue';
 
 import { isNil } from '../utils/objects';
 
 import {
+  FormGroup,
   FormGroupFlag,
   FormGroupSymbol,
 } from '../components/CFormGroup/CFormGroup';
@@ -15,6 +16,11 @@ interface flags {
 
 type flag = keyof flags;
 
+export type UseFormGroup = {
+  formGroup: FormGroup | null;
+  flags: UnwrapNestedRefs<flags>;
+};
+
 /**
  * Allow a child of CFormGroup to access its context
  */
@@ -22,7 +28,7 @@ export default function useFormGroup(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   props: Record<string, any>,
   flagsToSet: Array<flag>
-) {
+): UseFormGroup {
   const formGroup = inject(FormGroupSymbol, null);
   const flags: flags = {};
 

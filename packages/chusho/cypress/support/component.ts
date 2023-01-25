@@ -2,7 +2,7 @@ import '@cypress/code-coverage/support';
 import { VueWrapper } from '@vue/test-utils';
 import 'cypress-real-events/support';
 import { mount } from 'cypress/vue';
-import { reactive } from 'vue';
+import { ComponentPublicInstance, reactive } from 'vue';
 
 import '../../src/assets/tailwind.css';
 import chushoConfig from '../../src/chusho.config';
@@ -19,7 +19,7 @@ declare global {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ): Chainable<any>;
 
-      getWrapper(): Chainable<VueWrapper>;
+      getWrapper<T extends ComponentPublicInstance>(): Chainable<VueWrapper<T>>;
     }
   }
 }

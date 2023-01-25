@@ -10,33 +10,40 @@ type NavigableItemData = {
 
 interface NavigableItem {
   id: string | number;
-  data?: NavigableItemData;
+  data: NavigableItemData;
 }
 
 interface UseKeyboardListNavigationOptions {
   resolveItems: () => NavigableItem[];
-  resolveActiveIndex: () => number;
+  resolveActiveIndex: (items: NavigableItem[]) => number;
   resolveDisabled: (item: NavigableItem) => boolean;
   loop?: boolean;
+  search?: boolean;
 }
 
 export default function useKeyboardListNavigation(
-  handler: (e: KeyboardEvent, index: number | null) => void,
+  handler: (
+    e: KeyboardEvent,
+    index: number | null,
+    id: NavigableItem['id'] | null
+  ) => void,
   {
     resolveItems,
     resolveActiveIndex,
     resolveDisabled,
     loop = false,
+    search = true,
   }: UseKeyboardListNavigationOptions
 ): (e: KeyboardEvent) => void {
   const query = ref<string>('');
   const searchIndex = ref<number>(0);
   const prepareToResetQuery = debounce(() => (query.value = ''), 500);
 
-  function findItemIndexToFocus(character: string): number | null {
-    const items = resolveItems();
-    const selectedItemIndex = resolveActiveIndex();
-
+  function findItemIndexToFocus(
+    character: string,
+    items: NavigableItem[],
+    selectedItemIndex: number
+  ): number | null {
     if (!query.value && selectedItemIndex !== -1) {
       searchIndex.value = selectedItemIndex;
     }
@@ -76,23 +83,27 @@ export default function useKeyboardListNavigation(
 
   return function handleKeyboardListNavigation(e: KeyboardEvent) {
     const focus = getNextFocusByKey(e.key);
+    const items = resolveItems();
+    const selectedItemIndex = resolveActiveIndex(items);
 
     let newIndex = null;
 
-    if (focus === null) {
-      newIndex = findItemIndexToFocus(e.key);
-    } else {
+    if (focus !== null) {
       newIndex = calculateActiveIndex<NavigableItem>(
         focus,
         {
-          resolveItems,
-          resolveActiveIndex,
+          resolveItems: () => items,
+          resolveActiveIndex: () => selectedItemIndex,
           resolveDisabled,
         },
         loop
       );
+    } else if (search) {
+      newIndex = findItemIndexToFocus(e.key, items, selectedItemIndex);
     }
 
-    handler(e, newIndex);
+    const newId = newIndex !== null ? items[newIndex].id : null;
+
+    handler(e, newIndex, newId);
   };
 }
