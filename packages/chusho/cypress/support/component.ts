@@ -5,7 +5,7 @@ import { mount } from 'cypress/vue';
 import { reactive } from 'vue';
 
 import '../../src/assets/tailwind.css';
-import chushoConfig from '../../src/chusho.config.js';
+import chushoConfig from '../../src/chusho.config';
 import './commands';
 
 declare global {

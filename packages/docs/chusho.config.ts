@@ -1,21 +1,25 @@
+import { defineConfig } from 'chusho';
 import { normalizeClass } from 'vue';
 
 function getBtnClass({ variant, disabled }) {
+  const isPrimary = !variant;
+  const isSecondary = variant?.secondary;
+
   return [
     'inline-flex',
     'items-center',
     'hover:no-underline',
     'transition-all duration-200 ease-out',
     {
-      'py-3 px-5 font-medium rounded': !variant || variant === 'secondary',
-      'bg-accent-600 text-white': !variant,
+      'py-3 px-5 font-medium rounded': isPrimary || isSecondary,
+      'bg-accent-600 text-white': isPrimary,
       'hover:bg-accent-500 focus:outline-none focus:ring ring-accent-400 focus:ring-offset-2':
-        !variant && !disabled,
-      'bg-gray-100 text-accent-600': variant === 'secondary',
+        (isPrimary || isSecondary) && !disabled,
+      'bg-gray-100 text-accent-600': isSecondary,
       'hover:text-accent-500 focus:outline-none focus:ring ring-accent-400 focus:ring-offset-2':
-        variant === 'secondary' && !disabled,
+        isSecondary && !disabled,
       'bg-transparent text-accent-600 underline hover:no-underline':
-        variant === 'link',
+        variant?.link,
       'opacity-75 cursor-not-allowed': disabled,
     },
   ];
@@ -25,19 +29,17 @@ function getFieldsClass() {
   return 'block w-full bg-white px-4 py-3 border border-gray-400 rounded outline-none focus:border-accent-600 focus:ring ring-accent-400';
 }
 
-export default {
+export default defineConfig({
   components: {
     alert: {
       class({ variant }) {
         return [
           'block py-3 px-5 rounded border-l-4',
           {
-            'bg-red-100 text-red-700 border-red-300': variant === 'error',
-            'bg-accent-100 text-accent-700 border-accent-300':
-              variant === 'warning',
-            'bg-green-100 text-green-700 border-green-300':
-              variant === 'success',
-            'bg-blue-100 text-blue-700 border-blue-300': variant === 'info',
+            'bg-red-100 text-red-700 border-red-300': variant?.error,
+            'bg-accent-100 text-accent-700 border-accent-300': variant?.warning,
+            'bg-green-100 text-green-700 border-green-300': variant?.success,
+            'bg-blue-100 text-blue-700 border-blue-300': variant?.info,
           },
         ];
       },
@@ -51,7 +53,7 @@ export default {
       class({ variant, checked }) {
         return [
           'appearance-none inline-block w-3 h-3 rounded-sm border-2 border-white ring-2 ring-gray-500',
-          { 'mr-3': variant.inline },
+          { 'mr-3': variant?.inline },
           { 'bg-white': !checked },
           { 'bg-accent-500': checked },
         ];
@@ -61,7 +63,7 @@ export default {
     collapse: {
       class({ variant }) {
         return {
-          'relative w-full': variant === 'panel',
+          'relative w-full': variant?.panel,
         };
       },
     },
@@ -70,8 +72,8 @@ export default {
       class({ variant, active }) {
         return {
           'flex items-center justify-between w-full px-5 py-3 text-left font-medium text-indigo-800 rounded-t-md bg-indigo-100 hover:bg-indigo-200 focus:bg-indigo-200 transition-all duration-200 ease-out':
-            variant === 'panel',
-          'rounded-b-md': variant === 'panel' && !active,
+            variant?.panel,
+          'rounded-b-md': variant?.panel && !active,
         };
       },
     },
@@ -80,7 +82,7 @@ export default {
       class({ variant }) {
         return {
           'absolute w-full px-5 py-4 text-gray-700 bg-white border-b border-gray-200 rounded-b-md':
-            variant === 'panel',
+            variant?.panel,
         };
       },
     },
@@ -242,4 +244,4 @@ export default {
       class: () => normalizeClass([getFieldsClass(), 'leading-4']),
     },
   },
-};
+});
