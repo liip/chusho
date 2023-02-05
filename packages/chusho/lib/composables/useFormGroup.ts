@@ -27,13 +27,11 @@ export default function useFormGroup(
   const flags: flags = {};
 
   flagsToSet.forEach((flagToSet) => {
-    flags[flagToSet] = computed(() => {
-      if (isNil(props[flagToSet])) {
-        return formGroup?.[flagToSet];
-      } else {
-        return props[flagToSet];
-      }
-    });
+    if (isNil(props[flagToSet]) && formGroup) {
+      flags[flagToSet] = formGroup[flagToSet];
+    } else {
+      flags[flagToSet] = computed(() => props[flagToSet]);
+    }
   });
 
   return {
