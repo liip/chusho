@@ -1,24 +1,7 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "target": "es6",
-    "module": "esnext",
-    "declaration": true,
-    "declarationDir": "./dist/types",
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "noImplicitAny": true,
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "types": ["vitest/globals", "node", "cypress-real-events", "lodash"],
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-    "isolatedModules": true,
-    "skipLibCheck": true
+    "types": ["vitest/globals", "node", "cypress-real-events", "lodash"]
   },
   "include": ["lib/**/*", "src/**/*", "cypress/**/*", "types/**/*"],
   "exclude": ["node_modules"]
