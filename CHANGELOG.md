@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.1](https://github.com/liip/chusho/compare/v0.6.0...v0.6.1) (2023-02-05)
+
+### Bug Fixes
+
+- **FormGroup:** fields properly inherit flags ([8cf8d11](https://github.com/liip/chusho/commit/8cf8d11d59dd701b0b0d27548f19a98d047c057a))
+
 # [0.6.0](https://github.com/liip/chusho/compare/v0.5.1...v0.6.0) (2023-01-25)
 
 ### Bug Fixes
