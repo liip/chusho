@@ -39,7 +39,7 @@ export default defineComponent({
      */
     alt: {
       type: String,
-      default: '',
+      default: null,
     },
   },
 

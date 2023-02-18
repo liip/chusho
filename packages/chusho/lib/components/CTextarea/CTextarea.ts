@@ -23,7 +23,13 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: [
+    /**
+     * When the textarea value changes.
+     * @arg {string} modelValue The textarea value.
+     */
+    'update:modelValue',
+  ],
 
   setup(props) {
     const { formGroup, flags } = useFormGroup(props, [

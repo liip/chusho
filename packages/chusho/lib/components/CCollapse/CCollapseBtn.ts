@@ -40,7 +40,7 @@ export default defineComponent({
     return h(
       CBtn,
       mergeProps(this.$attrs, this.$props, elementProps),
-      this.$slots.default
+      this.$slots
     );
   },
 });

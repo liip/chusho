@@ -47,18 +47,18 @@ export default defineComponent({
     },
   },
 
-  emits: {
+  emits: [
     /**
      * When the selected value(s) change.
-     * @arg {any} value The selected item value, or an array of selected items values when `multiple` is true.
+     * @arg {any} modelValue The selected item value, or an array of selected items values when `multiple` is true.
      */
-    'update:modelValue': null,
+    'update:modelValue',
     /**
      * When the popup opens or closes.
      * @arg {boolean} open Whether the popup is open or not.
      */
-    'update:open': null,
-  },
+    'update:open',
+  ],
 
   setup(props) {
     const popup = usePopup({

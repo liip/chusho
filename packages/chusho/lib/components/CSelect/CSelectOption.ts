@@ -60,6 +60,9 @@ export default defineComponent({
       }),
     };
 
+    /**
+     * @slot If no content is provided, it defaults to a non-breaking space to ensure the element is clickable.
+     */
     return h(
       'div',
       mergeProps(this.$attrs, elementProps),

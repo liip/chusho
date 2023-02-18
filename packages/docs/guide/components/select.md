@@ -6,30 +6,63 @@ Implements the [combobox design pattern](https://w3c.github.io/aria-practices/#c
     <ExampleSelect />
 </showcase-root>
 
+## Usage
+
+See [using components](/guide/using-components) for detailed instructions.
+
+```js
+import {
+  CSelect,
+  CSelectBtn,
+  CSelectGroup,
+  CSelectGroupLabel,
+  CSelectOption,
+  CSelectOptions,
+} from 'chusho';
+```
+
 ## Config
 
 The options below are to be set in the [global configuration](/guide/config.html) at the following location:
 
 ```js
 {
-    components: {
-        select: { ... },
-        selectBtn: { ... },
-        selectGroup: { ... },
-        selectGroupLabel: { ... },
-        selectOption: { ... },
-        selectOptions: { ... },
+  components: {
+    select: {
+      class: ({ open, modelValue, name, input, itemValue, disabled, variant }) => {},
     },
+    selectBtn: {
+      class: ({ active, disabled, variant }) => {},
+    },
+    selectGroup: {
+      class: ({ variant }) => {},
+    },
+    selectGroupLabel: {
+      class: ({ variant }) => {},
+    },
+    selectOption: {
+      class: ({ selected, value, disabled, variant }) => {},
+    },
+    selectOptions: {
+      class: ({ transition, variant }) => {},
+      transition: {},
+    },
+  },
 }
 ```
-
-### All components
 
 ### class
 
 Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
 - **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
+- **default:** `null`
+
+### transition
+
+Apply a common transition to all CSelectOptions. The object can contain any Vue built-in [transition component props](https://v3.vuejs.org/api/built-in-components.html#transition).
+
+- **type:** `object`
 - **default:** `null`
 
 #### Example

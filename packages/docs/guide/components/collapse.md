@@ -14,23 +14,36 @@ Conditionnaly display some content.
     </CCollapse>
 </showcase-root>
 
+## Usage
+
+See [using components](/guide/using-components) for detailed instructions.
+
+```js
+import { CCollapse, CCollapseBtn, CCollapseContent } from 'chusho';
+```
+
 ## Config
 
 The options below are to be set in the [global configuration](/guide/config.html) at the following location:
 
 ```js
 {
-    components: {
-        collapse: { ... },
-        collapseBtn: { ... },
-        collapseContent: { ... },
+  components: {
+    collapse: {
+      class: ({ active, modelValue, variant }) => {},
     },
+    collapseBtn: {
+      class: ({ active, variant }) => {},
+    },
+    collapseContent: {
+      class: ({ transition, variant }) => {},
+      transition: {},
+    },
+  },
 }
 ```
 
-### All components
-
-#### class
+### class
 
 Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
@@ -49,9 +62,7 @@ class({ active }) {
 }
 ```
 
-### CCollapseContent
-
-#### transition
+### transition
 
 Apply a common transition to all Collapses. The object can contain any Vue built-in [transition component props](https://v3.vuejs.org/api/built-in-components.html#transition).
 

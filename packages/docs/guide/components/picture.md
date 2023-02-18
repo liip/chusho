@@ -11,15 +11,25 @@ Easily generate responsive images.
     />
 </showcase-root>
 
+## Usage
+
+See [using components](/guide/using-components) for detailed instructions.
+
+```js
+import { CPicture } from 'chusho';
+```
+
 ## Config
 
 The options below are to be set in the [global configuration](/guide/config.html) at the following location:
 
 ```js
 {
-    components: {
-        picture: { ... },
+  components: {
+    picture: {
+      class: ({ src, alt, sources, variant }) => {},
     },
+  },
 }
 ```
 

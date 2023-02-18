@@ -7,7 +7,8 @@ export default defineComponent({
 
   props: {
     /**
-     * Useful when used in the component config `class` option, to style it conditionally. See [styling components](/guide/styling-components/).
+     * Useful when used in the component config `class` option, to style it conditionally. See [styling components](/guide/styling-components).
+     * @type {string|array|object}
      */
     variant: {
       type: [String, Array, Object] as PropType<RawVariant>,
@@ -15,7 +16,7 @@ export default defineComponent({
     },
 
     /**
-     * Disable class inheritance from the component config. See [styling components](/guide/styling-components/).
+     * Disable class inheritance from the component config. See [styling components](/guide/styling-components).
      */
     bare: {
       type: Boolean,

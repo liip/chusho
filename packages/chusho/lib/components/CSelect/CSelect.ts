@@ -72,7 +72,18 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue', 'update:open'],
+  emits: [
+    /**
+     * When the selected value changes.
+     * @arg {any} modelValue The selected item value.
+     */
+    'update:modelValue',
+    /**
+     * When the popup opens or closes.
+     * @arg {boolean} open Whether the popup is open or not.
+     */
+    'update:open',
+  ],
 
   setup(props) {
     const formGroup = useFormGroup(props, ['disabled']);

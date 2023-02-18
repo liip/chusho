@@ -6,6 +6,14 @@ Augmented form field for text input.
     <CTextField placeholder="Type here…" />
 </showcase-root>
 
+## Usage
+
+See [using components](/guide/using-components) for detailed instructions.
+
+```js
+import { CTextField } from 'chusho';
+```
+
 ## Config
 
 The options below are to be set in the [global configuration](/guide/config.html) at the following location:
@@ -13,7 +21,9 @@ The options below are to be set in the [global configuration](/guide/config.html
 ```js
 {
   components: {
-    textField: { ... },
+    textField: {
+      class({ required, disabled, readonly, type, modelValue, variant }) => {},
+    },
   },
 }
 ```

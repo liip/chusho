@@ -6,6 +6,14 @@ Augmented textarea form field.
     <CTextarea placeholder="Type here…" />
 </showcase-root>
 
+## Usage
+
+See [using components](/guide/using-components) for detailed instructions.
+
+```js
+import { CTextarea } from 'chusho';
+```
+
 ## Config
 
 The options below are to be set in the [global configuration](/guide/config.html) at the following location:
@@ -13,7 +21,9 @@ The options below are to be set in the [global configuration](/guide/config.html
 ```js
 {
   components: {
-    textarea: { ... },
+    textarea: {
+      class({ required, disabled, readonly, modelValue, variant }) => {},
+    },
   },
 }
 ```
