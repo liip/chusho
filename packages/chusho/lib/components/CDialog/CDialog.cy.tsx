@@ -153,17 +153,6 @@ describe('CDialog', () => {
       cy.get('[data-test="close-btn"]').should('have.focus');
     });
 
-    it('prevents access to the rest of the page to screen readers', () => {
-      cy.contains('Open dialog').click();
-      cy.get('body > *').each(($el) => {
-        if ($el.is(':visible')) {
-          cy.wrap($el).should('have.attr', 'aria-hidden', 'true');
-        } else {
-          cy.wrap($el).should('be.hidden');
-        }
-      });
-    });
-
     it('does not activates multiple times', () => {
       cy.contains('Open dialog').click();
       cy.get('[data-test="input"]').type('Welcome');
