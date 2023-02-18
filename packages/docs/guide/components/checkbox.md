@@ -2,9 +2,9 @@
 
 Augmented form field for boolean input.
 
-<showcase-root>
+<Showcase>
     <ExampleCheckbox />
-</showcase-root>
+</Showcase>
 
 ## Usage
 

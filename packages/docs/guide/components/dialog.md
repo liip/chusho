@@ -2,9 +2,9 @@
 
 Display content in a modal dialog, on top of the page content.
 
-<showcase-root>
+<Showcase>
     <ExampleDialog />
-</showcase-root>
+</Showcase>
 
 ## Usage
 

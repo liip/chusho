@@ -2,7 +2,7 @@
 
 Accessible dropdown menu. Can be used as a list of buttons, links, checkboxes or radios.
 
-<showcase-root>
+<Showcase>
     <div class="flex gap-4">
         <CMenu v-slot="{ open }">
             <CMenuBtn>
@@ -54,7 +54,7 @@ Accessible dropdown menu. Can be used as a list of buttons, links, checkboxes or
             </CMenuList>
         </CMenu>
     </div>
-</showcase-root>
+</Showcase>
 
 ## Usage
 

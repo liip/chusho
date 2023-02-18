@@ -2,11 +2,11 @@
 
 Just like a regular `<label />`
 
-<showcase-root>
+<Showcase>
     <CLabel>
         I’m a label!
     </CLabel>
-</showcase-root>
+</Showcase>
 
 ## Usage
 

@@ -2,7 +2,7 @@
 
 Uniformized button style for `router-link`, `a` or `button` elements.
 
-<showcase-root>
+<Showcase>
     <div class="flex flex-col gap-4">
         <div class="flex flex-wrap gap-x-6 gap-y-2">
             <CBtn>Primary</CBtn>
@@ -18,7 +18,7 @@ Uniformized button style for `router-link`, `a` or `button` elements.
             </CBtn>
         </div>
     </div>
-</showcase-root>
+</Showcase>
 
 ## Usage
 

@@ -20,6 +20,7 @@
   "scripts": {
     "start": "concurrently --kill-others 'npm run dev' 'npm run tailwind:watch'",
     "dev": "vitepress dev",
+    "preview": "vitepress preview",
     "tailwind": "tailwindcss -i assets/showcase.css -o ./public/dist/showcase.css",
     "tailwind:watch": "npm run tailwind -- --watch",
     "build": "npm run tailwind && vitepress build"

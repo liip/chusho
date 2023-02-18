@@ -2,7 +2,7 @@
 
 Accessible tabs component.
 
-<showcase-root>
+<Showcase>
    <CTabs default-tab="1">
       <CTabList>
         <CTab target="1">First</CTab>
@@ -39,7 +39,7 @@ Accessible tabs component.
         </CTabPanel>
       </CTabPanels>
     </CTabs>
-</showcase-root>
+</Showcase>
 
 ## Usage
 

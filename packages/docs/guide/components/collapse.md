@@ -2,7 +2,7 @@
 
 Conditionnaly display some content.
 
-<showcase-root>
+<Showcase>
     <CCollapse variant="panel" v-slot="{ active }" class="max-w-md">
         <CCollapseBtn variant="panel">
             Does the hero die at the end?
@@ -12,7 +12,7 @@ Conditionnaly display some content.
             Watch the movie and you’ll know ;-)
         </CCollapseContent>
     </CCollapse>
-</showcase-root>
+</Showcase>
 
 ## Usage
 
