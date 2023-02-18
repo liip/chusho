@@ -19,22 +19,18 @@
   "homepage": "https://www.chusho.dev/",
   "scripts": {
     "start": "concurrently --kill-others 'npm run dev' 'npm run tailwind:watch'",
-    "dev": "vuepress dev",
-    "tailwind": "tailwindcss -o ./.vuepress/public/dist/tailwind.css",
+    "dev": "vitepress dev",
+    "tailwind": "tailwindcss -i assets/showcase.css -o ./public/dist/showcase.css",
     "tailwind:watch": "npm run tailwind -- --watch",
-    "build": "npm run tailwind && vuepress build"
+    "build": "npm run tailwind && vitepress build"
   },
   "devDependencies": {
-    "@vuepress/plugin-docsearch": "^2.0.0-beta.53",
-    "@vuepress/plugin-register-components": "^2.0.0-beta.53",
-    "@vuepress/plugin-shiki": "^2.0.0-beta.5",
-    "@vuepress/plugin-theme-data": "^2.0.0-beta.53",
     "concurrently": "^7.6.0",
     "postcss": "^8.4.20",
     "sass": "^1.56.1",
-    "vue-docgen-api": "^4.54.2",
-    "vuepress": "^2.0.0-beta.53",
-    "vuepress-vite": "^2.0.0-beta.53"
+    "vitepress": "^1.0.0-alpha.45",
+    "vue": "^3.2.47",
+    "vue-docgen-api": "^4.54.2"
   },
   "dependencies": {
     "chusho": "^0.6.1",

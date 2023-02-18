@@ -106,7 +106,7 @@ if (import.meta.webpackHot) {
 
 ### components
 
-Configure components globally, see [each component](/guide/components) page for available options.
+Configure components globally, see [each component](/guide/components/) page for available options.
 
 - **type:** `object`
 - **default:** `null`

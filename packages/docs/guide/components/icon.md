@@ -2,7 +2,7 @@
 
 Display a scalable SVG icon from a pre-existing sprite.
 
-<Showcase>
+<showcase-root>
     <div class="max-w-md grid grid-cols-3 grid-rows-flow gap-8 items-center content-center justify-items-center">
         <CIcon id="cloud" class="text-purple-500 opacity-75" />
         <CIcon id="emoji-happy" :scale="1.5" class="text-purple-500" />
@@ -14,7 +14,7 @@ Display a scalable SVG icon from a pre-existing sprite.
         <CIcon id="star" :scale="1.5" class="text-blue-500" />
         <CIcon id="lightning-bolt" class="text-blue-500 opacity-75" />
     </div>
-</Showcase>
+</showcase-root>
 
 ## Config
 
@@ -51,7 +51,7 @@ Icons viewBox width. This value will be multiplied by the `scale` prop to calcul
 
 ### class
 
-Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
+Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
 - **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
 - **default:** `null`

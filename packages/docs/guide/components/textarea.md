@@ -2,9 +2,9 @@
 
 Augmented textarea form field.
 
-<Showcase>
+<showcase-root>
     <CTextarea placeholder="Type here…" />
-</Showcase>
+</showcase-root>
 
 ## Config
 
@@ -20,7 +20,7 @@ The options below are to be set in the [global configuration](/guide/config.html
 
 ### class
 
-Classes applied to the textarea element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
+Classes applied to the textarea element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
 - **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
 - **default:** `null`

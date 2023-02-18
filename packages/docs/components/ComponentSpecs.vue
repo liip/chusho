@@ -21,7 +21,13 @@
 </template>
 
 <script>
+import PropsTable from './PropsTable.vue';
+
 export default {
+  components: {
+    PropsTable,
+  },
+
   props: {
     doc: {
       type: Object,

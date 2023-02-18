@@ -2,7 +2,7 @@
 
 Accessible dropdown menu. Can be used as a list of buttons, links, checkboxes or radios.
 
-<Showcase>
+<showcase-root>
     <div class="flex gap-4">
         <CMenu v-slot="{ open }">
             <CMenuBtn>
@@ -54,7 +54,7 @@ Accessible dropdown menu. Can be used as a list of buttons, links, checkboxes or
             </CMenuList>
         </CMenu>
     </div>
-</Showcase>
+</showcase-root>
 
 ## Config
 
@@ -90,7 +90,7 @@ The options below are to be set in the [global configuration](/guide/config.html
 
 #### class
 
-Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
+Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
 - **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
 - **default:** `null`

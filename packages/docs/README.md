@@ -1,6 +1,6 @@
 # Chūshō docs
 
-Documentation powered by [VuePress](https://vuepress.vuejs.org/) and deployed automatically to [chusho.dev](https://www.chusho.dev/) from `main` branch.
+Documentation powered by [VitePress](https://vitepress.vuejs.org/) and deployed to [chusho.dev](https://www.chusho.dev/) from `main` branch.
 
 ## Useful commands
 
@@ -10,7 +10,7 @@ Start the development server:
 npm start
 ```
 
-Build a static version into `.vuepress/dist`
+Build a static version into `.vitepress/dist`
 
 ```bash
 npm run build
