@@ -2,17 +2,17 @@
 
 Conditionnaly display some content.
 
-<Showcase>
+<showcase-root>
     <CCollapse variant="panel" v-slot="{ active }" class="max-w-md">
         <CCollapseBtn variant="panel">
             Does the hero die at the end?
-            <CIcon :id="active ? 'chevron-up' : 'chevron-down'" />
+            <CIcon :id="active ? 'chevron-up' : 'chevron-down'" class="ml-2" />
         </CCollapseBtn>
         <CCollapseContent variant="panel">
             Watch the movie and you’ll know ;-)
         </CCollapseContent>
     </CCollapse>
-</Showcase>
+</showcase-root>
 
 ## Config
 
@@ -32,7 +32,7 @@ The options below are to be set in the [global configuration](/guide/config.html
 
 #### class
 
-Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
+Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
 - **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
 - **default:** `null`

@@ -2,11 +2,11 @@
 
 Just like a regular `<label />`
 
-<Showcase>
+<showcase-root>
     <CLabel>
         I’m a label!
     </CLabel>
-</Showcase>
+</showcase-root>
 
 ## Config
 
@@ -22,7 +22,7 @@ The options below are to be set in the [global configuration](/guide/config.html
 
 ### class
 
-Classes applied to the label element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
+Classes applied to the label element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
 - **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
 - **default:** `null`

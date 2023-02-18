@@ -2,14 +2,14 @@
 
 Easily generate responsive images.
 
-<Showcase>
+<showcase-root>
     <CPicture
         src="https://images.unsplash.com/photo-1505178041309-ad46d2e4207b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&fit=crop&w=860&h=400&q=80"
         alt="Ceiling view of the yellow triangular atrium of a building."
         width="860"
         height="400"
     />
-</Showcase>
+</showcase-root>
 
 ## Config
 
@@ -25,7 +25,7 @@ The options below are to be set in the [global configuration](/guide/config.html
 
 ### class
 
-Classes applied to the component `img` element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
+Classes applied to the component `img` element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
 - **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
 - **default:** `null`

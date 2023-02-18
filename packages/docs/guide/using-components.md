@@ -1,7 +1,3 @@
----
-next: /guide/components/
----
-
 # Using components
 
 Components aren’t registered automatically to take advantage of bundler’s [tree-shaking](https://en.wikipedia.org/wiki/Tree_shaking) optimizations by default.

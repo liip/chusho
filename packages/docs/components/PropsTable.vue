@@ -10,9 +10,9 @@
         </tr>
       </thead>
       <tbody>
-        <template v-for="(section, i) in sections">
+        <template v-for="section in sections">
           <template v-if="section.rows">
-            <tr v-if="section.label">
+            <tr v-if="section.label" :key="section.label">
               <th colspan="4">
                 {{ section.label }}
               </th>
@@ -20,7 +20,8 @@
             <tr v-for="row in section.rows" :key="row.name">
               <template v-if="section.type === 'props'">
                 <td>
-                  {{ row.name }}&nbsp;<abbr
+                  <strong>{{ row.name }}</strong
+                  >&nbsp;<abbr
                     v-if="row.required"
                     title="Required"
                     class="required"
@@ -43,7 +44,7 @@
 
               <template v-else-if="section.type === 'events'">
                 <td>
-                  {{ row.name }}
+                  <strong>{{ row.name }}</strong>
                 </td>
                 <td colspan="4" class="!p-0">
                   <div v-if="row.description" class="p-3">
@@ -60,19 +61,20 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="property in row.properties"
-                        :key="property.name"
+                        v-for="tag in row.tags ?? row.properties"
+                        :key="tag.name"
                       >
                         <td>
-                          {{ property.name }}
+                          {{ tag.name }}
                         </td>
                         <td>
-                          <code>{{ property.type.names.join('|') }}</code>
+                          <code>{{
+                            tag.type.elements?.map((e) => e.name).join('|') ||
+                            tag.type.names?.join('|') ||
+                            tag.type.name
+                          }}</code>
                         </td>
-                        <td
-                          class="free-text"
-                          v-html="md(property.description)"
-                        ></td>
+                        <td class="free-text" v-html="md(tag.description)"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -80,7 +82,9 @@
               </template>
 
               <template v-else-if="section.type === 'slots'">
-                <td>{{ row.name }}</td>
+                <td>
+                  <strong>{{ row.name }}</strong>
+                </td>
                 <td colspan="4" class="!p-0">
                   <div v-if="row.description" class="p-3">
                     {{ row.description }}

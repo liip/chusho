@@ -2,9 +2,9 @@
 
 Implements the [combobox design pattern](https://w3c.github.io/aria-practices/#combobox), allowing the user to select an option from a collection of predefined values.
 
-<Showcase>
+<showcase-root>
     <ExampleSelect />
-</Showcase>
+</showcase-root>
 
 ## Config
 
@@ -27,7 +27,7 @@ The options below are to be set in the [global configuration](/guide/config.html
 
 ### class
 
-Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
+Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
 - **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
 - **default:** `null`

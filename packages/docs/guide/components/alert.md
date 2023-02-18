@@ -2,7 +2,7 @@
 
 Announce important messages.
 
-<Showcase>
+<showcase-root>
     <div class="space-y-4">
         <CAlert variant="error">
             <strong>Oops!</strong> Something went wrong.
@@ -17,7 +17,7 @@ Announce important messages.
             <strong>Hey!</strong> Did you know?
         </CAlert>
     </div>
-</Showcase>
+</showcase-root>
 
 ## Config
 
@@ -33,7 +33,7 @@ The options below are to be set in the [global configuration](/guide/config.html
 
 ### class
 
-Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
+Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
 - **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
 - **default:** `null`

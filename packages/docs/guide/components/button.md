@@ -2,25 +2,23 @@
 
 Uniformized button style for `router-link`, `a` or `button` elements.
 
-<Showcase>
-    <div class="space-y-6">
-        <div class="space-x-4">
+<showcase-root>
+    <div class="flex flex-col gap-4">
+        <div class="flex flex-wrap gap-x-6 gap-y-2">
             <CBtn>Primary</CBtn>
             <CBtn disabled>Primary disabled</CBtn>
         </div>
-        <div class="space-x-4">
+        <div class="flex flex-wrap gap-x-6 gap-y-2">
             <CBtn variant="secondary">Secondary</CBtn>
-            <CBtn variant="secondary" disabled>
-            Secondary disabled
-            </CBtn>
+            <CBtn variant="secondary" disabled>Secondary disabled</CBtn>
         </div>
-        <div class="space-x-4">
+        <div class="flex flex-wrap gap-x-6 gap-y-2">
             <CBtn href="#" variant="link">
             Link
             </CBtn>
         </div>
     </div>
-</Showcase>
+</showcase-root>
 
 ## Config
 
@@ -36,7 +34,7 @@ The options below are to be set in the [global configuration](/guide/config.html
 
 ### class
 
-Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
+Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
 - **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
 - **default:** `null`

@@ -1,38 +1,24 @@
----
-next: /guide/config.md
----
-
 # Getting started
 
 ## Installation
 
 Install Chūshō with your favorite package manager:
 
-<CodeGroup>
-  <CodeGroupItem title="npm" active>
+::: code-group
 
-```bash
+```bash [npm]
 npm install chusho
 ```
 
-  </CodeGroupItem>
-
-  <CodeGroupItem title="yarn">
-
-```bash
+```bash [yarn]
 yarn add chusho
 ```
 
-  </CodeGroupItem>
-
-  <CodeGroupItem title="pnpm">
-
-```bash
+```bash [pnpm]
 pnpm add chusho
 ```
 
-  </CodeGroupItem>
-</CodeGroup>
+:::
 
 ## Setup
 

@@ -2,7 +2,9 @@
 
 Display content in a modal dialog, on top of the page content.
 
-[View demo on CodeSandbox](https://codesandbox.io/s/cdialog-bnw6j?file=/src/App.vue)
+<showcase-root>
+    <ExampleDialog />
+</showcase-root>
 
 ## Config
 
@@ -18,7 +20,7 @@ The options below are to be set in the [global configuration](/guide/config.html
 
 ### class
 
-Classes applied to the component dialog element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
+Classes applied to the component dialog element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
 - **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
 - **default:** `null`
@@ -36,7 +38,7 @@ class({ variant }) {
 
 ### overlayClass
 
-Classes applied to the component overlay element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components/).
+Classes applied to the component overlay element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
 The overlay is the element that contains the dialog, it’s usually covering the screen and clicking on it closes the dialog.
 

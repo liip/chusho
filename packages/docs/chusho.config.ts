@@ -1,7 +1,13 @@
 import { defineConfig } from 'chusho';
 import { normalizeClass } from 'vue';
 
-function getBtnClass({ variant, disabled }) {
+function getBtnClass({
+  variant,
+  disabled,
+}: {
+  variant?: Record<string, boolean>;
+  disabled?: unknown;
+}) {
   const isPrimary = !variant;
   const isSecondary = variant?.secondary;
 
@@ -12,13 +18,13 @@ function getBtnClass({ variant, disabled }) {
     'transition-all duration-200 ease-out',
     {
       'py-3 px-5 font-medium rounded': isPrimary || isSecondary,
-      'bg-accent-600 text-white': isPrimary,
-      'hover:bg-accent-500 focus:outline-none focus:ring ring-accent-400 focus:ring-offset-2':
+      'bg-gold-600 text-white': isPrimary,
+      'bg-gray-100 text-gray-800': isSecondary,
+      'focus:outline-none focus:ring ring-gold-400 focus:ring-offset-2':
         (isPrimary || isSecondary) && !disabled,
-      'bg-gray-100 text-accent-600': isSecondary,
-      'hover:text-accent-500 focus:outline-none focus:ring ring-accent-400 focus:ring-offset-2':
-        isSecondary && !disabled,
-      'bg-transparent text-accent-600 underline hover:no-underline':
+      'hover:bg-gold-500': isPrimary && !disabled,
+      'hover:bg-gray-200 hover:text-gray-800': isSecondary && !disabled,
+      'bg-transparent text-gold-600 underline hover:no-underline':
         variant?.link,
       'opacity-75 cursor-not-allowed': disabled,
     },
@@ -26,7 +32,7 @@ function getBtnClass({ variant, disabled }) {
 }
 
 function getFieldsClass() {
-  return 'block w-full bg-white px-4 py-3 border border-gray-400 rounded outline-none focus:border-accent-600 focus:ring ring-accent-400';
+  return 'block w-full bg-white px-4 py-3 border border-gray-400 rounded outline-none focus:border-gold-600 focus:ring ring-gold-400';
 }
 
 export default defineConfig({
@@ -37,7 +43,7 @@ export default defineConfig({
           'block py-3 px-5 rounded border-l-4',
           {
             'bg-red-100 text-red-700 border-red-300': variant?.error,
-            'bg-accent-100 text-accent-700 border-accent-300': variant?.warning,
+            'bg-gold-100 text-gold-700 border-gold-300': variant?.warning,
             'bg-green-100 text-green-700 border-green-300': variant?.success,
             'bg-blue-100 text-blue-700 border-blue-300': variant?.info,
           },
@@ -55,7 +61,7 @@ export default defineConfig({
           'appearance-none inline-block w-3 h-3 rounded-sm border-2 border-white ring-2 ring-gray-500',
           { 'mr-3': variant?.inline },
           { 'bg-white': !checked },
-          { 'bg-accent-500': checked },
+          { 'bg-gold-500': checked },
         ];
       },
     },
@@ -63,7 +69,7 @@ export default defineConfig({
     collapse: {
       class({ variant }) {
         return {
-          'relative w-full': variant?.panel,
+          'relative w-full flex-shrink-0': variant?.panel,
         };
       },
     },
@@ -81,7 +87,7 @@ export default defineConfig({
     collapseContent: {
       class({ variant }) {
         return {
-          'absolute w-full px-5 py-4 text-gray-700 bg-white border-b border-gray-200 rounded-b-md':
+          'absolute z-10 w-full px-5 py-4 text-gray-700 bg-white border-b border-gray-200 rounded-b-md':
             variant?.panel,
         };
       },
@@ -90,13 +96,13 @@ export default defineConfig({
     dialog: {
       overlayClass({ variant }) {
         return [
-          'p-8 flex flex-columns items-center justify-center bg-gray-700 bg-opacity-75',
+          'p-8 flex flex-columns items-center justify-center backdrop-blur',
           { 'fixed inset-0 z-20': !variant?.relative },
         ];
       },
       class({ variant }) {
         return [
-          'dialog max-w-md bg-white rounded-lg shadow-lg overflow-hidden',
+          'dialog max-w-md bg-white text-gray-800 rounded-lg shadow-lg overflow-hidden',
           {
             'p-5': variant?.spaced,
           },
@@ -106,7 +112,8 @@ export default defineConfig({
 
     icon: {
       spriteUrl: '/icons.svg',
-      class: 'inline-block align-middle fill-current stroke-current',
+      class:
+        'inline-block align-middle flex-shrink-0 fill-current stroke-current',
     },
 
     label: {
@@ -182,7 +189,7 @@ export default defineConfig({
           'appearance-none inline-block w-3 h-3 rounded-full border-2 border-white ring-2 ring-gray-500',
           { 'mr-3': variant?.inline },
           { 'bg-white': !checked },
-          { 'bg-accent-500': checked },
+          { 'bg-gold-500': checked },
         ];
       },
     },
@@ -202,14 +209,14 @@ export default defineConfig({
     },
 
     selectOption: {
-      class({ active, disabled }) {
+      class({ selected, disabled }) {
         return [
           'list-none relative pl-8 pr-4 leading-loose outline-none',
           {
             'hover:text-blue-700 focus:text-blue-700 hover:bg-blue-100 focus:bg-blue-100 cursor-pointer':
               !disabled,
             'text-gray-400': disabled,
-            'text-blue-800': active,
+            'text-blue-800': selected,
           },
         ];
       },
@@ -220,8 +227,7 @@ export default defineConfig({
     },
 
     tabList: {
-      class:
-        'flex max-w-full overflow-x-auto overflow-y-hidden mb-6 space-x-6 border-0 border-b border-gray-200',
+      class: 'flex gap-6 mb-6 border-0 border-b border-gray-200',
     },
 
     tab: {
@@ -230,7 +236,7 @@ export default defineConfig({
           'inline-block border-0 text-base cursor-pointer bg-transparent',
           'whitespace-nowrap pb-3 border-b-2 font-medium -mb-px transition-colors duration-200 ease-out',
           active
-            ? 'border-accent-600 text-accent-600'
+            ? 'border-gold-600 text-gold-600'
             : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
         ];
       },

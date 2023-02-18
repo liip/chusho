@@ -1,6 +1,6 @@
 <template>
   <CLabel variant="inline" for="my-checkbox">
-    <CCheckbox v-model="value" variant="inline" id="my-checkbox" />
+    <CCheckbox id="my-checkbox" v-model="value" variant="inline" />
     Check me if you can
   </CLabel>
 </template>

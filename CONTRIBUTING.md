@@ -36,7 +36,7 @@ To make changes in the documentation, go to the docs package:
 cd packages/docs
 ```
 
-Then run VuePress in dev mode:
+Then start the dev server:
 
 ```sh
 npm start

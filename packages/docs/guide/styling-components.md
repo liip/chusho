@@ -1,7 +1,3 @@
----
-next: /guide/using-components.html
----
-
 # Styling components
 
 All components behaves the same:
