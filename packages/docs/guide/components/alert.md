@@ -2,7 +2,7 @@
 
 Announce important messages.
 
-<showcase-root>
+<Showcase>
     <div class="space-y-4">
         <CAlert variant="error">
             <strong>Oops!</strong> Something went wrong.
@@ -17,7 +17,7 @@ Announce important messages.
             <strong>Hey!</strong> Did you know?
         </CAlert>
     </div>
-</showcase-root>
+</Showcase>
 
 ## Usage
 

@@ -4,7 +4,7 @@ Context provider and optional layouting element for form fields.
 
 Automatically pairs the label (for) with the field (id) using a randomly generated ID.
 
-<showcase-root>
+<Showcase>
     <CFormGroup as="div" class="flex flex-col gap-1" v-slot="{ ids }" required>
         <CLabel>
             Label <abbr title="Required" aria-label="Required">*</abbr>
@@ -12,7 +12,7 @@ Automatically pairs the label (for) with the field (id) using a randomly generat
         <CTextField :aria-describedby="ids.help" />
         <div :id="ids.help" class="text-gray-600 text-sm">Help text</div>
     </CFormGroup>
-</showcase-root>
+</Showcase>
 
 ## Usage
 

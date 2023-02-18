@@ -2,6 +2,8 @@ import Chusho, { $chusho, components, mergeDeep } from 'chusho';
 import DefaultTheme from 'vitepress/theme';
 import { defineAsyncComponent } from 'vue';
 
+import Showcase from '../../components/Showcase.vue';
+
 import chushoConfig from '../../chusho.config.ts';
 import './custom.css';
 
@@ -31,6 +33,7 @@ export default {
     /**
      * Extra components for documentation
      */
+    ctx.app.component('Showcase', Showcase);
     ctx.app.component(
       'Docgen',
       defineAsyncComponent(() => import('../../components/Docgen.vue'))

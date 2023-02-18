@@ -2,9 +2,9 @@
 
 Augmented form field for choice input.
 
-<showcase-root>
+<Showcase>
     <ExampleRadio />
-</showcase-root>
+</Showcase>
 
 ## Usage
 

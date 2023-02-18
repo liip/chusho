@@ -2,9 +2,9 @@
 
 Augmented textarea form field.
 
-<showcase-root>
+<Showcase>
     <CTextarea placeholder="Type here…" />
-</showcase-root>
+</Showcase>
 
 ## Usage
 

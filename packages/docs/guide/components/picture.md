@@ -2,14 +2,14 @@
 
 Easily generate responsive images.
 
-<showcase-root>
+<Showcase>
     <CPicture
         src="https://images.unsplash.com/photo-1505178041309-ad46d2e4207b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&fit=crop&w=860&h=400&q=80"
         alt="Ceiling view of the yellow triangular atrium of a building."
         width="860"
         height="400"
     />
-</showcase-root>
+</Showcase>
 
 ## Usage
 

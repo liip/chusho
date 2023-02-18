@@ -2,9 +2,9 @@
 
 Augmented form field for text input.
 
-<showcase-root>
+<Showcase>
     <CTextField placeholder="Type here…" />
-</showcase-root>
+</Showcase>
 
 ## Usage
 
