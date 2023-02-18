@@ -23,12 +23,7 @@ import {
 } from '../../utils/components';
 import { getFocusableElements } from '../../utils/keyboard';
 import { isClient, isServer } from '../../utils/ssr';
-import {
-  PORTAL_ID,
-  createPortalIfNotExists,
-  preventAccessToPageContent,
-  releaseAccessToPageContent,
-} from './utils';
+import { PORTAL_ID, createPortalIfNotExists } from './utils';
 
 export interface DialogData {
   active: boolean;
@@ -56,6 +51,14 @@ export default defineComponent({
     overlay: {
       type: Object as PropType<Record<string, unknown>>,
       default: () => ({}),
+    },
+    /**
+     * Teleport the dialog to an existing `#chusho-dialogs-portal` element or
+     * create one at the end of the body element if it doesn't exist.
+     */
+    teleport: {
+      type: Boolean,
+      default: true,
     },
   },
 
@@ -119,15 +122,12 @@ export default defineComponent({
 
       this.refreshFocusableElements();
       this.firstFocusableEl?.focus();
-      preventAccessToPageContent();
 
       document.addEventListener('keydown', this.handleKeyDown);
     },
 
     deactivate(): void {
       if (!this.active || isServer) return;
-
-      releaseAccessToPageContent();
 
       const index = this.chusho?.openDialogs.indexOf(this);
       if (index) {
@@ -151,13 +151,16 @@ export default defineComponent({
           }
           break;
 
-        case 'Tab':
+        case 'Tab': {
+          // Not necessarily a document, could be a shadow root
+          const rootNode = this.$el.getRootNode();
+
           if (this.focusableElements.length === 1) {
             e.preventDefault();
           } else if (e.shiftKey) {
             if (
               this.lastFocusableEl &&
-              document.activeElement === this.firstFocusableEl
+              rootNode.activeElement === this.firstFocusableEl
             ) {
               e.preventDefault();
               this.lastFocusableEl.focus();
@@ -165,13 +168,14 @@ export default defineComponent({
           } else {
             if (
               this.firstFocusableEl &&
-              document.activeElement === this.lastFocusableEl
+              rootNode.activeElement === this.lastFocusableEl
             ) {
               e.preventDefault();
               this.firstFocusableEl.focus();
             }
           }
           break;
+        }
       }
     },
 
@@ -209,22 +213,30 @@ export default defineComponent({
   },
 
   render() {
-    if (isClient) {
-      createPortalIfNotExists();
+    if (this.teleport) {
+      if (isClient) {
+        createPortalIfNotExists();
+      }
+
+      return h(
+        Teleport,
+        {
+          to: `#${PORTAL_ID}`,
+        },
+        [
+          renderWithTransition(
+            this.renderChildren,
+            this.transition,
+            this.config?.transition
+          ),
+        ]
+      );
     }
 
-    return h(
-      Teleport,
-      {
-        to: `#${PORTAL_ID}`,
-      },
-      [
-        renderWithTransition(
-          this.renderChildren,
-          this.transition,
-          this.config?.transition
-        ),
-      ]
+    return renderWithTransition(
+      this.renderChildren,
+      this.transition,
+      this.config?.transition
     );
   },
 });
