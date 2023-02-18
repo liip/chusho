@@ -56,6 +56,21 @@ Accessible dropdown menu. Can be used as a list of buttons, links, checkboxes or
     </div>
 </showcase-root>
 
+## Usage
+
+See [using components](/guide/using-components) for detailed instructions.
+
+```js
+import {
+  CMenu,
+  CMenuBtn,
+  CMenuItem,
+  CMenuLink,
+  CMenuList,
+  CMenuSeparator,
+} from 'chusho';
+```
+
 ## Config
 
 The options below are to be set in the [global configuration](/guide/config.html) at the following location:
@@ -64,38 +79,36 @@ The options below are to be set in the [global configuration](/guide/config.html
 {
     components: {
         menu: {
-            class: ({ open }) => {},
+            class: ({ open, modelValue, open, disabled, multiple, variant }) => {},
         },
         menuBtn: {
-            class: ({ disabled, active }) => {},
+            class: ({ disabled, active, variant }) => {},
         },
         menuList: {
-            class: () => {},
+            class: ({ transition, variant }) => {},
             transition: {},
         },
         menuItem: {
-            class: ({ role, selected }) => {},
+            class: ({ role, selected, value, disabled, variant }) => {},
         },
         menuLink: {
-            class: () => {},
+            class: ({ href, to, disabled, variant }) => {},
         },
         menuSeparator: {
-            class: () => {},
+            class: ({ variant }) => {},
         },
     },
 }
 ```
 
-### All components
-
-#### class
+### class
 
 Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
 - **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
 - **default:** `null`
 
-##### Example
+#### Example
 
 Using the `CMenuItem` component:
 
@@ -109,16 +122,14 @@ class({ role, selected }) {
 }
 ```
 
-### CMenuList
-
-#### transition
+### transition
 
 Apply a common transition to all menu lists. The object can contain any Vue built-in [transition component props](https://v3.vuejs.org/api/built-in-components.html#transition).
 
 - **type:** `object`
 - **default:** `null`
 
-##### Example
+#### Example
 
 ```js
 { name: 'fade', mode: 'out-in' }

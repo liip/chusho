@@ -40,7 +40,13 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: [
+    /**
+     * Emitted when the checkbox checked state changes.
+     * @arg {any} modelValue `trueValue` or `falseValue` depending on the checkbox state.
+     */
+    'update:modelValue',
+  ],
 
   setup(props) {
     const { formGroup, flags } = useFormGroup(props, ['required', 'disabled']);

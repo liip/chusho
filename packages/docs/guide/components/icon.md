@@ -16,15 +16,28 @@ Display a scalable SVG icon from a pre-existing sprite.
     </div>
 </showcase-root>
 
+## Usage
+
+See [using components](/guide/using-components) for detailed instructions.
+
+```js
+import { CIcon } from 'chusho';
+```
+
 ## Config
 
 The options below are to be set in the [global configuration](/guide/config.html) at the following location:
 
 ```js
 {
-    components: {
-        icon: { ... },
+  components: {
+    icon: {
+      spriteUrl: '',
+      width: 24,
+      height: 24,
+      class: ({ id, scale, spriteUrl, width, height, alt, variant }) => {},
     },
+  },
 }
 ```
 

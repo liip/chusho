@@ -39,7 +39,15 @@ Accessible tabs component.
         </CTabPanel>
       </CTabPanels>
     </CTabs>
-</Showcase>
+</showcase-root>
+
+## Usage
+
+See [using components](/guide/using-components) for detailed instructions.
+
+```js
+import { CTab, CTabList, CTabPanel, CTabPanels, CTabs } from 'chusho';
+```
 
 ## Config
 
@@ -47,26 +55,34 @@ The options below are to be set in the [global configuration](/guide/config.html
 
 ```js
 {
-    components: {
-        tabs: { ... },
-        tabList: { ... },
-        tab: { ... },
-        tabPanels: { ... },
-        tabPanel: { ... },
+  components: {
+    tabs: {
+      class({ modelValue, defaultTab, variant }) => {},
     },
+    tabList: {
+      class({ variant }) => {},
+    },
+    tab: {
+      class({ active, target, variant }) => {},
+    },
+    tabPanels: {
+      class({ variant }) => {},
+    },
+    tabPanel: {
+      class({ active, id, variant }) => {},
+    },
+  },
 }
 ```
 
-### All components
-
-#### class
+### class
 
 Classes applied to the component root element, except when the prop `bare` is set to `true`. See [styling components](/guide/styling-components).
 
 - **type:** `Array<String | Object> | Object | String | (props: Object) => {}`
 - **default:** `null`
 
-##### Example
+#### Example
 
 Using the `CTab` component:
 

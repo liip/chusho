@@ -6,6 +6,14 @@ Augmented form field for choice input.
     <ExampleRadio />
 </showcase-root>
 
+## Usage
+
+See [using components](/guide/using-components) for detailed instructions.
+
+```js
+import { CRadio } from 'chusho';
+```
+
 ## Config
 
 The options below are to be set in the [global configuration](/guide/config.html) at the following location:
@@ -13,7 +21,9 @@ The options below are to be set in the [global configuration](/guide/config.html
 ```js
 {
   components: {
-    radio: { ... },
+    radio: {
+      class: ({ checked, modelValue, value, required, disabled, variant }) => {},
+    },
   },
 }
 ```

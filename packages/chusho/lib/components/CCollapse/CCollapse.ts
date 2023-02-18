@@ -14,7 +14,7 @@ export default defineComponent({
 
   props: {
     /**
-     * Optionally bind the Collapse state with the parent component.
+     * Optionally bind the Collapse opening state with the parent component.
      */
     modelValue: {
       type: Boolean,
@@ -22,7 +22,13 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: [
+    /**
+     * Emitted when the collapse open state changes.
+     * @arg {boolean} modelValue Whether the collapse is open or not
+     */
+    'update:modelValue',
+  ],
 
   setup(props) {
     const popup = usePopup({

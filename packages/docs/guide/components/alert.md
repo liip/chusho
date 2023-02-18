@@ -19,6 +19,14 @@ Announce important messages.
     </div>
 </showcase-root>
 
+## Usage
+
+See [using components](/guide/using-components) for detailed instructions.
+
+```js
+import { CAlert } from 'chusho';
+```
+
 ## Config
 
 The options below are to be set in the [global configuration](/guide/config.html) at the following location:
@@ -26,7 +34,9 @@ The options below are to be set in the [global configuration](/guide/config.html
 ```js
 {
   components: {
-    alert: { ... },
+    alert: {
+      class: ({ variant }) => {},
+    },
   },
 }
 ```

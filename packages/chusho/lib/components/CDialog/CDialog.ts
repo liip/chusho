@@ -62,7 +62,13 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: [
+    /**
+     * When the dialog open state changes
+     * @arg {boolean} modelValue Whether the dialog is open or not
+     */
+    'update:modelValue',
+  ],
 
   setup() {
     const chusho = inject<DollarChusho | null>('$chusho', null);

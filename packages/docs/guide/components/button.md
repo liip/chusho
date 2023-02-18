@@ -20,6 +20,14 @@ Uniformized button style for `router-link`, `a` or `button` elements.
     </div>
 </showcase-root>
 
+## Usage
+
+See [using components](/guide/using-components) for detailed instructions.
+
+```js
+import { CBtn } from 'chusho';
+```
+
 ## Config
 
 The options below are to be set in the [global configuration](/guide/config.html) at the following location:
@@ -27,7 +35,9 @@ The options below are to be set in the [global configuration](/guide/config.html
 ```js
 {
   components: {
-    btn: { ... },
+    btn: {
+      class: ({ href, to, type, disabled, active, variant }) => {},
+    },
   },
 }
 ```

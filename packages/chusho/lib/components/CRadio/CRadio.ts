@@ -32,7 +32,13 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: [
+    /**
+     * Emitted when the selected radio changes.
+     * @arg {any} modelValue The currently selected radio value.
+     */
+    'update:modelValue',
+  ],
 
   setup(props) {
     const { formGroup, flags } = useFormGroup(props, ['required', 'disabled']);

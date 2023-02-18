@@ -30,7 +30,13 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: [
+    /**
+     * When the input value changes.
+     * @arg {string} modelValue The input value.
+     */
+    'update:modelValue',
+  ],
 
   setup(props) {
     const { formGroup, flags } = useFormGroup(props, [

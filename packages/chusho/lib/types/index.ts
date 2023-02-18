@@ -90,7 +90,6 @@ interface ComponentsOptions {
         active: boolean;
       }
     >;
-    transition?: TransitionProps;
   };
   collapseBtn?: {
     class?: ComponentOptionClass<

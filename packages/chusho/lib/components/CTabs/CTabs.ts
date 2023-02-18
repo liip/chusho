@@ -51,7 +51,13 @@ export default defineComponent({
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: [
+    /**
+     * When the selected tab change.
+     * @arg {string|number} modelValue The selected tab id.
+     */
+    'update:modelValue',
+  ],
 
   setup(props) {
     if (props.modelValue === null && props.defaultTab === null) {
