@@ -1,5 +1,9 @@
 # Getting started
 
+:::: tip NOTICE
+Chūshō requires Vue.js 3
+::::
+
 ## Installation
 
 Install Chūshō with your favorite package manager:

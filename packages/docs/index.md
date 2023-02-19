@@ -3,7 +3,7 @@ layout: home
 hero:
   name: Chūshō
   text: Unstyled accessible UI components
-  tagline: Styling interfaces easily without compromising on accessibility.
+  tagline: Styling interfaces easily without compromising on accessibility, for Vue.js 3.
   image:
     light: /logo.svg
     dark: /logo-dark.svg
