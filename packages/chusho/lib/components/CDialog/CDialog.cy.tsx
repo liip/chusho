@@ -15,6 +15,10 @@ const TestDialog = defineComponent({
       type: Object as PropType<Record<string, unknown>>,
       default: () => ({}),
     },
+    teleport: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   setup(props, { slots, attrs }) {
@@ -23,7 +27,9 @@ const TestDialog = defineComponent({
 
     return () => (
       <>
-        <CBtn onClick={() => (open.value = true)}>Open dialog</CBtn>
+        <CBtn onClick={() => (open.value = true)} data-test="btn">
+          Open dialog
+        </CBtn>
 
         <CDialog
           modelValue={open.value}
@@ -127,6 +133,16 @@ describe('CDialog', () => {
     cy.contains('Open dialog').click();
 
     cy.get('#chusho-dialogs-portal').should('have.length', 1);
+  });
+
+  it('renders in place when teleport is disabled', () => {
+    cy.mount(<TestDialog teleport={false} />);
+    cy.contains('Open dialog').click();
+
+    cy.get('[data-test="btn"] + [data-test="dialog-overlay"]').should(
+      'be.visible'
+    );
+    cy.get('#chusho-dialogs-portal > *').should('have.length', 0);
   });
 
   describe('common behavior', () => {
