@@ -29,7 +29,7 @@
   "devDependencies": {
     "@cypress/code-coverage": "^3.10.0",
     "@types/lodash": "^4.14.191",
-    "@vitejs/plugin-vue": "^3.2.0",
+    "@vitejs/plugin-vue": "^4.2.3",
     "@vitejs/plugin-vue-jsx": "^2.1.1",
     "@vitest/coverage-c8": "^0.25.3",
     "@vue/test-utils": "^2.2.8",
